@@ -1,0 +1,30 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { AuthInterceptorProviders } from '../app/interceptors/httpConfig.interceptor';
+import { DemoComponent } from './components/demo/demo.component'
+import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DemoComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+  ],
+  providers: [
+    AuthInterceptorProviders,
+    LoggedInGuardInterceptor],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

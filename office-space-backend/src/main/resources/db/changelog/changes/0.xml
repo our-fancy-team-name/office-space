@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="office-space" id="CREATE_TABLE_ACCOUNT">
+        <sql>
+            CREATE TABLE account (
+            id serial NOT NULL,
+            username varchar(50) NOT NULL,
+            "password" varchar(50) NOT NULL,
+            email varchar(355) NOT NULL,
+            created_on timestamp NOT NULL DEFAULT now(),
+            last_login timestamp NULL,
+            CONSTRAINT account_email_key UNIQUE (email),
+            CONSTRAINT account_pkey PRIMARY KEY (id),
+            CONSTRAINT account_username_key UNIQUE (username)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="INSERT_ACCOUNT">
+        <sql>
+            INSERT INTO account (username,"password",email,created_on,last_login) VALUES
+            ('dang','abc','dangnguyen@gmail.com','2020-02-22 22:33:50.401',NULL);
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="CREATE_TABLE_USER">
+        <sql>
+            CREATE TABLE "user" (
+            id serial NOT NULL,
+            username varchar(50) NOT NULL,
+            "password" varchar(255) NOT NULL,
+            email varchar(355) NOT NULL,
+            CONSTRAINT user_email_key UNIQUE (email),
+            CONSTRAINT user_pkey PRIMARY KEY (id),
+            CONSTRAINT user_username_key UNIQUE (username)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="INSERT_USER">
+        <sql>
+            INSERT INTO "user" (username,"password",email) VALUES
+            ('dang','$2a$10$ZnoVjM2zmkU5UjJkmEMwce2XRVXZDhEdwYIqIZtGPAgBQEfPj/oAC','dangnguyen@gmail.com');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,15 @@
+spring:
+  profiles: datasource
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      default_schema: public
+      ddl-auto: none
+      auto: none
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://ec2-34-192-30-15.compute-1.amazonaws.com:5432/ddpdm7fda8tkjv
+    username: ptdxjimchpwtzi
+    password: a57d51548e40548490358859ce2d2849e2f44677c2752bc2e100926f28e36938
+    driverClassName: org.postgresql.Driver
