@@ -60,4 +60,8 @@ public class JwtService {
     }
     return false;
   }
+
+  public static boolean test() {
+    return true;
+  }
 }
