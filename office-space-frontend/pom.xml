@@ -36,6 +36,15 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>lint</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run-script lint</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>prod</id>
                         <goals>
                             <goal>npm</goal>

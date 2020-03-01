@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -14,7 +14,7 @@ export class DemoComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(environment.api + 'account').subscribe(data => {
       console.log(data);
-    })
+    });
   }
 
 }
