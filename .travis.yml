@@ -5,8 +5,6 @@ dist: trusty
 addons:
   sonarcloud:
     organization: "our-fancy-team-name" # the key of the org you chose at step #3
-    token:
-      secure: $SONAR_TOKEN # encrypted value of your token
 before_install:
   - chmod +x mvnw
 script:
