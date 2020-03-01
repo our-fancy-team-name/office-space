@@ -32,7 +32,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         console.log('error--->>>', error);
-        if(error.status === 401) {
+        if (error.status === 401) {
           this.token.signOut();
           window.location.reload();
         }
