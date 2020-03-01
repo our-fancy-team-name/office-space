@@ -9,6 +9,7 @@ addons:
       secure: $SONAR_LOGIN # encrypted value of your token
 before_install:
   - chmod +x mvnw
+script:
   - mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=our-fancy-team-name_office-space
 cache:
   directories:
