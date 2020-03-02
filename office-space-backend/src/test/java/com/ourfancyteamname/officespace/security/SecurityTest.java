@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.security;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -7,7 +8,7 @@ public class SecurityTest {
 
   @Test
   public void testCreatePassword() {
-    BCryptPasswordEncoder a = new BCryptPasswordEncoder();
-    System.out.println(a.encode("admin"));
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    Assert.assertEquals("$2a$10$ZnoVjM2zmkU5UjJkmEMwce2XRVXZDhEdwYIqIZtGPAgBQEfPj/oAC", encoder.encode("admin"));
   }
 }
