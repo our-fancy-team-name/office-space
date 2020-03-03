@@ -11,11 +11,12 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { TokenStorageService } from '../services/auth/token-storage.service';
 import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private router: Router, private token: TokenStorageService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = req;
@@ -34,7 +35,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         console.log('error--->>>', error);
         if (error.status === 401) {
           this.token.signOut();
-          window.location.reload();
+          this.router.navigate(['/login']);
         }
         return throwError(error);
       }));
