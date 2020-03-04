@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    this.form.disable();
     this.errorMessage = '';
     this.authService.login(this.form.value).subscribe(
       data => {
@@ -62,7 +63,9 @@ export class LoginComponent implements OnInit {
       err => {
         this.errorMessage = err.error.message;
       }
-    );
+    ).add(() => {
+      this.form.enable();
+    });;
   }
 
 }

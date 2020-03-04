@@ -17,11 +17,11 @@
 
             <div class="row">
                 <div class="col-md-7">
-                    <button mdbBtn block="true" class="my-4 rounded-pill btn btn-outline-info waves-effect">Forgot
+                    <button [disabled]="form.disabled" mdbBtn block="true" class="my-4 rounded-pill btn btn-outline-info waves-effect">Forgot
                         password?</button>
                 </div>
                 <div class="col-md-5">
-                    <button type="submit" [disabled]="form.invalid" mdbBtn color="info" block="true"
+                    <button type="submit" [disabled]="form.invalid || form.disabled" mdbBtn color="info" block="true"
                         class="btn my-4 rounded-pill waves-effect">Sign in</button>
                 </div>
             </div>
