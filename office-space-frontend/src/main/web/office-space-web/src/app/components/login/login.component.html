@@ -1,24 +1,33 @@
 <div id="login" class="d-flex justify-content-center align-items-center h-80">
     <div class="card p-5 text-center col-md-5">
-        <form id="login-form" class="card-body">
+        <form [formGroup]="form" id="login-form" class="card-body" (submit)="onSubmit()" action="#">
             <p class="h4 mb-4 label">Sign in</p>
             <div class="md-form">
-                <input type="email" id="username" class="form-control mb-4">
-                <label for="username" class="">User name</label>
+                <input formControlName="username" type="text" id="username" class="form-control mb-4" />
+                <label for="username">User name</label>
+                <mdb-error *ngIf="usernameValid">{{username.errors.message}}</mdb-error>
             </div>
             <div class="md-form">
-                <input type="password" id="password" class="form-control mb-4">
+                <input formControlName="password" type="password" id="password" class="form-control mb-4">
                 <label for="password" class="">Password</label>
+                <mdb-error *ngIf="passwordValid">{{password.errors.message}}</mdb-error>
             </div>
             <p>Not a member? <a target="_blank" rel="noopener noreferrer"
                     href="https://github.com/our-fancy-team-name/office-space/issues">Contact us</a> </p>
+
             <div class="row">
                 <div class="col-md-7">
                     <button mdbBtn block="true" class="my-4 rounded-pill btn btn-outline-info waves-effect">Forgot
                         password?</button>
                 </div>
                 <div class="col-md-5">
-                    <button mdbBtn color="info" block="true" class="btn my-4 rounded-pill waves-effect">Sign in</button>
+                    <button type="submit" [disabled]="form.invalid" mdbBtn color="info" block="true"
+                        class="btn my-4 rounded-pill waves-effect">Sign in</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 center-block text-danger text-center w-100">
+                    {{errorMessage}}
                 </div>
             </div>
         </form>

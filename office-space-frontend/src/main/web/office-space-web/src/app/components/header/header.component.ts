@@ -12,9 +12,6 @@ export class HeaderComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get(environment.api + 'account').subscribe(data => {
-      console.log(data);
-    });
   }
 
 }
