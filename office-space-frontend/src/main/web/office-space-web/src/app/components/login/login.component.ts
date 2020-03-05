@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { TokenStorageService } from 'src/app/services/auth/token-storage.service';
+import { StorageService } from 'src/app/services/auth/storage.service';
+import { ValidatorsService } from 'src/app/utils/validators.service';
 
 @Component({
   selector: 'app-login',
@@ -9,41 +12,60 @@ import { TokenStorageService } from 'src/app/services/auth/token-storage.service
 })
 export class LoginComponent implements OnInit {
 
-  form: any = {};
-  isLoggedIn = false;
-  isLoginFailed = false;
-  errorMessage = '';
-  username: '';
+  public form: FormGroup;
+  public errorMessage = '';
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(
+    private validator: ValidatorsService,
+    private router: Router,
+    private authService: AuthService,
+    private tokenStorage: StorageService
+  ) { }
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.username = this.tokenStorage.getUser().username;
+    if (this.tokenStorage.get(StorageService.TOKEN_KEY)) {
+      this.router.navigate(['/demo']);
     }
+    this.form = new FormGroup({
+      username: new FormControl(null, this.validator.required()),
+      password: new FormControl(null, [this.validator.required(), this.validator.minLength(5)])
+    }, { updateOn: 'change' });
+  }
+
+  get username() {
+    return this.form.get('username');
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
+
+  get usernameValid() {
+    return this.validator.isValid(this.username);
+  }
+
+  get passwordValid() {
+    return this.validator.isValid(this.password);
   }
 
   onSubmit() {
-    this.authService.login(this.form).subscribe(
+    if (!this.form.valid) {
+      return;
+    }
+    this.form.disable();
+    this.errorMessage = '';
+    this.authService.login(this.form.value).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUser(data);
-
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.username = data.username;
-        this.reloadPage();
+        this.tokenStorage.set(StorageService.TOKEN_KEY, data.token);
+        this.tokenStorage.set(StorageService.USER_KEY, JSON.stringify(data));
+        this.router.navigate(['/demo']);
       },
       err => {
         this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
       }
-    );
-  }
-
-  reloadPage() {
-    window.location.reload();
+    ).add(() => {
+      this.form.enable();
+    });
   }
 
 }

@@ -9,17 +9,18 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { TokenStorageService } from '../services/auth/token-storage.service';
+import { StorageService as storageService } from '../services/auth/storage.service';
 import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private router: Router, private token: storageService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = req;
-    const token = this.token.getToken();
+    const token = this.token.get(storageService.TOKEN_KEY);
     if (token != null) {
       authReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     }
@@ -33,8 +34,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         console.log('error--->>>', error);
         if (error.status === 401) {
-          this.token.signOut();
-          window.location.reload();
+          this.token.clear();
+          this.router.navigate(['/login']);
         }
         return throwError(error);
       }));
