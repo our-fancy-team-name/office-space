@@ -12,6 +12,11 @@
                 <label for="password" class="">Password</label>
                 <mdb-error *ngIf="passwordValid">{{password.errors.message}}</mdb-error>
             </div>
+            <div class="row">
+                <div class="col-xs-12 center-block text-danger text-center w-100">
+                    {{errorMessage}}
+                </div>
+            </div>
             <p>Not a member? <a target="_blank" rel="noopener noreferrer"
                     href="https://github.com/our-fancy-team-name/office-space/issues">Contact us</a> </p>
 
@@ -23,11 +28,6 @@
                 <div class="col-md-5">
                     <button type="submit" [disabled]="form.invalid || form.disabled" mdbBtn color="info" block="true"
                         class="btn my-4 rounded-pill waves-effect">Sign in</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 center-block text-danger text-center w-100">
-                    {{errorMessage}}
                 </div>
             </div>
         </form>
