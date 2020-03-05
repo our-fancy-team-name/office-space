@@ -1,18 +1,22 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthInterceptorProviders } from '../app/interceptors/httpConfig.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DemoComponent } from './components/demo/demo.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
-
+export const createTranslationLoader = (http: HttpClient) => {
+  return new TranslateHttpLoader(http, './assets/i18n', '.json');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,9 +31,16 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslationLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
-  schemas: [ NO_ERRORS_SCHEMA ],
+  schemas: [NO_ERRORS_SCHEMA],
   providers: [
     AuthInterceptorProviders,
     LoggedInGuardInterceptor],
