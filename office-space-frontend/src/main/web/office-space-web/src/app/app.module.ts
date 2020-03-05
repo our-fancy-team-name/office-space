@@ -2,7 +2,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  MissingTranslationHandler,
+  TranslateLoader,
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthInterceptorProviders } from '../app/interceptors/httpConfig.interceptor';
@@ -13,10 +18,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
+import { TranslationInterceptor } from './interceptors/translation.interceptor';
 
 export const createTranslationLoader = (http: HttpClient) => {
-  return new TranslateHttpLoader(http, './assets/i18n', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '/translations.json');
 }
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +40,10 @@ export const createTranslationLoader = (http: HttpClient) => {
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     TranslateModule.forRoot({
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useClass: TranslationInterceptor
+      },
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslationLoader,
@@ -46,4 +57,10 @@ export const createTranslationLoader = (http: HttpClient) => {
     LoggedInGuardInterceptor],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(translate: TranslateService) {
+    translate.addLangs(['en', 'vn'])
+    translate.use('en');
+  }
+}

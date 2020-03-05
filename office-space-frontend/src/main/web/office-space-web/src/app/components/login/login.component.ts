@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/demo']);
     }
     this.form = new FormGroup({
-      username: new FormControl(null, this.validator.required()),
-      password: new FormControl(null, [this.validator.required(), this.validator.minLength(5)])
+      username: new FormControl(null, this.validator.required('LOGIN.USERNAME_RQ')),
+      password: new FormControl(null, [this.validator.required('LOGIN.PASSWORD_RQ'), this.validator.minLength(5)])
     }, { updateOn: 'change' });
   }
 

@@ -1,0 +1,22 @@
+{
+  "FOOTER": {
+    "COPYRIGHT": "© 2020 Bản quyền:",
+    "LANG_EN": "Tiếng Anh",
+    "LANG_VN": "Việt Nam"
+  },
+  "LOGIN": {
+    "CONTACT_US": "Liên lạc ngay",
+    "FORGOT_PASSWORD": "Quên mật khẩu",
+    "LABEL": "Đăng nhập",
+    "NOT_A_MEMBER": "Chưa có tài khoản?",
+    "PASSWORD": "Mật khẩu",
+    "PASSWORD_RQ": "Vui lòng điền mật khẩu",
+    "USERNAME": "Tên đăng nhập",
+    "USERNAME_RQ": "Vui lòng điền tên đăng nhập"
+  },
+  "VALIDATOR": {
+    "FIELD_REQUIRED": "Phần bắt buộc",
+    "MAX_LENGTH": "Vượt quá số ký tự cho phép",
+    "MIN_LENGTH": "Chưa đủ độ dài tối thiểu"
+  }
+}

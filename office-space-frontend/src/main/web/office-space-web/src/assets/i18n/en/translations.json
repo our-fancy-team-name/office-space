@@ -1,0 +1,22 @@
+{
+  "FOOTER": {
+    "COPYRIGHT": "© 2020 Copyright:",
+    "LANG_EN": "English",
+    "LANG_VN": "Vietnamese"
+  },
+  "LOGIN": {
+    "CONTACT_US": "Contact us",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "LABEL": "Sign in",
+    "NOT_A_MEMBER": "Not a member?",
+    "PASSWORD": "Password",
+    "PASSWORD_RQ": "Please fill out the password",
+    "USERNAME": "User name",
+    "USERNAME_RQ": "Please fill out the username"
+  },
+  "VALIDATOR": {
+    "FIELD_REQUIRED": "Required Field",
+    "MAX_LENGTH": "Exceed max length allowed",
+    "MIN_LENGTH": "Less than min length allow"
+  }
+}
