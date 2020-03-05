@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MissingTranslationHandler, MissingTranslationHandlerParams } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class TranslationInterceptor implements MissingTranslationHandler {
@@ -12,3 +14,7 @@ export class TranslationInterceptor implements MissingTranslationHandler {
   }
 
 }
+
+export const createTranslationLoader = (http: HttpClient) => {
+  return new TranslateHttpLoader(http, './assets/i18n/', '/translations.json');
+};

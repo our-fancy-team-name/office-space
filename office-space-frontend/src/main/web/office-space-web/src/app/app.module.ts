@@ -8,7 +8,6 @@ import {
   TranslateModule,
   TranslateService
 } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthInterceptorProviders } from '../app/interceptors/httpConfig.interceptor';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,11 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
-import { TranslationInterceptor } from './interceptors/translation.interceptor';
-
-export const createTranslationLoader = (http: HttpClient) => {
-  return new TranslateHttpLoader(http, './assets/i18n/', '/translations.json');
-}
+import { TranslationInterceptor, createTranslationLoader } from './interceptors/translation.interceptor';
 
 @NgModule({
   declarations: [
@@ -60,7 +55,7 @@ export const createTranslationLoader = (http: HttpClient) => {
 export class AppModule {
 
   constructor(translate: TranslateService) {
-    translate.addLangs(['en', 'vn'])
+    translate.addLangs(['en', 'vn']);
     translate.use('en');
   }
 }
