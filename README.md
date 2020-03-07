@@ -1,5 +1,13 @@
 # office-space
 
+## Setup file configuration for coding convention:
+1. Open setting dialog by using hot key "Ctrl + Alt + S" (Windows), or just clicking "File -> Setting"
+2. In the left navigation, go to "Editor -> Code style"
+3. Choose "Scheme" is Project
+4. Click on Gear icon next to Scheme field, choose "Import Sheme -> IntelliJ IDE code style XML"
+5. Choose the file "Coding-Convetion-IntelliJ.xml"
+6. Check "Current scheme" then click "OK"
+
 ## How to build
 For Mac: first, you must install maven wrapper:
 ```
