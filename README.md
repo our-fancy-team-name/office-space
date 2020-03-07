@@ -32,7 +32,7 @@ Technical stack
   
 ## Start development process:
  1. Make sure you use the same IDE listed above. It all free and it match with our code base so we can format code the same.
- 1. Open IntelliJ setting dialog and import `office-space-docs/conding-convention-intelliJ.xml`
+ 1. IntelliJ should automatically use `.editorconfig`, if not you must find the way to use `.editorconfig` file
  1. Start office space backend on IntelliJ
  1. Start angular app located on `office-space-frontend/src/main/web/office-space-web` by visual studio code
 

@@ -21,6 +21,7 @@ import javax.persistence.Table;
 public class User implements Serializable {
 
   private static final long serialVersionUID = 2211441170433296406L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "`id`")
