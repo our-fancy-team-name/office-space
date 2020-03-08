@@ -45,6 +45,6 @@ Noted: for Mac, we use `./mvnw` instead of `mvnw`
 
 To build:
 ```$xslt
-mvnw clean package
+mvnw clean package 
 ```
 The artifact available at `office-space-backend/target`
