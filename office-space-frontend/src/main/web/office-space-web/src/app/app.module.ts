@@ -18,6 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
 import { TranslationInterceptor, createTranslationLoader } from './interceptors/translation.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TranslationInterceptor, createTranslationLoader } from './interceptors/
         useFactory: createTranslationLoader,
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

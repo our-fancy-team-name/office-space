@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
       }
     ).add(() => {
       this.form.enable();
+      location.reload();
     });
   }
 

@@ -35,6 +35,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         console.log('error--->>>', error);
         if (error.status === 401) {
           this.token.clear();
+          location.reload();
           this.router.navigate(['/login']);
         }
         return throwError(error);

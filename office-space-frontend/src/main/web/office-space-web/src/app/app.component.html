@@ -1,5 +1,6 @@
-<app-header></app-header>
+<app-header *ngIf="isLoggedIn"></app-header>
 <main>
-    <router-outlet></router-outlet>
+    <div *ngIf="isLoggedIn" style="height: 50px;"></div>
+    <router-outlet style="min-height: 100vh;"></router-outlet>
 </main>
-<app-footer></app-footer>
+<app-footer *ngIf="isLoggedIn"></app-footer>

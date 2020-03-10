@@ -4,6 +4,13 @@
     "LANG_EN": "Tiếng Anh",
     "LANG_VN": "Việt Nam"
   },
+  "HEADER": {
+    "MY_ACCOUNT": "Tài khoản của tôi",
+    "OFFICE_SPACE": "Office Space",
+    "SEARCH": "Tìm kiếm",
+    "SIGN_OUT": "Đăng xuất",
+    "WELCOME": "Xin chào"
+  },
   "LOGIN": {
     "CONTACT_US": "Liên lạc ngay",
     "FORGOT_PASSWORD": "Quên mật khẩu",

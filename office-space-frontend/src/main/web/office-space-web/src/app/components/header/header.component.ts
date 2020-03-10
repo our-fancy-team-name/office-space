@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { StorageService } from 'src/app/services/auth/storage.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +8,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  user: any;
+
+  constructor(private storage: StorageService) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(this.storage.get(StorageService.USER_KEY));
+  }
+
+  signOut() {
+    this.storage.clear();
+    location.reload();
   }
 
 }
