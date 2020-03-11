@@ -1,3 +1,15 @@
 #login {
-    min-height: 80vh;
+    min-height: 100vh;
+    background-image: url('../../../assets/img/login-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#login .card {
+    opacity: 25%;
+    transition: opacity 1s;
+}
+
+#login .card:hover {
+    opacity: 100%;
 }

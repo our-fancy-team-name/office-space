@@ -1,36 +1,31 @@
 <header>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark blue scrolling-navbar">
-        <a class="navbar-brand" href="#"><strong>Navbar</strong></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
+    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue" [containerInside]="false" mdbStickyHeader>
+        <mdb-navbar-brand><a class="navbar-brand" href="#">{{'HEADER.OFFICE_SPACE'| translate}}</a></mdb-navbar-brand>
+        <links>
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <form class="form-inline waves-light" mdbWavesEffect>
+                        <div class="md-form my-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="{{'HEADER.SEARCH' | translate}}">
+                        </div>
+                    </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                <li class="nav-item dropdown" dropdown>
+                    <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light"
+                        mdbWavesEffect>
+                        <mdb-icon fas icon="user"></mdb-icon>{{'HEADER.WELCOME' | translate}} {{user.username}}<span
+                            class="caret"></span>
+                    </a>
+                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'HEADER.MY_ACCOUNT' | translate}}
+                            <mdb-icon class="float-right" fas icon="address-card"></mdb-icon></a>
+                        <a class="dropdown-item waves-light" mdbWavesEffect
+                            (click)="signOut()">{{'HEADER.SIGN_OUT' | translate}} <mdb-icon class="float-right" fas
+                                icon="sign-out-alt"></mdb-icon></a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Opinions</a>
-                </li>
+
             </ul>
-            <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-twitter"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-instagram"></i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        </links>
+    </mdb-navbar>
 </header>
