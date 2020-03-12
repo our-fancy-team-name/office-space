@@ -9,25 +9,21 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "`user`")
+@Table(name = "`role`")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
-
-  private static final long serialVersionUID = 2211441170433296406L;
+public class Role implements Serializable {
+  private static final long serialVersionUID = 3446737422191923606L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "`id`")
   private int id;
 
-  @Column(name = "`username`")
-  private String username;
+  @Column(name = "`description`")
+  private String description;
 
-  @Column(name = "`email`")
-  private String email;
-
-  @Column(name = "`password`")
-  private String password;
+  @Column(name = "`code`")
+  private String code;
 
 }

@@ -28,7 +28,7 @@ Technical stack
   * Languages: typescript/js
   * Package manager: [npm](https://www.npmjs.com/)
   * Framework: [Angular 9.0.5](http://angular.io/)
-  * Components library: [mdbootstrap](https://mdbootstrap.com/docs/angular/)
+  * Components library: [mdbootstrap](https://mdbootstrap.com/docs/angular/) and [material angular](https://material.angular.io/)
   
 ## Start development process:
  1. Make sure you use the same IDE listed above. It all free and it match with our code base so we can format code the same.

@@ -9,25 +9,21 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "`user`")
+@Table(name = "`role_permission`")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class RolePermission implements Serializable {
 
-  private static final long serialVersionUID = 2211441170433296406L;
+  private static final long serialVersionUID = 2490648594038340179L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "`id`")
   private int id;
 
-  @Column(name = "`username`")
-  private String username;
+  @Column(name = "`role_id`")
+  private Integer roleId;
 
-  @Column(name = "`email`")
-  private String email;
-
-  @Column(name = "`password`")
-  private String password;
-
+  @Column(name = "`permission_id`")
+  private Integer permissionId;
 }
