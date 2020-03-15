@@ -6,11 +6,10 @@ import com.ourfancyteamname.officespace.data.enums.PermissionCode;
 import com.ourfancyteamname.officespace.repo.PermissionRepository;
 import com.ourfancyteamname.officespace.repo.RoleRepository;
 import com.ourfancyteamname.officespace.repo.UserRepository;
-import com.ourfancyteamname.officespace.security.payload.AuthorityPrinciple;
+import com.ourfancyteamname.officespace.security.payload.RoleDto;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,16 +40,16 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
       throw error(username).get();
     }
     Role lastUsage = roleRepository.findLastUsageByUserId(user.getId()).orElse(roles.get(0));
-    List<GrantedAuthority> authorities = roles
+    List<RoleDto> authorities = roles
         .stream()
-        .map(role -> new AuthorityPrinciple(role, lastUsage))
+        .map(role -> new RoleDto(role, lastUsage))
         .collect(Collectors.toList());
     List<PermissionCode> permissionCodes = permissionRepository.findPermissionCodeByRoleId(lastUsage.getId());
     return UserDetailsPrinciple.builder()
         .email(user.getEmail())
         .password(user.getPassword())
         .username(user.getUsername())
-        .authorities(authorities)
+        .roles(authorities)
         .permissionCodes(permissionCodes)
         .build();
   }

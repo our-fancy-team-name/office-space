@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -24,12 +25,17 @@ public class UserDetailsPrinciple implements UserDetails {
 
   private String email;
 
-  private Collection<? extends GrantedAuthority> authorities;
+  private Collection<RoleDto> roles;
 
   private List<PermissionCode> permissionCodes;
 
   @JsonIgnore
   private String password;
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return Collections.emptyList();
+  }
 
   @Override
   public boolean isAccountNonExpired() {
