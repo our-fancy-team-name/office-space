@@ -7,13 +7,15 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @NoArgsConstructor
-public class Authority implements GrantedAuthority {
+public class AuthorityPrinciple implements GrantedAuthority {
+
+  private static final long serialVersionUID = 4844040204809916570L;
 
   private String authority;
 
   private Boolean isUsing;
 
-  public Authority(Role role, Role currentlyUse) {
+  public AuthorityPrinciple(Role role, Role currentlyUse) {
     this.authority = role.getCode();
     this.isUsing = role.getId() == currentlyUse.getId();
   }
