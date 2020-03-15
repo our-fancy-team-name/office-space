@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.security;
 
-import com.ourfancyteamname.officespace.security.payload.UserDetailsSecurityImpl;
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -27,7 +27,7 @@ public class JwtService {
   private int jwtExpirationMs;
 
   public String generateJwtToken(Authentication authentication) {
-    UserDetailsSecurityImpl userPrincipal = (UserDetailsSecurityImpl) authentication.getPrincipal();
+    UserDetailsPrinciple userPrincipal = (UserDetailsPrinciple) authentication.getPrincipal();
     return Jwts.builder()
         .setSubject((userPrincipal.getUsername()))
         .setIssuedAt(new Date())

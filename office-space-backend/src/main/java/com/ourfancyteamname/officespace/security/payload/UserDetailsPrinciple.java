@@ -16,15 +16,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDetailsSecurityImpl implements UserDetails {
+public class UserDetailsPrinciple implements UserDetails {
 
   private static final long serialVersionUID = -950644502654056189L;
 
   private String username;
 
   private String email;
-
-  private List<String> roles;
 
   private Collection<? extends GrantedAuthority> authorities;
 

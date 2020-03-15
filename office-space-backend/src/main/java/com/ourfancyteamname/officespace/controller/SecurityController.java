@@ -4,7 +4,7 @@ import com.ourfancyteamname.officespace.repo.UserRepository;
 import com.ourfancyteamname.officespace.security.JwtService;
 import com.ourfancyteamname.officespace.security.payload.JwtResponse;
 import com.ourfancyteamname.officespace.security.payload.LoginRequest;
-import com.ourfancyteamname.officespace.security.payload.UserDetailsSecurityImpl;
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,11 +40,11 @@ public class SecurityController {
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    UserDetailsSecurityImpl userDetails = (UserDetailsSecurityImpl) authentication.getPrincipal();
+    UserDetailsPrinciple userDetails = (UserDetailsPrinciple) authentication.getPrincipal();
     return ResponseEntity.ok(JwtResponse.builder()
         .token(jwtService.generateJwtToken(authentication))
         .type(JwtService.TOKEN_TYPE)
-        .username(userDetails.getUsername())
-        .email(userDetails.getEmail()).build());
+        .userDetails(userDetails)
+        .build());
   }
 }
