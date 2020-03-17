@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.controller;
 
-import com.ourfancyteamname.officespace.data.Account;
+import com.ourfancyteamname.officespace.postgres.entities.Account;
 import com.ourfancyteamname.officespace.security.annotations.CanDeleteUser;
 import com.ourfancyteamname.officespace.services.AccountService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,12 @@
 package com.ourfancyteamname.officespace.security.services;
 
-import com.ourfancyteamname.officespace.data.Role;
-import com.ourfancyteamname.officespace.data.User;
-import com.ourfancyteamname.officespace.data.enums.PermissionCode;
-import com.ourfancyteamname.officespace.repo.PermissionRepository;
-import com.ourfancyteamname.officespace.repo.RoleRepository;
-import com.ourfancyteamname.officespace.repo.UserRepository;
+
+import com.ourfancyteamname.officespace.postgres.entities.Role;
+import com.ourfancyteamname.officespace.postgres.entities.User;
+import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
+import com.ourfancyteamname.officespace.postgres.repos.PermissionRepository;
+import com.ourfancyteamname.officespace.postgres.repos.RoleRepository;
+import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
 import com.ourfancyteamname.officespace.security.payload.RoleDto;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.apache.commons.collections4.CollectionUtils;

@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.security.payload;
 
-import com.ourfancyteamname.officespace.data.Role;
+import com.ourfancyteamname.officespace.postgres.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

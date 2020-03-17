@@ -1,6 +1,6 @@
-package com.ourfancyteamname.officespace.repo;
+package com.ourfancyteamname.officespace.postgres.repos;
 
-import com.ourfancyteamname.officespace.data.Role;
+import com.ourfancyteamname.officespace.postgres.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

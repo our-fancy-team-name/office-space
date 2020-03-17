@@ -1,12 +1,19 @@
-package com.ourfancyteamname.officespace.data;
+package com.ourfancyteamname.officespace.postgres.entities;
 
-import com.ourfancyteamname.officespace.data.converter.PermissionCodeConverter;
-import com.ourfancyteamname.officespace.data.enums.PermissionCode;
+
+import com.ourfancyteamname.officespace.postgres.converters.PermissionCodeConverter;
+import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data

@@ -7,15 +7,12 @@
         <artifactId>officespace</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <groupId>com.ourfancyteamname</groupId>
     <artifactId>office-space-backend</artifactId>
     <name>office-space-backend</name>
-    <packaging>war</packaging>
+    <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -30,43 +27,16 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>com.ourfancyteamname</groupId>
+            <artifactId>office-space-frontend</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.ourfancyteamname</groupId>
-            <artifactId>office-space-frontend</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
+            <artifactId>office-space-postgres</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -79,7 +49,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy-resources</id>
+                        <id>copy-frontend</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -90,6 +60,24 @@
                                 <resource>
                                     <directory>
                                         ${project.parent.basedir}/office-space-frontend/src/main/web/office-space-web/dist/office-space-web/
+                                    </directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>copy-postgres</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>
+                                        ${project.parent.basedir}/office-space-postgres/src/main/resources
                                     </directory>
                                 </resource>
                             </resources>

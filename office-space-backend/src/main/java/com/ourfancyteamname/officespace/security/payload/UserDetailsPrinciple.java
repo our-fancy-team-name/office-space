@@ -1,7 +1,7 @@
 package com.ourfancyteamname.officespace.security.payload;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ourfancyteamname.officespace.data.enums.PermissionCode;
+import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

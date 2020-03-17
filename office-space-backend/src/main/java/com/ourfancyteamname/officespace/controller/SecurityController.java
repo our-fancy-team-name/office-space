@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.controller;
 
-import com.ourfancyteamname.officespace.repo.UserRepository;
+import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
 import com.ourfancyteamname.officespace.security.JwtService;
 import com.ourfancyteamname.officespace.security.payload.JwtResponse;
 import com.ourfancyteamname.officespace.security.payload.LoginRequest;
