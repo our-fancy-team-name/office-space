@@ -1,10 +1,10 @@
 package com.ourfancyteamname.officespace.controller;
 
 import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
-import com.ourfancyteamname.officespace.security.JwtService;
 import com.ourfancyteamname.officespace.security.payload.JwtResponse;
 import com.ourfancyteamname.officespace.security.payload.LoginRequest;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
+import com.ourfancyteamname.officespace.security.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

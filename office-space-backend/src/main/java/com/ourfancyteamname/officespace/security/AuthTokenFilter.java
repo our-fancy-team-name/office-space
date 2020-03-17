@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.security;
 
+import com.ourfancyteamname.officespace.security.services.JwtService;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

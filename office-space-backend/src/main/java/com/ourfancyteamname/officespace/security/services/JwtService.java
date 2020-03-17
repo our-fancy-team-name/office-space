@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.security;
+package com.ourfancyteamname.officespace.security.services;
 
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -45,15 +45,15 @@ public class JwtService {
       Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
       return true;
     } catch (SignatureException e) {
-      log.error("Invalid JWT signature: {}", e.getMessage());
+      log.error("SignatureException JWT signature: {}", e.getMessage());
     } catch (MalformedJwtException e) {
-      log.error("Invalid JWT token: {}", e.getMessage());
+      log.error("MalformedJwtException JWT token: {}", e.getMessage());
     } catch (ExpiredJwtException e) {
-      log.error("JWT token is expired: {}", e.getMessage());
+      log.error("ExpiredJwtException token is expired: {}", e.getMessage());
     } catch (UnsupportedJwtException e) {
-      log.error("JWT token is unsupported: {}", e.getMessage());
+      log.error("UnsupportedJwtException token is unsupported: {}", e.getMessage());
     } catch (IllegalArgumentException e) {
-      log.error("JWT claims string is empty: {}", e.getMessage());
+      log.error("IllegalArgumentException claims string is empty: {}", e.getMessage());
     }
     return false;
   }
