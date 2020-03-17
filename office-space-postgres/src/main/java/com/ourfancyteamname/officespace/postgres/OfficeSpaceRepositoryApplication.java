@@ -7,7 +7,7 @@ import org.springframework.boot.SpringBootConfiguration;
 public class OfficeSpaceRepositoryApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(OfficeSpaceRepositoryApplication.class, args);
+    SpringApplication.run(OfficeSpaceRepositoryApplication.class);
   }
 
 }
