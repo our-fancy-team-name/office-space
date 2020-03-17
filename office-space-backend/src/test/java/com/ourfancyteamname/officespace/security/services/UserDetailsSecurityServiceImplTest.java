@@ -135,11 +135,10 @@ public class UserDetailsSecurityServiceImplTest {
     Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
     Mockito.when(roleRepository.findByUserId(user.getId())).thenReturn(roles);
     Mockito.when(roleRepository.findLastUsageByUserId(user.getId())).thenReturn(Optional.of(admin));
-//    Mockito.when(permissionRepository.findPermissionCodeByRoleId(admin.getId())).thenReturn(permissionCodes);
 
     UserDetailsPrinciple result = (UserDetailsPrinciple) userDetailsSecurityService.loadUserByUsername("dang");
     Assert.assertEquals(result.getUsername(), user.getUsername());
-    Assert.assertEquals(result.getPermissionCodes().size(), 0);
+    Assert.assertEquals(0, result.getPermissionCodes().size());
     IntStream.range(0, result.getPermissionCodes().size()).forEach(i -> {
       Assert.assertEquals(result.getPermissionCodes().get(i), permissionCodes.get(i));
     });

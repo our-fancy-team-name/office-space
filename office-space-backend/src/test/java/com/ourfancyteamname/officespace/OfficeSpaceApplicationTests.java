@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -8,6 +9,7 @@ class OfficeSpaceApplicationTests {
 
   @Test
   void contextLoads() {
+    Assert.assertTrue(true);
   }
 
 }
