@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.security.services;
 
-import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

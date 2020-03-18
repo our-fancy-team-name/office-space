@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.configuration;
+package com.ourfancyteamname.officespace.configurations;
 
 import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
 import com.ourfancyteamname.officespace.security.AuthTokenFilter;

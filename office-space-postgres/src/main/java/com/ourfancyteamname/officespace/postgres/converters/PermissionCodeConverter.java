@@ -1,7 +1,7 @@
 package com.ourfancyteamname.officespace.postgres.converters;
 
 
-import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import org.apache.commons.lang3.EnumUtils;
 
 import javax.persistence.AttributeConverter;

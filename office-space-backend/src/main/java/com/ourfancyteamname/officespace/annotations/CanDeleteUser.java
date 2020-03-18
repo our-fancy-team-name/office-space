@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.security.annotations;
+package com.ourfancyteamname.officespace.annotations;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 

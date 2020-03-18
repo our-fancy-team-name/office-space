@@ -24,7 +24,7 @@ Technical stack
   * DB schema management: [liquibase](https://www.liquibase.org/)
   * Plugin: [lombok](https://projectlombok.org/)
   * CI-CD: [travis](travis-ci.org)
-  * Quality check: [sonarcloud](https://sonarcloud.io/)
+  * Quality check: [sonarcloud](https://sonarcloud.io/) and [deepscan](https://deepscan.io/)
   * Build tool: [maven](https://maven.apache.org/)
  1. Front end
   * Languages: typescript/js

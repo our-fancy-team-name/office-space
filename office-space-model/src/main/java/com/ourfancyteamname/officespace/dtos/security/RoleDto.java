@@ -1,7 +1,7 @@
-package com.ourfancyteamname.officespace.security.payload;
+package com.ourfancyteamname.officespace.dtos.security;
 
-import com.ourfancyteamname.officespace.postgres.entities.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class RoleDto implements Serializable {
 
   private static final long serialVersionUID = 4844040204809916570L;
@@ -18,8 +19,4 @@ public class RoleDto implements Serializable {
 
   private Boolean isUsing;
 
-  public RoleDto(Role role, Role currentlyUse) {
-    this.authority = role.getCode();
-    this.isUsing = role.getId() == currentlyUse.getId();
-  }
 }

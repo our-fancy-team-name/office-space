@@ -1,7 +1,7 @@
 package com.ourfancyteamname.officespace.security.services;
 
-import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
-import com.ourfancyteamname.officespace.security.payload.RoleDto;
+import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.junit.Assert;
 import org.junit.Before;

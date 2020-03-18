@@ -1,13 +1,14 @@
 package com.ourfancyteamname.officespace.security.services;
 
 
+import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.postgres.converters.RoleConverter;
 import com.ourfancyteamname.officespace.postgres.entities.Role;
 import com.ourfancyteamname.officespace.postgres.entities.User;
-import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.postgres.repos.PermissionRepository;
 import com.ourfancyteamname.officespace.postgres.repos.RoleRepository;
 import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
-import com.ourfancyteamname.officespace.security.payload.RoleDto;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
     Role lastUsage = roleRepository.findLastUsageByUserId(user.getId()).orElse(roles.get(0));
     List<RoleDto> authorities = roles
         .stream()
-        .map(role -> new RoleDto(role, lastUsage))
+        .map(role -> RoleConverter.toDto(role, lastUsage))
         .collect(Collectors.toList());
     List<PermissionCode> permissionCodes = permissionRepository.findPermissionCodeByRoleId(lastUsage.getId());
     return UserDetailsPrinciple.builder()

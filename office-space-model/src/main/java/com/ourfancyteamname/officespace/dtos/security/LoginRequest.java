@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.security.payload;
+package com.ourfancyteamname.officespace.dtos.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

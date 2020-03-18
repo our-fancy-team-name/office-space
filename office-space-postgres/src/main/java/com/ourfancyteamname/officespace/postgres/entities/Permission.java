@@ -2,7 +2,7 @@ package com.ourfancyteamname.officespace.postgres.entities;
 
 
 import com.ourfancyteamname.officespace.postgres.converters.PermissionCodeConverter;
-import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.configuration;
+package com.ourfancyteamname.officespace.configurations;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
