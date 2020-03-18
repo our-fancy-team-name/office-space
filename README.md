@@ -8,6 +8,7 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=ncloc)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=coverage)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 
 ## Technical Specs:
 
