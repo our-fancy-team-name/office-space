@@ -1,9 +1,10 @@
 package com.ourfancyteamname.officespace.security.services;
 
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
+import com.ourfancyteamname.officespace.postgres.converters.RoleConverter;
 import com.ourfancyteamname.officespace.postgres.entities.Role;
 import com.ourfancyteamname.officespace.postgres.entities.User;
-import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.postgres.repos.PermissionRepository;
 import com.ourfancyteamname.officespace.postgres.repos.RoleRepository;
 import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
@@ -50,6 +51,9 @@ public class UserDetailsSecurityServiceImplTest {
   @Mock
   private PermissionRepository permissionRepository;
 
+  @Mock
+  private RoleConverter roleConverter;
+
   @Test
   public void loadUserByUsernameTest_success() {
 
@@ -57,6 +61,7 @@ public class UserDetailsSecurityServiceImplTest {
     Mockito.when(roleRepository.findByUserId(user.getId())).thenReturn(roles);
     Mockito.when(roleRepository.findLastUsageByUserId(user.getId())).thenReturn(Optional.of(admin));
     Mockito.when(permissionRepository.findPermissionCodeByRoleId(admin.getId())).thenReturn(permissionCodes);
+    Mockito.when(roleConverter.toDto(admin, admin)).thenReturn(new RoleDto("ADMIN", true));
 
     UserDetailsPrinciple result = (UserDetailsPrinciple) userDetailsSecurityService.loadUserByUsername("dang");
     Assert.assertEquals(result.getUsername(), user.getUsername());
@@ -114,6 +119,7 @@ public class UserDetailsSecurityServiceImplTest {
     Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
     Mockito.when(roleRepository.findByUserId(user.getId())).thenReturn(roles);
     Mockito.when(permissionRepository.findPermissionCodeByRoleId(admin.getId())).thenReturn(permissionCodes);
+    Mockito.when(roleConverter.toDto(Mockito.any(), Mockito.any())).thenReturn(new RoleDto("ADMIN", true));
 
     UserDetailsPrinciple result = (UserDetailsPrinciple) userDetailsSecurityService.loadUserByUsername("dang");
     Assert.assertEquals(result.getUsername(), user.getUsername());
@@ -135,6 +141,7 @@ public class UserDetailsSecurityServiceImplTest {
     Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
     Mockito.when(roleRepository.findByUserId(user.getId())).thenReturn(roles);
     Mockito.when(roleRepository.findLastUsageByUserId(user.getId())).thenReturn(Optional.of(admin));
+    Mockito.when(roleConverter.toDto(Mockito.any(), Mockito.any())).thenReturn(new RoleDto("ADMIN", true));
 
     UserDetailsPrinciple result = (UserDetailsPrinciple) userDetailsSecurityService.loadUserByUsername("dang");
     Assert.assertEquals(result.getUsername(), user.getUsername());

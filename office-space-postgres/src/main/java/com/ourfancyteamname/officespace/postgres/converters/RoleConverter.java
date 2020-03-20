@@ -2,15 +2,13 @@ package com.ourfancyteamname.officespace.postgres.converters;
 
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.postgres.entities.Role;
-import lombok.experimental.UtilityClass;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@UtilityClass
-public class RoleConverter {
+@Mapper
+public interface RoleConverter {
 
-  public RoleDto toDto(Role role, Role currentlyUse) {
-    return RoleDto.builder()
-        .authority(role.getCode())
-        .isUsing(role.getId() == currentlyUse.getId())
-        .build();
-  }
+  @Mapping(source = "role.code", target = "authority")
+  @Mapping(expression = "java(currentlyUse.getId() == role.getId())", target = "isUsing")
+  RoleDto toDto(Role role, Role currentlyUse);
 }

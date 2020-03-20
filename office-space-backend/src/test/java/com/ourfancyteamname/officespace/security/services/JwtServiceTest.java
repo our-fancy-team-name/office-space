@@ -1,7 +1,5 @@
 package com.ourfancyteamname.officespace.security.services;
 
-import com.ourfancyteamname.officespace.dtos.security.RoleDto;
-import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,25 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.Arrays;
-import java.util.List;
-
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class JwtServiceTest {
-
-  private static final RoleDto admin = new RoleDto("ADMIN", true);
-  private static final List<RoleDto> roles = Arrays.asList(admin);
-  private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.DELETE_USER);
-
-  private static final UserDetailsPrinciple userDetailsPrinciple = UserDetailsPrinciple.builder()
-      .email("dang@dang.dang")
-      .password("$2a$10$ZnoVjM2zmkU5UjJkmEMwce2XRVXZDhEdwYIqIZtGPAgBQEfPj/oAC")
-      .username("dang")
-      .roles(roles)
-      .permissionCodes(permissionCodes)
-      .build();
 
   @Before
   public void setUp() {

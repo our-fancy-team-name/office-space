@@ -2,10 +2,10 @@ package com.ourfancyteamname.officespace.security.services;
 
 
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.postgres.converters.RoleConverter;
 import com.ourfancyteamname.officespace.postgres.entities.Role;
 import com.ourfancyteamname.officespace.postgres.entities.User;
-import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.postgres.repos.PermissionRepository;
 import com.ourfancyteamname.officespace.postgres.repos.RoleRepository;
 import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
@@ -33,6 +33,9 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
   @Autowired
   private RoleRepository roleRepository;
 
+  @Autowired
+  private RoleConverter roleConverter;
+
   @Override
   public UserDetails loadUserByUsername(String username) {
     User user = userRepository.findByUsername(username)
@@ -44,7 +47,7 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
     Role lastUsage = roleRepository.findLastUsageByUserId(user.getId()).orElse(roles.get(0));
     List<RoleDto> authorities = roles
         .stream()
-        .map(role -> RoleConverter.toDto(role, lastUsage))
+        .map(role -> roleConverter.toDto(role, lastUsage))
         .collect(Collectors.toList());
     List<PermissionCode> permissionCodes = permissionRepository.findPermissionCodeByRoleId(lastUsage.getId());
     return UserDetailsPrinciple.builder()
