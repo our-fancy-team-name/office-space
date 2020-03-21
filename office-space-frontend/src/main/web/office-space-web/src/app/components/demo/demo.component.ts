@@ -9,12 +9,9 @@ import { environment } from 'src/environments/environment';
 })
 export class DemoComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.http.get(environment.api + 'account').subscribe(data => {
-      console.log(data);
-    });
   }
 
 }
