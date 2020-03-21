@@ -1,11 +1,12 @@
 package com.ourfancyteamname.officespace;
 
+import com.ourfancyteamname.officespace.postgres.OfficeSpaceRepositoryApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.ourfancyteamname.officespace.postgres.converters")
+@Import(OfficeSpaceRepositoryApplication.class)
 public class OfficeSpaceApplication {
 
   public static void main(String[] args) {
