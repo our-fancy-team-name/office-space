@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { StorageService } from './services/auth/storage.service';
+import { Component, isDevMode, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth/auth.service';
+import { StorageService } from './services/auth/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +16,14 @@ export class AppComponent implements OnInit {
   showModeratorBoard = false;
   username: string;
 
-  constructor(private tokenStorageService: StorageService, private aut: AuthService) { }
+  constructor(private storage: StorageService, private aut: AuthService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.get(StorageService.TOKEN_KEY);
+    this.storage.set(StorageService.API, isDevMode() ? environment.api : `${window.location.origin}/api/`);
+    this.isLoggedIn = !!this.storage.get(StorageService.TOKEN_KEY);
 
     if (this.isLoggedIn) {
-      const user = JSON.parse(this.tokenStorageService.get(StorageService.USER_KEY));
+      const user = JSON.parse(this.storage.get(StorageService.USER_KEY));
       this.username = user.username;
     }
   }

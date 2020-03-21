@@ -1,25 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { StorageService } from './storage.service';
 import { Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private tokenStorage: StorageService) { }
+  constructor(private http: HttpClient, private storage: StorageService) { }
 
   login(credentials: any): Observable<any> {
-    return this.http.post(environment.api.substring(0, environment.api.length - 4) + 'auth/signin', {
-      username: credentials.username,
-      password: credentials.password
-    });
+
+    return this.http.post(
+      `${this.storage.get(StorageService.API).substring(0, this.storage.get(StorageService.API).length - 4)}auth/signin`,
+      {
+        username: credentials.username,
+        password: credentials.password
+      });
   }
 
   logout() {
-    this.tokenStorage.clear();
+    this.storage.clear();
     window.location.reload();
   }
 }

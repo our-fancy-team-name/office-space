@@ -5,7 +5,7 @@ import com.ourfancyteamname.officespace.postgres.entities.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface RoleConverter {
 
   @Mapping(source = "role.code", target = "authority")

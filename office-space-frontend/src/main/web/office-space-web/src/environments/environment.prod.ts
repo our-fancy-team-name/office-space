@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:9090/api/'
+  api: '' // dynamic get api from server
 };
