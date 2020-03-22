@@ -1,11 +1,13 @@
 package com.ourfancyteamname.officespace.postgres.entities;
 
+import com.ourfancyteamname.officespace.postgres.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,4 +39,22 @@ public class User implements Serializable {
   @Column(name = "`password`")
   private String password;
 
+  @Column(name = "`first-name`")
+  private String firstName;
+
+  @Column(name = "`last-name`")
+  private String lastName;
+
+  @Column(name = "`phone`")
+  private String phone;
+
+  @Column(name = "`alternate-phone`")
+  private String alternatePhone;
+
+  @Column(name = "`address`")
+  private String address;
+
+  @Column(name = "`gender`")
+  @Convert(converter = Gender.HibernateConverter.class)
+  private Gender gender;
 }

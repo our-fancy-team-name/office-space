@@ -1,10 +1,9 @@
 package com.ourfancyteamname.officespace.postgres.converters;
 
-import com.ourfancyteamname.officespace.enums.PermissionCode;
+import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,8 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class PermissionCodeConverterTest {
 
-  @InjectMocks
-  private PermissionCodeConverter permissionCodeConverter;
+  private PermissionCode.HibernateConverter permissionCodeConverter = new PermissionCode.HibernateConverter();
 
   @Test
   public void convertToDatabaseColumn_success() {
