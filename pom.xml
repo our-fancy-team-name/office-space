@@ -51,11 +51,6 @@
             <version>1.3.1.Final</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>6.0.0.Alpha4</version>
-        </dependency>
     </dependencies>
     <modules>
         <module>office-space-model</module>
@@ -75,6 +70,11 @@
                             <source>${java.version}</source>
                             <target>${java.version}</target>
                             <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.hibernate</groupId>
+                                    <artifactId>hibernate-jpamodelgen</artifactId>
+                                    <version>6.0.0.Alpha4</version>
+                                </path>
                                 <path>
                                     <groupId>org.mapstruct</groupId>
                                     <artifactId>mapstruct-processor</artifactId>
