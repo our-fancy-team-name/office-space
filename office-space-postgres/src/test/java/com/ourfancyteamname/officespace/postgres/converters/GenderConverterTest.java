@@ -1,10 +1,11 @@
 package com.ourfancyteamname.officespace.postgres.converters;
 
 
-import com.ourfancyteamname.officespace.postgres.enums.Gender;
+import com.ourfancyteamname.officespace.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @RunWith(MockitoJUnitRunner.class)
 public class GenderConverterTest {
 
-  private Gender.HibernateConverter genderConverter = new Gender.HibernateConverter();
-
+  @InjectMocks
+  private GenderConverter genderConverter;
 
   @Test
   public void convertToDatabaseColumn_success() {

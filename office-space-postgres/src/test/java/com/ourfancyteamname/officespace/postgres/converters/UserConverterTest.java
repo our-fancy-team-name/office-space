@@ -1,8 +1,8 @@
 package com.ourfancyteamname.officespace.postgres.converters;
 
 import com.ourfancyteamname.officespace.dtos.UserDto;
+import com.ourfancyteamname.officespace.enums.Gender;
 import com.ourfancyteamname.officespace.postgres.entities.User;
-import com.ourfancyteamname.officespace.postgres.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
@@ -36,6 +36,6 @@ public class UserConverterTest {
     Assert.assertEquals(userDto.getAlternatePhone(), entity.getAlternatePhone());
     Assert.assertEquals(userDto.getPassword(), entity.getPassword());
     Assert.assertEquals(userDto.getPhone(), entity.getPhone());
-    Assert.assertTrue(userDto.getGender().equals(entity.getGender().getName()));
+    Assert.assertTrue(userDto.getGender() == entity.getGender());
   }
 }

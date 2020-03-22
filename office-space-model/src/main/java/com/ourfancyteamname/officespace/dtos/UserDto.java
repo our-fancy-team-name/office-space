@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.dtos;
 
+import com.ourfancyteamname.officespace.enums.Gender;
 import lombok.Data;
 
 @Data
@@ -21,5 +22,5 @@ public class UserDto {
 
   private String address;
 
-  private String gender;
+  private Gender gender;
 }

@@ -1,13 +1,12 @@
 package com.ourfancyteamname.officespace.postgres.entities;
 
 
-import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +29,5 @@ public class Permission implements Serializable {
   private int id;
 
   @Column(name = "`code`")
-  @Convert(converter = PermissionCode.HibernateConverter.class)
   private PermissionCode code;
 }

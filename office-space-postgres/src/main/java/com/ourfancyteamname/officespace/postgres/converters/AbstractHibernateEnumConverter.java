@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.postgres.converters;
 
-import com.ourfancyteamname.officespace.postgres.enums.PersistableEnum;
+import com.ourfancyteamname.officespace.enums.PersistableEnum;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.AttributeConverter;

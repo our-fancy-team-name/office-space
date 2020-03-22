@@ -1,10 +1,10 @@
 package com.ourfancyteamname.officespace.security.services;
 
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.postgres.converters.RoleConverter;
 import com.ourfancyteamname.officespace.postgres.entities.Role;
 import com.ourfancyteamname.officespace.postgres.entities.User;
-import com.ourfancyteamname.officespace.postgres.enums.PermissionCode;
 import com.ourfancyteamname.officespace.postgres.repos.PermissionRepository;
 import com.ourfancyteamname.officespace.postgres.repos.RoleRepository;
 import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
