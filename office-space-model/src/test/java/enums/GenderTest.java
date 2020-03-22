@@ -8,7 +8,7 @@ public class GenderTest {
 
   @Test
   public void name() {
-    Assert.assertEquals("FEMALE", Gender.FEMALE.name());
-    Assert.assertEquals("MALE", Gender.MALE.name());
+    Assert.assertEquals("FEMALE", Gender.FEMALE.getName());
+    Assert.assertEquals("MALE", Gender.MALE.getName());
   }
 }
