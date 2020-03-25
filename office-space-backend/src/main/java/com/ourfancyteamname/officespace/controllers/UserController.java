@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
   private List<SpecificationService> specificationServices;
 
   @PostMapping
-  public ResponseEntity<List<User>> getAll(@RequestBody TableSearchRequest tableSearchRequest) {
+  public ResponseEntity<List<User>> getAll(@RequestBody @Valid TableSearchRequest tableSearchRequest) {
     Specification specs = specificationServices.stream()
         .filter(service -> service.match(tableSearchRequest.getTableName()))
         .findFirst()

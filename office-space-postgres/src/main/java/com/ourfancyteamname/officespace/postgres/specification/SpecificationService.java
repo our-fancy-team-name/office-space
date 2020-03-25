@@ -11,10 +11,18 @@ public interface SpecificationService {
 
   String columnName(String input);
 
-  Specification specificationBuilder(TableSearchRequest tableSearchRequest);
-
   default boolean match(String tableName) {
     return StringUtils.equals(this.tableName(), tableName);
+  }
+
+  default Specification specificationBuilder(TableSearchRequest tableSearchRequest) {
+    Specification result = specificationBuilder(tableSearchRequest.getColumnSearchRequests().get(0));
+    for (int i = 1; i < tableSearchRequest.getColumnSearchRequests().size(); i++) {
+      ColumnSearchRequest rq = tableSearchRequest.getColumnSearchRequests().get(i);
+      Specification spec = specificationBuilder(rq);
+      result = rq.isOrTerm() ? Specification.where(result).or(spec) : Specification.where(result).and(spec);
+    }
+    return result;
   }
 
   default Specification specificationBuilder(ColumnSearchRequest columnSearchRequest) {
