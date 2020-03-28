@@ -86,6 +86,11 @@
                                     <artifactId>lombok</artifactId>
                                     <version>1.18.10</version>
                                 </path>
+                                <path>
+                                    <groupId>org.hibernate</groupId>
+                                    <artifactId>hibernate-jpamodelgen</artifactId>
+                                    <version>6.0.0.Alpha4</version>
+                                </path>
                             </annotationProcessorPaths>
                             <compilerArgs>
                                 <compilerArg>
