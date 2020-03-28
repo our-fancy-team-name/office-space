@@ -55,6 +55,7 @@
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>6.0.0.Alpha4</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     <modules>
@@ -66,13 +67,6 @@
     <profiles>
         <profile>
             <id>coverage</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.hibernate.orm</groupId>
-                    <artifactId>hibernate-jpamodelgen</artifactId>
-                    <version>6.0.0.Alpha4</version>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -93,9 +87,6 @@
                                     <version>1.18.10</version>
                                 </path>
                             </annotationProcessorPaths>
-                            <compilerArguments>
-                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-                            </compilerArguments>
                             <compilerArgs>
                                 <compilerArg>
                                     -Amapstruct.defaultComponentModel=spring
