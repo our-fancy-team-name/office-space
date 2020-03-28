@@ -93,6 +93,9 @@
                                     <version>1.18.10</version>
                                 </path>
                             </annotationProcessorPaths>
+                            <compilerArguments>
+                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                            </compilerArguments>
                             <compilerArgs>
                                 <compilerArg>
                                     -Amapstruct.defaultComponentModel=spring
