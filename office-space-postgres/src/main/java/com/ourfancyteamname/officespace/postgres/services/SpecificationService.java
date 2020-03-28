@@ -1,21 +1,14 @@
-package com.ourfancyteamname.officespace.postgres.specification;
+package com.ourfancyteamname.officespace.postgres.services;
 
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
-public interface SpecificationService {
+@Service
+public class SpecificationService {
 
-  String tableName();
-
-  String columnName(String input);
-
-  default boolean match(String tableName) {
-    return StringUtils.equals(this.tableName(), tableName);
-  }
-
-  default Specification specificationBuilder(TableSearchRequest tableSearchRequest) {
+  public Specification specificationBuilder(TableSearchRequest tableSearchRequest) {
     Specification result = specificationBuilder(tableSearchRequest.getColumnSearchRequests().get(0));
     for (int i = 1; i < tableSearchRequest.getColumnSearchRequests().size(); i++) {
       ColumnSearchRequest rq = tableSearchRequest.getColumnSearchRequests().get(i);
@@ -25,9 +18,9 @@ public interface SpecificationService {
     return result;
   }
 
-  default Specification specificationBuilder(ColumnSearchRequest columnSearchRequest) {
+  private Specification specificationBuilder(ColumnSearchRequest columnSearchRequest) {
     return (root, query, builder) -> {
-      String columnName = columnName(columnSearchRequest.getColumnName());
+      String columnName = columnSearchRequest.getColumnName();
       switch (columnSearchRequest.getOperation()) {
         case EQUAL:
           return builder.equal(root.get(columnName), columnSearchRequest.getTerm());
