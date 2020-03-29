@@ -34,10 +34,8 @@ public class SpecificationService {
           return builder.greaterThan(root.get(columnName), columnSearchRequest.getTerm());
         case LESS_THAN_OR_EQUAL_TO:
           return builder.lessThanOrEqualTo(root.get(columnName), columnSearchRequest.getTerm());
-        case GREATER_THAN_OR_EQUAL_TO:
-          return builder.greaterThanOrEqualTo(root.get(columnName), columnSearchRequest.getTerm());
         default:
-          throw new UnsupportedOperationException();
+          return builder.greaterThanOrEqualTo(root.get(columnName), columnSearchRequest.getTerm());
       }
     };
   }
