@@ -51,7 +51,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.like(lastNamePathMock, "%foo%"))
+    Mockito.when(criteriaBuilderMock.like(lastNamePathMock, "%" + SEARCH_TERM + "%"))
         .thenReturn(lastNameIsLikePredicateMock);
 
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
@@ -67,7 +67,7 @@ public class SpecificationServiceTest {
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
-    Mockito.verify(criteriaBuilderMock, Mockito.times(1)).like(lastNamePathMock, "%foo%");
+    Mockito.verify(criteriaBuilderMock, Mockito.times(1)).like(lastNamePathMock, "%" + SEARCH_TERM + " %");
     Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
@@ -76,7 +76,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.equal(lastNamePathMock, "foo"))
+    Mockito.when(criteriaBuilderMock.equal(lastNamePathMock, SEARCH_TERM))
         .thenReturn(lastNameIsLikePredicateMock);
 
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
@@ -101,7 +101,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.greaterThan(lastNamePathMock, "foo"))
+    Mockito.when(criteriaBuilderMock.greaterThan(lastNamePathMock, SEARCH_TERM))
         .thenReturn(lastNameIsLikePredicateMock);
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
         .columnName(User_.LAST_NAME)
@@ -125,7 +125,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.greaterThanOrEqualTo(lastNamePathMock, "foo"))
+    Mockito.when(criteriaBuilderMock.greaterThanOrEqualTo(lastNamePathMock, SEARCH_TERM))
         .thenReturn(lastNameIsLikePredicateMock);
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
         .columnName(User_.LAST_NAME)
@@ -149,7 +149,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.lessThan(lastNamePathMock, "foo"))
+    Mockito.when(criteriaBuilderMock.lessThan(lastNamePathMock, SEARCH_TERM))
         .thenReturn(lastNameIsLikePredicateMock);
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
         .columnName(User_.LAST_NAME)
@@ -173,7 +173,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.lessThanOrEqualTo(lastNamePathMock, "foo"))
+    Mockito.when(criteriaBuilderMock.lessThanOrEqualTo(lastNamePathMock, SEARCH_TERM))
         .thenReturn(lastNameIsLikePredicateMock);
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
         .columnName(User_.LAST_NAME)
@@ -197,7 +197,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.notEqual(lastNamePathMock, "foo"))
+    Mockito.when(criteriaBuilderMock.notEqual(lastNamePathMock, SEARCH_TERM))
         .thenReturn(lastNameIsLikePredicateMock);
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
         .columnName(User_.LAST_NAME)
@@ -221,7 +221,7 @@ public class SpecificationServiceTest {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
-    Mockito.when(criteriaBuilderMock.notEqual(lastNamePathMock, "foo"))
+    Mockito.when(criteriaBuilderMock.notEqual(lastNamePathMock, SEARCH_TERM))
         .thenReturn(lastNameIsLikePredicateMock);
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
         .columnName(User_.LAST_NAME)
@@ -242,7 +242,7 @@ public class SpecificationServiceTest {
   }
 
   @Test
-  public void specificationBuilder_search_multiple() {
+  public void specificationBuilder_search_multiple_and() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Path firstNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
@@ -264,6 +264,44 @@ public class SpecificationServiceTest {
         .operation(DataBaseOperation.EQUAL)
         .term(SEARCH_TERM)
         .isOrTerm(true)
+        .build();
+    TableSearchRequest tableSearchRequest = TableSearchRequest
+        .builder()
+        .columnSearchRequests(Arrays.asList(columnSearchRequest, columnSearchRequest2))
+        .build();
+    Specification<User> actual = specificationService.specificationBuilder(tableSearchRequest);
+    actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
+    Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
+    Mockito.verify(userRootMock, Mockito.times(1)).get(User_.FIRST_NAME);
+    Mockito.verifyNoMoreInteractions(userRootMock);
+    Mockito.verify(criteriaBuilderMock, Mockito.times(1)).equal(lastNamePathMock, SEARCH_TERM);
+    Mockito.verify(criteriaBuilderMock, Mockito.times(1)).equal(firstNamePathMock, SEARCH_TERM);
+  }
+
+
+  @Test
+  public void specificationBuilder_search_multiple_or() {
+    Path lastNamePathMock = Mockito.mock(Path.class);
+    Path firstNamePathMock = Mockito.mock(Path.class);
+    Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
+    Mockito.when(userRootMock.get(User_.FIRST_NAME)).thenReturn(firstNamePathMock);
+    Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
+    Predicate firstNameIsLikePredicateMock = Mockito.mock(Predicate.class);
+    Mockito.when(criteriaBuilderMock.equal(lastNamePathMock, SEARCH_TERM))
+        .thenReturn(lastNameIsLikePredicateMock);
+    Mockito.when(criteriaBuilderMock.equal(firstNamePathMock, SEARCH_TERM))
+        .thenReturn(firstNameIsLikePredicateMock);
+    ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
+        .columnName(User_.LAST_NAME)
+        .operation(DataBaseOperation.EQUAL)
+        .term(SEARCH_TERM)
+        .isOrTerm(true)
+        .build();
+    ColumnSearchRequest columnSearchRequest2 = ColumnSearchRequest.builder()
+        .columnName(User_.FIRST_NAME)
+        .operation(DataBaseOperation.EQUAL)
+        .term(SEARCH_TERM)
+        .isOrTerm(false)
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
