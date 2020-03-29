@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.util.ReflectionTestUtils;
 
-
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class JwtServiceTest {

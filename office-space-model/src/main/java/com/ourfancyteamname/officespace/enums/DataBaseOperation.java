@@ -1,8 +1,5 @@
 package com.ourfancyteamname.officespace.enums;
 
-import lombok.Getter;
-
-@Getter
 public enum DataBaseOperation {
   LESS_THAN,
   LESS_THAN_OR_EQUAL_TO,
