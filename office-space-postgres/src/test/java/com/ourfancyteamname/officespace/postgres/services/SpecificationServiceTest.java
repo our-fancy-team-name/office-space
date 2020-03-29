@@ -67,7 +67,7 @@ public class SpecificationServiceTest {
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
-    Mockito.verify(criteriaBuilderMock, Mockito.times(1)).like(lastNamePathMock, "%" + SEARCH_TERM + " %");
+    Mockito.verify(criteriaBuilderMock, Mockito.times(1)).like(lastNamePathMock, "%" + SEARCH_TERM + "%");
     Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
