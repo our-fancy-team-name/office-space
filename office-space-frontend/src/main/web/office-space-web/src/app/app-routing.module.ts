@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
 import { DemoComponent } from './components/demo/demo.component';
+import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
 
 

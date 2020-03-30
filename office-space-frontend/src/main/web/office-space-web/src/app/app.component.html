@@ -1,6 +1,39 @@
-<app-header *ngIf="isLoggedIn"></app-header>
-<main>
-    <div *ngIf="isLoggedIn" style="height: 50px;"></div>
-    <router-outlet style="min-height: 100vh;"></router-outlet>
-</main>
-<app-footer *ngIf="isLoggedIn"></app-footer>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav *ngIf="isLoggedIn" #drawer class="sidenav" fixedInViewport disableClose="false"
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="'side'" [opened]="true">
+        <mat-toolbar>
+            <span style="width: 100%;" *ngIf="isExpanded">Hello</span>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="ahihi()">
+                <mat-icon aria-label="Side nav toggle icon">chevron_right</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-nav-list>
+            <mat-list-item>
+                <mat-icon mat-list-icon>person</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Management A</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>assignment</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Management B</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>domain</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Management C</h4>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>folder_shared</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Management X</h4>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content [ngStyle]="{'margin-left': marginLeft}">
+        <mat-toolbar *ngIf="isLoggedIn" color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button>
+                <!-- *ngIf="isHandset$ | async" -->
+                <mat-icon aria-label="Side nav toggle icon">chevron_left</mat-icon>
+            </button>
+            <span>office-space-web</span>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
