@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
       icon: 'people',
       isActive: false
     }
-  ]
+  ];
+
   menuLength;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
