@@ -2,36 +2,24 @@
     <mat-sidenav *ngIf="isLoggedIn" #drawer class="sidenav" fixedInViewport disableClose="false"
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="'side'" [opened]="true">
         <mat-toolbar>
-            <span style="width: 100%;" *ngIf="isExpanded">Hello</span>
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="ahihi()">
-                <mat-icon aria-label="Side nav toggle icon">chevron_right</mat-icon>
+            <span *ngIf="isExpanded">{{'HEADER.WELCOME' | translate}}</span>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggleSideBar()">
+                <mat-icon aria-label="Side nav toggle icon">{{!isExpanded ? 'chevron_right': 'chevron_left'}}</mat-icon>
             </button>
         </mat-toolbar>
         <mat-nav-list>
             <mat-list-item>
-                <mat-icon mat-list-icon>person</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">Management A</h4>
+                <mat-icon mat-list-icon>people</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">Employee list</h4>
             </mat-list-item>
-            <mat-list-item>
-                <mat-icon mat-list-icon>assignment</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">Management B</h4>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-icon mat-list-icon>domain</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">Management C</h4>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-icon mat-list-icon>folder_shared</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">Management X</h4>
+            <mat-list-item (click)="logOut()" class="last-item">
+                <mat-icon mat-list-icon>no_meeting_room</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">{{'HEADER.SIGN_OUT' | translate}}</h4>
             </mat-list-item>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content [ngStyle]="{'margin-left': marginLeft}">
         <mat-toolbar *ngIf="isLoggedIn" color="primary">
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button>
-                <!-- *ngIf="isHandset$ | async" -->
-                <mat-icon aria-label="Side nav toggle icon">chevron_left</mat-icon>
-            </button>
             <span>office-space-web</span>
         </mat-toolbar>
         <router-outlet></router-outlet>

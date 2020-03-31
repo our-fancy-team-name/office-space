@@ -34,13 +34,18 @@ export class AppComponent implements OnInit {
 
     if (this.isLoggedIn) {
       const user = JSON.parse(this.storage.get(StorageService.USER_KEY));
-      this.username = user.username;
+      this.username = user.userDetails.username;
     }
   }
 
-  ahihi() {
+  toggleSideBar() {
     this.isExpanded = !this.isExpanded;
     this.marginLeft = this.isExpanded ? '205px' : '72px';
+  }
+
+  logOut() {
+    this.storage.clear();
+    location.reload();
   }
 
 }
