@@ -8,11 +8,11 @@
             </button>
         </mat-toolbar>
         <mat-nav-list>
-            <mat-list-item>
-                <mat-icon mat-list-icon>people</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">Employee list</h4>
+            <mat-list-item ngClass="{{item.isActive ? 'active' : ''}}" *ngFor="let item of menuItem">
+                <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">{{'SIDEBAR.'+item.title | translate}}</h4>
             </mat-list-item>
-            <mat-list-item (click)="logOut()" class="last-item">
+            <mat-list-item (click)="logOut()" [ngStyle]="{'top': menuLength}" class="last-item">
                 <mat-icon mat-list-icon>no_meeting_room</mat-icon>
                 <h4 mat-line *ngIf="isExpanded">{{'HEADER.SIGN_OUT' | translate}}</h4>
             </mat-list-item>
@@ -22,6 +22,8 @@
         <mat-toolbar *ngIf="isLoggedIn" color="primary">
             <span>office-space-web</span>
         </mat-toolbar>
-        <router-outlet></router-outlet>
+        <app-login *ngIf="!isLoggedIn"></app-login>
+        <router-outlet *ngIf="isLoggedIn"></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
+<ngx-spinner fullScreen="true" type="ball-spin-clockwise"></ngx-spinner>

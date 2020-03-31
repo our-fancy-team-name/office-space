@@ -19,6 +19,7 @@
   top: 0;
   z-index: 1;
 }
+
 .mat-list-item {
   min-width: 50px;
   .mat-list-icon {
@@ -29,9 +30,11 @@
     color: cornsilk;
   }
 }
-.last-item {
-  top: calc(100vh - 184px);
-}
+
+// .last-item {
+//   top: calc(100vh - 184px);
+// }
+
 mat-toolbar {
   span {
     width: 125px;
@@ -41,5 +44,9 @@ mat-toolbar {
 
 mat-sidenav {
   background-color: lightseagreen;
+}
+
+.active {
+  background-color: aquamarine;
 }
 

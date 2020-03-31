@@ -21,6 +21,9 @@
     "USERNAME": "Tên đăng nhập",
     "USERNAME_RQ": "Vui lòng điền tên đăng nhập"
   },
+  "SIDEBAR": {
+    "EMPLOYEE_LIST": "DS Nhân viên"
+  },
   "VALIDATOR": {
     "FIELD_REQUIRED": "Phần bắt buộc",
     "MAX_LENGTH": "Vượt quá số ký tự cho phép",

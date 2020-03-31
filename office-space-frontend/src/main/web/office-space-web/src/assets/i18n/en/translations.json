@@ -21,6 +21,9 @@
     "USERNAME": "User name",
     "USERNAME_RQ": "Please fill out the username"
   },
+  "SIDEBAR": {
+    "EMPLOYEE_LIST": "Employee List"
+  },
   "VALIDATOR": {
     "FIELD_REQUIRED": "Required Field",
     "MAX_LENGTH": "Exceed max length allowed",

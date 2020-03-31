@@ -3,8 +3,8 @@ import { Component, isDevMode, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AuthService } from './services/auth/auth.service';
 import { StorageService } from './services/auth/storage.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -20,15 +20,35 @@ export class AppComponent implements OnInit {
   showModeratorBoard = false;
   username: string;
 
+  menuItem = [
+    {
+      title: 'EMPLOYEE_LIST',
+      icon: 'people',
+      isActive: true
+    },
+    {
+      title: 'EMPLOYEE_LIST',
+      icon: 'people',
+      isActive: false
+    }
+  ]
+  menuLength;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private storage: StorageService, private aut: AuthService, private breakpointObserver: BreakpointObserver) { }
+  constructor(
+    private storage: StorageService,
+    private breakpointObserver: BreakpointObserver,
+    private spinner: NgxSpinnerService
+  ) { }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.menuLength = 'calc(100vh - ' + (128 + this.menuItem.length * 56) + 'px)';
     this.storage.set(StorageService.API, isDevMode() ? environment.api : `${window.location.origin}/api/`);
     this.isLoggedIn = !!this.storage.get(StorageService.TOKEN_KEY);
 
@@ -36,6 +56,9 @@ export class AppComponent implements OnInit {
       const user = JSON.parse(this.storage.get(StorageService.USER_KEY));
       this.username = user.userDetails.username;
     }
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
 
   toggleSideBar() {

@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
 import { createTranslationLoader, TranslationInterceptor } from './interceptors/translation.interceptor';
 import { MaterialModule } from './material.module';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MaterialModule } from './material.module';
       }
     }),
     LayoutModule,
-    MaterialModule
+    MaterialModule,
+    NgxSpinnerModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
