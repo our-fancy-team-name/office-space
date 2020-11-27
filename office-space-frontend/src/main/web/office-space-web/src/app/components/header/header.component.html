@@ -1,0 +1,31 @@
+<header>
+    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue" [containerInside]="false" mdbStickyHeader>
+        <mdb-navbar-brand><a class="navbar-brand" href="#">{{'HEADER.OFFICE_SPACE'| translate}}</a></mdb-navbar-brand>
+        <links>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form class="form-inline waves-light" mdbWavesEffect>
+                        <div class="md-form my-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="{{'HEADER.SEARCH' | translate}}">
+                        </div>
+                    </form>
+                </li>
+                <li class="nav-item dropdown" dropdown>
+                    <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light"
+                        mdbWavesEffect>
+                        <mdb-icon fas icon="user"></mdb-icon>{{'HEADER.WELCOME' | translate}} {{user.username}}<span
+                            class="caret"></span>
+                    </a>
+                    <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="#">{{'HEADER.MY_ACCOUNT' | translate}}
+                            <mdb-icon class="float-right" fas icon="address-card"></mdb-icon></a>
+                        <a class="dropdown-item waves-light" mdbWavesEffect
+                            (click)="signOut()">{{'HEADER.SIGN_OUT' | translate}} <mdb-icon class="float-right" fas
+                                icon="sign-out-alt"></mdb-icon></a>
+                    </div>
+                </li>
+
+            </ul>
+        </links>
+    </mdb-navbar>
+</header>

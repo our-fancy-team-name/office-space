@@ -1,0 +1,52 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  max-width: 250px;
+}
+
+.sidenav .mat-toolbar {
+  background: cadetblue;
+  color: darkblue;
+  mat-icon {
+    color: white;
+  }
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-list-item {
+  min-width: 50px;
+  .mat-list-icon {
+    color: darkblue;
+  }
+  h4 {
+    min-width: 125px;
+    color: cornsilk;
+  }
+}
+
+// .last-item {
+//   top: calc(100vh - 184px);
+// }
+
+mat-toolbar {
+  span {
+    width: 125px;
+    text-align: center;
+  }
+}
+
+mat-sidenav {
+  background-color: lightseagreen;
+}
+
+.active {
+  background-color: aquamarine;
+}
+

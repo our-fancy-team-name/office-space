@@ -1,0 +1,5 @@
+spring.profiles: jwt
+
+jwt:
+  secret: ourSecurityKey
+  expirationMs: 900000 # 900000ms = 15 minutes

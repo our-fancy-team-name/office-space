@@ -1,0 +1,35 @@
+<div id="login" class="d-flex justify-content-center align-items-center h-80">
+    <div class="card p-5 text-center light col-md-5">
+        <form [formGroup]="form" id="login-form" class="card-body" (submit)="onSubmit()" action="#">
+            <p class="h4 mb-4 label">{{'LOGIN.LABEL' | translate}}</p>
+            <div class="md-form">
+                <input formControlName="username" type="text" id="username" class="form-control mb-4" />
+                <label for="username">{{'LOGIN.USERNAME' | translate}}</label>
+                <mdb-error *ngIf="usernameValid">{{username.errors.message | translate}}</mdb-error>
+            </div>
+            <div class="md-form">
+                <input formControlName="password" type="password" id="password" class="form-control mb-4">
+                <label for="password" class="">{{'LOGIN.PASSWORD' | translate}}</label>
+                    <mdb-error *ngIf="passwordValid">{{password.errors.message | translate}}</mdb-error>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 center-block text-danger text-center w-100">
+                    {{errorMessage | translate}}
+                </div>
+            </div>
+            <p>{{'LOGIN.NOT_A_MEMBER' | translate}} <a target="_blank" rel="noopener noreferrer"
+                    href="https://github.com/our-fancy-team-name/office-space/issues">{{'LOGIN.CONTACT_US' | translate}}</a>
+            </p>
+            <div class="row">
+                <div class="col-md-7">
+                    <button [disabled]="form.disabled" mdbBtn block="true"
+                        class="my-4 rounded-pill btn btn-outline-info waves-effect">{{'LOGIN.FORGOT_PASSWORD' | translate}}</button>
+                </div>
+                <div class="col-md-5">
+                    <button type="submit" [disabled]="form.invalid || form.disabled" mdbBtn color="info" block="true"
+                        class="btn my-4 rounded-pill waves-effect">{{'LOGIN.LABEL' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+{
+  "FOOTER": {
+    "COPYRIGHT": "© 2020 Copyright:",
+    "LANG_EN": "English",
+    "LANG_VN": "Vietnamese"
+  },
+  "HEADER": {
+    "MY_ACCOUNT": "My account",
+    "OFFICE_SPACE": "Office Space",
+    "SEARCH": "Search",
+    "SIGN_OUT": "Sign out",
+    "WELCOME": "Welcome"
+  },
+  "LOGIN": {
+    "CONTACT_US": "Contact us",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "LABEL": "Sign in",
+    "NOT_A_MEMBER": "Not a member?",
+    "PASSWORD": "Password",
+    "PASSWORD_RQ": "Please fill out the password",
+    "USERNAME": "User name",
+    "USERNAME_RQ": "Please fill out the username"
+  },
+  "SIDEBAR": {
+    "EMPLOYEE_LIST": "Employee List"
+  },
+  "VALIDATOR": {
+    "FIELD_REQUIRED": "Required Field",
+    "MAX_LENGTH": "Exceed max length allowed",
+    "MIN_LENGTH": "Less than min length allow"
+  }
+}
