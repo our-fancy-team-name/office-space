@@ -7,7 +7,7 @@ import com.ourfancyteamname.officespace.dtos.TableSortingRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.enums.DataBaseDirection;
 import com.ourfancyteamname.officespace.enums.DataBaseOperation;
-import com.ourfancyteamname.officespace.db.converters.UserConverter;
+import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.db.entities.User_;
 import com.ourfancyteamname.officespace.db.repos.UserRepository;

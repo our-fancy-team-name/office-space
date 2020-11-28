@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.db.converters;
 
+import com.ourfancyteamname.officespace.db.converters.enums.PermissionCodeConverter;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
 import org.junit.Assert;
 import org.junit.Test;

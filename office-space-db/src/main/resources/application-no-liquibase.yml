@@ -1,5 +1,5 @@
 spring:
-  profiles: no-liquibase-postgres
+  profiles: no-liquibase
   liquibase:
     enabled: false
     change-log: classpath:/db/changelog/postgres/changelog-master.xml

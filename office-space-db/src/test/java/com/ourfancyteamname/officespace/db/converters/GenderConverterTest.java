@@ -1,6 +1,7 @@
 package com.ourfancyteamname.officespace.db.converters;
 
 
+import com.ourfancyteamname.officespace.db.converters.enums.GenderConverter;
 import com.ourfancyteamname.officespace.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,5 +1,6 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.enums;
 
+import com.ourfancyteamname.officespace.db.converters.enums.AbstractHibernateEnumConverter;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
 
 import javax.persistence.Converter;

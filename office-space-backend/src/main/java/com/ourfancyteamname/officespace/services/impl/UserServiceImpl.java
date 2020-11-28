@@ -2,7 +2,7 @@ package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
-import com.ourfancyteamname.officespace.db.converters.UserConverter;
+import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.db.services.PaginationService;

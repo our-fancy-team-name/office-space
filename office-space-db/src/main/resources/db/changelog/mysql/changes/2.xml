@@ -4,12 +4,17 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet author="office-space" id="CREATE_TABLE_PERMISSION">
+    <changeSet author="office-space" id="CREATE_SUPER_ADMIN_ROLE">
         <sql>
-            CREATE TABLE `permission` (
-            id serial PRIMARY KEY,
-            `code` VARCHAR (50) NOT NULL
-            );
+            INSERT INTO `role` (description,`code`) VALUES
+            ('super admin','SUPER_ADMIN');
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="ADD_SUPER_ADMIN_ROLE_FOR_FIRST_USER">
+        <sql>
+            INSERT INTO `user_role` (user_id,`role_id`) VALUES
+            (1,1);
         </sql>
     </changeSet>
 
