@@ -1,4 +1,4 @@
-spring.profiles.include: datasource-mysql, jwt, liquibase
+spring.profiles.include: datasource-mysql, jwt, liquibase-mysql
 
 server:
   port: 9090

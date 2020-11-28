@@ -6,22 +6,32 @@
 
     <changeSet author="office-space" id="CREATE_TABLE_USER">
         <sql>
-            CREATE TABLE "user" (
-            id serial NOT NULL,
+            CREATE TABLE `user` (
+            id serial NOT NULL AUTO_INCREMENT,
             username varchar(50) NOT NULL,
-            "password" varchar(255) NOT NULL,
+            `password` varchar(255) NOT NULL,
             email varchar(355) NOT NULL,
-            CONSTRAINT user_email_key UNIQUE (email),
-            CONSTRAINT user_pkey PRIMARY KEY (id),
-            CONSTRAINT user_username_key UNIQUE (username)
+            PRIMARY KEY ( id )
             );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="ADD_COLUMN_TO_USER_TABLE">
+        <sql>
+            ALTER TABLE `user`
+            ADD COLUMN gender VARCHAR (50),
+            ADD COLUMN `first-name` VARCHAR (100),
+            ADD COLUMN `last-name` VARCHAR (100),
+            ADD COLUMN `phone` VARCHAR (100),
+            ADD COLUMN `alternate-phone` VARCHAR (100),
+            ADD COLUMN `address` VARCHAR (500);
         </sql>
     </changeSet>
 
     <changeSet author="office-space" id="INSERT_USER">
         <sql>
-            INSERT INTO "user" (username,"password",email) VALUES
-            ('dang','$2a$10$ZnoVjM2zmkU5UjJkmEMwce2XRVXZDhEdwYIqIZtGPAgBQEfPj/oAC','dangnguyen@gmail.com');
+            INSERT INTO `user` (username,`password`,email, gender ) VALUES
+            ('dang','$2a$10$ZnoVjM2zmkU5UjJkmEMwce2XRVXZDhEdwYIqIZtGPAgBQEfPj/oAC','dangnguyen@gmail.com', 'MALE');
         </sql>
     </changeSet>
 </databaseChangeLog>

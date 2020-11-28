@@ -6,42 +6,42 @@
 
     <changeSet author="office-space" id="CREATE_TABLE_ROLE">
         <sql>
-            CREATE TABLE "role" (
+            CREATE TABLE `role` (
             id serial PRIMARY KEY,
-            "description" VARCHAR(255),
-            "code" VARCHAR (50) NOT NULL
+            `description` VARCHAR(255),
+            `code` VARCHAR (50) NOT NULL
             );
         </sql>
     </changeSet>
 
     <changeSet author="office-space" id="CREATE_TABLE_ROLE_PERMISSION">
         <sql>
-            create table "role_permission" (
+            create table `role_permission` (
             id serial PRIMARY KEY,
-            "role_id" INT,
-            "permission_id" INT,
-            CONSTRAINT role_permission_unique_pair UNIQUE("role_id", "permission_id")
+            `role_id` INT,
+            `permission_id` INT,
+            CONSTRAINT role_permission_unique_pair UNIQUE(`role_id`, `permission_id`)
             );
         </sql>
     </changeSet>
 
     <changeSet author="office-space" id="CREATE_TABLE_PERMISSION">
         <sql>
-            CREATE TABLE "permission" (
+            CREATE TABLE `permission` (
             id serial PRIMARY KEY,
-            "code" VARCHAR (50) NOT NULL
+            `code` VARCHAR (50) NOT NULL
             );
         </sql>
     </changeSet>
 
     <changeSet author="office-space" id="CREATE_TABLE_USER_ROLE">
         <sql>
-            create table "user_role" (
+            create table `user_role` (
             id serial PRIMARY KEY,
-            "user_id" INT,
-            "role_id" INT,
-            "recently_use" BOOLEAN NOT NULL DEFAULT FALSE,
-            CONSTRAINT user_role_unique_pair UNIQUE("user_id", "role_id")
+            `user_id` INT,
+            `role_id` INT,
+            `recently_use` BOOLEAN NOT NULL DEFAULT FALSE,
+            CONSTRAINT user_role_unique_pair UNIQUE(`user_id`, `role_id`)
             );
         </sql>
     </changeSet>
