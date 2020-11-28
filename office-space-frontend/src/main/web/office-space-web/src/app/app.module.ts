@@ -15,13 +15,15 @@ import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interce
 import { createTranslationLoader, TranslationInterceptor } from './interceptors/translation.interceptor';
 import { MaterialModule } from './material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RoleSelectComponent } from './components/role-select/role-select.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DemoComponent,
-    HeaderComponent
+    HeaderComponent,
+    RoleSelectComponent
   ],
   imports: [
     BrowserModule,

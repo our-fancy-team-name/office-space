@@ -7,6 +7,7 @@ export class StorageService {
   static readonly TOKEN_KEY = 'auth-token';
   static readonly USER_KEY = 'auth-user';
   static readonly API = 'api-url';
+  static readonly ROLE = 'auth-selected-role';
 
   constructor() { }
 

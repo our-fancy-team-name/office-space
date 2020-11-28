@@ -9,8 +9,8 @@
         </mat-toolbar>
         <mat-nav-list>
             <mat-list-item ngClass="{{item.isActive ? 'active' : ''}}" *ngFor="let item of menuItem">
-                <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
-                <h4 mat-line *ngIf="isExpanded">{{'SIDEBAR.'+item.title | translate}}</h4>
+                <mat-icon *ngIf="item.isActive" mat-list-icon>{{item.icon}}</mat-icon>
+                <h4 mat-line *ngIf="isExpanded && item.isActive">{{'SIDEBAR.'+item.title | translate}}</h4>
             </mat-list-item>
             <mat-list-item (click)="logOut()" [ngStyle]="{'top': menuLength}" class="last-item">
                 <mat-icon mat-list-icon>no_meeting_room</mat-icon>
@@ -20,7 +20,7 @@
     </mat-sidenav>
     <mat-sidenav-content [ngStyle]="{'margin-left': marginLeft}">
         <mat-toolbar *ngIf="isLoggedIn" color="primary">
-            <span>office-space-web</span>
+            <img src="../assets/img/mdt_logo_white.webp" alt="Medtronic Logo">
         </mat-toolbar>
         <app-login *ngIf="!isLoggedIn"></app-login>
         <router-outlet *ngIf="isLoggedIn"></router-outlet>

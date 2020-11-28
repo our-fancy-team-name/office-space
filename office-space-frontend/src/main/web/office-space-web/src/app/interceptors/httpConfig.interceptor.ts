@@ -27,7 +27,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
+          // console.log('event--->>>', event);
         }
         return event;
       }),
@@ -35,8 +35,10 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         console.log('error--->>>', error);
         if (error.status === 401) {
           this.token.clear();
-          location.reload();
-          this.router.navigate(['/login']);
+          if (!this.router.url.includes('login')) {
+            location.reload();
+            this.router.navigate(['/login']);
+          }
         }
         return throwError(error);
       }));

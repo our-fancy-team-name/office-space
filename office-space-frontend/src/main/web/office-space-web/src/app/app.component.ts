@@ -16,22 +16,24 @@ export class AppComponent implements OnInit {
   isExpanded = true;
   marginLeft = '200px';
   isLoggedIn = false;
+  isSelectedRole = false;
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
 
-  menuItem = [
-    {
-      title: 'EMPLOYEE_LIST',
-      icon: 'people',
-      isActive: true
-    },
-    {
-      title: 'EMPLOYEE_LIST',
-      icon: 'people',
-      isActive: false
-    }
-  ];
+  menuItem = [];
+  // [
+  //   {
+  //     title: 'EMPLOYEE_LIST',
+  //     icon: 'people',
+  //     isActive: false,
+  //   },
+  //   {
+  //     title: 'EMPLOYEE_LIST',
+  //     icon: 'people',
+  //     isActive: false
+  //   }
+  // ];
 
   menuLength;
 
@@ -52,6 +54,7 @@ export class AppComponent implements OnInit {
     this.menuLength = 'calc(100vh - ' + (128 + this.menuItem.length * 56) + 'px)';
     this.storage.set(StorageService.API, isDevMode() ? environment.api : `${window.location.origin}/api/`);
     this.isLoggedIn = !!this.storage.get(StorageService.TOKEN_KEY);
+    this.isSelectedRole = !!this.storage.get(StorageService.ROLE);
 
     if (this.isLoggedIn) {
       const user = JSON.parse(this.storage.get(StorageService.USER_KEY));

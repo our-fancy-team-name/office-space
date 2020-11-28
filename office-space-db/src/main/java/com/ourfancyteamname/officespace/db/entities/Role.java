@@ -1,7 +1,5 @@
 package com.ourfancyteamname.officespace.db.entities;
 
-import com.ourfancyteamname.officespace.enums.RoleEnum;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +29,6 @@ public class Role implements Serializable {
   private String description;
 
   @Column(name = "`code`")
-  private RoleEnum code;
+  private String code;
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { timeout } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { StorageService } from 'src/app/services/auth/storage.service';
 import { ValidatorsService } from 'src/app/utils/validators.service';
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorage.get(StorageService.TOKEN_KEY)) {
-      this.router.navigate(['/demo']);
+      this.router.navigate(['/select-role']);
     }
     this.form = new FormGroup({
       username: new FormControl(null, this.validator.required('LOGIN.USERNAME_RQ')),
@@ -58,14 +59,16 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.set(StorageService.TOKEN_KEY, data.token);
         this.tokenStorage.set(StorageService.USER_KEY, JSON.stringify(data));
-        this.router.navigate(['/demo']);
+        this.router.navigate(['/select-role']);
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error.message + '. Please wait 5 seconds...';
       }
     ).add(() => {
-      this.form.enable();
-      location.reload();
+      setTimeout(() => {
+        this.form.enable();
+        location.reload();
+      }, 5000);
     });
   }
 
