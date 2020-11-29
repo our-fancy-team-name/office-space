@@ -31,9 +31,25 @@
   }
 }
 
-// .last-item {
-//   top: calc(100vh - 184px);
-// }
+mat-select {
+  font-size: 15px;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-select-arrow {
+  border: none !important;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 100px !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent;
+}
 
 mat-toolbar {
   span {

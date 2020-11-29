@@ -17,6 +17,8 @@ public class RoleDto implements Serializable {
 
   private String authority;
 
+  private String description;
+
   private Boolean isUsing;
 
 }

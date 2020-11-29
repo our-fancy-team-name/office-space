@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   public form: FormGroup;
   public errorMessage = '';
+  readonly timeOut = 1; //seconds
 
   constructor(
     private validator: ValidatorsService,
@@ -68,7 +69,7 @@ export class LoginComponent implements OnInit {
       setTimeout(() => {
         this.form.enable();
         location.reload();
-      }, 5000);
+      }, this.timeOut * 1000);
     });
   }
 

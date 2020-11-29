@@ -21,6 +21,10 @@
     "USERNAME": "User name",
     "USERNAME_RQ": "Please fill out the username"
   },
+  "SELECT_ROLE": {
+    "CARD_DESC": "Press continue to login as",
+    "CONTINUE": "Continue"
+  },
   "SIDEBAR": {
     "EMPLOYEE_LIST": "Employee List"
   },

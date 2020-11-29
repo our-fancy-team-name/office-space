@@ -5,6 +5,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './services/auth/storage.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateService } from '@ngx-translate/core';
+import { LANGUAGES } from './enums/languagesEnum';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +22,7 @@ export class AppComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
+  languageSelected;
 
   menuItem = [];
   // [
@@ -46,7 +49,8 @@ export class AppComponent implements OnInit {
   constructor(
     private storage: StorageService,
     private breakpointObserver: BreakpointObserver,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +66,7 @@ export class AppComponent implements OnInit {
     }
     setTimeout(() => {
       this.spinner.hide();
+      this.languageSelected = LANGUAGES.EN;
     }, 500);
   }
 
@@ -73,6 +78,10 @@ export class AppComponent implements OnInit {
   logOut() {
     this.storage.clear();
     location.reload();
+  }
+
+  changeLang(event) {
+    this.translate.use(this.languageSelected);
   }
 
 }

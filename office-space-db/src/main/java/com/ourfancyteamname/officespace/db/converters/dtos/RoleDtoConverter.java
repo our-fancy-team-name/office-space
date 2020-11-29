@@ -11,5 +11,6 @@ public interface RoleDtoConverter {
 
   @Mapping(source = "role.code", target = "authority")
   @Mapping(expression = "java(currentlyUse.getId() == role.getId())", target = "isUsing")
+  @Mapping(source = "role.description", target = "description")
   RoleDto toDto(Role role, Role currentlyUse);
 }

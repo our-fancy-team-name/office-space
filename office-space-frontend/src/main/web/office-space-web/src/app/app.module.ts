@@ -16,6 +16,7 @@ import { createTranslationLoader, TranslationInterceptor } from './interceptors/
 import { MaterialModule } from './material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RoleSelectComponent } from './components/role-select/role-select.component';
+import { LANGUAGES } from './enums/languagesEnum';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { RoleSelectComponent } from './components/role-select/role-select.compon
 export class AppModule {
 
   constructor(translate: TranslateService) {
-    translate.addLangs(['en', 'vn']);
-    translate.use('en');
+    translate.addLangs([LANGUAGES.EN, LANGUAGES.VN]);
+    translate.use(LANGUAGES.EN);
   }
 }

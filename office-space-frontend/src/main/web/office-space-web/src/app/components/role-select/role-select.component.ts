@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/services/auth/storage.service';
 
 @Component({
   selector: 'app-role-select',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleSelectComponent implements OnInit {
 
-  constructor() { }
+  userDetails;
+
+  constructor(
+    private storage: StorageService
+  ) { }
 
   ngOnInit(): void {
+    this.userDetails = JSON.parse(this.storage.get(StorageService.USER_KEY)).userDetails;
   }
 
 }

@@ -21,7 +21,7 @@ import java.util.List;
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class PermissionServiceTest {
-  private static final RoleDto admin = new RoleDto("SUPER_ADMIN", true);
+  private static final RoleDto admin = RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build();
   private static final List<RoleDto> roles = Arrays.asList(admin);
   private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.DELETE_USER);
 

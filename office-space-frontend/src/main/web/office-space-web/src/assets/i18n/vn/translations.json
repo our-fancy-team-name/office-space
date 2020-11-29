@@ -2,7 +2,7 @@
   "FOOTER": {
     "COPYRIGHT": "© 2020 Bản quyền:",
     "LANG_EN": "Tiếng Anh",
-    "LANG_VN": "Việt Nam"
+    "LANG_VN": "Tiếng Việt"
   },
   "HEADER": {
     "MY_ACCOUNT": "Tài khoản của tôi",
@@ -20,6 +20,10 @@
     "PASSWORD_RQ": "Vui lòng điền mật khẩu",
     "USERNAME": "Tên đăng nhập",
     "USERNAME_RQ": "Vui lòng điền tên đăng nhập"
+  },
+  "SELECT_ROLE": {
+    "CARD_DESC": "Ấn tiếp tục để đăng nhập như là",
+    "CONTINUE": "Tiếp tục"
   },
   "SIDEBAR": {
     "EMPLOYEE_LIST": "DS Nhân viên"

@@ -20,7 +20,14 @@
     </mat-sidenav>
     <mat-sidenav-content [ngStyle]="{'margin-left': marginLeft}">
         <mat-toolbar *ngIf="isLoggedIn" color="primary">
-            <img src="../assets/img/mdt_logo_white.webp" alt="Medtronic Logo">
+            <img style="height: 30px;" src="../assets/img/mdt_logo_white.webp" alt="Medtronic Logo">
+            <span style="flex: 1 1 auto;"></span>
+            <mat-form-field>
+                <mat-select (selectionChange)="changeLang($event)" [(value)]="languageSelected">
+                  <mat-option value="en">{{'FOOTER.LANG_EN' | translate}}</mat-option>
+                  <mat-option value="vn">{{'FOOTER.LANG_VN' | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
         </mat-toolbar>
         <app-login *ngIf="!isLoggedIn"></app-login>
         <router-outlet *ngIf="isLoggedIn"></router-outlet>
