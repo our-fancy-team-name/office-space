@@ -17,6 +17,8 @@ import { MaterialModule } from './material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RoleSelectComponent } from './components/role-select/role-select.component';
 import { LANGUAGES } from './enums/languagesEnum';
+import { RoleInterceptor } from './interceptors/role.interceptor';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { LANGUAGES } from './enums/languagesEnum';
     LoginComponent,
     DemoComponent,
     HeaderComponent,
-    RoleSelectComponent
+    RoleSelectComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,9 @@ import { LANGUAGES } from './enums/languagesEnum';
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
     AuthInterceptorProviders,
-    LoggedInGuardInterceptor],
+    LoggedInGuardInterceptor,
+    RoleInterceptor
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
