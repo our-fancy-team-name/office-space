@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   public form: FormGroup;
   public errorMessage = '';
-  readonly timeOut = 1; //seconds
+  readonly timeOut = 1; // seconds
 
   constructor(
     private validator: ValidatorsService,

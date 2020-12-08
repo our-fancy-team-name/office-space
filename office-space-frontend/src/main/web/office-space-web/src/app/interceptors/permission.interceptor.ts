@@ -8,12 +8,12 @@ export class PermissionInterceptor implements CanActivate {
   constructor(
     private storage: StorageService,
     private router: Router
-  ) {}
+  ) { }
 
 
   canActivate(route: ActivatedRouteSnapshot) {
-    let res = this.storage.get(StorageService.PERMISSION).split(',').indexOf(route.data.perm) >= 0;
-    if(res) {
+    const res = this.storage.get(StorageService.PERMISSION).split(',').indexOf(route.data.perm) >= 0;
+    if (res) {
       return true;
     } else {
       this.router.navigate(['/demo']);

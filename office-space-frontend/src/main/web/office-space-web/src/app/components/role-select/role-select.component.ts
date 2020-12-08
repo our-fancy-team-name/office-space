@@ -31,7 +31,7 @@ export class RoleSelectComponent implements OnInit {
     this.userService.findAllPermissionByRole(role.authority).subscribe((item: []) => {
       this.storage.set(StorageService.PERMISSION, item.map((i: any) => i.code));
       this.sideMenu.updateMenuByPermission();
-    })
+    });
     this.router.navigate(['/demo']);
   }
 

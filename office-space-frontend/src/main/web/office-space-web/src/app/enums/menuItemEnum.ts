@@ -4,4 +4,4 @@ export const MENU_ITEM = {
         icon: 'people',
         isActive: true,
     }
-}
+};

@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       this.menuItem = event;
       this.updateMenuLength();
       console.log(event);
-    })
+    });
   }
 
   updateMenuLength() {
@@ -87,8 +87,8 @@ export class AppComponent implements OnInit {
     this.translate.use(this.languageSelected);
   }
 
-  openMenuItem(item){
-    if(item.title === MENU_ITEM.MANAGE_AUTHORITY.title) {
+  openMenuItem(item) {
+    if (item.title === MENU_ITEM.MANAGE_AUTHORITY.title) {
       this.router.navigate(['/role-manage']);
     }
   }
