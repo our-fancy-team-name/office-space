@@ -16,4 +16,10 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
       "join RolePermission rp on rp.permissionId = p.id " +
       "where rp.roleId = :roleId")
   List<PermissionCode> findPermissionCodeByRoleId(@Param("roleId") Integer roleId);
+
+  @Query("select p from Permission p " +
+      "join RolePermission rp on rp.permissionId = p.id " +
+      "join Role r on r.id = rp.roleId " +
+      "where r.code = :role")
+  List<Permission> findPermissionByRole(@Param("role") String role);
 }

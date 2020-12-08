@@ -8,6 +8,7 @@ export class StorageService {
   static readonly USER_KEY = 'auth-user';
   static readonly API = 'api-url';
   static readonly ROLE = 'auth-selected-role';
+  static readonly PERMISSION = 'permission';
 
   constructor() { }
 

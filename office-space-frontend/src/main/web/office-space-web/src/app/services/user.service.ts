@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private http: HttpClient, private storage: StorageService) { }
 
-  get(): Observable<any> {
-    return this.http.get(`${this.storage.get(StorageService.API)}account`, { responseType: 'text' });
+  findAllPermissionByRole(role: string): Observable<any> {
+    return this.http.get(`${this.storage.get(StorageService.API)}user/${role}`);
   }
 }

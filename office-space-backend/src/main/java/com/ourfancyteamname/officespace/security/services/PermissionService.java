@@ -12,6 +12,6 @@ public class PermissionService {
   public boolean canDeleteUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetailsPrinciple user = (UserDetailsPrinciple) authentication.getPrincipal();
-    return user.getPermissionCodes().contains(PermissionCode.DELETE_USER);
+    return user.getPermissionCodes().contains(PermissionCode.USER_DELETE);
   }
 }

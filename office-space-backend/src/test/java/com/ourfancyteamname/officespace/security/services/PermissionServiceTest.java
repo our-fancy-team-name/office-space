@@ -23,7 +23,7 @@ import java.util.List;
 public class PermissionServiceTest {
   private static final RoleDto admin = RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build();
   private static final List<RoleDto> roles = Arrays.asList(admin);
-  private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.DELETE_USER);
+  private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.USER_DELETE);
 
   private static final UserDetailsPrinciple userDetailsPrinciple = UserDetailsPrinciple.builder()
       .email("dang@dang.dang")

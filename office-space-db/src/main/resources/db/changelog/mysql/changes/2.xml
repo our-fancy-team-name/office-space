@@ -32,6 +32,23 @@
         </sql>
     </changeSet>
 
+    <changeSet author="office-space" id="ADD_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+                ('USER_EDIT'),
+                ('USER_DELETE'),
+                ('ROLE_EDIT'),
+                ('ROLE_DELETE');
+        </sql>
+    </changeSet>
 
+    <changeSet author="office-space" id="ADD_PERMISSION_FOR_SUPER_ADMIN">
+        <sql>
+            INSERT INTO `role_permission` (role_id, permission_id)
+            select r.id ,p.id from permission p, `role` r
+            where r.code = 'SUPER_ADMIN'
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

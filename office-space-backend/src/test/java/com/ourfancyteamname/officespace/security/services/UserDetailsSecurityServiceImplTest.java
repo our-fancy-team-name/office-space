@@ -37,7 +37,7 @@ public class UserDetailsSecurityServiceImplTest {
     .build();
   private static final Role admin = new Role(1, "", "SUPER_ADMIN");
   private static final List<Role> roles = Arrays.asList(admin);
-  private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.DELETE_USER);
+  private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.USER_DELETE);
 
 
   @InjectMocks

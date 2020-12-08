@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/auth/storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-role-select',
@@ -13,17 +14,22 @@ export class RoleSelectComponent implements OnInit {
 
   constructor(
     private storage: StorageService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(this.storage.get(StorageService.USER_KEY)).userDetails;
     this.storage.set(StorageService.ROLE, '');
+    this.storage.set(StorageService.PERMISSION, '');
   }
 
   continue(role) {
-    console.log(role);
     this.storage.set(StorageService.ROLE, role.authority);
+    this.userService.findAllPermissionByRole(role.authority).subscribe((item: []) => {
+      this.storage.set(StorageService.PERMISSION, item.map((i: any) => i.code));
+      console.log(this.storage.get(StorageService.PERMISSION).split(','))
+    })
     this.router.navigate(['/demo']);
   }
 

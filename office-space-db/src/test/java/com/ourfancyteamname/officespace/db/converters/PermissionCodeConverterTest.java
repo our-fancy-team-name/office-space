@@ -18,8 +18,8 @@ public class PermissionCodeConverterTest {
 
   @Test
   public void convertToDatabaseColumn_success() {
-    String permission = permissionCodeConverter.convertToDatabaseColumn(PermissionCode.DELETE_USER);
-    Assert.assertEquals(permission, PermissionCode.DELETE_USER.name());
+    String permission = permissionCodeConverter.convertToDatabaseColumn(PermissionCode.USER_DELETE);
+    Assert.assertEquals(permission, PermissionCode.USER_DELETE.name());
   }
 
   @Test
@@ -30,19 +30,19 @@ public class PermissionCodeConverterTest {
 
   @Test
   public void convertToEntityAttribute_success() {
-    PermissionCode permission = permissionCodeConverter.convertToEntityAttribute(PermissionCode.DELETE_USER.name());
-    Assert.assertEquals(PermissionCode.DELETE_USER, permission);
+    PermissionCode permission = permissionCodeConverter.convertToEntityAttribute(PermissionCode.USER_DELETE.name());
+    Assert.assertEquals(PermissionCode.USER_DELETE, permission);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void convertToEntityAttribute_errorInvalid() {
     PermissionCode permission = permissionCodeConverter.convertToEntityAttribute("dang");
-    Assert.assertEquals(PermissionCode.DELETE_USER, permission);
+    Assert.assertEquals(PermissionCode.USER_DELETE, permission);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void convertToEntityAttribute_errorNull() {
     PermissionCode permission = permissionCodeConverter.convertToEntityAttribute(null);
-    Assert.assertEquals(PermissionCode.DELETE_USER, permission);
+    Assert.assertEquals(PermissionCode.USER_DELETE, permission);
   }
 }

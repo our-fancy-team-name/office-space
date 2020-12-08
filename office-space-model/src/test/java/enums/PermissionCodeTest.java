@@ -7,6 +7,6 @@ import org.junit.Test;
 public class PermissionCodeTest {
   @Test
   public void name() {
-    Assert.assertEquals("DELETE_USER", PermissionCode.DELETE_USER.getName());
+    Assert.assertEquals("DELETE_USER", PermissionCode.USER_DELETE.getName());
   }
 }
