@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/auth/storage.service';
+import { SideMenuService } from 'src/app/services/side-menu.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class RoleSelectComponent implements OnInit {
   constructor(
     private storage: StorageService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private sideMenu: SideMenuService
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class RoleSelectComponent implements OnInit {
     this.storage.set(StorageService.ROLE, role.authority);
     this.userService.findAllPermissionByRole(role.authority).subscribe((item: []) => {
       this.storage.set(StorageService.PERMISSION, item.map((i: any) => i.code));
-      console.log(this.storage.get(StorageService.PERMISSION).split(','))
+      this.sideMenu.updateMenuByPermission();
     })
     this.router.navigate(['/demo']);
   }

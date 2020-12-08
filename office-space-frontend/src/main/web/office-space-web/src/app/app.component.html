@@ -8,7 +8,7 @@
             </button>
         </mat-toolbar>
         <mat-nav-list>
-            <mat-list-item ngClass="{{item.isActive ? 'active' : ''}}" *ngFor="let item of menuItem">
+            <mat-list-item (click)="openMenuItem(item)" ngClass="{{item.isActive ? 'active' : ''}}" *ngFor="let item of menuItem">
                 <mat-icon *ngIf="item.isActive" mat-list-icon>{{item.icon}}</mat-icon>
                 <h4 mat-line *ngIf="isExpanded && item.isActive">{{'SIDEBAR.'+item.title | translate}}</h4>
             </mat-list-item>

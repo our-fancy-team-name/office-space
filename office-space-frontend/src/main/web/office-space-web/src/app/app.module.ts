@@ -19,6 +19,8 @@ import { RoleSelectComponent } from './components/role-select/role-select.compon
 import { LANGUAGES } from './enums/languagesEnum';
 import { RoleInterceptor } from './interceptors/role.interceptor';
 import { HomeComponent } from './components/home/home.component';
+import { RoleManageComponent } from './components/role-manage/role-manage.component';
+import { PermissionInterceptor } from './interceptors/permission.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { HomeComponent } from './components/home/home.component';
     DemoComponent,
     HeaderComponent,
     RoleSelectComponent,
-    HomeComponent
+    HomeComponent,
+    RoleManageComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { HomeComponent } from './components/home/home.component';
   providers: [
     AuthInterceptorProviders,
     LoggedInGuardInterceptor,
-    RoleInterceptor
+    RoleInterceptor,
+    PermissionInterceptor
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,9 @@ import { StorageService } from './services/auth/storage.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
 import { LANGUAGES } from './enums/languagesEnum';
+import { SideMenuService } from './services/side-menu.service';
+import { MENU_ITEM } from './enums/menuItemEnum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -25,18 +28,6 @@ export class AppComponent implements OnInit {
   languageSelected;
 
   menuItem = [];
-  // [
-  //   {
-  //     title: 'EMPLOYEE_LIST',
-  //     icon: 'people',
-  //     isActive: false,
-  //   },
-  //   {
-  //     title: 'EMPLOYEE_LIST',
-  //     icon: 'people',
-  //     isActive: false
-  //   }
-  // ];
 
   menuLength;
 
@@ -50,12 +41,24 @@ export class AppComponent implements OnInit {
     private storage: StorageService,
     private breakpointObserver: BreakpointObserver,
     private spinner: NgxSpinnerService,
-    private translate: TranslateService
-  ) { }
+    private translate: TranslateService,
+    private sideMenuService: SideMenuService,
+    private router: Router
+  ) {
+    this.sideMenuService.sideMenuSubject.subscribe(event => {
+      this.menuItem = event;
+      this.updateMenuLength();
+      console.log(event);
+    })
+  }
 
+  updateMenuLength() {
+    this.menuLength = 'calc(100vh - ' + (128 + this.menuItem.length * 56) + 'px)';
+  }
   ngOnInit(): void {
     this.spinner.show();
-    this.menuLength = 'calc(100vh - ' + (128 + this.menuItem.length * 56) + 'px)';
+    this.sideMenuService.updateMenuByPermission();
+    this.updateMenuLength();
     this.storage.set(StorageService.API, isDevMode() ? environment.api : `${window.location.origin}/api/`);
     this.isLoggedIn = !!this.storage.get(StorageService.TOKEN_KEY);
     this.isSelectedRole = !!this.storage.get(StorageService.ROLE);
@@ -82,6 +85,12 @@ export class AppComponent implements OnInit {
 
   changeLang(event) {
     this.translate.use(this.languageSelected);
+  }
+
+  openMenuItem(item){
+    if(item.title === MENU_ITEM.MANAGE_AUTHORITY.title) {
+      this.router.navigate(['/role-manage']);
+    }
   }
 
 }
