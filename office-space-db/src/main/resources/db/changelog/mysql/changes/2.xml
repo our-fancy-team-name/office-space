@@ -51,4 +51,15 @@
         </sql>
     </changeSet>
 
+    <changeSet author="office-space" id="ADD_ROLE_USER_LIST_VIEW">
+        <sql>
+            create or replace view role_user_list_view as
+            select r.id as id, r.code as code, r.description as description , group_concat(u.username SEPARATOR ',') as users
+            from `role` r
+            join user_role ur on ur.role_id = r.id
+            join `user` u on u.id = ur.user_id
+            group by r.code
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

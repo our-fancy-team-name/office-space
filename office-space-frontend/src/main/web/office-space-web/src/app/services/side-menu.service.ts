@@ -22,8 +22,11 @@ export class SideMenuService {
 
   updateMenuByPermission() {
     const permission = this.storage.get(StorageService.PERMISSION)?.split(',') || [];
+    console.log(permission);
     if (permission.indexOf(PERMISSION_CODE.ROLE_EDIT) >= 0 || permission.indexOf(PERMISSION_CODE.ROLE_DELETE) >= 0) {
       this.sideMenuSubject.next(Array.of(MENU_ITEM.MANAGE_AUTHORITY));
+    } else {
+      this.sideMenuSubject.next([]);
     }
   }
 }

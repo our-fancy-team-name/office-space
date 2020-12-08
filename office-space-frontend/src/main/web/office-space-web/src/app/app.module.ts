@@ -5,22 +5,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { AuthInterceptorProviders } from '../app/interceptors/httpConfig.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
-import { createTranslationLoader, TranslationInterceptor } from './interceptors/translation.interceptor';
-import { MaterialModule } from './material.module';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { RoleEditListComponent } from './components/role-edit-list/role-edit-list.component';
+import { RoleManageComponent } from './components/role-manage/role-manage.component';
 import { RoleSelectComponent } from './components/role-select/role-select.component';
 import { LANGUAGES } from './enums/languagesEnum';
-import { RoleInterceptor } from './interceptors/role.interceptor';
-import { HomeComponent } from './components/home/home.component';
-import { RoleManageComponent } from './components/role-manage/role-manage.component';
+import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
 import { PermissionInterceptor } from './interceptors/permission.interceptor';
+import { RoleInterceptor } from './interceptors/role.interceptor';
+import { createTranslationLoader, TranslationInterceptor } from './interceptors/translation.interceptor';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PermissionInterceptor } from './interceptors/permission.interceptor';
     HeaderComponent,
     RoleSelectComponent,
     HomeComponent,
-    RoleManageComponent
+    RoleManageComponent,
+    RoleEditListComponent
   ],
   imports: [
     BrowserModule,

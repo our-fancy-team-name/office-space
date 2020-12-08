@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.db.entities.Permission;
+import com.ourfancyteamname.officespace.db.view.RoleUserListView;
 import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,5 +33,10 @@ public class UserController {
   @GetMapping("/{role}")
   public ResponseEntity<List<PermissionDto>> getPermissionByRole(@PathVariable("role") String role) {
     return ResponseEntity.ok(userService.findAllPermissionByRole(role));
+  }
+
+  @PostMapping("/role-list")
+  public ResponseEntity<Page<RoleUserListView>> getRoleUserListView(@RequestBody TableSearchRequest tableSearchRequest) {
+    return ResponseEntity.ok(userService.getRolUserListView(tableSearchRequest));
   }
 }

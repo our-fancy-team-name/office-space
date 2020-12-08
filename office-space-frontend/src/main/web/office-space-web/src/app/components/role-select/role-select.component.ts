@@ -24,6 +24,8 @@ export class RoleSelectComponent implements OnInit {
     this.userDetails = JSON.parse(this.storage.get(StorageService.USER_KEY)).userDetails;
     this.storage.set(StorageService.ROLE, '');
     this.storage.set(StorageService.PERMISSION, '');
+    console.log('ahihi');
+    this.sideMenu.updateMenuByPermission();
   }
 
   continue(role) {

@@ -2,6 +2,8 @@ package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.db.converters.dtos.PermissionConverter;
 import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
+import com.ourfancyteamname.officespace.db.repos.RoleUserListViewRepository;
+import com.ourfancyteamname.officespace.db.view.RoleUserListView;
 import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
@@ -47,6 +49,9 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private PermissionRepository permissionRepository;
 
+  @Autowired
+  private RoleUserListViewRepository roleUserListViewRepository;
+
   @Override
   public Page<UserDto> findAllByPaging(TableSearchRequest tableSearchRequest) {
     Specification<User> specs = specificationService.specificationBuilder(tableSearchRequest);
@@ -65,5 +70,13 @@ public class UserServiceImpl implements UserService {
         .stream()
         .map(permissionConverter::toDto)
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public Page<RoleUserListView> getRolUserListView(TableSearchRequest tableSearchRequest) {
+    Specification<RoleUserListView> specs = specificationService.specificationBuilder(tableSearchRequest);
+    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
+    Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
+    return roleUserListViewRepository.findAll(specs, page);
   }
 }

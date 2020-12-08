@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 public class SortingService {
 
   public Sort getSort(TableSortingRequest tableSortingRequest) {
-    if (StringUtils.isBlank(tableSortingRequest.getColumnName())
+    if (tableSortingRequest == null
+        || StringUtils.isBlank(tableSortingRequest.getColumnName())
         || tableSortingRequest.getDirection() == null) {
       return Sort.unsorted();
     }

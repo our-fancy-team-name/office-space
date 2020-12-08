@@ -4,11 +4,15 @@ import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class SpecificationService {
 
   public Specification specificationBuilder(TableSearchRequest tableSearchRequest) {
+    if(CollectionUtils.isEmpty(tableSearchRequest.getColumnSearchRequests())) {
+      return Specification.where(null);
+    }
     Specification result = specificationBuilder(tableSearchRequest.getColumnSearchRequests().get(0));
     for (int i = 1; i < tableSearchRequest.getColumnSearchRequests().size(); i++) {
       ColumnSearchRequest rq = tableSearchRequest.getColumnSearchRequests().get(i);

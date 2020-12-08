@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 public class PaginationService {
 
   public Pageable getPage(TablePagingRequest tablepagingRequest, Sort sort) {
+    if (tablepagingRequest == null) {
+      return Pageable.unpaged();
+    }
     return PageRequest.of(tablepagingRequest.getPage(), tablepagingRequest.getPageSize(), sort);
   }
 }

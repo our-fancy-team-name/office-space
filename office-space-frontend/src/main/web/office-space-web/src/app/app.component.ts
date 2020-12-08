@@ -48,7 +48,6 @@ export class AppComponent implements OnInit {
     this.sideMenuService.sideMenuSubject.subscribe(event => {
       this.menuItem = event;
       this.updateMenuLength();
-      console.log(event);
     });
   }
 
