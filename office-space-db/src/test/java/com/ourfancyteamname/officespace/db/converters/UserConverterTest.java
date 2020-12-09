@@ -36,7 +36,6 @@ public class UserConverterTest {
     Assert.assertEquals(userDto.getFirstName(), entity.getFirstName());
     Assert.assertEquals(userDto.getLastName(), entity.getLastName());
     Assert.assertEquals(userDto.getAlternatePhone(), entity.getAlternatePhone());
-    Assert.assertEquals(userDto.getPassword(), entity.getPassword());
     Assert.assertEquals(userDto.getPhone(), entity.getPhone());
     Assert.assertTrue(userDto.getGender() == entity.getGender());
   }

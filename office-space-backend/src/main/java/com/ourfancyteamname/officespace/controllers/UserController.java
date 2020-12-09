@@ -26,7 +26,7 @@ public class UserController {
   private UserService userService;
 
   @PostMapping
-  public ResponseEntity<Page<UserDto>> getAll(@RequestBody @Valid TableSearchRequest tableSearchRequest) {
+  public ResponseEntity<Page<UserDto>> getAll(@RequestBody TableSearchRequest tableSearchRequest) {
     return ResponseEntity.ok(userService.findAllByPaging(tableSearchRequest));
   }
 

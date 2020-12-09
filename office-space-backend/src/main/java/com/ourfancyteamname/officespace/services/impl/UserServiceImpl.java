@@ -56,9 +56,6 @@ public class UserServiceImpl implements UserService {
   public Page<UserDto> findAllByPaging(TableSearchRequest tableSearchRequest) {
     Specification<User> specs = specificationService.specificationBuilder(tableSearchRequest);
     Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    if (tableSearchRequest.getPagingRequest().getPageSize() == 0) {
-      throw new IllegalArgumentException();
-    }
     Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
     return userRepository.findAll(specs, page)
         .map(userConverter::toDto);

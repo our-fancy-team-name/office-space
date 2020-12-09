@@ -1,8 +1,12 @@
 <mat-tab-group mat-align-tabs="start">
     <mat-tab label="{{'ROLE_MANAGE.ROLE' | translate}}">
-        <app-role-edit-list></app-role-edit-list>
+        <ng-template matTabContent>
+            <app-role-edit-list></app-role-edit-list>
+        </ng-template>
     </mat-tab>
     <mat-tab label="{{'ROLE_MANAGE.USER' | translate}}">
-        asdasd
+        <ng-template matTabContent>
+            asdasd
+        </ng-template>
     </mat-tab>
 </mat-tab-group>

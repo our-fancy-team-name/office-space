@@ -59,3 +59,12 @@ tr.example-element-row:not(.example-expanded-row):active {
 .example-element-description-attribution {
   opacity: 0.5;
 }
+
+.container-fluid {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+mat-card {
+  margin: 10px;
+}

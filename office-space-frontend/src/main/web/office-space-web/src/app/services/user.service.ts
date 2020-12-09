@@ -18,4 +18,8 @@ export class UserService {
   getRoleUserListView(request: TableSearchRequest): Observable<any> {
     return this.http.post(`${this.storage.get(StorageService.API)}user/role-list`, new TableSearchRequest());
   }
+
+  getAllUsers() {
+    return this.http.post(`${this.storage.get(StorageService.API)}user`, new TableSearchRequest());
+  }
 }
