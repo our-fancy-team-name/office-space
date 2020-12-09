@@ -7,6 +7,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { TableSearchRequest } from 'src/app/dtos/tableSearch';
+import { PERMISSION_CODE } from 'src/app/enums/permissionCode';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -29,7 +30,14 @@ export class RoleEditListComponent implements OnInit {
 
   constructor(
     private userService: UserService
-  ) { }
+  ) {
+    Object.entries(PERMISSION_CODE).forEach(
+      ([key, value]) => this.permissionObjects.push({
+            code: value,
+            check: false
+          })
+    );
+  }
 
   ngOnInit(): void {
     this.userService.getRoleUserListView(new TableSearchRequest()).subscribe(res => {
@@ -44,8 +52,14 @@ export class RoleEditListComponent implements OnInit {
   }
   
   openElement(element) {
-    this.expandedElement = this.expandedElement?.code === element?.code ? null : element
     this.chips = element.users?.split(',') || [];
+    this.userService.findAllPermissionByRole(element.code).subscribe(res => {
+      const perm = res.map((i: any) => i.code)
+      this.permissionObjects.forEach(item => {
+        item.check = perm.indexOf(item.code) >= 0;
+      })
+      this.expandedElement = this.expandedElement?.code === element?.code ? null : element
+    })
   }
 
   expanDetails(element) {
@@ -104,6 +118,10 @@ export class RoleEditListComponent implements OnInit {
 
   
   selected(event: MatAutocompleteSelectedEvent): void {
+    if (this.chips.indexOf(event.option.viewValue) >= 0) {
+      this.chipInput.nativeElement.value = '';
+      return;
+    }
     this.chips.push(event.option.viewValue);
     this.chipInput.nativeElement.value = '';
     this.chipCtrl.setValue(null);
@@ -112,4 +130,8 @@ export class RoleEditListComponent implements OnInit {
   private _filter(value: string): string[] {
     return this.allChips.filter(chip => chip.toLowerCase().indexOf(value) === 0);
   }
+
+  // permission------------------------------------------
+  permissionObjects = [];
+  checked = true;
 }
