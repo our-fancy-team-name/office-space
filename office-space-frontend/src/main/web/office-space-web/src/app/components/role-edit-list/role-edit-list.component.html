@@ -1,5 +1,14 @@
 <div class="container-fluid">
-    <div *ngIf="false" class="row w-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="float-right">
+                <button (click)="addCre()" mat-flat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isAddingRole" class="row w-100">
         <div class="col-md-12">
             <mat-card class="">
                 <mat-card-header>
@@ -10,9 +19,9 @@
                     <div class="col-md-6">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'ROLE_EDIT_LIST.CODE' | translate}}</mat-label>
-                            <input required [formControl]="codeCtr" matInput>
-                            <mat-error *ngIf="validator.isValid(codeCtr)">
-                                {{codeCtr.errors.message | translate}}</mat-error>
+                            <input required [formControl]="codeCreCtr" matInput>
+                            <mat-error *ngIf="validator.isValid(codeCreCtr)">
+                                {{codeCreCtr.errors.message | translate}}</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -20,31 +29,13 @@
                     <div class="col-md-12">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'ROLE_EDIT_LIST.DESCRIPTION' | translate}}</mat-label>
-                            <textarea rows="3" matInput [formControl]="descriptionCtr"></textarea>
+                            <textarea rows="3" matInput [formControl]="descriptionCreCtr"></textarea>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.USERS' | translate}}</mat-label>
-                            <mat-chip-list #chipList>
-                                <mat-chip *ngFor="let item of chips" [selectable]="selectable" [removable]="removable"
-                                    (removed)="remove(item)">
-                                    {{item}}
-                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                </mat-chip>
-                                <input placeholder="add users..." #chipInput [formControl]="chipCtrl"
-                                    [matAutocomplete]="auto" [matChipInputFor]="chipList"
-                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                    (matChipInputTokenEnd)="add($event)">
-                            </mat-chip-list>
-                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                                <mat-option *ngFor="let chip of filteredFruits | async" [value]="chip">
-                                    {{chip}}
-                                </mat-option>
-                            </mat-autocomplete>
-                        </mat-form-field>
+                       <app-chips #chipCreate [allChips]="allChips"></app-chips>
                     </div>
                 </div>
                 <div class="row">
@@ -74,14 +65,14 @@
                     <div class="col-md-8"></div>
                     <div class="col-md-2">
                         <div class="float-right">
-                            <button (click)="submit()" [disabled]="isSubmitDisable()" mat-flat-button color="primary">
+                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()" mat-flat-button color="primary">
                                 <mat-icon>check</mat-icon>
                             </button>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="float-right">
-                            <button (click)="closeElement()" mat-flat-button color="warn">
+                            <button (click)="closeCre()" mat-flat-button color="warn">
                                 <mat-icon>cancel</mat-icon>
                             </button>
                         </div>

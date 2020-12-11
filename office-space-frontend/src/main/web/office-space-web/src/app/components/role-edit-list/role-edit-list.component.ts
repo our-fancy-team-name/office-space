@@ -14,6 +14,7 @@ import { DataBaseOperation } from 'src/app/enums/tableSearchEnum';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 import { ValidatorsService } from 'src/app/utils/validators.service';
+import { ChipsComponent } from '../chips/chips.component';
 
 @Component({
   selector: 'app-role-edit-list',
@@ -37,14 +38,20 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   codeCtr = new FormControl('',[
     this.validator.required()
   ]);
+  codeCreCtr= new FormControl('',[
+    this.validator.required()
+  ]);
+  descriptionCreCtr = new FormControl();
   codeSearchCtr = new FormControl();
   descriptionSearchCtr = new FormControl();
   userSearchCtr = new FormControl();
   descriptionCtr = new FormControl('');
   resultLength = 0;
   pageSize = 0;
+  isAddingRole= false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('chipCreate') chipCre: ChipsComponent;
 
   constructor(
     private userService: UserService,
@@ -74,8 +81,8 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     this.userService.getAllUsers().subscribe((res: any) => {
       this.allChips = res.content.map(item => item.username);
       this.filteredFruits = this.chipCtrl.valueChanges.pipe(
-        startWith({}),
-        map((chip: string | null) => chip ? this._filter(chip) : this.allChips.slice()));
+        startWith(''),
+        map((chip: string | '') => chip ? this._filter(chip) : this.allChips.slice()));
         this.spinner.hide();
     })
   }
@@ -261,5 +268,39 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     if (!this.agreement) return true;
     if (this.validator.isValid(this.codeCtr)) return true;
     return false;
+  }
+
+  submitCre() {
+    const permissionDto = this.permissionObjects.filter(i => i.check).map(i => {return {code: i.code}});
+    const users = this.chipCre.getValue();
+    const roleUserUpdateDto = {
+      roleDto: {
+        authority: this.codeCreCtr.value,
+        description: this.descriptionCreCtr.value,
+        isUsing: false
+      },
+      permissionDto,
+      users
+    }
+    this.spinner.show();
+    // this.roleService.updateRoleUser(roleUserUpdateDto).subscribe(res => {
+    //   this.closeElement();
+    //   this.initialData();
+    // })
+  }
+
+  isSubmitCreDisable() {
+    if (this.codeCreCtr.value === '') return true;
+    if (!this.agreement) return true;
+    if (this.validator.isValid(this.codeCreCtr)) return true;
+    return false;
+  }
+
+  closeCre() {
+    this.isAddingRole = false;
+  }
+
+  addCre() {
+    this.isAddingRole = !this.isAddingRole;
   }
 }
