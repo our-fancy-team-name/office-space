@@ -1,6 +1,7 @@
 package com.ourfancyteamname.officespace.db.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ import java.io.Serializable;
 @Table(name = "`user_role`")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserRole implements Serializable {
 
   private static final long serialVersionUID = 6317463440830284105L;

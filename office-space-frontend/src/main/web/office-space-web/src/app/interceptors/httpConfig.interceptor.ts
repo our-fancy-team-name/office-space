@@ -9,7 +9,7 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { StorageService as storageService } from '../services/auth/storage.service';
+import { StorageService, StorageService as storageService } from '../services/auth/storage.service';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -21,8 +21,12 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = req;
     const token = this.token.get(storageService.TOKEN_KEY);
+    const role = this.token.get(StorageService.ROLE);
     if (token != null) {
       authReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
+    }
+    if (role != null) {
+      authReq = authReq.clone({headers: authReq.headers.set('Role', role)})
     }
     return next.handle(authReq).pipe(
       map((event: HttpEvent<any>) => {
@@ -33,7 +37,12 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         console.log('error--->>>', error);
-        if (error.status === 401) {
+        if(error.error.message === 'Access is denied') {
+          this.token.clear();
+          location.reload();
+          this.router.navigate(['/login']);
+        }
+        if (error.status === 401 || error.message === 'Access is denied') {
           this.token.clear();
           if (!this.router.url.includes('login')) {
             location.reload();

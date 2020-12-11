@@ -15,6 +15,8 @@ public class RoleDto implements Serializable {
 
   private static final long serialVersionUID = 4844040204809916570L;
 
+  private Integer id;
+
   private String authority;
 
   private String description;

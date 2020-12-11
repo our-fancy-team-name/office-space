@@ -37,7 +37,7 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
   private RoleDtoConverter roleDtoConverter;
 
   @Override
-  public UserDetails loadUserByUsername(String username) {
+  public UserDetailsPrinciple loadUserByUsername(String username) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(error(username));
     List<Role> roles = roleRepository.findByUserId(user.getId());

@@ -23,4 +23,9 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
       "and ur.isRecentlyUse = true")
   Optional<Role> findLastUsageByUserId(@Param("userId") Integer userId);
 
+  boolean existsByCode(String code);
+
+  Optional<Role> findById(int id);
+
+  Optional<Role> findByCode(String code);
 }

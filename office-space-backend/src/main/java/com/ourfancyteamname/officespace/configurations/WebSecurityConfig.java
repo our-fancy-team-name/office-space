@@ -2,6 +2,7 @@ package com.ourfancyteamname.officespace.configurations;
 
 import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
 import com.ourfancyteamname.officespace.security.AuthTokenFilter;
+import com.ourfancyteamname.officespace.security.services.PermissionSecurityService;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

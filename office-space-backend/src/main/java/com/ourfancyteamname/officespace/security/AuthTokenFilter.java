@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.security;
 
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import com.ourfancyteamname.officespace.security.services.JwtService;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       String jwt = parseJwt(request);
       if (jwt != null && jwtService.validateJwtToken(jwt)) {
         String username = jwtService.getUserNameFromJwtToken(jwt);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        String currentRole = request.getHeader("Role");
+        UserDetailsPrinciple userDetails = userDetailsService.loadUserByUsername(username);
+        userDetails.setCurrentRole(currentRole);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
             userDetails, null, userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

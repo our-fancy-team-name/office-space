@@ -30,6 +30,8 @@ public class UserDetailsPrinciple implements UserDetails {
 
   private List<PermissionCode> permissionCodes;
 
+  private String currentRole;
+
   @JsonIgnore
   private String password;
 

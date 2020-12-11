@@ -20,7 +20,7 @@ import java.util.List;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class PermissionServiceTest {
+public class PermissionSecurityServiceTest {
   private static final RoleDto admin = RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build();
   private static final List<RoleDto> roles = Arrays.asList(admin);
   private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.USER_DELETE);
@@ -35,7 +35,7 @@ public class PermissionServiceTest {
 
 
   @InjectMocks
-  private PermissionService permissionService;
+  private PermissionSecurityService permissionSecurityService;
 
   @Test
   public void canDeleteUser_true() {
@@ -45,7 +45,7 @@ public class PermissionServiceTest {
     Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
     Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertTrue(permissionService.canDeleteUser());
+    Assert.assertTrue(permissionSecurityService.canDeleteUser());
   }
 
   @Test
@@ -56,6 +56,6 @@ public class PermissionServiceTest {
     Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
     Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionService.canDeleteUser());
+    Assert.assertFalse(permissionSecurityService.canDeleteUser());
   }
 }
