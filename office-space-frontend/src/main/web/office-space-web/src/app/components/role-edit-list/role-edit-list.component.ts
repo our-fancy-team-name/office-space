@@ -189,6 +189,9 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     this.roleService.updateRoleUser(roleUserUpdateDto).subscribe(res => {
       this.closeElement();
       this.initialData();
+    }, err => {
+      this.codeCtr.setErrors(this.validator.getErrorMessage(err));
+      this.spinner.hide();
     });
   }
 
@@ -269,6 +272,9 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     this.roleService.createRoleUser(roleUserUpdateDto).subscribe(res => {
       this.closeCre();
       this.initialData();
+    }, err => {
+      this.codeCreCtr.setErrors(this.validator.getErrorMessage(err));
+      this.spinner.hide();
     });
   }
 

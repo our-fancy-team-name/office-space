@@ -9,6 +9,7 @@ import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.db.view.RoleUserListView;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,13 +39,13 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public Role updateRole(RoleDto roleDto) {
     Role target = roleRepository.findById(roleDto.getId())
-        .orElseThrow(() -> new IllegalArgumentException("Role can not be found"));
+        .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
 
     if (!roleRepository.findByCode(roleDto.getAuthority())
         .map(Role::getId)
         .map(id -> id == target.getId())
         .orElse(true)) {
-      throw new IllegalArgumentException("Duplicated role code");
+      throw new IllegalArgumentException(ErrorCode.DUPLICATED.name());
     }
     target.setCode(roleDto.getAuthority());
     target.setDescription(roleDto.getDescription());
@@ -54,7 +55,7 @@ public class RoleServiceImpl implements RoleService {
   @Override
   public Role createRole(RoleDto roleDto) {
     if (roleRepository.existsByCode(roleDto.getAuthority())) {
-      throw new IllegalArgumentException("Duplicated role code");
+      throw new IllegalArgumentException(ErrorCode.DUPLICATED.name());
     }
     return roleRepository.save(Role.builder().
         code(roleDto.getAuthority())
