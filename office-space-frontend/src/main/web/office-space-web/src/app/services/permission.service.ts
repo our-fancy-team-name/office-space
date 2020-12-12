@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TableSearchRequest } from '../dtos/tableSearch';
 import { StorageService } from './auth/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class PermissionService {
+
+  readonly url = `${this.storage.get(StorageService.API)}permission`;
 
   constructor(private http: HttpClient, private storage: StorageService) { }
 
-  getAllUsers() {
-    return this.http.post(`${this.storage.get(StorageService.API)}user`, new TableSearchRequest());
+  findAllPermissionByRole(role: string): Observable<any> {
+    return this.http.get(`${this.url}/${role}`);
   }
 }

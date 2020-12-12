@@ -11,6 +11,7 @@ import { catchError, map, startWith, switchMap, debounceTime } from 'rxjs/operat
 import { ColumnSearchRequest, TablePagingRequest, TableSearchRequest } from 'src/app/dtos/tableSearch';
 import { PERMISSION_CODE } from 'src/app/enums/permissionCode';
 import { DataBaseOperation } from 'src/app/enums/tableSearchEnum';
+import { PermissionService } from 'src/app/services/permission.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 import { ValidatorsService } from 'src/app/utils/validators.service';
@@ -64,6 +65,9 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   resultLength = 0;
   pageSize = 0;
   isAddingRole = false;
+  isDeleteRoleMode = false;
+  elementToDelete;
+  agreementToDelete = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('chipCreate') chipCre: ChipsComponent;
@@ -73,6 +77,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     public validator: ValidatorsService,
     private roleService: RoleService,
     private spinner: NgxSpinnerService,
+    private permissionService: PermissionService
   ) {
     Object.entries(PERMISSION_CODE).forEach(
       ([key, value]) => this.permissionObjects.push({
@@ -132,7 +137,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
           pageRequest.pageSize = this.paginator.pageSize;
           tableRequest.pagingRequest = pageRequest;
           tableRequest.columnSearchRequests = colRequest;
-          return this.userService.getRoleUserListView(tableRequest);
+          return this.roleService.getRoleUserListView(tableRequest);
         }),
         map(data => {
           this.resultLength = data.totalElements;
@@ -150,7 +155,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   openElement(element) {
     this.closeCre();
     this.chips = element.users?.split(',') || [];
-    this.userService.findAllPermissionByRole(element.code).subscribe(res => {
+    this.permissionService.findAllPermissionByRole(element.code).subscribe(res => {
       const perm = res.map((i: any) => i.code);
       this.permissionObjects.forEach(item => {
         item.check = perm.indexOf(item.code) >= 0;
@@ -284,5 +289,33 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
       this.expandedElement = null;
       this.permissionObjects.forEach(i => i.check = false);
     }
+  }
+
+  isHideEditBtn(element) {
+    return this.isDeleteRoleMode && element === this.elementToDelete;
+  }
+
+  enableDeleteRole(element) {
+    this.isDeleteRoleMode = true;
+    this.elementToDelete = element;
+    this.agreementToDelete = false;
+    this.expandedElement = null;
+  }
+
+  cancelDeleteRole(element) {
+    this.elementToDelete = null;
+    this.isDeleteRoleMode = false;
+    this.agreementToDelete = false;
+  }
+
+  isConfirmDeleteDisable(element) {
+    return this.agreementToDelete === false;
+  }
+
+  deleteRole(element) {
+    this.spinner.show();
+    this.roleService.deleteRole(element.id).subscribe(res => {
+      this.initialData();
+    });
   }
 }

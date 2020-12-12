@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import com.ourfancyteamname.officespace.db.converters.dtos.PermissionConverter;
 import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.RolePermission;
 import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
@@ -8,7 +9,6 @@ import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.services.PermissionService;
-import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +30,12 @@ public class PermissionServiceImpl implements PermissionService {
   @PersistenceContext
   private EntityManager entityManager;
 
+  @Autowired
+  private PermissionConverter permissionConverter;
+
   @Override
   public List<RolePermission> updateRolePermission(RoleDto role, List<PermissionDto> perm) {
-    rolePermissionRepository.removeByRoleId(role.getId());
+    deleteRolePermissionByRoleId(role.getId());
     entityManager.flush();
     List<RolePermission> target = perm.stream()
         .map(PermissionDto::getCode)
@@ -62,6 +65,19 @@ public class PermissionServiceImpl implements PermissionService {
             .build())
         .collect(Collectors.toList());
     return rolePermissionRepository.saveAll(target);
+  }
+
+  @Override
+  public List<PermissionDto> findAllPermissionByRole(String role) {
+    return permissionRepository.findPermissionByRole(role)
+        .stream()
+        .map(permissionConverter::toDto)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public void deleteRolePermissionByRoleId(Integer roleId) {
+    rolePermissionRepository.removeByRoleId(roleId);
   }
 
 }

@@ -1,19 +1,14 @@
 package com.ourfancyteamname.officespace.services.impl;
 
-import com.ourfancyteamname.officespace.db.converters.dtos.PermissionConverter;
 import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.db.entities.UserRole;
-import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
-import com.ourfancyteamname.officespace.db.repos.RoleUserListViewRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRoleRepository;
 import com.ourfancyteamname.officespace.db.services.PaginationService;
 import com.ourfancyteamname.officespace.db.services.SortingService;
 import com.ourfancyteamname.officespace.db.services.SpecificationService;
-import com.ourfancyteamname.officespace.db.view.RoleUserListView;
-import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
@@ -51,15 +46,6 @@ public class UserServiceImpl implements UserService {
   private UserConverter userConverter;
 
   @Autowired
-  private PermissionConverter permissionConverter;
-
-  @Autowired
-  private PermissionRepository permissionRepository;
-
-  @Autowired
-  private RoleUserListViewRepository roleUserListViewRepository;
-
-  @Autowired
   private UserRoleRepository userRoleRepository;
 
   @PersistenceContext
@@ -75,24 +61,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<PermissionDto> findAllPermissionByRole(String role) {
-    return permissionRepository.findPermissionByRole(role)
-        .stream()
-        .map(permissionConverter::toDto)
-        .collect(Collectors.toList());
-  }
-
-  @Override
-  public Page<RoleUserListView> getRolUserListView(TableSearchRequest tableSearchRequest) {
-    Specification<RoleUserListView> specs = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return roleUserListViewRepository.findAll(specs, page);
-  }
-
-  @Override
   public List<UserRole> updateUserRole(RoleDto roleDto, List<String> users) {
-    userRoleRepository.removeByRoleId(roleDto.getId());
+    deleteUserRole(roleDto.getId());
     entityManager.flush();
     List<UserRole> userRoles = users.stream()
         .map(userRepository::findByUsername)
@@ -113,5 +83,10 @@ public class UserServiceImpl implements UserService {
         .map(User::getId)
         .map(userId -> UserRole.builder().roleId(role.getId()).userId(userId).isRecentlyUse(false).build())
         .collect(Collectors.toList()));
+  }
+
+  @Override
+  public void deleteUserRole(Integer roleId) {
+    userRoleRepository.removeByRoleId(roleId);
   }
 }

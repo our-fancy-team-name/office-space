@@ -35,7 +35,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                       <app-chips #chipCreate [allChips]="allChips"></app-chips>
+                        <app-chips #chipCreate [allChips]="allChips"></app-chips>
                     </div>
                 </div>
                 <div class="row">
@@ -65,7 +65,8 @@
                     <div class="col-md-8"></div>
                     <div class="col-md-2">
                         <div class="float-right">
-                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()" mat-flat-button color="primary">
+                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()" mat-flat-button
+                                color="primary">
                                 <mat-icon>check</mat-icon>
                             </button>
                         </div>
@@ -134,9 +135,37 @@
             <th mat-header-cell *matHeaderCellDef>
             </th>
             <td mat-cell *matCellDef="let element">
-                <button (click)="openElement(element)" mat-icon-button color="primary">
-                    <mat-icon>edit</mat-icon>
-                </button>
+                <div [hidden]="isHideEditBtn(element)" class="row">
+                    <div class="col-md-6">
+                        <button (click)="openElement(element)" mat-icon-button color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button (click)="enableDeleteRole(element)" mat-icon-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div [hidden]="!isHideEditBtn(element)" class="row">
+                    <div class="col-md-6">
+                        <button (click)="deleteRole(element)" [disabled]="isConfirmDeleteDisable(element)" mat-icon-button color="primary">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button (click)="cancelDeleteRole(element)" mat-icon-button color="warn">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div [hidden]="!isHideEditBtn(element)" class="row">
+                    <div class="text-danger col-md-12">
+                        <mat-checkbox [(ngModel)]="agreementToDelete">
+                            {{'ROLE_EDIT_LIST.AGREE'| uppercase | translate}}
+                        </mat-checkbox>
+                    </div>
+                </div>
             </td>
         </ng-container>
 

@@ -2,7 +2,6 @@ package com.ourfancyteamname.officespace.configurations;
 
 import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
 import com.ourfancyteamname.officespace.security.AuthTokenFilter;
-import com.ourfancyteamname.officespace.security.services.PermissionSecurityService;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,10 +18,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+  private static final String[] METHOD_ALLOWED = {"HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"};
 
   @Autowired
   private UserDetailsSecurityServiceImpl userDetailsService;
@@ -55,7 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
         .cors()
-        .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+        .configurationSource(request -> {
+          CorsConfiguration corsConfiguration = new CorsConfiguration();
+          corsConfiguration.setAllowedMethods(Arrays.asList(METHOD_ALLOWED));
+          return corsConfiguration.applyPermitDefaultValues();
+        })
         .and()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

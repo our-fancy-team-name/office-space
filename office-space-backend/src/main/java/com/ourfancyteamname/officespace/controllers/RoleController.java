@@ -2,12 +2,17 @@ package com.ourfancyteamname.officespace.controllers;
 
 import com.ourfancyteamname.officespace.annotations.CanEditRole;
 import com.ourfancyteamname.officespace.db.entities.Role;
+import com.ourfancyteamname.officespace.db.view.RoleUserListView;
 import com.ourfancyteamname.officespace.dtos.RoleUserUpdateDto;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.services.PermissionService;
 import com.ourfancyteamname.officespace.services.RoleService;
 import com.ourfancyteamname.officespace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,5 +51,21 @@ public class RoleController {
     userService.createUserRole(role, roleUserUpdateDto.getUsers());
     permissionService.createRolePermission(role, roleUserUpdateDto.getPermissionDto());
     return ResponseEntity.ok().build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Transactional
+  @CanEditRole
+  public ResponseEntity<Void> delete(@PathVariable("id") Integer roleId) {
+    permissionService.deleteRolePermissionByRoleId(roleId);
+    userService.deleteUserRole(roleId);
+    roleService.deleteRole(roleId);
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/list")
+  public ResponseEntity<Page<RoleUserListView>> getRoleUserListView(
+      @RequestBody TableSearchRequest tableSearchRequest) {
+    return ResponseEntity.ok(roleService.getRolUserListView(tableSearchRequest));
   }
 }

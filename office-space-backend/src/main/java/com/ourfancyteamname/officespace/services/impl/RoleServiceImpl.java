@@ -2,9 +2,19 @@ package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
+import com.ourfancyteamname.officespace.db.repos.RoleUserListViewRepository;
+import com.ourfancyteamname.officespace.db.services.PaginationService;
+import com.ourfancyteamname.officespace.db.services.SortingService;
+import com.ourfancyteamname.officespace.db.services.SpecificationService;
+import com.ourfancyteamname.officespace.db.view.RoleUserListView;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +22,18 @@ public class RoleServiceImpl implements RoleService {
 
   @Autowired
   private RoleRepository roleRepository;
+
+  @Autowired
+  private SpecificationService specificationService;
+
+  @Autowired
+  private SortingService sortingService;
+
+  @Autowired
+  private PaginationService paginationService;
+
+  @Autowired
+  private RoleUserListViewRepository roleUserListViewRepository;
 
   @Override
   public Role updateRole(RoleDto roleDto) {
@@ -38,5 +60,18 @@ public class RoleServiceImpl implements RoleService {
         code(roleDto.getAuthority())
         .description(roleDto.getDescription())
         .build());
+  }
+
+  @Override
+  public void deleteRole(Integer role) {
+    roleRepository.deleteById(role);
+  }
+
+  @Override
+  public Page<RoleUserListView> getRolUserListView(TableSearchRequest tableSearchRequest) {
+    Specification<RoleUserListView> specs = specificationService.specificationBuilder(tableSearchRequest);
+    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
+    Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
+    return roleUserListViewRepository.findAll(specs, page);
   }
 }
