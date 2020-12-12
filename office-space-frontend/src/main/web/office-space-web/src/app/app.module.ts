@@ -23,6 +23,7 @@ import { RoleInterceptor } from './interceptors/role.interceptor';
 import { createTranslationLoader, TranslationInterceptor } from './interceptors/translation.interceptor';
 import { MaterialModule } from './material.module';
 import { ChipsComponent } from './components/chips/chips.component';
+import { UserEditListComponent } from './components/user-edit-list/user-edit-list.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ChipsComponent } from './components/chips/chips.component';
     HomeComponent,
     RoleManageComponent,
     RoleEditListComponent,
-    ChipsComponent
+    ChipsComponent,
+    UserEditListComponent
   ],
   imports: [
     BrowserModule,

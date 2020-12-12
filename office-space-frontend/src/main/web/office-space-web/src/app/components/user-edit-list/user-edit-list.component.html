@@ -1,0 +1,74 @@
+<div class="container-fluid">
+
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>
+                <div class="p-2">
+                    {{'ROLE_EDIT_LIST.USERNAME' | translate}}
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-9">
+                        <mat-form-field appearance="outline">
+                            <input [formControl]="usernameSearchCtr" matInput>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>
+                <div class="p-2">
+                    {{'ROLE_EDIT_LIST.NAME' | translate}}
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-9">
+                        <mat-form-field appearance="outline">
+                            <input [formControl]="nameSearchCtr" matInput>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>
+                <div class="p-2">
+                    {{'ROLE_EDIT_LIST.EMAIL' | translate}}
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-9">
+                        <mat-form-field appearance="outline">
+                            <input [formControl]="emailSearchCtr" matInput>
+                            <mat-icon matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+            </th>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail" [@detailExpand]="expanDetails(element)">
+
+                </div>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement?.code === element?.code">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <mat-paginator [length]="resultLength" [pageSizeOptions]="[10, 25, 50]" [pageSize]="pageSize"></mat-paginator>
+</div>

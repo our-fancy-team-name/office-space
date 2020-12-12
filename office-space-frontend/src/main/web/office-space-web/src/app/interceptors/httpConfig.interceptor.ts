@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -31,25 +31,29 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          // console.log('event--->>>', event);
         }
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('error--->>>', error);
-        if (error.error.message === 'Access is denied') {
-          this.token.clear();
-          location.reload();
-          this.router.navigate(['/login']);
+        if (!isDevMode()) {
+          console.log('error--->>>', error);
         }
-        if (error.status === 401 || error.message === 'Access is denied') {
+        if (error.status === 401 || error.status === 403) { // wrong credential or permission
           this.token.clear();
           if (!this.router.url.includes('login')) {
             location.reload();
             this.router.navigate(['/login']);
           }
         }
-        return throwError(error);
+        if (error.status === 417) { // already handle exception
+          return throwError(error);
+        }
+        if (!isDevMode()) {
+          alert(error.error.message); // alert error
+          location.reload();
+        } else {
+          return throwError(error);
+        }
       }));
   }
 }
