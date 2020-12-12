@@ -19,7 +19,7 @@ import { ChipsComponent } from '../chips/chips.component';
 @Component({
   selector: 'app-role-edit-list',
   templateUrl: './role-edit-list.component.html',
-  styleUrls: ['./role-edit-list.component.scss',],
+  styleUrls: ['./role-edit-list.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -31,14 +31,29 @@ import { ChipsComponent } from '../chips/chips.component';
 export class RoleEditListComponent implements OnInit, AfterViewInit {
   readonly TIME_OUT = 800;
 
+  // permission------------------------------------------
+  permissionObjects = [];
+  checked = true;
+  // mat chip ----------------------------------------------------
+  visible = true;
+  selectable = true;
+  removable = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  chipCtrl = new FormControl();
+  filteredFruits: Observable<string[]>;
+  chips: string[];
+  allChips: string[];
+  @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
   dataSource: [] = [];
   columnsToDisplay = ['code', 'description', 'users', 'action'];
   expandedElement = null;
   agreement = false;
-  codeCtr = new FormControl('',[
+  codeCtr = new FormControl('', [
     this.validator.required()
   ]);
-  codeCreCtr= new FormControl('',[
+  codeCreCtr = new FormControl('', [
     this.validator.required()
   ]);
   descriptionCreCtr = new FormControl();
@@ -48,7 +63,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   descriptionCtr = new FormControl('');
   resultLength = 0;
   pageSize = 0;
-  isAddingRole= false;
+  isAddingRole = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('chipCreate') chipCre: ChipsComponent;
@@ -71,20 +86,18 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    
   }
 
   initialData() {
-    this.enableTableFilter();
     this.spinner.show();
     this.searchTableData();
     this.userService.getAllUsers().subscribe((res: any) => {
       this.allChips = res.content.map(item => item.username);
       this.filteredFruits = this.chipCtrl.valueChanges.pipe(
-        startWith(''),
-        map((chip: string | '') => chip ? this._filter(chip) : this.allChips.slice()));
-        this.spinner.hide();
-    })
+          startWith(''),
+          map((chip: string | '') => chip ? this._filter(chip) : this.allChips.slice()));
+      this.spinner.hide();
+    });
   }
 
   searchTableData() {
@@ -100,21 +113,21 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
           const pageRequest = new TablePagingRequest();
           const colRequest: ColumnSearchRequest[] = [
             {
-              columnName: "code",
+              columnName: 'code',
               operation: DataBaseOperation.LIKE,
               term: this.codeSearchCtr.value || ''
             },
             {
-              columnName: "description",
+              columnName: 'description',
               operation: DataBaseOperation.LIKE,
               term: this.descriptionSearchCtr.value || ''
             },
             {
-              columnName: "users",
+              columnName: 'users',
               operation: DataBaseOperation.LIKE,
               term: this.userSearchCtr.value || ''
             }
-          ]
+          ];
           pageRequest.page = this.paginator.pageIndex;
           pageRequest.pageSize = this.paginator.pageSize;
           tableRequest.pagingRequest = pageRequest;
@@ -133,46 +146,29 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
         this.dataSource = data;
       });
   }
-  
+
   openElement(element) {
+    this.closeCre();
     this.chips = element.users?.split(',') || [];
     this.userService.findAllPermissionByRole(element.code).subscribe(res => {
-      const perm = res.map((i: any) => i.code)
+      const perm = res.map((i: any) => i.code);
       this.permissionObjects.forEach(item => {
         item.check = perm.indexOf(item.code) >= 0;
-      })
+      });
       this.codeCtr.setValue(element.code);
       this.descriptionCtr.setValue(element.description);
       this.expandedElement = this.expandedElement?.code === element?.code ? null : element;
       this.agreement = false;
-      if(this.expandedElement === null) {
-        this.enableTableFilter();
-      } else {
-        this.disableTableFilter();
-      }
-    })
-  }
-
-  disableTableFilter() {
-    this.codeSearchCtr.disable();
-    this.descriptionSearchCtr.disable();
-    this.userSearchCtr.disable();
-  }
-
-  enableTableFilter() {
-    this.codeSearchCtr.enable();
-    this.descriptionSearchCtr.enable();
-    this.userSearchCtr.enable();
+    });
   }
 
   closeElement() {
     this.expandedElement = null;
     this.agreement = false;
-    this.enableTableFilter();
   }
 
   submit(element) {
-    const permissionDto = this.permissionObjects.filter(i => i.check).map(i => {return {code: i.code}});
+    const permissionDto = this.permissionObjects.filter(i => i.check).map(i => i.code);
     const users = this.chips;
     const roleUserUpdateDto = {
       roleDto: {
@@ -183,43 +179,28 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
       },
       permissionDto,
       users
-    }
+    };
     this.spinner.show();
     this.roleService.updateRoleUser(roleUserUpdateDto).subscribe(res => {
       this.closeElement();
       this.initialData();
-    })
+    });
   }
 
   expanDetails(element) {
     return element?.code === this.expandedElement?.code ? 'expanded' : 'collapsed';
   }
 
-
-
-  // mat chip ----------------------------------------------------
-
-  visible = true;
-  selectable = true;
-  removable = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  chipCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  chips: string[];
-  allChips: string[];
-  @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
-
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    if(this.allChips.indexOf(value) < 0) {
+    if (this.allChips.indexOf(value) < 0) {
       input.value = '';
       return;
     }
 
-    if(this.chips.indexOf(value) >=0) {
+    if (this.chips.indexOf(value) >= 0) {
       input.value = '';
       return;
     }
@@ -243,7 +224,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
       this.chips.splice(index, 1);
     }
   }
-  
+
   selected(event: MatAutocompleteSelectedEvent): void {
     if (this.chips.indexOf(event.option.viewValue) >= 0) {
       this.chipCtrl.setValue(null);
@@ -260,18 +241,15 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     return this.allChips.filter(chip => chip.toLowerCase().indexOf(value) === 0);
   }
 
-  // permission------------------------------------------
-  permissionObjects = [];
-  checked = true;
-
   isSubmitDisable() {
-    if (!this.agreement) return true;
-    if (this.validator.isValid(this.codeCtr)) return true;
+    if (!this.agreement || this.validator.isValid(this.codeCtr)) {
+      return true;
+    }
     return false;
   }
 
   submitCre() {
-    const permissionDto = this.permissionObjects.filter(i => i.check).map(i => {return {code: i.code}});
+    const permissionDto = this.permissionObjects.filter(i => i.check).map(i => i.code);
     const users = this.chipCre.getValue();
     const roleUserUpdateDto = {
       roleDto: {
@@ -281,18 +259,18 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
       },
       permissionDto,
       users
-    }
+    };
     this.spinner.show();
-    // this.roleService.updateRoleUser(roleUserUpdateDto).subscribe(res => {
-    //   this.closeElement();
-    //   this.initialData();
-    // })
+    this.roleService.createRoleUser(roleUserUpdateDto).subscribe(res => {
+      this.closeCre();
+      this.initialData();
+    });
   }
 
   isSubmitCreDisable() {
-    if (this.codeCreCtr.value === '') return true;
-    if (!this.agreement) return true;
-    if (this.validator.isValid(this.codeCreCtr)) return true;
+    if (this.codeCreCtr.value === '' || !this.agreement || this.validator.isValid(this.codeCreCtr)) {
+      return true;
+    }
     return false;
   }
 
@@ -302,5 +280,9 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
 
   addCre() {
     this.isAddingRole = !this.isAddingRole;
+    if (this.isAddingRole) {
+      this.expandedElement = null;
+      this.permissionObjects.forEach(i => i.check = false);
+    }
   }
 }

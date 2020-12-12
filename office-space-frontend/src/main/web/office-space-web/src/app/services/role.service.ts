@@ -14,4 +14,8 @@ export class RoleService {
   updateRoleUser(data) {
     return this.http.post(this.url, data);
   }
+
+  createRoleUser(data) {
+    return this.http.post(`${this.url}/create`, data);
+  }
 }

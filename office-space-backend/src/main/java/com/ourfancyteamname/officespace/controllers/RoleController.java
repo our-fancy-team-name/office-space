@@ -1,7 +1,7 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.annotations.CanDeleteUser;
 import com.ourfancyteamname.officespace.annotations.CanEditRole;
+import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.dtos.RoleUserUpdateDto;
 import com.ourfancyteamname.officespace.services.PermissionService;
 import com.ourfancyteamname.officespace.services.RoleService;
@@ -35,6 +35,16 @@ public class RoleController {
     roleService.updateRole(roleUserUpdateDto.getRoleDto());
     userService.updateUserRole(roleUserUpdateDto.getRoleDto(), roleUserUpdateDto.getUsers());
     permissionService.updateRolePermission(roleUserUpdateDto.getRoleDto(), roleUserUpdateDto.getPermissionDto());
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/create")
+  @Transactional
+  @CanEditRole
+  public ResponseEntity<Void> create(@RequestBody RoleUserUpdateDto roleUserUpdateDto) {
+    Role role = roleService.createRole(roleUserUpdateDto.getRoleDto());
+    userService.createUserRole(role, roleUserUpdateDto.getUsers());
+    permissionService.createRolePermission(role, roleUserUpdateDto.getPermissionDto());
     return ResponseEntity.ok().build();
   }
 }

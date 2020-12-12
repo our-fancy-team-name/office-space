@@ -2,6 +2,7 @@ package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.db.converters.dtos.PermissionConverter;
 import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
+import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.db.entities.UserRole;
 import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
@@ -17,6 +18,7 @@ import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.services.UserService;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -89,7 +91,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void updateUserRole(RoleDto roleDto, List<String> users) {
+  public List<UserRole> updateUserRole(RoleDto roleDto, List<String> users) {
     userRoleRepository.removeByRoleId(roleDto.getId());
     entityManager.flush();
     List<UserRole> userRoles = users.stream()
@@ -99,6 +101,17 @@ public class UserServiceImpl implements UserService {
         .map(User::getId)
         .map(userId -> UserRole.builder().roleId(roleDto.getId()).userId(userId).isRecentlyUse(false).build())
         .collect(Collectors.toList());
-    userRoleRepository.saveAll(userRoles);
+    return userRoleRepository.saveAll(userRoles);
+  }
+
+  @Override
+  public List<UserRole> createUserRole(Role role, List<String> users) {
+    return userRoleRepository.saveAll(ListUtils.emptyIfNull(users).stream()
+        .map(userRepository::findByUsername)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .map(User::getId)
+        .map(userId -> UserRole.builder().roleId(role.getId()).userId(userId).isRecentlyUse(false).build())
+        .collect(Collectors.toList()));
   }
 }

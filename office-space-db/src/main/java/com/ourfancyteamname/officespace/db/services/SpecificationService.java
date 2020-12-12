@@ -2,6 +2,7 @@ package com.ourfancyteamname.officespace.db.services;
 
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,6 +26,9 @@ public class SpecificationService {
   private Specification specificationBuilder(ColumnSearchRequest columnSearchRequest) {
     return (root, query, builder) -> {
       String columnName = columnSearchRequest.getColumnName();
+      if(StringUtils.isBlank(columnSearchRequest.getTerm())) {
+        return null;
+      }
       switch (columnSearchRequest.getOperation()) {
         case EQUAL:
           return builder.equal(root.get(columnName), columnSearchRequest.getTerm());

@@ -11,7 +11,7 @@ export class ColumnSearchRequest {
     columnName: string;
     operation: DataBaseOperation;
     term: string;
-    isOrTerm? = false;
+    isOrTerm ? = false;
 }
 
 export class TablePagingRequest {

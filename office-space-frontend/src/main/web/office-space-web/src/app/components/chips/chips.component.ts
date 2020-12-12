@@ -1,5 +1,5 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -16,16 +16,6 @@ export class ChipsComponent implements OnInit {
   @Input() allChips;
   @Input() initialChips?;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    this.chips = this.initialChips || [];
-    this.fillterdChips = this.chipCtrl.valueChanges.pipe(
-      startWith(''),
-      map((chip: string | '') => chip ? this._filter(chip) : this.allChips.slice()));
-  }
-
   visible = true;
   selectable = true;
   removable = true;
@@ -36,6 +26,16 @@ export class ChipsComponent implements OnInit {
   @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.chips = this.initialChips || [];
+    this.fillterdChips = this.chipCtrl.valueChanges.pipe(
+      startWith(''),
+      map((chip: string | '') => chip ? this._filter(chip) : this.allChips.slice()));
+  }
+
   getValue() {
     return this.chips;
   }
@@ -45,16 +45,15 @@ export class ChipsComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-    
     const input = event.input;
     const value = event.value;
 
-    if(this.allChips.indexOf(value) < 0) {
+    if (this.allChips.indexOf(value) < 0) {
       input.value = '';
       return;
     }
 
-    if(this.chips.indexOf(value) >=0) {
+    if (this.chips.indexOf(value) >= 0) {
       input.value = '';
       return;
     }
@@ -78,7 +77,7 @@ export class ChipsComponent implements OnInit {
       this.chips.splice(index, 1);
     }
   }
-  
+
   selected(event: MatAutocompleteSelectedEvent): void {
     if (this.chips.indexOf(event.option.viewValue) >= 0) {
       this.chipCtrl.setValue(null);

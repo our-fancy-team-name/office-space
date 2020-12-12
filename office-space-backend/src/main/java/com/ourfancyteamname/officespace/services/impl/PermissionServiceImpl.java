@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.RolePermission;
 import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
 import com.ourfancyteamname.officespace.db.repos.RolePermissionRepository;
@@ -30,7 +31,7 @@ public class PermissionServiceImpl implements PermissionService {
   private EntityManager entityManager;
 
   @Override
-  public void updateRolePermission(RoleDto role, List<PermissionDto> perm) {
+  public List<RolePermission> updateRolePermission(RoleDto role, List<PermissionDto> perm) {
     rolePermissionRepository.removeByRoleId(role.getId());
     entityManager.flush();
     List<RolePermission> target = perm.stream()
@@ -44,10 +45,23 @@ public class PermissionServiceImpl implements PermissionService {
             .roleId(role.getId())
             .build())
         .collect(Collectors.toList());
-    rolePermissionRepository.saveAll(target);
+    return rolePermissionRepository.saveAll(target);
   }
 
-  public static void main(String[] args) {
-    PermissionCode a = PermissionCode.valueOf("USER_EDIT");
+  @Override
+  public List<RolePermission> createRolePermission(Role role, List<PermissionDto> perm) {
+    List<RolePermission> target = perm.stream()
+        .map(PermissionDto::getCode)
+        .map(PermissionCode::valueOf)
+        .map(permissionRepository::findByCode)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .map(p -> RolePermission.builder()
+            .permissionId(p.getId())
+            .roleId(role.getId())
+            .build())
+        .collect(Collectors.toList());
+    return rolePermissionRepository.saveAll(target);
   }
+
 }

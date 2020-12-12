@@ -14,7 +14,7 @@ public class RoleServiceImpl implements RoleService {
   private RoleRepository roleRepository;
 
   @Override
-  public void updateRole(RoleDto roleDto) {
+  public Role updateRole(RoleDto roleDto) {
     Role target = roleRepository.findById(roleDto.getId())
         .orElseThrow(() -> new IllegalArgumentException("Role can not be found"));
 
@@ -26,6 +26,17 @@ public class RoleServiceImpl implements RoleService {
     }
     target.setCode(roleDto.getAuthority());
     target.setDescription(roleDto.getDescription());
-    roleRepository.save(target);
+    return roleRepository.save(target);
+  }
+
+  @Override
+  public Role createRole(RoleDto roleDto) {
+    if (roleRepository.existsByCode(roleDto.getAuthority())) {
+      throw new IllegalArgumentException("Duplicated role code");
+    }
+    return roleRepository.save(Role.builder().
+        code(roleDto.getAuthority())
+        .description(roleDto.getDescription())
+        .build());
   }
 }
