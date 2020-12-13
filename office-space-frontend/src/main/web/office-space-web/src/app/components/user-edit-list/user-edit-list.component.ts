@@ -163,7 +163,6 @@ export class UserEditListComponent implements OnInit {
   }
 
   closeElement() {
-    
   }
 
 }

@@ -1,10 +1,8 @@
 package com.ourfancyteamname.officespace.controllers;
 
 import com.ourfancyteamname.officespace.db.entities.view.UserRoleListView;
-import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
-import com.ourfancyteamname.officespace.enums.DataBaseOperation;
 import com.ourfancyteamname.officespace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
 
 @RestController
 @RequestMapping("/api/user")

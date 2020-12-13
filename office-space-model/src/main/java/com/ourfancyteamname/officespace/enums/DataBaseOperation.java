@@ -7,5 +7,5 @@ public enum DataBaseOperation {
   GREATER_THAN_OR_EQUAL_TO,
   EQUAL,
   LIKE,
-  NOT_EQUAL;
+  NOT_EQUAL
 }
