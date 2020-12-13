@@ -41,7 +41,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   chipCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
+  filteredChips: Observable<string[]>;
   chips: string[];
   allChips: string[];
   @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
@@ -98,7 +98,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     this.searchTableData();
     this.userService.getAllUsers().subscribe((res: any) => {
       this.allChips = res.content.map(item => item.username);
-      this.filteredFruits = this.chipCtrl.valueChanges.pipe(
+      this.filteredChips = this.chipCtrl.valueChanges.pipe(
           startWith(''),
           map((chip: string | '') => chip ? this._filter(chip) : this.allChips.slice()));
       this.spinner.hide();

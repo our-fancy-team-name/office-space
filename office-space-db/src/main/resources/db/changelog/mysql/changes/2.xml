@@ -62,4 +62,18 @@
         </sql>
     </changeSet>
 
+    <changeSet author="office-space" id="ADD_USER_ROLE_LIST_VIEW">
+        <sql>
+            create or replace view user_role_list_view as
+            select u.id as id, u.username as username, concat(u.`first-name`, u.`last-name`) as name,
+            u.email as email , group_concat(r.code separator ',') as roles
+            from `user` u
+            left join user_role ur on ur.user_id = u.id
+            left join `role` r on r.id = ur.role_id
+            group by u.id
+
+        </sql>
+    </changeSet>
+
+
 </databaseChangeLog>

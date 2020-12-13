@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.db.view;
+package com.ourfancyteamname.officespace.db.entities.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -174,7 +174,7 @@
                 <div class="example-element-detail" [@detailExpand]="expanDetails(element)">
                     <div class="row w-100">
                         <div class="col-md-12">
-                            <mat-card class="">
+                            <mat-card>
                                 <mat-card-header>
                                     <div mat-card-avatar></div>
                                     <mat-card-title>{{'ROLE_EDIT_LIST.EDIT_ROLE' | translate}}</mat-card-title>
@@ -214,7 +214,7 @@
                                             </mat-chip-list>
                                             <mat-autocomplete #auto="matAutocomplete"
                                                 (optionSelected)="selected($event)">
-                                                <mat-option *ngFor="let chip of filteredFruits | async" [value]="chip">
+                                                <mat-option *ngFor="let chip of filteredChips | async" [value]="chip">
                                                     {{chip}}
                                                 </mat-option>
                                             </mat-autocomplete>

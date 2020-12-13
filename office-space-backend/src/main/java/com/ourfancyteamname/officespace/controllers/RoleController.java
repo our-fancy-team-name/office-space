@@ -2,7 +2,7 @@ package com.ourfancyteamname.officespace.controllers;
 
 import com.ourfancyteamname.officespace.annotations.CanEditRole;
 import com.ourfancyteamname.officespace.db.entities.Role;
-import com.ourfancyteamname.officespace.db.view.RoleUserListView;
+import com.ourfancyteamname.officespace.db.entities.view.RoleUserListView;
 import com.ourfancyteamname.officespace.dtos.RoleUserUpdateDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.services.PermissionService;

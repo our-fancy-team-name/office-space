@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { TableSearchRequest } from '../dtos/tableSearch';
 import { StorageService } from './auth/storage.service';
 
@@ -8,10 +7,15 @@ import { StorageService } from './auth/storage.service';
   providedIn: 'root'
 })
 export class UserService {
+  readonly url = `${this.storage.get(StorageService.API)}user`;
 
   constructor(private http: HttpClient, private storage: StorageService) { }
 
   getAllUsers() {
-    return this.http.post(`${this.storage.get(StorageService.API)}user`, new TableSearchRequest());
+    return this.http.post(this.url, new TableSearchRequest());
+  }
+
+  getUserRoleListView(table) {
+    return this.http.post(`${this.url}/list-role`, table);
   }
 }

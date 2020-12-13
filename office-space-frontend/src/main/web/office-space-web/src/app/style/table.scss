@@ -1,8 +1,13 @@
 table {
-    width: 100%;
+  width: 100%;
+}
+
+.container-fluid {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 [class^="mat-column-"] {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
