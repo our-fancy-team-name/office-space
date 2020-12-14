@@ -7,18 +7,24 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.persistence.criteria.Path;
+
 @Service
 public class SpecificationService {
 
   public Specification specificationBuilder(TableSearchRequest tableSearchRequest) {
-    if(CollectionUtils.isEmpty(tableSearchRequest.getColumnSearchRequests())) {
+    if (CollectionUtils.isEmpty(tableSearchRequest.getColumnSearchRequests())) {
       return Specification.where(null);
     }
     Specification result = specificationBuilder(tableSearchRequest.getColumnSearchRequests().get(0));
     for (int i = 1; i < tableSearchRequest.getColumnSearchRequests().size(); i++) {
       ColumnSearchRequest rq = tableSearchRequest.getColumnSearchRequests().get(i);
       Specification spec = specificationBuilder(rq);
-      result = rq.isOrTerm() ? Specification.where(result).or(spec) : Specification.where(result).and(spec);
+      Specification previousSpec = Specification.where(result);
+      if (previousSpec == null) {
+        return Specification.where(spec);
+      }
+      result = rq.isOrTerm() ? previousSpec.or(spec) : previousSpec.and(spec);
     }
     return result;
   }
@@ -26,24 +32,26 @@ public class SpecificationService {
   private Specification specificationBuilder(ColumnSearchRequest columnSearchRequest) {
     return (root, query, builder) -> {
       String columnName = columnSearchRequest.getColumnName();
-      if(StringUtils.isBlank(columnSearchRequest.getTerm())) {
+      String term = columnSearchRequest.getTerm();
+      if (StringUtils.isBlank(term)) {
         return null;
       }
+      Path path = root.get(columnName);
       switch (columnSearchRequest.getOperation()) {
         case EQUAL:
-          return builder.equal(root.get(columnName), columnSearchRequest.getTerm());
+          return builder.equal(path, term);
         case NOT_EQUAL:
-          return builder.notEqual(root.get(columnName), columnSearchRequest.getTerm());
+          return builder.notEqual(path, term);
         case LIKE:
-          return builder.like(root.get(columnName), "%" + columnSearchRequest.getTerm() + "%");
+          return builder.like(path, "%" + term + "%");
         case LESS_THAN:
-          return builder.lessThan(root.get(columnName), columnSearchRequest.getTerm());
+          return builder.lessThan(path, term);
         case GREATER_THAN:
-          return builder.greaterThan(root.get(columnName), columnSearchRequest.getTerm());
+          return builder.greaterThan(path, term);
         case LESS_THAN_OR_EQUAL_TO:
-          return builder.lessThanOrEqualTo(root.get(columnName), columnSearchRequest.getTerm());
+          return builder.lessThanOrEqualTo(path, term);
         default:
-          return builder.greaterThanOrEqualTo(root.get(columnName), columnSearchRequest.getTerm());
+          return builder.greaterThanOrEqualTo(path, term);
       }
     };
   }

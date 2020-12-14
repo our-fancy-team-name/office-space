@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, Integer> {
   List<UserRole> removeByRoleId(int roleId);
+  List<UserRole> removeByUserId(int roleId);
 }

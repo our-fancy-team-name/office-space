@@ -18,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -69,7 +71,12 @@ public class RoleServiceImpl implements RoleService {
   }
 
   @Override
-  public Page<RoleUserListView> getRolUserListView(TableSearchRequest tableSearchRequest) {
+  public List<String> getRoleCodes() {
+    return roleRepository.findAllCode();
+  }
+
+  @Override
+  public Page<RoleUserListView> getRoleUserListView(TableSearchRequest tableSearchRequest) {
     Specification<RoleUserListView> specs = specificationService.specificationBuilder(tableSearchRequest);
     Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
     Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);

@@ -14,7 +14,7 @@ import { map, startWith } from 'rxjs/operators';
 export class ChipsComponent implements OnInit {
 
   @Input() allChips;
-  @Input() initialChips?;
+  @Input() label;
 
   visible = true;
   selectable = true;
@@ -22,7 +22,7 @@ export class ChipsComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   chipCtrl = new FormControl();
   fillterdChips: Observable<string[]>;
-  chips: string[] = ['dang'];
+  chips: string[] = [];
   @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -30,7 +30,6 @@ export class ChipsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chips = this.initialChips || [];
     this.fillterdChips = this.chipCtrl.valueChanges.pipe(
       startWith(''),
       map((chip: string | '') => chip ? this._filter(chip) : this.allChips.slice()));

@@ -88,6 +88,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.initialData();
+    this.searchTableData();
   }
 
   ngOnInit(): void {
@@ -95,7 +96,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
 
   initialData() {
     this.spinner.show();
-    this.searchTableData();
+    this.codeSearchCtr.setValue(this.codeSearchCtr.value);
     this.userService.getAllUsers().subscribe((res: any) => {
       this.allChips = res.content.map(item => item.username);
       this.filteredChips = this.chipCtrl.valueChanges.pipe(
@@ -114,6 +115,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     ).pipe(
         startWith({}),
         switchMap(() => {
+          this.spinner.show();
           const tableRequest = new TableSearchRequest();
           const pageRequest = new TablePagingRequest();
           const colRequest: ColumnSearchRequest[] = [
@@ -148,6 +150,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
           return new Observable();
         })
       ).subscribe(data => {
+        this.spinner.hide();
         this.dataSource = data;
       });
   }

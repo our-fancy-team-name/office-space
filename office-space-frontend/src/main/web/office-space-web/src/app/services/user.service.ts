@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { TableSearchRequest } from '../dtos/tableSearch';
 import { StorageService } from './auth/storage.service';
 
@@ -15,7 +16,23 @@ export class UserService {
     return this.http.post(this.url, new TableSearchRequest());
   }
 
-  getUserRoleListView(table) {
+  getUserRoleListView(table): Observable<any> {
     return this.http.post(`${this.url}/list-role`, table);
+  }
+
+  getUserDetails(id: number) {
+    return this.http.get(`${this.url}/${id}`);
+  }
+
+  update(data) {
+    return this.http.post(`${this.url}/update`, data);
+  }
+
+  deleteUser(id) {
+    return this.http.delete(`${this.url}/${id}`);
+  }
+
+  createUser(data) {
+    return this.http.post(`${this.url}/create`, data);
   }
 }

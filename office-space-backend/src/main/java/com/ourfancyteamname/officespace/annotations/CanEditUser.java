@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-@PreAuthorize("@permissionSecurityService.canDeleteUser()")
-public @interface CanDeleteUser {
+@PreAuthorize("@permissionSecurityService.canEditUser()")
+public @interface CanEditUser {
 }

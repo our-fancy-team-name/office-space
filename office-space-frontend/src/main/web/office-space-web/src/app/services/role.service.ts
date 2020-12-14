@@ -28,4 +28,8 @@ export class RoleService {
   getRoleUserListView(request: TableSearchRequest): Observable<any> {
     return this.http.post(`${this.url}/list`, request);
   }
+
+  getAllRoleCode(): Observable<any> {
+    return this.http.get(`${this.url}/list-code`);
+  }
 }

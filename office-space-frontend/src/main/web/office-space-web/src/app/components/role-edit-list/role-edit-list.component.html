@@ -10,7 +10,7 @@
     </div>
     <div *ngIf="isAddingRole" class="row w-100">
         <div class="col-md-12">
-            <mat-card class="">
+            <mat-card>
                 <mat-card-header>
                     <div mat-card-avatar></div>
                     <mat-card-title>{{'ROLE_EDIT_LIST.CREATE_ROLE' | translate}}</mat-card-title>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <app-chips #chipCreate [allChips]="allChips"></app-chips>
+                        <app-chips #chipCreate [label]="'ROLE_EDIT_LIST.USERS'" [allChips]="allChips"></app-chips>
                     </div>
                 </div>
                 <div class="row">

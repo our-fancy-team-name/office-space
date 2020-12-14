@@ -16,12 +16,12 @@ public class PermissionSecurityService {
   @Autowired
   private PermissionRepository permissionRepository;
 
-  public boolean canDeleteUser() {
-    return checkPermission(PermissionCode.USER_DELETE);
-  }
-
   public boolean canEditRole() {
     return checkPermission(PermissionCode.ROLE_EDIT);
+  }
+
+  public boolean canEditUser() {
+    return checkPermission(PermissionCode.USER_EDIT);
   }
 
   private boolean checkPermission(PermissionCode code) {

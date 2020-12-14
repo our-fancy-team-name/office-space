@@ -3,6 +3,7 @@ package com.ourfancyteamname.officespace.db.entities;
 
 import com.ourfancyteamname.officespace.enums.PermissionCode;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @Table(name = "`permission`")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Permission implements Serializable {
 
   private static final long serialVersionUID = -311943914573931128L;

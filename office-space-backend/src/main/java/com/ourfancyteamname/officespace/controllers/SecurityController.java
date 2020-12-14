@@ -1,6 +1,5 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
 import com.ourfancyteamname.officespace.security.payload.JwtResponse;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
@@ -12,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +24,6 @@ public class SecurityController {
 
   @Autowired
   private AuthenticationManager authenticationManager;
-
-  @Autowired
-  private UserRepository userRepository;
-
-  @Autowired
-  private PasswordEncoder encoder;
 
   @Autowired
   private JwtService jwtService;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/role")
@@ -58,7 +60,7 @@ public class RoleController {
   @CanEditRole
   public ResponseEntity<Void> delete(@PathVariable("id") Integer roleId) {
     permissionService.deleteRolePermissionByRoleId(roleId);
-    userService.deleteUserRole(roleId);
+    userService.deleteUserRoleByRoleId(roleId);
     roleService.deleteRole(roleId);
     return ResponseEntity.ok().build();
   }
@@ -66,6 +68,11 @@ public class RoleController {
   @PostMapping("/list")
   public ResponseEntity<Page<RoleUserListView>> getRoleUserListView(
       @RequestBody TableSearchRequest tableSearchRequest) {
-    return ResponseEntity.ok(roleService.getRolUserListView(tableSearchRequest));
+    return ResponseEntity.ok(roleService.getRoleUserListView(tableSearchRequest));
+  }
+
+  @GetMapping("/list-code")
+  public ResponseEntity<List<String>> getAllRoleCode() {
+    return ResponseEntity.ok(roleService.getRoleCodes());
   }
 }

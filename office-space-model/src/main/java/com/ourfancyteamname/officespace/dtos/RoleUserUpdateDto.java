@@ -14,6 +14,8 @@ import java.util.List;
 @Builder
 public class RoleUserUpdateDto {
   private RoleDto roleDto;
+  private UserDto userDto;
   private List<PermissionDto> permissionDto;
   private List<String> users;
+  private List<String> roles;
 }

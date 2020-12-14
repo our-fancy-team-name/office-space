@@ -91,30 +91,4 @@ public class UserServiceImplTest {
     Assert.assertEquals(1, actual.getContent().size());
     Assert.assertEquals("dang", actual.getContent().get(0).getEmail());
   }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void findAllByPaging_Illegal() {
-    ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
-        .columnName(User_.LAST_NAME)
-        .operation(DataBaseOperation.EQUAL)
-        .term(SEARCH_TERM)
-        .build();
-    TableSortingRequest tableSortingRequest = TableSortingRequest.builder()
-        .columnName(User_.LAST_NAME)
-        .direction(DataBaseDirection.ASC)
-        .build();
-    TablePagingRequest tablePagingRequest = TablePagingRequest.builder()
-        .page(0)
-        .pageSize(0)
-        .build();
-    TableSearchRequest tableSearchRequest = TableSearchRequest.builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
-        .pagingRequest(tablePagingRequest)
-        .sortingRequest(tableSortingRequest)
-        .build();
-    Specification<User> specs = (root, query, builder) -> builder.equal(root.get(User_.LAST_NAME), SEARCH_TERM);
-    Mockito.when(specificationService.specificationBuilder(tableSearchRequest)).thenReturn(specs);
-    Mockito.when(sortingService.getSort(tableSortingRequest)).thenReturn(Sort.unsorted());
-    userService.findAllByPaging(tableSearchRequest);
-  }
 }

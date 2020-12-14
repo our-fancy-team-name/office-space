@@ -1,5 +1,138 @@
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="float-right">
+                <button (click)="addCre()" mat-flat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isAddingUser" class="row w-100">
+        <div class="col-md-12">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar></div>
+                    <mat-card-title>{{'ROLE_EDIT_LIST.CREATE_USER' | translate}}</mat-card-title>
+                </mat-card-header>
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.USERNAME' | translate}}</mat-label>
+                            <input required [formControl]="usernameCreCtr" matInput>
+                            <mat-error *ngIf="validator.isValid(usernameCreCtr)">
+                                {{usernameCreCtr.errors.message | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-checkbox [(ngModel)]="isMaleCre" class="align-middle">
+                            {{'ROLE_EDIT_LIST.MALE' | translate}}
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.PASSWORD' | translate}}</mat-label>
+                            <input type="password" required [formControl]="passwordCreCtr" matInput>
+                            <mat-error *ngIf="validator.isValid(passwordCreCtr)">
+                                {{passwordCreCtr.errors.message | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.REPEAT_PASSWORD' | translate}}</mat-label>
+                            <input type="password" required [formControl]="passwordRepeatCreCtr" matInput>
+                            <mat-error *ngIf="validator.isValid(passwordRepeatCreCtr)">
+                                {{passwordRepeatCreCtr.errors.message | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.FIRSTNAME' | translate}}</mat-label>
+                            <input [formControl]="firstnameCreCtr" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.LASTNAME' | translate}}</mat-label>
+                            <input [formControl]="lastnameCreCtr" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.NAME' | translate}}</mat-label>
+                            <input readonly [value]="firstnameCreCtr.value + ' ' + lastnameCreCtr.value"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.EMAIL' | translate}}</mat-label>
+                            <input type="email" [formControl]="emailCreCtr" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.PHONE' | translate}}</mat-label>
+                            <input type="number" [formControl]="phoneCreCtr" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.ALT_PHONE' | translate}}</mat-label>
+                            <input type="number" [formControl]="altPhoneCreCtr" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.ADDRESS' | translate}}</mat-label>
+                            <input [formControl]="addressCreCtr" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-chips #chipsCre [label]="'ROLE_EDIT_LIST.ROLES'" [allChips]="allChips"></app-chips>
+                    </div>
+                </div>
+                <div class="row" style="height: 20px;">
 
+                </div>
+                <div class="row w-100 text-danger justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <mat-checkbox [(ngModel)]="agreement">
+                            {{'ROLE_EDIT_LIST.AGREE'| uppercase | translate}}
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2">
+                        <div class="float-right">
+                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()"
+                                mat-flat-button color="primary">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="float-right">
+                            <button (click)="closeCre()" mat-flat-button color="warn">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="username">
             <th mat-header-cell *matHeaderCellDef>
@@ -128,7 +261,7 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6">
-                                        <mat-checkbox class="align-middle">
+                                        <mat-checkbox [(ngModel)]="isMale" class="align-middle">
                                             {{'ROLE_EDIT_LIST.MALE' | translate}}
                                         </mat-checkbox>
                                     </div>
@@ -147,9 +280,10 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4">
-                                        <mat-form-field [disable]="true" appearance="outline" class="w-100">
+                                        <mat-form-field class="w-100">
                                             <mat-label>{{'ROLE_EDIT_LIST.NAME' | translate}}</mat-label>
-                                            <input value="dang" matInput>
+                                            <input readonly [value]="firstnameCtr.value + ' ' + lastnameCtr.value"
+                                                matInput>
                                         </mat-form-field>
                                     </div>
                                 </div>

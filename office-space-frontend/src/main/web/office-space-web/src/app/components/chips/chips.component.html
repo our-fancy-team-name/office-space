@@ -1,5 +1,5 @@
 <mat-form-field appearance="outline" class="w-100">
-    <mat-label>{{'ROLE_EDIT_LIST.USERS' | translate}}</mat-label>
+    <mat-label>{{label | translate}}</mat-label>
     <mat-chip-list #chipList>
         {{chips}}
         <mat-chip *ngFor="let item of chips" [selectable]="selectable"
