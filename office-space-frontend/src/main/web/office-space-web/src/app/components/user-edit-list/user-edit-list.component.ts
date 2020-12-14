@@ -338,6 +338,7 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
     };
     this.spinner.show();
     this.userService.createUser(roleUserUpdateDto).subscribe(res => {
+      this.initialData();
       this.closeCre();
       this.spinner.hide();
     }, err => {
