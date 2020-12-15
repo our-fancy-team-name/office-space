@@ -1,0 +1,38 @@
+product (ban chai, process P1)
+ name: text
+ part number: text : abc1234
+ description: long text: this is use for shit...
+ family: text
+ process: apply one process
+ 
+ 
+package (1 hop ban chai co serial-number 123 / dang nam trong process-step 1)
+ product,
+ serial-number: text 12123asdads
+ process-step current
+ quantity: 1,
+ unit: each
+
+
+//List product 
+//translated
+ 
+ 
+process:
+ name,
+ description,
+ List<process-step>
+ 
+ 
+ 
+process-step
+ name
+ description,
+ list<input>
+ list<output>
+ tail or head
+ rule input -> output
+ 
+ 
+ 
+ 

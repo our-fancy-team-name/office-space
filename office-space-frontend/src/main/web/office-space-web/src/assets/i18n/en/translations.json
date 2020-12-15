@@ -21,16 +21,49 @@
     "USERNAME": "User name",
     "USERNAME_RQ": "Please fill out the username"
   },
+  "ROLE_EDIT_LIST": {
+    "AGREE": "I'VE READ THE INFORMATION VERY CAREFULLY!",
+    "CODE": "Role code",
+    "CREATE_ROLE": "Role creation",
+    "DESCRIPTION": "Description",
+    "EDIT_ROLE": "Role Edition",
+    "PERMISSION": "Permission",
+    "ROLE_EDIT": "Edit Roles",
+    "USERS": "Users belong",
+    "USER_EDIT": "Edit Users"
+  },
+  "ROLE_MANAGE": {
+    "ROLE": "Role settings",
+    "USER": "User settings"
+  },
   "SELECT_ROLE": {
     "CARD_DESC": "Press continue to login as",
     "CONTINUE": "Continue"
   },
   "SIDEBAR": {
-    "EMPLOYEE_LIST": "Employee List"
+    "EMPLOYEE_LIST": "Employee List",
+    "MANAGE_AUTHORITY": "Manage authority"
+  },
+  "USER_EDIT_LIST": {
+    "ADDRESS": "Address",
+    "ALT_PHONE": "Alternative phone",
+    "CREATE_USER": "User creation",
+    "EMAIL": "Email",
+    "FIRSTNAME": "First name",
+    "LASTNAME": "Last name",
+    "MALE": "Male",
+    "NAME": "Full name",
+    "PASSWORD": "Password",
+    "PHONE": "Phone",
+    "REPEAT_PASSWORD": "Repeat password",
+    "ROLES": "Roles",
+    "USERNAME": "User name"
   },
   "VALIDATOR": {
+    "DUPLICATED": "This value is already used",
     "FIELD_REQUIRED": "Required Field",
     "MAX_LENGTH": "Exceed max length allowed",
-    "MIN_LENGTH": "Less than min length allow"
+    "MIN_LENGTH": "Less than min length allow",
+    "NOT_THE_SAME_PASSWORD": "Password not match"
   }
 }

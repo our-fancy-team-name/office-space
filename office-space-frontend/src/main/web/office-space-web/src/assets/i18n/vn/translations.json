@@ -21,16 +21,49 @@
     "USERNAME": "Tên đăng nhập",
     "USERNAME_RQ": "Vui lòng điền tên đăng nhập"
   },
+  "ROLE_EDIT_LIST": {
+    "AGREE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN",
+    "CODE": "Mã vai trò",
+    "CREATE_ROLE": "Tạo vai trò",
+    "DESCRIPTION": "Thông tin",
+    "EDIT_ROLE": "Chỉnh sửa vai trò",
+    "PERMISSION": "Quyền",
+    "ROLE_EDIT": "Chỉnh sửa vai trò",
+    "USERS": "Người dùng",
+    "USER_EDIT": "Chỉnh sửa người dùng"
+  },
+  "ROLE_MANAGE": {
+    "ROLE": "Cài đặt vai trò",
+    "USER": "Cài đặt người dùng"
+  },
   "SELECT_ROLE": {
     "CARD_DESC": "Ấn tiếp tục để đăng nhập như là",
     "CONTINUE": "Tiếp tục"
   },
   "SIDEBAR": {
-    "EMPLOYEE_LIST": "DS Nhân viên"
+    "EMPLOYEE_LIST": "DS Nhân viên",
+    "MANAGE_AUTHORITY": "Quyền truy cập"
+  },
+  "USER_EDIT_LIST": {
+    "ADDRESS": "Địa chỉ liên lạc",
+    "ALT_PHONE": "Số điện thoại dự phòng",
+    "CREATE_USER": "Tạo người dùng",
+    "EMAIL": "Thư điện tử",
+    "FIRSTNAME": "Tên",
+    "LASTNAME": "Họ và tên đệm",
+    "MALE": "Nam",
+    "NAME": "Tên đầy đủ",
+    "PASSWORD": "Mật khẩu",
+    "PHONE": "Số điện thoại",
+    "REPEAT_PASSWORD": "Nhập lại mật khẩu",
+    "ROLES": "Vai trò",
+    "USERNAME": "Tên đăng nhập"
   },
   "VALIDATOR": {
+    "DUPLICATED": "Giá trị đã được sử dụng",
     "FIELD_REQUIRED": "Phần bắt buộc",
     "MAX_LENGTH": "Vượt quá số ký tự cho phép",
-    "MIN_LENGTH": "Chưa đủ độ dài tối thiểu"
+    "MIN_LENGTH": "Chưa đủ độ dài tối thiểu",
+    "NOT_THE_SAME_PASSWORD": "Mật khẩu không trùng"
   }
 }

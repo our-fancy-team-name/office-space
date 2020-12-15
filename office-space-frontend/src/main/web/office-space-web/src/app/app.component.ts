@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, isDevMode, OnInit } from '@angular/core';
+import { AfterContentInit, Component, isDevMode, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit {
   title = 'office-space-web';
   isExpanded = true;
   marginLeft = '200px';
@@ -25,7 +25,9 @@ export class AppComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
-  languageSelected;
+  languageSelected = LANGUAGES.EN;
+  eng = 'English';
+  vie = "Vietnamese";
 
   menuItem = [];
 
@@ -50,6 +52,9 @@ export class AppComponent implements OnInit {
       this.updateMenuLength();
     });
   }
+  ngAfterContentInit(): void {
+    this.spinner.hide();
+  }
 
   updateMenuLength() {
     this.menuLength = 'calc(100vh - ' + (128 + this.menuItem.length * 56) + 'px)';
@@ -66,10 +71,6 @@ export class AppComponent implements OnInit {
       const user = JSON.parse(this.storage.get(StorageService.USER_KEY));
       this.username = user.userDetails.username;
     }
-    setTimeout(() => {
-      this.spinner.hide();
-      this.languageSelected = LANGUAGES.EN;
-    }, 500);
   }
 
   toggleSideBar() {
@@ -83,6 +84,13 @@ export class AppComponent implements OnInit {
   }
 
   changeLang(event) {
+    if (this.languageSelected === LANGUAGES.EN) {
+      this.eng = 'English';
+      this.vie = 'Vietnamese';
+    } else {
+      this.eng = 'Tiếng Anh';
+      this.vie = 'Tiếng Việt';
+    }
     this.translate.use(this.languageSelected);
   }
 

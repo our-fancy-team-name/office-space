@@ -13,12 +13,12 @@
             <mat-card>
                 <mat-card-header>
                     <div mat-card-avatar></div>
-                    <mat-card-title>{{'ROLE_EDIT_LIST.CREATE_USER' | translate}}</mat-card-title>
+                    <mat-card-title>{{'USER_EDIT_LIST.CREATE_USER' | translate}}</mat-card-title>
                 </mat-card-header>
                 <div class="row d-flex align-items-center">
                     <div class="col-md-6">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.USERNAME' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.USERNAME' | translate}}</mat-label>
                             <input required [formControl]="usernameCreCtr" matInput>
                             <mat-error *ngIf="validator.isValid(usernameCreCtr)">
                                 {{usernameCreCtr.errors.message | translate}}</mat-error>
@@ -26,14 +26,14 @@
                     </div>
                     <div class="col-md-6">
                         <mat-checkbox [(ngModel)]="isMaleCre" class="align-middle">
-                            {{'ROLE_EDIT_LIST.MALE' | translate}}
+                            {{'USER_EDIT_LIST.MALE' | translate}}
                         </mat-checkbox>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.PASSWORD' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.PASSWORD' | translate}}</mat-label>
                             <input type="password" required [formControl]="passwordCreCtr" matInput>
                             <mat-error *ngIf="validator.isValid(passwordCreCtr)">
                                 {{passwordCreCtr.errors.message | translate}}</mat-error>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-6">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.REPEAT_PASSWORD' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.REPEAT_PASSWORD' | translate}}</mat-label>
                             <input type="password" required [formControl]="passwordRepeatCreCtr" matInput>
                             <mat-error *ngIf="validator.isValid(passwordRepeatCreCtr)">
                                 {{passwordRepeatCreCtr.errors.message | translate}}</mat-error>
@@ -51,19 +51,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.FIRSTNAME' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.FIRSTNAME' | translate}}</mat-label>
                             <input [formControl]="firstnameCreCtr" matInput>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.LASTNAME' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.LASTNAME' | translate}}</mat-label>
                             <input [formControl]="lastnameCreCtr" matInput>
                         </mat-form-field>
                     </div>
                     <div class="col-md-4">
                         <mat-form-field class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.NAME' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.NAME' | translate}}</mat-label>
                             <input readonly [value]="firstnameCreCtr.value + ' ' + lastnameCreCtr.value"
                                 matInput>
                         </mat-form-field>
@@ -72,19 +72,19 @@
                 <div class="row">
                     <div class="col-md-6">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.EMAIL' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.EMAIL' | translate}}</mat-label>
                             <input type="email" [formControl]="emailCreCtr" matInput>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.PHONE' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.PHONE' | translate}}</mat-label>
                             <input type="number" [formControl]="phoneCreCtr" matInput>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.ALT_PHONE' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.ALT_PHONE' | translate}}</mat-label>
                             <input type="number" [formControl]="altPhoneCreCtr" matInput>
                         </mat-form-field>
                     </div>
@@ -92,14 +92,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'ROLE_EDIT_LIST.ADDRESS' | translate}}</mat-label>
+                            <mat-label>{{'USER_EDIT_LIST.ADDRESS' | translate}}</mat-label>
                             <input [formControl]="addressCreCtr" matInput>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <app-chips #chipsCre [label]="'ROLE_EDIT_LIST.ROLES'" [allChips]="allChips"></app-chips>
+                        <app-chips #chipsCre [label]="'USER_EDIT_LIST.ROLES'" [allChips]="allChips"></app-chips>
                     </div>
                 </div>
                 <div class="row" style="height: 20px;">
@@ -137,7 +137,7 @@
         <ng-container matColumnDef="username">
             <th mat-header-cell *matHeaderCellDef>
                 <div class="p-2">
-                    {{'ROLE_EDIT_LIST.USERNAME' | translate}}
+                    {{'USER_EDIT_LIST.USERNAME' | translate}}
                 </div>
                 <div class="row w-100">
                     <div class="col-md-9">
@@ -154,7 +154,7 @@
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>
                 <div class="p-2">
-                    {{'ROLE_EDIT_LIST.NAME' | translate}}
+                    {{'USER_EDIT_LIST.NAME' | translate}}
                 </div>
                 <div class="row w-100">
                     <div class="col-md-9">
@@ -171,7 +171,7 @@
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef>
                 <div class="p-2">
-                    {{'ROLE_EDIT_LIST.EMAIL' | translate}}
+                    {{'USER_EDIT_LIST.EMAIL' | translate}}
                 </div>
                 <div class="row w-100">
                     <div class="col-md-9">
@@ -188,7 +188,7 @@
         <ng-container matColumnDef="roles">
             <th mat-header-cell *matHeaderCellDef>
                 <div class="p-2">
-                    {{'ROLE_EDIT_LIST.ROLES' | translate}}
+                    {{'USER_EDIT_LIST.ROLES' | translate}}
                 </div>
                 <div class="row w-100">
                     <div class="col-md-9">
@@ -249,12 +249,12 @@
                             <mat-card>
                                 <mat-card-header>
                                     <div mat-card-avatar></div>
-                                    <mat-card-title>{{'ROLE_EDIT_LIST.EDIT_USER' | translate}}</mat-card-title>
+                                    <mat-card-title>{{'USER_EDIT_LIST.EDIT_USER' | translate}}</mat-card-title>
                                 </mat-card-header>
                                 <div class="row d-flex align-items-center">
                                     <div class="col-md-6">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.USERNAME' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.USERNAME' | translate}}</mat-label>
                                             <input required [formControl]="usernameCtr" matInput>
                                             <mat-error *ngIf="validator.isValid(usernameCtr)">
                                                 {{usernameCtr.errors.message | translate}}</mat-error>
@@ -262,26 +262,26 @@
                                     </div>
                                     <div class="col-md-6">
                                         <mat-checkbox [(ngModel)]="isMale" class="align-middle">
-                                            {{'ROLE_EDIT_LIST.MALE' | translate}}
+                                            {{'USER_EDIT_LIST.MALE' | translate}}
                                         </mat-checkbox>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.FIRSTNAME' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.FIRSTNAME' | translate}}</mat-label>
                                             <input [formControl]="firstnameCtr" matInput>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.LASTNAME' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.LASTNAME' | translate}}</mat-label>
                                             <input [formControl]="lastnameCtr" matInput>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-4">
                                         <mat-form-field class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.NAME' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.NAME' | translate}}</mat-label>
                                             <input readonly [value]="firstnameCtr.value + ' ' + lastnameCtr.value"
                                                 matInput>
                                         </mat-form-field>
@@ -290,19 +290,19 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.EMAIL' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.EMAIL' | translate}}</mat-label>
                                             <input [formControl]="emailCtr" matInput>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.PHONE' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.PHONE' | translate}}</mat-label>
                                             <input type="number" [formControl]="phoneCtr" matInput>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.ALT_PHONE' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.ALT_PHONE' | translate}}</mat-label>
                                             <input type="number" [formControl]="altPhoneCtr" matInput>
                                         </mat-form-field>
                                     </div>
@@ -310,7 +310,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.ADDRESS' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.ADDRESS' | translate}}</mat-label>
                                             <input [formControl]="addressCtr" matInput>
                                         </mat-form-field>
                                     </div>
@@ -318,7 +318,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>{{'ROLE_EDIT_LIST.ROLES' | translate}}</mat-label>
+                                            <mat-label>{{'USER_EDIT_LIST.ROLES' | translate}}</mat-label>
                                             <mat-chip-list #chipList>
                                                 <mat-chip *ngFor="let item of chips" [selectable]="selectable"
                                                     [removable]="removable" (removed)="remove(item)">

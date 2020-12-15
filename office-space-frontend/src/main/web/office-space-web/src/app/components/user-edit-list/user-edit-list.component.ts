@@ -319,6 +319,7 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
   submitCre() {
     if (this.passwordCreCtr.value !== this.passwordRepeatCreCtr.value) {
       this.passwordRepeatCreCtr.setErrors({message: `${this.validator.VALIDATOR}.NOT_THE_SAME_PASSWORD`});
+      return;
     }
     const userDto = {
       username: this.usernameCreCtr.value,

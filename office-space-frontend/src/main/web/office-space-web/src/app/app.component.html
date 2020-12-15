@@ -24,8 +24,8 @@
             <span style="flex: 1 1 auto;"></span>
             <mat-form-field>
                 <mat-select (selectionChange)="changeLang($event)" [(value)]="languageSelected">
-                  <mat-option value="en">{{'FOOTER.LANG_EN' | translate}}</mat-option>
-                  <mat-option value="vn">{{'FOOTER.LANG_VN' | translate}}</mat-option>
+                  <mat-option value="en">{{eng}}</mat-option>
+                  <mat-option value="vn">{{vie}}</mat-option>
                 </mat-select>
               </mat-form-field>
         </mat-toolbar>
