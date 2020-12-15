@@ -21,6 +21,11 @@
     "USERNAME": "Tên đăng nhập",
     "USERNAME_RQ": "Vui lòng điền tên đăng nhập"
   },
+  "PERMISSION": {
+    "PRD_EDIT": "Chỉnh sửa sản phẩm",
+    "ROLE_EDIT": "Chỉnh sửa vai trò",
+    "USER_EDIT": "Chỉnh sửa người dùng"
+  },
   "ROLE_EDIT_LIST": {
     "AGREE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN",
     "CODE": "Mã vai trò",
@@ -28,9 +33,7 @@
     "DESCRIPTION": "Thông tin",
     "EDIT_ROLE": "Chỉnh sửa vai trò",
     "PERMISSION": "Quyền",
-    "ROLE_EDIT": "Chỉnh sửa vai trò",
-    "USERS": "Người dùng",
-    "USER_EDIT": "Chỉnh sửa người dùng"
+    "USERS": "Người dùng"
   },
   "ROLE_MANAGE": {
     "ROLE": "Cài đặt vai trò",
@@ -42,12 +45,14 @@
   },
   "SIDEBAR": {
     "EMPLOYEE_LIST": "DS Nhân viên",
-    "MANAGE_AUTHORITY": "Quyền truy cập"
+    "MANAGE_AUTHORITY": "Quyền truy cập",
+    "MANAGE_PRODUCT": "Q.L Sản Phẩm"
   },
   "USER_EDIT_LIST": {
     "ADDRESS": "Địa chỉ liên lạc",
     "ALT_PHONE": "Số điện thoại dự phòng",
     "CREATE_USER": "Tạo người dùng",
+    "EDIT_USER": "Thông tin người dùng",
     "EMAIL": "Thư điện tử",
     "FIRSTNAME": "Tên",
     "LASTNAME": "Họ và tên đệm",

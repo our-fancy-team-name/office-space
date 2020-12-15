@@ -7,4 +7,5 @@
     <include file="db/changelog/mysql/changes/0.xml"/>
     <include file="db/changelog/mysql/changes/1.xml"/>
     <include file="db/changelog/mysql/changes/2.xml"/>
+    <include file="db/changelog/mysql/changes/3.xml"/>
 </databaseChangeLog>

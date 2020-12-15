@@ -24,6 +24,10 @@ public class PermissionSecurityService {
     return checkPermission(PermissionCode.USER_EDIT);
   }
 
+  public boolean canEditProduct() {
+    return checkPermission(PermissionCode.PRD_EDIT);
+  }
+
   private boolean checkPermission(PermissionCode code) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetailsPrinciple user = (UserDetailsPrinciple) authentication.getPrincipal();

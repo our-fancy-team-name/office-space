@@ -47,7 +47,7 @@
                 <div class="row">
                     <div *ngFor="let item of permissionObjects" class="col-md-4">
                         <mat-checkbox [(ngModel)]="item.check">
-                            {{'ROLE_EDIT_LIST.' + item.code | uppercase | translate}}
+                            {{'PERMISSION.' + item.code | uppercase | translate}}
                         </mat-checkbox>
                     </div>
                 </div>
@@ -230,7 +230,7 @@
                                 <div class="row">
                                     <div *ngFor="let item of permissionObjects" class="col-md-4">
                                         <mat-checkbox [(ngModel)]="item.check">
-                                            {{'ROLE_EDIT_LIST.' + item.code | uppercase | translate}}
+                                            {{'PERMISSION.' + item.code | uppercase | translate}}
                                         </mat-checkbox>
                                     </div>
                                 </div>

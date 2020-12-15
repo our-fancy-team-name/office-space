@@ -16,16 +16,15 @@ export class SideMenuService {
     private storage: StorageService
   ) { }
 
-  setMenu(items) {
-    this.sideMenuSubject.next(items);
-  }
-
   updateMenuByPermission() {
+    const menuItem = [];
     const permission = this.storage.get(StorageService.PERMISSION)?.split(',') || [];
     if (permission.indexOf(PERMISSION_CODE.ROLE_EDIT) >= 0 || permission.indexOf(PERMISSION_CODE.USER_EDIT) >= 0) {
-      this.sideMenuSubject.next(Array.of(MENU_ITEM.MANAGE_AUTHORITY));
-    } else {
-      this.sideMenuSubject.next([]);
+      menuItem.push(MENU_ITEM.MANAGE_AUTHORITY);
     }
+    if (permission.indexOf(PERMISSION_CODE.PRODUCT_EDIT) >= 0) {
+      menuItem.push(MENU_ITEM.MANAGE_PRODUCT);
+    }
+    this.sideMenuSubject.next(menuItem);
   }
 }

@@ -162,9 +162,6 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
   initialData() {
     this.spinner.show();
     this.usernameSearchCtr.setValue(this.usernameSearchCtr.value);
-    this.userService.getUserRoleListView(new TableSearchRequest()).subscribe((res: any) => {
-      this.dataSource = res.content;
-    });
     this.roleService.getAllRoleCode().subscribe(res => {
       this.allChips = res;
       this.filteredChips = this.chipCtrl.valueChanges.pipe(

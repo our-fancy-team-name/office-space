@@ -97,6 +97,11 @@ export class AppComponent implements OnInit, AfterContentInit {
   openMenuItem(item) {
     if (item.title === MENU_ITEM.MANAGE_AUTHORITY.title) {
       this.router.navigate(['/role-manage']);
+      return;
+    }
+    if (item.title === MENU_ITEM.MANAGE_PRODUCT.title) {
+      this.router.navigate(['/product-manage']);
+      return;
     }
   }
 

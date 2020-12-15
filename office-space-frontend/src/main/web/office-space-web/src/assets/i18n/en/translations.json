@@ -21,6 +21,11 @@
     "USERNAME": "User name",
     "USERNAME_RQ": "Please fill out the username"
   },
+  "PERMISSION": {
+    "PRD_EDIT": "Edit Products",
+    "ROLE_EDIT": "Edit Roles",
+    "USER_EDIT": "Edit Users"
+  },
   "ROLE_EDIT_LIST": {
     "AGREE": "I'VE READ THE INFORMATION VERY CAREFULLY!",
     "CODE": "Role code",
@@ -28,9 +33,7 @@
     "DESCRIPTION": "Description",
     "EDIT_ROLE": "Role Edition",
     "PERMISSION": "Permission",
-    "ROLE_EDIT": "Edit Roles",
-    "USERS": "Users belong",
-    "USER_EDIT": "Edit Users"
+    "USERS": "Users belong"
   },
   "ROLE_MANAGE": {
     "ROLE": "Role settings",
@@ -42,12 +45,14 @@
   },
   "SIDEBAR": {
     "EMPLOYEE_LIST": "Employee List",
-    "MANAGE_AUTHORITY": "Manage authority"
+    "MANAGE_AUTHORITY": "Manage authority",
+    "MANAGE_PRODUCT": "Mangage Prod"
   },
   "USER_EDIT_LIST": {
     "ADDRESS": "Address",
     "ALT_PHONE": "Alternative phone",
     "CREATE_USER": "User creation",
+    "EDIT_USER": "Edit User",
     "EMAIL": "Email",
     "FIRSTNAME": "First name",
     "LASTNAME": "Last name",

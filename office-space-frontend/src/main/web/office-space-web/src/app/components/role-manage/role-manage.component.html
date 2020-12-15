@@ -1,10 +1,10 @@
 <mat-tab-group mat-align-tabs="start">
-    <mat-tab label="{{'ROLE_MANAGE.ROLE' | translate}}">
+    <mat-tab *ngIf="isDisplayRoleMng()" label="{{'ROLE_MANAGE.ROLE' | translate}}">
         <ng-template matTabContent>
             <app-role-edit-list></app-role-edit-list>
         </ng-template>
     </mat-tab>
-    <mat-tab label="{{'ROLE_MANAGE.USER' | translate}}">
+    <mat-tab *ngIf="isDisplayUserMng()" label="{{'ROLE_MANAGE.USER' | translate}}">
         <ng-template matTabContent>
             <app-user-edit-list></app-user-edit-list>
         </ng-template>
