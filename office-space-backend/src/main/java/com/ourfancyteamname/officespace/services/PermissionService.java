@@ -8,6 +8,7 @@ import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import java.util.List;
 
 public interface PermissionService {
+
   List<RolePermission> updateRolePermission(RoleDto role, List<PermissionDto> perm);
 
   List<RolePermission> createRolePermission(Role role, List<PermissionDto> perm);

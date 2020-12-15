@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface RoleDtoConverter {
+public interface RoleConverter {
 
   @Mapping(source = "role.code", target = "authority")
   @Mapping(expression = "java(currentlyUse.getId() == role.getId())", target = "isUsing")

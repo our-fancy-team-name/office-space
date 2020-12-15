@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ColumnSearchRequest<T> {
+public class ColumnSearchRequest {
 
   private String columnName;
 

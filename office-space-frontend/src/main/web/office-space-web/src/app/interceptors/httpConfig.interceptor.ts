@@ -38,7 +38,11 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         if (!isDevMode()) {
           console.log('error--->>>', error);
         }
-        if (error.status === 401 || error.status === 403) { // wrong credential or permission
+        if (error.status === 403) { // no permission
+          location.reload();
+          this.router.navigate(['/select-role']);
+        }
+        if (error.status === 401) { // wrong credential
           this.token.clear();
           if (!this.router.url.includes('login')) {
             location.reload();

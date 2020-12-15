@@ -36,14 +36,14 @@ public interface UserService {
   /**
    * This just technical delete
    *
-   * @param roleId
+   * @param roleId role id
    */
   void deleteUserRoleByRoleId(Integer roleId);
 
   /**
    * This is just technical delete
    *
-   * @param userId
+   * @param userId user id
    */
   void deleteUserRoleByUserId(Integer userId);
 }

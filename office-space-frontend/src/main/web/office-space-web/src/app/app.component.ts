@@ -54,6 +54,7 @@ export class AppComponent implements OnInit, AfterContentInit {
   }
   ngAfterContentInit(): void {
     this.spinner.hide();
+    this.updateMenuLength();
   }
 
   updateMenuLength() {
@@ -61,8 +62,6 @@ export class AppComponent implements OnInit, AfterContentInit {
   }
   ngOnInit(): void {
     this.spinner.show();
-    this.sideMenuService.updateMenuByPermission();
-    this.updateMenuLength();
     this.storage.set(StorageService.API, isDevMode() ? environment.api : `${window.location.origin}/api/`);
     this.isLoggedIn = !!this.storage.get(StorageService.TOKEN_KEY);
     this.isSelectedRole = !!this.storage.get(StorageService.ROLE);

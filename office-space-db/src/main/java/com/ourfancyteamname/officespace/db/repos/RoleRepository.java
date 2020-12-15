@@ -25,8 +25,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 
   boolean existsByCode(String code);
 
-  Optional<Role> findById(int id);
-
   Optional<Role> findByCode(String code);
 
   @Query("select r.code from Role r")

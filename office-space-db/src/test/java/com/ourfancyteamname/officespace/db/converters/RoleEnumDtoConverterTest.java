@@ -1,6 +1,6 @@
 package com.ourfancyteamname.officespace.db.converters;
 
-import com.ourfancyteamname.officespace.db.converters.dtos.RoleDtoConverter;
+import com.ourfancyteamname.officespace.db.converters.dtos.RoleConverter;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.db.entities.Role;
 
@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class RoleEnumDtoConverterTest {
 
-  private RoleDtoConverter roleDtoConverter = Mappers.getMapper(RoleDtoConverter.class);
+  private RoleConverter roleConverter = Mappers.getMapper(RoleConverter.class);
 
   @Test
   public void toDto_success() {
@@ -25,8 +25,8 @@ public class RoleEnumDtoConverterTest {
     Role nonActiveRole = new Role();
     nonActiveRole.setCode("SUPER_ADMIN");
     nonActiveRole.setId(2);
-    RoleDto result = roleDtoConverter.toDto(role, activeRole);
-    RoleDto result2 = roleDtoConverter.toDto(role, nonActiveRole);
+    RoleDto result = roleConverter.toDto(role, activeRole);
+    RoleDto result2 = roleConverter.toDto(role, nonActiveRole);
     Assert.assertTrue(result.getIsUsing());
     Assert.assertFalse(result2.getIsUsing());
   }

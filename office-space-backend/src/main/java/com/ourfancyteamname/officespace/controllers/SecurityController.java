@@ -28,7 +28,7 @@ public class SecurityController {
   @Autowired
   private JwtService jwtService;
 
-  @PostMapping("/signin")
+  @PostMapping("/signIn")
   public ResponseEntity<JwtResponse<UserDetails>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

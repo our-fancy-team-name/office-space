@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PermissionDto {
-  private String code;
+public class ProductDto {
+  private int id;
+  private String partNumber;
+  private String name;
+  private String description;
+  private String family;
 }
