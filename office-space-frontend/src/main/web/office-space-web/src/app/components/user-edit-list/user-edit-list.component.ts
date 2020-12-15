@@ -294,7 +294,7 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
       this.spinner.hide();
       this.initialData();
     }, err => {
-      this.usernameCtr.setErrors(this.validator.getErrorMessage(err));
+      this.usernameCtr.setErrors(this.validator.getErrorMessage(err.error.message));
       this.spinner.hide();
     });
   }
@@ -336,11 +336,21 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
     };
     this.spinner.show();
     this.userService.createUser(roleUserUpdateDto).subscribe(res => {
+      this.usernameCreCtr.reset();
+      this.passwordCreCtr.reset();
+      this.passwordRepeatCreCtr.reset();
+      this.emailCreCtr.reset();
+      this.firstnameCreCtr.reset();
+      this.lastnameCreCtr.reset();
+      this.phoneCreCtr.reset();
+      this.altPhoneCreCtr.reset();
+      this.addressCreCtr.reset();
+      this.isMaleCre = false;
       this.initialData();
       this.closeCre();
       this.spinner.hide();
     }, err => {
-      this.usernameCreCtr.setErrors(this.validator.getErrorMessage(err));
+      this.usernameCreCtr.setErrors(this.validator.getErrorMessage(err.error.message));
       this.spinner.hide();
     });
   }

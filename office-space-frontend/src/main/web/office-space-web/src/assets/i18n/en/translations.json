@@ -21,13 +21,28 @@
     "USERNAME": "User name",
     "USERNAME_RQ": "Please fill out the username"
   },
+  "MESSAGE": {
+    "AGREE_TO_DELETE": "I'M AGREE TO DELETE",
+    "AGREE_TO_UPDATE": "I'VE READ THE INFORMATION VERY CAREFULLY!"
+  },
   "PERMISSION": {
     "PRD_EDIT": "Edit Products",
     "ROLE_EDIT": "Edit Roles",
     "USER_EDIT": "Edit Users"
   },
+  "PRODUCT": {
+    "DESCRIPTION": "Product Description",
+    "FAMILY": "Product Family",
+    "NAME": "Product name",
+    "PACKAGE": "Package",
+    "PART_NUMBER": "Part number",
+    "PRODUCT": "Product"
+  },
+  "PRODUCT_EDIT_LIST": {
+    "CREATE_PRD": "Create Product",
+    "EDIT_PRD": "Edit Product"
+  },
   "ROLE_EDIT_LIST": {
-    "AGREE": "I'VE READ THE INFORMATION VERY CAREFULLY!",
     "CODE": "Role code",
     "CREATE_ROLE": "Role creation",
     "DESCRIPTION": "Description",

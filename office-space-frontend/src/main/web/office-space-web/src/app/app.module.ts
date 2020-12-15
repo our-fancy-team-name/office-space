@@ -25,6 +25,7 @@ import { MaterialModule } from './material.module';
 import { ChipsComponent } from './components/chips/chips.component';
 import { UserEditListComponent } from './components/user-edit-list/user-edit-list.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
+import { ProductEditListComponent } from './components/product-edit-list/product-edit-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ProductPageComponent } from './components/product-page/product-page.com
     RoleEditListComponent,
     ChipsComponent,
     UserEditListComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    ProductEditListComponent
   ],
   imports: [
     BrowserModule,

@@ -54,6 +54,7 @@ export class AppComponent implements OnInit, AfterContentInit {
   }
   ngAfterContentInit(): void {
     this.spinner.hide();
+    this.sideMenuService.updateMenuByPermission();
     this.updateMenuLength();
   }
 

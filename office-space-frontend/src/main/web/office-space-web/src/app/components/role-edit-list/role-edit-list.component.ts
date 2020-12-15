@@ -193,7 +193,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
       this.closeElement();
       this.initialData();
     }, err => {
-      this.codeCtr.setErrors(this.validator.getErrorMessage(err));
+      this.codeCtr.setErrors(this.validator.getErrorMessage(err.error.message));
       this.spinner.hide();
     });
   }
@@ -273,10 +273,14 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
     };
     this.spinner.show();
     this.roleService.createRoleUser(roleUserUpdateDto).subscribe(res => {
+      this.codeCreCtr.reset();
+      this.descriptionCreCtr.reset();
+      this.permissionObjects.forEach(i => i.check = false);
+      this.chipCre.setValue([]);
       this.closeCre();
       this.initialData();
     }, err => {
-      this.codeCreCtr.setErrors(this.validator.getErrorMessage(err));
+      this.codeCreCtr.setErrors(this.validator.getErrorMessage(err.error.message));
       this.spinner.hide();
     });
   }
@@ -293,6 +297,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   }
 
   addCre() {
+    this.agreement = false;
     this.isAddingRole = !this.isAddingRole;
     if (this.isAddingRole) {
       this.expandedElement = null;

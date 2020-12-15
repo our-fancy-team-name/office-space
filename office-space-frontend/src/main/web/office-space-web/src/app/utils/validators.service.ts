@@ -12,8 +12,8 @@ export class ValidatorsService {
 
   constructor(private t: TranslateService) { }
 
-  public getErrorMessage(err) {
-    return {message: `${this.VALIDATOR}.${err.error.message}`};
+  public getErrorMessage(message) {
+    return {message: `${this.VALIDATOR}.${message}`};
   }
 
   public isValid(formControl: AbstractControl): boolean {

@@ -22,7 +22,7 @@ import org.springframework.util.Assert;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-  private static final String DELIMITER = "_";
+  private static final String DELIMITER = ":";
 
   @Autowired
   private ProductRepository productRepository;
@@ -55,5 +55,35 @@ public class ProductServiceImpl implements ProductService {
     Assert.isTrue(!productRepository.existsByPartNumber(productDto.getPartNumber()),
         String.join(DELIMITER, ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name()));
     return productRepository.save(productConverter.toEntity(productDto));
+  }
+
+  @Override
+  public Product update(ProductDto productDto) {
+    Product target = productRepository.findById(productDto.getId())
+        .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
+    if (!productRepository.findByName(productDto.getName())
+        .map(Product::getName)
+        .map(name -> name.equals(target.getName()))
+        .orElse(true)) {
+      throw new IllegalArgumentException(String.join(DELIMITER, ErrorObject.NAME.name(), ErrorCode.DUPLICATED.name()));
+    }
+
+    if (!productRepository.findByPartNumber(productDto.getPartNumber())
+        .map(Product::getPartNumber)
+        .map(partNumber -> partNumber.equals(target.getPartNumber()))
+        .orElse(true)) {
+      throw new IllegalArgumentException(
+          String.join(DELIMITER, ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name()));
+    }
+    target.setDescription(productDto.getDescription());
+    target.setFamily(productDto.getFamily());
+    target.setName(productDto.getName());
+    target.setPartNumber(productDto.getPartNumber());
+    return productRepository.save(target);
+  }
+
+  @Override
+  public void delete(Integer productId) {
+    productRepository.deleteById(productId);
   }
 }

@@ -10,4 +10,8 @@ public interface ProductService {
   Page<ProductDto> findAll(TableSearchRequest tableSearchRequest);
 
   Product create(ProductDto productDto);
+
+  Product update(ProductDto productDto);
+
+  void delete(Integer productId);
 }

@@ -1,20 +1,19 @@
 @import "../../style/table.scss";
 @import "../../style/expan-details.scss";
 
-.mat-column-username {
-  width: 20%;
-}
-
 .mat-column-name {
   width: 20%;
 }
 
-.mat-column-email {
+.mat-column-partNumber {
   width: 20%;
 }
 
+.mat-column-description {
+  width: 20%;
+}
 
-.mat-column-roles {
+.mat-column-family {
   width: 20%;
 }
 
@@ -22,12 +21,12 @@
   width: 20%;
 }
 
+mat-card {
+  margin: 10px;
+}
+
 ::ng-deep th .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 5px 0 10px 0;
   width: auto;
   min-width: 100px;
-}
-
-mat-card {
-  margin: 10px;
 }

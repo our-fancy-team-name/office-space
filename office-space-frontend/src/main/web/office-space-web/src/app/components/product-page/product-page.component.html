@@ -1,1 +1,12 @@
-<p>product-page works!</p>
+<mat-tab-group mat-align-tabs="start">
+    <mat-tab *ngIf="isDisplayProductMng()" label="{{'PRODUCT.PRODUCT' | translate}}">
+        <ng-template matTabContent>
+            <app-product-edit-list></app-product-edit-list>
+        </ng-template>
+    </mat-tab>
+    <mat-tab *ngIf="isDisplayProductMng()" label="{{'PRODUCT.PACKAGE' | translate}}">
+        <ng-template matTabContent>
+            ahihi do ngok2
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
