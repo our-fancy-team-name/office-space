@@ -158,7 +158,7 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       if (objectError.includes('NAME')) {
         this.nameCreCtr.setErrors(message);
       } else {
-        this.partNumberCreCtr.setErrors(message)
+        this.partNumberCreCtr.setErrors(message);
       }
       this.spinner.hide();
     });
@@ -194,6 +194,7 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
   enableDeletePrd(element) {
     this.elementToDelete = element;
     this.isDeleteMode = true;
+    this.agreementToDelete = false;
   }
 
   deletePrd(element) {
@@ -231,7 +232,7 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       if (objectError.includes('NAME')) {
         this.nameCtr.setErrors(message);
       } else {
-        this.partNumberCtr.setErrors(message)
+        this.partNumberCtr.setErrors(message);
       }
       this.spinner.hide();
     });

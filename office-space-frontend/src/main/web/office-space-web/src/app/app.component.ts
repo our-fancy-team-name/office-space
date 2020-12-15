@@ -25,9 +25,9 @@ export class AppComponent implements OnInit, AfterContentInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
-  languageSelected = LANGUAGES.EN;
-  eng = 'English';
-  vie = "Vietnamese";
+  languageSelected = this.storage.get(StorageService.LANGUAGE) || LANGUAGES.EN;
+  eng;
+  vie;
 
   menuItem = [];
 
@@ -53,6 +53,7 @@ export class AppComponent implements OnInit, AfterContentInit {
     });
   }
   ngAfterContentInit(): void {
+    this.changeLang(null);
     this.spinner.hide();
     this.sideMenuService.updateMenuByPermission();
     this.updateMenuLength();
@@ -91,6 +92,7 @@ export class AppComponent implements OnInit, AfterContentInit {
       this.eng = 'Tiếng Anh';
       this.vie = 'Tiếng Việt';
     }
+    this.storage.set(StorageService.LANGUAGE, this.languageSelected);
     this.translate.use(this.languageSelected);
   }
 

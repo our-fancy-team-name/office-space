@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="float-right">
                 <button (click)="addCre()" mat-flat-button color="primary">
-                    <mat-icon>add</mat-icon>
+                    <mat-icon>{{isAddingPrd ? 'remove' : 'add'}}</mat-icon>
                 </button>
             </div>
         </div>
@@ -70,7 +70,7 @@
                     <div class="col-md-2">
                         <div class="float-right">
                             <button (click)="closeCre()" mat-flat-button color="warn">
-                                <mat-icon>cancel</mat-icon>
+                                <mat-icon>close</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="text-center col-md-6">
                         <button (click)="cancelDeletePrd(element)" mat-icon-button color="warn">
-                            <mat-icon>cancel</mat-icon>
+                            <mat-icon>close</mat-icon>
                         </button>
                     </div>
                 </div>
@@ -248,7 +248,7 @@
                                     <div class="col-md-2">
                                         <div class="float-right">
                                             <button (click)="close()" mat-flat-button color="warn">
-                                                <mat-icon>cancel</mat-icon>
+                                                <mat-icon>close</mat-icon>
                                             </button>
                                         </div>
                                     </div>

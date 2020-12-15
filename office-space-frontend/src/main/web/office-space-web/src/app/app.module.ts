@@ -26,6 +26,7 @@ import { ChipsComponent } from './components/chips/chips.component';
 import { UserEditListComponent } from './components/user-edit-list/user-edit-list.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { ProductEditListComponent } from './components/product-edit-list/product-edit-list.component';
+import { StorageService } from './services/auth/storage.service';
 
 @NgModule({
   declarations: [
@@ -75,8 +76,8 @@ import { ProductEditListComponent } from './components/product-edit-list/product
 })
 export class AppModule {
 
-  constructor(translate: TranslateService) {
+  constructor(translate: TranslateService, storage: StorageService) {
     translate.addLangs([LANGUAGES.EN, LANGUAGES.VN]);
-    translate.use(LANGUAGES.EN);
+    translate.use(storage.get(StorageService.LANGUAGE) || LANGUAGES.EN);
   }
 }

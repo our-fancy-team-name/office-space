@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="float-right">
                 <button (click)="addCre()" mat-flat-button color="primary">
-                    <mat-icon>add</mat-icon>
+                    <mat-icon>{{isAddingUser ? 'remove' : 'add'}}</mat-icon>
                 </button>
             </div>
         </div>
@@ -64,8 +64,7 @@
                     <div class="col-md-4">
                         <mat-form-field class="w-100">
                             <mat-label>{{'USER_EDIT_LIST.NAME' | translate}}</mat-label>
-                            <input readonly [value]="firstnameCreCtr.value + ' ' + lastnameCreCtr.value"
-                                matInput>
+                            <input readonly [value]="firstnameCreCtr.value + ' ' + lastnameCreCtr.value" matInput>
                         </mat-form-field>
                     </div>
                 </div>
@@ -116,8 +115,8 @@
                     <div class="col-md-8"></div>
                     <div class="col-md-2">
                         <div class="float-right">
-                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()"
-                                mat-flat-button color="primary">
+                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()" mat-flat-button
+                                color="primary">
                                 <mat-icon>check</mat-icon>
                             </button>
                         </div>
@@ -125,7 +124,7 @@
                     <div class="col-md-2">
                         <div class="float-right">
                             <button (click)="closeCre()" mat-flat-button color="warn">
-                                <mat-icon>cancel</mat-icon>
+                                <mat-icon>close</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -227,7 +226,7 @@
                     </div>
                     <div class="text-center col-md-6">
                         <button (click)="cancelDeleteUser(element)" mat-icon-button color="warn">
-                            <mat-icon>cancel</mat-icon>
+                            <mat-icon>close</mat-icon>
                         </button>
                     </div>
                 </div>
@@ -362,7 +361,7 @@
                                     <div class="col-md-2">
                                         <div class="float-right">
                                             <button (click)="closeElement()" mat-flat-button color="warn">
-                                                <mat-icon>cancel</mat-icon>
+                                                <mat-icon>close</mat-icon>
                                             </button>
                                         </div>
                                     </div>

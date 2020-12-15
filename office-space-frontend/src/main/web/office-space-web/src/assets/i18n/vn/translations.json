@@ -22,8 +22,8 @@
     "USERNAME_RQ": "Vui lòng điền tên đăng nhập"
   },
   "MESSAGE": {
-    "AGREE_TO_DELETE": "TÔI ĐỒNG Ý XÓA",
-    "AGREE_TO_UPDATE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN"
+    "AGREE_TO_DELETE": "CHẮC CHẮN XÓA",
+    "AGREE_TO_UPDATE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN!"
   },
   "PERMISSION": {
     "PRD_EDIT": "Chỉnh sửa sản phẩm",
