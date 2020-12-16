@@ -98,7 +98,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <app-chips #chipsCre [label]="'USER_EDIT_LIST.ROLES'" [allChips]="allChips"></app-chips>
+                        <app-chips #chipsCre [placeHolder]="'add roles'" [label]="'USER_EDIT_LIST.ROLES'" [allChips]="allChips"></app-chips>
                     </div>
                 </div>
                 <div class="row" style="height: 20px;">
@@ -142,7 +142,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="usernameSearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="usernameSearchCtr.value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="usernameSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!usernameSearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>
@@ -159,7 +163,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="nameSearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="nameSearchCtr.value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="nameSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!nameSearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>
@@ -176,7 +184,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="emailSearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="emailSearchCtr.value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="emailSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!emailSearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>
@@ -193,7 +205,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="rolesSearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="rolesSearchCtr.value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="rolesSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!rolesSearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>

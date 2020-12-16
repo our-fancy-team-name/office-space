@@ -1,5 +1,5 @@
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -15,6 +15,7 @@ export class ChipsComponent implements OnInit {
 
   @Input() allChips;
   @Input() label;
+  @Input() placeHolder;
 
   visible = true;
   selectable = true;
@@ -90,6 +91,7 @@ export class ChipsComponent implements OnInit {
   }
 
   private _filter(value: string): string[] {
+    console.log(value);
     return this.allChips?.filter(chip => chip.toLowerCase().indexOf(value) === 0);
   }
 

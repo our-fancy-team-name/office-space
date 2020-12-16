@@ -88,7 +88,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="nameSearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="nameSearchCtr.value" matSuffix mat-icon-button aria-label="Clear"
+                                (click)="nameSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!nameSearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>
@@ -104,7 +108,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="partNumberSearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="partNumberSearchCtr.value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="partNumberSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!partNumberSearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>
@@ -120,7 +128,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="descriptionSearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="descriptionSearchCtr.value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="descriptionSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!descriptionSearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>
@@ -136,7 +148,11 @@
                     <div class="col-md-9">
                         <mat-form-field appearance="outline">
                             <input [formControl]="familySearchCtr" matInput>
-                            <mat-icon matSuffix>search</mat-icon>
+                            <button mat-button *ngIf="familySearchCtr.value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="familySearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!familySearchCtr.value" matSuffix>search</mat-icon>
                         </mat-form-field>
                     </div>
                 </div>
@@ -226,7 +242,7 @@
                                     </div>
                                 </div>
                                 <div class="row" style="height: 20px;">
-                
+
                                 </div>
                                 <div class="row w-100 text-danger justify-content-center">
                                     <div class="col-md-12 text-center">
@@ -239,8 +255,8 @@
                                     <div class="col-md-8"></div>
                                     <div class="col-md-2">
                                         <div class="float-right">
-                                            <button (click)="submit(element)" [disabled]="isSubmitDisable()" mat-flat-button
-                                                color="primary">
+                                            <button (click)="submit(element)" [disabled]="isSubmitDisable()"
+                                                mat-flat-button color="primary">
                                                 <mat-icon>check</mat-icon>
                                             </button>
                                         </div>

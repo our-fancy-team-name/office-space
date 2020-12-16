@@ -7,7 +7,7 @@
             {{item}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input placeholder="add users..." #chipInput [formControl]="chipCtrl"
+        <input placeholder="{{placeHolder}}" #chipInput [formControl]="chipCtrl"
             [matAutocomplete]="auto" [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             (matChipInputTokenEnd)="add($event)">
