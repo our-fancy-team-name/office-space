@@ -22,4 +22,8 @@ export class ProductPageComponent implements OnInit {
     return this.permission.indexOf(PERMISSION_CODE.PRODUCT_EDIT) >= 0;
   }
 
+  isDisplayPackageMng() {
+    return this.permission.indexOf(PERMISSION_CODE.PACKAGE_EDIT) >= 0;
+  }
+
 }

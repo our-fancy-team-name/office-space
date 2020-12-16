@@ -49,6 +49,15 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  public Page<ProductDto> findProductWithDisplayName(TableSearchRequest tableSearchRequest) {
+    Specification<Product> productSpecification = specificationService.specificationBuilder(tableSearchRequest);
+    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
+    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
+    return productRepository.findAll(productSpecification, pageable)
+        .map(productConverter::toDtoWithDisplayName);
+  }
+
+  @Override
   public Product create(ProductDto productDto) {
     Assert.isTrue(!productRepository.existsByName(productDto.getName()),
         String.join(DELIMITER, ErrorObject.NAME.name(), ErrorCode.DUPLICATED.name()));

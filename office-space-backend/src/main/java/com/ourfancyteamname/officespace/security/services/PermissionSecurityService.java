@@ -28,6 +28,10 @@ public class PermissionSecurityService {
     return checkPermission(PermissionCode.PRD_EDIT);
   }
 
+  public boolean canEditPackage() {
+    return checkPermission(PermissionCode.PKG_EDIT);
+  }
+
   private boolean checkPermission(PermissionCode code) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetailsPrinciple user = (UserDetailsPrinciple) authentication.getPrincipal();

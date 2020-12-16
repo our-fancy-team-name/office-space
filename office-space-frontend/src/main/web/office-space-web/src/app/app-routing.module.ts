@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: 'product-manage', component: ProductPageComponent,
     canActivate: PERMISSION_PAGE,
-    data: { perm: [PERMISSION_CODE.PRODUCT_EDIT] }
+    data: { perm: [PERMISSION_CODE.PRODUCT_EDIT, PERMISSION_CODE.PACKAGE_EDIT] }
   },
   { path: '**', redirectTo: 'demo', pathMatch: 'full' }
 ];

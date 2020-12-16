@@ -23,9 +23,19 @@
   },
   "MESSAGE": {
     "AGREE_TO_DELETE": "CHẮC CHẮN XÓA",
-    "AGREE_TO_UPDATE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN!"
+    "AGREE_TO_UPDATE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN!",
+    "AND": "và",
+    "INPUT_TO_SEARCH": "Nhập để tìm kiếm",
+    "MORE": "kết quả nữa ..."
+  },
+  "PACKAGE": {
+    "SERIAL_NUMBER": "Số định danh"
+  },
+  "PACKAGE_EDIT_LIST": {
+    "CREATE_PKG": "Tạo kiện hàng"
   },
   "PERMISSION": {
+    "PKG_EDIT": "Chỉnh sửa kiện hàng",
     "PRD_EDIT": "Chỉnh sửa sản phẩm",
     "ROLE_EDIT": "Chỉnh sửa vai trò",
     "USER_EDIT": "Chỉnh sửa người dùng"

@@ -27,6 +27,8 @@ import { UserEditListComponent } from './components/user-edit-list/user-edit-lis
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { ProductEditListComponent } from './components/product-edit-list/product-edit-list.component';
 import { StorageService } from './services/auth/storage.service';
+import { PakageEditListComponent } from './components/pakage-edit-list/pakage-edit-list.component';
+import { SelectSearchComponent } from './components/select-search/select-search.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { StorageService } from './services/auth/storage.service';
     ChipsComponent,
     UserEditListComponent,
     ProductPageComponent,
-    ProductEditListComponent
+    ProductEditListComponent,
+    PakageEditListComponent,
+    SelectSearchComponent
   ],
   imports: [
     BrowserModule,

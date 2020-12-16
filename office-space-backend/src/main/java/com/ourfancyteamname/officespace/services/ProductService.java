@@ -9,6 +9,8 @@ public interface ProductService {
 
   Page<ProductDto> findAll(TableSearchRequest tableSearchRequest);
 
+  Page<ProductDto> findProductWithDisplayName(TableSearchRequest tableSearchRequest);
+
   Product create(ProductDto productDto);
 
   Product update(ProductDto productDto);

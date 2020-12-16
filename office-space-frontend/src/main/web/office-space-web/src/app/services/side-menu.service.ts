@@ -22,7 +22,7 @@ export class SideMenuService {
     if (permission.indexOf(PERMISSION_CODE.ROLE_EDIT) >= 0 || permission.indexOf(PERMISSION_CODE.USER_EDIT) >= 0) {
       menuItem.push(MENU_ITEM.MANAGE_AUTHORITY);
     }
-    if (permission.indexOf(PERMISSION_CODE.PRODUCT_EDIT) >= 0) {
+    if (permission.indexOf(PERMISSION_CODE.PRODUCT_EDIT) >= 0 || permission.indexOf(PERMISSION_CODE.PACKAGE_EDIT) >= 0 ) {
       menuItem.push(MENU_ITEM.MANAGE_PRODUCT);
     }
     this.sideMenuSubject.next(menuItem);

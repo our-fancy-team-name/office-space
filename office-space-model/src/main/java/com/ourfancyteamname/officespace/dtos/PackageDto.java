@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ProductDto {
+public class PackageDto {
   private int id;
-  private String partNumber;
-  private String name;
+  private String productId;
+  private String serialNumber;
   private String description;
-  private String family;
-  private String displayName;
 }

@@ -25,4 +25,23 @@
         </sql>
     </changeSet>
 
+    <changeSet author="office-space" id="03_CREATE_PACKAGE_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+            ('PKG_EDIT');
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_CREATE_PACKAGE_TABLE">
+        <sql>
+            CREATE TABLE `package` (
+            id serial PRIMARY KEY,
+            `product-id` INT,
+            `serial-number` VARCHAR (255),
+            `description` VARCHAR(255)
+            );
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

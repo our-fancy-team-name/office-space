@@ -52,4 +52,10 @@ public class ProductController {
     return ResponseEntity.ok().build();
   }
 
+  @PostMapping("/list-name")
+  public ResponseEntity<Page<ProductDto>> getListProductDisplayName(
+      @RequestBody TableSearchRequest tableSearchRequest) {
+    return ResponseEntity.ok(productService.findProductWithDisplayName(tableSearchRequest));
+  }
+
 }

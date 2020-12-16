@@ -23,9 +23,19 @@
   },
   "MESSAGE": {
     "AGREE_TO_DELETE": "I AGREE TO DELETE",
-    "AGREE_TO_UPDATE": "I'VE READ THE INFORMATION VERY CAREFULLY!"
+    "AGREE_TO_UPDATE": "I'VE READ THE INFORMATION VERY CAREFULLY!",
+    "AND": "and",
+    "INPUT_TO_SEARCH": "Input to search",
+    "MORE": "more result ..."
+  },
+  "PACKAGE": {
+    "SERIAL_NUMBER": "Serial Number"
+  },
+  "PACKAGE_EDIT_LIST": {
+    "CREATE_PKG": "Create Package"
   },
   "PERMISSION": {
+    "PKG_EDIT": "Edit Package",
     "PRD_EDIT": "Edit Products",
     "ROLE_EDIT": "Edit Roles",
     "USER_EDIT": "Edit Users"
