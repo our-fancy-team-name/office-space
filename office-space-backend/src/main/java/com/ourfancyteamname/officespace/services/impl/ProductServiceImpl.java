@@ -2,6 +2,7 @@ package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.db.converters.dtos.ProductConverter;
 import com.ourfancyteamname.officespace.db.entities.Product;
+import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ProductRepository;
 import com.ourfancyteamname.officespace.db.services.PaginationService;
 import com.ourfancyteamname.officespace.db.services.SortingService;
@@ -38,6 +39,9 @@ public class ProductServiceImpl implements ProductService {
 
   @Autowired
   private ProductConverter productConverter;
+
+  @Autowired
+  private PackageRepository packageRepository;
 
   @Override
   public Page<ProductDto> findAll(TableSearchRequest tableSearchRequest) {
@@ -93,6 +97,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public void delete(Integer productId) {
+    Assert.isTrue(!packageRepository.existsByProductId(productId), ErrorCode.IN_USE.name());
     productRepository.deleteById(productId);
   }
 }

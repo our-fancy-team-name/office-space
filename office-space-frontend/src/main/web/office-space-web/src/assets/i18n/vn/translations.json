@@ -32,7 +32,8 @@
     "SERIAL_NUMBER": "Số định danh"
   },
   "PACKAGE_EDIT_LIST": {
-    "CREATE_PKG": "Tạo kiện hàng"
+    "CREATE_PKG": "Tạo kiện hàng",
+    "EDIT_PKG": "Chỉnh sửa kiện hàng"
   },
   "PERMISSION": {
     "PKG_EDIT": "Chỉnh sửa kiện hàng",
@@ -92,6 +93,7 @@
   "VALIDATOR": {
     "DUPLICATED": "Giá trị đã được sử dụng",
     "FIELD_REQUIRED": "Phần bắt buộc",
+    "IN_USE": "Hành động không thể hoàn thành vì đối tượng đang được sử dụng",
     "MAX_LENGTH": "Vượt quá số ký tự cho phép",
     "MIN_LENGTH": "Chưa đủ độ dài tối thiểu",
     "NOT_THE_SAME_PASSWORD": "Mật khẩu không trùng"

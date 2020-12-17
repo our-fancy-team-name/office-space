@@ -44,4 +44,17 @@
         </sql>
     </changeSet>
 
+    <changeSet author="office-space" id="03_CREATE_PACKAGE_LIST_VIEW">
+        <sql>
+            create or replace view package_list_view as
+            select
+            p.id as id,
+            concat(prd.name, ' - ', prd.`part-number`) as product,
+            p.`serial-number` as `serial-number`,
+            p.description as description
+            from package p
+            left join product prd on prd.id = p.`product-id`
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

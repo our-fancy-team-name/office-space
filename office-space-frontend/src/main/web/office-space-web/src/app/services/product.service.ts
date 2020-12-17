@@ -28,4 +28,8 @@ export class ProductService {
   update(data): Observable<any> {
     return this.http.post(`${this.url}/update`, data);
   }
+
+  getListProductDisplayName(data: TableSearchRequest): Observable<any> {
+    return this.http.post(`${this.url}/list-name`, data);
+  }
 }

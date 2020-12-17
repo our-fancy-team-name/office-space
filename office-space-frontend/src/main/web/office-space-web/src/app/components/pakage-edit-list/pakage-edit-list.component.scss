@@ -5,8 +5,8 @@ mat-card {
   margin: 10px;
 }
 
-// ::ng-deep th .mat-form-field-appearance-outline .mat-form-field-infix {
-//   padding: 5px 0 10px 0;
-//   width: auto;
-//   min-width: 100px;
-// }
+::ng-deep th .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 5px 0 10px 0;
+  width: auto;
+  min-width: 100px;
+}

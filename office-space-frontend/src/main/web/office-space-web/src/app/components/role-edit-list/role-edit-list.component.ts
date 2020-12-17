@@ -96,7 +96,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
 
   initialData() {
     this.spinner.show();
-    this.codeSearchCtr.setValue(this.codeSearchCtr.value);
+    this.paginator.page.emit();
     this.userService.getAllUsers().subscribe((res: any) => {
       this.allChips = res.content.map(item => item.username);
       this.filteredChips = this.chipCtrl.valueChanges.pipe(

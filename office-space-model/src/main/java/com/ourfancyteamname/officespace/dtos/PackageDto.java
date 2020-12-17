@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class PackageDto {
   private int id;
-  private String productId;
+  private int productId;
   private String serialNumber;
   private String description;
 }

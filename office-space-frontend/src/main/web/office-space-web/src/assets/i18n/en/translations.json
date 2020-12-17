@@ -32,7 +32,8 @@
     "SERIAL_NUMBER": "Serial Number"
   },
   "PACKAGE_EDIT_LIST": {
-    "CREATE_PKG": "Create Package"
+    "CREATE_PKG": "Create Package",
+    "EDIT_PKG": "Edit Package"
   },
   "PERMISSION": {
     "PKG_EDIT": "Edit Package",
@@ -92,6 +93,7 @@
   "VALIDATOR": {
     "DUPLICATED": "This value is already used",
     "FIELD_REQUIRED": "Required Field",
+    "IN_USE": "The operation cannot be performed because the object is in used",
     "MAX_LENGTH": "Exceed max length allowed",
     "MIN_LENGTH": "Less than min length allow",
     "NOT_THE_SAME_PASSWORD": "Password not match"

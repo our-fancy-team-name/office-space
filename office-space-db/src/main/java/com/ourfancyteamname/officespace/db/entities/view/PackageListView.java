@@ -16,21 +16,20 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "`role_user_list_view`")
-public class RoleUserListView implements Serializable {
-
-  private static final long serialVersionUID = -311943914363931128L;
+@Table(name = "`package_list_view`")
+public class PackageListView implements Serializable {
+  private static final long serialVersionUID = -256749914363931128L;
 
   @Id
   @Column(name = "`id`")
   private int id;
 
-  @Column(name = "`code`")
-  private String code;
+  @Column(name = "`product`")
+  private String product;
+
+  @Column(name = "`serial-number`")
+  private String serialNumber;
 
   @Column(name = "`description`")
   private String description;
-
-  @Column(name = "`users`")
-  private String users;
 }

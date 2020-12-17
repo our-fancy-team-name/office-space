@@ -13,6 +13,7 @@ import { ValidatorsService } from 'src/app/utils/validators.service';
 })
 export class SelectSearchComponent implements OnInit, AfterViewInit, AfterContentInit {
 
+  @Input() identifier;
   @Input() label;
   @Input() options;
   @Input() url;
@@ -83,5 +84,18 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
 
   setValue(value) {
     return this.selectCtr.setValue(value);
+  }
+
+  compareObjects(thiz: any, that: any) {
+    for (const key in thiz) {
+      if (Object.prototype.hasOwnProperty.call(thiz, key) && Object.prototype.hasOwnProperty.call(that, key)) {
+        if(thiz[key] !== that[key]) {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+    return true;
   }
 }

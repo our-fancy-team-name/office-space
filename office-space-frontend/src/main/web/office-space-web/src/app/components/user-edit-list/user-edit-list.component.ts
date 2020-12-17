@@ -98,6 +98,7 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
   ) { }
   ngAfterViewInit(): void {
     this.searchTableData();
+    this.paginator.page.emit();
   }
 
   ngOnInit(): void {
@@ -161,7 +162,6 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
 
   initialData() {
     this.spinner.show();
-    this.usernameSearchCtr.setValue(this.usernameSearchCtr.value);
     this.roleService.getAllRoleCode().subscribe(res => {
       this.allChips = res;
       this.filteredChips = this.chipCtrl.valueChanges.pipe(

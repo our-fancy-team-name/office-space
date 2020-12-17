@@ -2,6 +2,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { merge, Observable } from 'rxjs';
 import { debounceTime, startWith, switchMap, map, catchError } from 'rxjs/operators';
@@ -64,11 +66,14 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
   constructor(
     public validator: ValidatorsService,
     private spinner: NgxSpinnerService,
-    private productService: ProductService
+    private productService: ProductService,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
   ) { }
 
   ngAfterViewInit(): void {
     this.searchTableData();
+    this.paginator.page.emit();
   }
 
   searchTableData() {
@@ -127,7 +132,6 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.familySearchCtr.setValue(this.familySearchCtr.value);
   }
 
   addCre() {
@@ -149,7 +153,7 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       this.nameCreCtr.reset();
       this.descriptionCreCtr.reset();
       this.familyCreCtr.reset();
-      this.nameSearchCtr.setValue(this.nameSearchCtr.value);
+      this.paginator.page.emit();
       this.closeCre();
       this.spinner.hide();
     }, err => {
@@ -200,7 +204,15 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
   deletePrd(element) {
     this.spinner.show();
     this.productService.delete(element.id).subscribe(res => {
-      this.nameSearchCtr.setValue(this.nameSearchCtr.value);
+      this.paginator.page.emit();
+    }, err => {
+      this.spinner.hide();
+      this.agreementToDelete = false;
+      this.translate.get(this.validator.getErrorMessage(err.error.message).message).subscribe(mes => {
+        this.snackBar.open(mes, '', {
+          duration: 5000
+        })
+      })
     });
   }
 
@@ -225,7 +237,7 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
     this.productService.update(productDto).subscribe(res => {
       this.close();
       this.spinner.hide();
-      this.nameSearchCtr.setValue(this.nameSearchCtr.value);
+      this.paginator.page.emit();
     }, err => {
       const objectError = err.error.message.split(':')[0];
       const message = this.validator.getErrorMessage(err.error.message.split(':')[1]);
