@@ -36,6 +36,8 @@
     "EDIT_PKG": "Chỉnh sửa kiện hàng"
   },
   "PERMISSION": {
+    "CLUS_EDIT": "Chỉnh sửa cụm",
+    "NODE_EDIT": "Chỉnh sửa nút",
     "PKG_EDIT": "Chỉnh sửa kiện hàng",
     "PRD_EDIT": "Chỉnh sửa sản phẩm",
     "ROLE_EDIT": "Chỉnh sửa vai trò",

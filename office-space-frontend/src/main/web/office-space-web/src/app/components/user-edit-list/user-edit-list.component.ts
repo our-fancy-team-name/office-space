@@ -98,7 +98,6 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
   ) { }
   ngAfterViewInit(): void {
     this.searchTableData();
-    this.paginator.page.emit();
   }
 
   ngOnInit(): void {
@@ -208,7 +207,7 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
   deleteUser(element) {
     this.spinner.show();
     this.userService.deleteUser(element.id).subscribe(res => {
-      this.initialData();
+      this.paginator.page.emit();
     });
   }
 
@@ -346,9 +345,9 @@ export class UserEditListComponent implements OnInit, AfterViewInit {
       this.altPhoneCreCtr.reset();
       this.addressCreCtr.reset();
       this.isMaleCre = false;
-      this.initialData();
       this.closeCre();
       this.spinner.hide();
+      this.paginator.page.emit();
     }, err => {
       this.usernameCreCtr.setErrors(this.validator.getErrorMessage(err.error.message));
       this.spinner.hide();

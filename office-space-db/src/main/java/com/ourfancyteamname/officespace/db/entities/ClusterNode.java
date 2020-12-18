@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.db.entities;
 
+import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,29 +15,29 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
-@Builder
 @Entity
-@Table(name = "`product`")
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class Product implements Serializable {
+@AllArgsConstructor
+@Table(name = "`cluster_node")
+public class ClusterNode implements Serializable {
 
-  private static final long serialVersionUID = -276143914573931128L;
+  private static final long serialVersionUID = -5932551914496136402L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "`id`")
   private int id;
 
-  @Column(name = "`part-number`")
-  private String partNumber;
+  @Column(name = "`cluster-id`")
+  private Integer clusterId;
 
-  @Column(name = "`name`")
-  private String name;
+  @Column(name = "`node-id`")
+  private Integer nodeId;
+
+  @Column(name = "`position`")
+  private ClusterNodePosition position;
 
   @Column(name = "`description`")
   private String description;
-
-  @Column(name = "`family`")
-  private String family;
 }

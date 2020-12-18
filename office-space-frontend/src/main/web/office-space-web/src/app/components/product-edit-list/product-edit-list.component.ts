@@ -73,7 +73,6 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.searchTableData();
-    this.paginator.page.emit();
   }
 
   searchTableData() {

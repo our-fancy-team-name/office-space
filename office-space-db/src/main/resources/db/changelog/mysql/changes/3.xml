@@ -57,4 +57,20 @@
         </sql>
     </changeSet>
 
+    <changeSet author="office-space" id="03_DROP_COLUMN_PRODUCT_PROCESS_ID">
+        <sql>
+            ALTER TABLE `product`
+            DROP COLUMN `process-id`;
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_CREATE_CLUSTER_AND_NODE_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+            ('CLUS_EDIT'),
+            ('NODE_EDIT');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

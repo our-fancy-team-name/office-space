@@ -14,22 +14,18 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
-@Builder
 @Entity
-@Table(name = "`product`")
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class Product implements Serializable {
-
-  private static final long serialVersionUID = -276143914573931128L;
+@AllArgsConstructor
+@Table(name = "`process_cluster`")
+public class ProcessCluster implements Serializable {
+  private static final long serialVersionUID = -1652730901265423406L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "`id`")
   private int id;
-
-  @Column(name = "`part-number`")
-  private String partNumber;
 
   @Column(name = "`name`")
   private String name;
@@ -37,6 +33,7 @@ public class Product implements Serializable {
   @Column(name = "`description`")
   private String description;
 
-  @Column(name = "`family`")
-  private String family;
+  @Column(name = "`code`")
+  private String code;
+
 }

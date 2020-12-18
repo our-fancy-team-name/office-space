@@ -8,5 +8,10 @@ export const MENU_ITEM = {
         title: 'MANAGE_PRODUCT',
         icon: 'settings_input_component',
         isActive: true,
+    },
+    MANAGE_CLUSTER: {
+        title: 'MANAGE_CLUSTER',
+        icon: 'dashboard',
+        isActive: true,
     }
 };

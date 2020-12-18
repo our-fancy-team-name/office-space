@@ -18,20 +18,42 @@ package (1 hop ban chai co serial-number 123 / dang nam trong process-step 1)
 //translated
  
  
-process:
+process: Cluster
  name,
- description,
- List<process-step>
+ description
+ 
+ Cluster_node [
+	{
+		label:
+		description:
+		cluster: 1
+		node: 1
+		position: head/tail/body
+	}
+ ]
+ 
+ Cluster_node_path [
+	{
+		label:
+		description:
+		from: 1
+		to: 2
+	}
+ 
+ ]
+ 
+ Cluster_node_package [
+	{
+		cluster_node_id: 1
+		package: 1; // unique
+		addTime: 10h00
+	}
+ ]
  
  
- 
-process-step
+process-step: Node
  name
- description,
- list<input>
- list<output>
- tail or head
- rule input -> output
+ description
  
  
  

@@ -32,6 +32,14 @@ public class PermissionSecurityService {
     return checkPermission(PermissionCode.PKG_EDIT);
   }
 
+  public boolean canEditCluster() {
+    return checkPermission(PermissionCode.CLUS_EDIT);
+  }
+
+  public boolean canEditNode() {
+    return checkPermission(PermissionCode.NODE_EDIT);
+  }
+
   private boolean checkPermission(PermissionCode code) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetailsPrinciple user = (UserDetailsPrinciple) authentication.getPrincipal();

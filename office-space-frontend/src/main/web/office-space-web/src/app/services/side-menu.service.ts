@@ -25,6 +25,9 @@ export class SideMenuService {
     if (permission.indexOf(PERMISSION_CODE.PRODUCT_EDIT) >= 0 || permission.indexOf(PERMISSION_CODE.PACKAGE_EDIT) >= 0 ) {
       menuItem.push(MENU_ITEM.MANAGE_PRODUCT);
     }
+    if (permission.indexOf(PERMISSION_CODE.CLUSTER_EDIT) >= 0 || permission.indexOf(PERMISSION_CODE.NODE_EDIT) >= 0 ) {
+      menuItem.push(MENU_ITEM.MANAGE_CLUSTER);
+    }
     this.sideMenuSubject.next(menuItem);
   }
 }

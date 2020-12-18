@@ -36,6 +36,8 @@
     "EDIT_PKG": "Edit Package"
   },
   "PERMISSION": {
+    "CLUS_EDIT": "Edit Clusters",
+    "NODE_EDIT": "Edit Nodes",
     "PKG_EDIT": "Edit Package",
     "PRD_EDIT": "Edit Products",
     "ROLE_EDIT": "Edit Roles",
