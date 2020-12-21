@@ -29,6 +29,9 @@ import { ProductEditListComponent } from './components/product-edit-list/product
 import { StorageService } from './services/auth/storage.service';
 import { PakageEditListComponent } from './components/pakage-edit-list/pakage-edit-list.component';
 import { SelectSearchComponent } from './components/select-search/select-search.component';
+import { ClusterPageComponent } from './components/cluster-page/cluster-page.component';
+import { ClusterEditListComponent } from './components/cluster-edit-list/cluster-edit-list.component';
+import { NodeEditListComponent } from './components/node-edit-list/node-edit-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { SelectSearchComponent } from './components/select-search/select-search.
     ProductPageComponent,
     ProductEditListComponent,
     PakageEditListComponent,
-    SelectSearchComponent
+    SelectSearchComponent,
+    ClusterPageComponent,
+    ClusterEditListComponent,
+    NodeEditListComponent
   ],
   imports: [
     BrowserModule,

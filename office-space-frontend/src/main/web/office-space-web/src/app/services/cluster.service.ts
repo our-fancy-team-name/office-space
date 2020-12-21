@@ -7,9 +7,9 @@ import { StorageService } from './auth/storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PackageService {
+export class ClusterService {
 
-  readonly url = `${this.storage.get(StorageService.API)}package`;
+  readonly url = `${this.storage.get(StorageService.API)}cluster`;
 
   constructor(private http: HttpClient, private storage: StorageService) { }
 
@@ -22,10 +22,6 @@ export class PackageService {
   }
 
   update(data): Observable<any> {
-    return this.http.patch(`${this.url}/update`, data);
-  }
-
-  delete(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.patch(this.url, data);
   }
 }

@@ -107,6 +107,10 @@ export class AppComponent implements OnInit, AfterContentInit {
       this.router.navigate(['/product-manage']);
       return;
     }
+    if (item.title === MENU_ITEM.MANAGE_CLUSTER.title) {
+      this.router.navigate(['/cluster-manage']);
+      return;
+    }
   }
 
 }

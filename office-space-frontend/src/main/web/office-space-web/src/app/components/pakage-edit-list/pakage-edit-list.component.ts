@@ -81,7 +81,7 @@ export class PakageEditListComponent implements OnInit, AfterViewInit {
     private storage: StorageService,
     private packageService: PackageService,
     private spinner: NgxSpinnerService,
-    private ProductService: ProductService
+    private productService: ProductService
   ) { }
 
   ngAfterViewInit(): void {
@@ -134,7 +134,7 @@ export class PakageEditListComponent implements OnInit, AfterViewInit {
       productId: this.productEdits.filter(i => i.identifier === element.id)[0].getValue().id,
       serialNumber: this.serialNumberCtr.value,
       description: this.descriptionCtr.value || ''
-    }
+    };
     this.packageService.update(packageDto).subscribe(res => {
       this.spinner.hide();
       this.expandedElement = null;
@@ -142,7 +142,7 @@ export class PakageEditListComponent implements OnInit, AfterViewInit {
     }, err => {
       this.serialNumberCtr.setErrors(this.validator.getErrorMessage(err.error.message));
       this.spinner.hide();
-    })
+    });
 
   }
 
@@ -219,12 +219,12 @@ export class PakageEditListComponent implements OnInit, AfterViewInit {
       this.serialNumberCtr.setValue(element.serialNumber);
       this.descriptionCtr.setValue(element.description);
       const data = JSON.parse(JSON.stringify(this.tableSearchObject));
-      data.columnSearchRequests.forEach(i=> i.operation = DataBaseOperation.EQUAL);
+      data.columnSearchRequests.forEach(i => i.operation = DataBaseOperation.EQUAL);
       data.columnSearchRequests[0].term = element.product?.split(' - ')[0];
       data.columnSearchRequests[1].term = element.product?.split(' - ')[1];
-      this.ProductService.getListProductDisplayName(data).subscribe(res => {
+      this.productService.getListProductDisplayName(data).subscribe(res => {
         this.productEdits.filter(i => i.identifier === element.id)[0].setValue(res.content[0]);
-      })
+      });
     }
   }
 
@@ -240,7 +240,7 @@ export class PakageEditListComponent implements OnInit, AfterViewInit {
       this.closeElement();
       this.spinner.hide();
       this.paginator.page.emit();
-    })
+    });
   }
 
   isConfirmDeleteDisable(element) {

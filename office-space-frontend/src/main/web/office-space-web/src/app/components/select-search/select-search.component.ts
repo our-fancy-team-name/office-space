@@ -87,15 +87,14 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
   }
 
   compareObjects(thiz: any, that: any) {
-    for (const key in thiz) {
-      if (Object.prototype.hasOwnProperty.call(thiz, key) && Object.prototype.hasOwnProperty.call(that, key)) {
-        if(thiz[key] !== that[key]) {
-          return false;
+    const compareImpl = (tiz, tat) => {
+      for (const key of Object.keys(tiz)) {
+        if (!Object.prototype.hasOwnProperty.call(tat, key) || tiz[key] !== tat[key]) {
+            return false;
         }
-      } else {
-        return false;
       }
-    }
-    return true;
+      return true;
+    };
+    return compareImpl(that, thiz) && compareImpl(thiz, that);
   }
 }

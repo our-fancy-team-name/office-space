@@ -210,8 +210,8 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       this.translate.get(this.validator.getErrorMessage(err.error.message).message).subscribe(mes => {
         this.snackBar.open(mes, '', {
           duration: 5000
-        })
-      })
+        });
+      });
     });
   }
 

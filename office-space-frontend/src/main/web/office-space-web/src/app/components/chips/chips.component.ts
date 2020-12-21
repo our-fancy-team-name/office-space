@@ -91,7 +91,6 @@ export class ChipsComponent implements OnInit {
   }
 
   private _filter(value: string): string[] {
-    console.log(value);
     return this.allChips?.filter(chip => chip.toLowerCase().indexOf(value) === 0);
   }
 

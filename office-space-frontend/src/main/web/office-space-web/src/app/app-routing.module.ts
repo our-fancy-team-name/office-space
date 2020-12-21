@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClusterPageComponent } from './components/cluster-page/cluster-page.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
@@ -30,6 +31,11 @@ const routes: Routes = [
     path: 'product-manage', component: ProductPageComponent,
     canActivate: PERMISSION_PAGE,
     data: { perm: [PERMISSION_CODE.PRODUCT_EDIT, PERMISSION_CODE.PACKAGE_EDIT] }
+  },
+  {
+    path: 'cluster-manage', component: ClusterPageComponent,
+    canActivate: PERMISSION_PAGE,
+    data: { perm: [PERMISSION_CODE.CLUSTER_EDIT, PERMISSION_CODE.NODE_EDIT] }
   },
   { path: '**', redirectTo: 'demo', pathMatch: 'full' }
 ];
