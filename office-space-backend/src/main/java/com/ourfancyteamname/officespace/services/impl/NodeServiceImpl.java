@@ -43,6 +43,22 @@ public class NodeServiceImpl implements NodeService {
   }
 
   @Override
+  public ProcessNode update(ProcessGeneralDto processGeneralDto) {
+    ProcessNode target = processNodeRepository.findById(processGeneralDto.getId())
+        .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
+    if (!processNodeRepository.findByCode(processGeneralDto.getCode())
+        .map(ProcessNode::getCode)
+        .map(code -> code.equals(target.getCode()))
+        .orElse(true)) {
+      throw new IllegalArgumentException(ErrorCode.DUPLICATED.name());
+    }
+    target.setCode(processGeneralDto.getCode());
+    target.setName(processGeneralDto.getName());
+    target.setDescription(processGeneralDto.getDescription());
+    return processNodeRepository.save(target);
+  }
+
+  @Override
   public Page<ProcessGeneralDto> getListView(TableSearchRequest tableSearchRequest) {
     Specification<ProcessNode> specification = specificationService.specificationBuilder(tableSearchRequest);
     Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());

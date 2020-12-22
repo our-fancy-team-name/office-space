@@ -9,5 +9,7 @@ public interface NodeService {
 
   ProcessNode create(ProcessGeneralDto processGeneralDto);
 
+  ProcessNode update(ProcessGeneralDto processGeneralDto);
+
   Page<ProcessGeneralDto> getListView(TableSearchRequest tableSearchRequest);
 }

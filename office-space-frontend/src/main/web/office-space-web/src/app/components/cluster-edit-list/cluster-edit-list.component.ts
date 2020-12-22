@@ -21,7 +21,7 @@ import { ValidatorsService } from 'src/app/utils/validators.service';
       state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
-  ],
+  ]
 })
 export class ClusterEditListComponent implements OnInit, AfterViewInit {
   TIME_OUT = 800;

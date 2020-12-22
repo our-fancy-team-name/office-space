@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TableSearchRequest } from '../dtos/tableSearch';
 import { StorageService } from './auth/storage.service';
 
 @Injectable({
@@ -14,5 +15,13 @@ export class NodeService {
 
   create(data): Observable<any> {
     return this.http.post(`${this.url}/create`, data);
+  }
+
+  getListView(data: TableSearchRequest): Observable<any> {
+    return this.http.post(`${this.url}/list-view`, data);
+  }
+
+  update(data): Observable<any> {
+    return this.http.patch(this.url, data);
   }
 }

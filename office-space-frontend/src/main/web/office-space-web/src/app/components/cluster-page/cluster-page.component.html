@@ -9,4 +9,9 @@
             <app-node-edit-list></app-node-edit-list>
         </ng-template>
     </mat-tab>
+    <mat-tab *ngIf="isDisplayProcess()" label="{{'PROCESS.PROCESS' | translate}}">
+        <ng-template matTabContent>
+           asdad
+        </ng-template>
+    </mat-tab>
 </mat-tab-group>

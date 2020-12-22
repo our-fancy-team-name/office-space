@@ -7,6 +7,7 @@ import com.ourfancyteamname.officespace.services.NodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +34,12 @@ public class NodeController {
   public ResponseEntity<Page<ProcessGeneralDto>> getListView(@RequestBody TableSearchRequest tableSearchRequest) {
     return ResponseEntity.ok(nodeService.getListView(tableSearchRequest));
   }
-//
-//  @PatchMapping
-//  @Transactional
-//  @CanEditCluster
-//  public ResponseEntity<Void> update(@RequestBody ProcessGeneralDto processGeneralDto) {
-//    clusterService.update(processGeneralDto);
-//    return ResponseEntity.ok().build();
-//  }
+
+  @PatchMapping
+  @Transactional
+  @CanEditNode
+  public ResponseEntity<Void> update(@RequestBody ProcessGeneralDto processGeneralDto) {
+    nodeService.update(processGeneralDto);
+    return ResponseEntity.ok().build();
+  }
 }
