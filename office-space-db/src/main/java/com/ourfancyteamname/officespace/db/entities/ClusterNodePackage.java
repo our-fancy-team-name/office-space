@@ -22,7 +22,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "`cluster_node")
+@Table(name = "`cluster_node_package`")
 public class ClusterNodePackage implements Serializable {
   private static final long serialVersionUID = 4834156166615994163L;
 

@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "`cluster_node")
+@Table(name = "`cluster_node`")
 public class ClusterNode implements Serializable {
 
   private static final long serialVersionUID = -5932551914496136402L;

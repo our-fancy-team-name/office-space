@@ -4,34 +4,39 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AngularResizedEventModule } from 'angular-resize-event';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AuthInterceptorProviders } from '../app/interceptors/httpConfig.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ChipsComponent } from './components/chips/chips.component';
+import { ClusterEditListComponent } from './components/cluster-edit-list/cluster-edit-list.component';
+import { ClusterPageComponent } from './components/cluster-page/cluster-page.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { NodeEditListComponent } from './components/node-edit-list/node-edit-list.component';
+import { PakageEditListComponent } from './components/pakage-edit-list/pakage-edit-list.component';
+import { ProcessGraphComponent } from './components/process-graph/process-graph.component';
+import { ProductEditListComponent } from './components/product-edit-list/product-edit-list.component';
+import { ProductPageComponent } from './components/product-page/product-page.component';
 import { RoleEditListComponent } from './components/role-edit-list/role-edit-list.component';
 import { RoleManageComponent } from './components/role-manage/role-manage.component';
 import { RoleSelectComponent } from './components/role-select/role-select.component';
+import { SelectSearchComponent } from './components/select-search/select-search.component';
+import { UserEditListComponent } from './components/user-edit-list/user-edit-list.component';
 import { LANGUAGES } from './enums/languagesEnum';
 import { LoggedInGuardInterceptor } from './interceptors/logged-in-guard.interceptor';
 import { PermissionInterceptor } from './interceptors/permission.interceptor';
 import { RoleInterceptor } from './interceptors/role.interceptor';
 import { createTranslationLoader, TranslationInterceptor } from './interceptors/translation.interceptor';
 import { MaterialModule } from './material.module';
-import { ChipsComponent } from './components/chips/chips.component';
-import { UserEditListComponent } from './components/user-edit-list/user-edit-list.component';
-import { ProductPageComponent } from './components/product-page/product-page.component';
-import { ProductEditListComponent } from './components/product-edit-list/product-edit-list.component';
 import { StorageService } from './services/auth/storage.service';
-import { PakageEditListComponent } from './components/pakage-edit-list/pakage-edit-list.component';
-import { SelectSearchComponent } from './components/select-search/select-search.component';
-import { ClusterPageComponent } from './components/cluster-page/cluster-page.component';
-import { ClusterEditListComponent } from './components/cluster-edit-list/cluster-edit-list.component';
-import { NodeEditListComponent } from './components/node-edit-list/node-edit-list.component';
+import { NodePickerComponent } from './components/process-graph/node-picker/node-picker.component';
+import { ClusterNodeEditComponent } from './components/process-graph/cluster-node-edit/cluster-node-edit.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,10 @@ import { NodeEditListComponent } from './components/node-edit-list/node-edit-lis
     SelectSearchComponent,
     ClusterPageComponent,
     ClusterEditListComponent,
-    NodeEditListComponent
+    NodeEditListComponent,
+    ProcessGraphComponent,
+    NodePickerComponent,
+    ClusterNodeEditComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +81,9 @@ import { NodeEditListComponent } from './components/node-edit-list/node-edit-lis
     }),
     LayoutModule,
     MaterialModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxGraphModule,
+    AngularResizedEventModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
