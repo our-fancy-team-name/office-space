@@ -70,7 +70,7 @@ public class ProcessServiceImpl implements ProcessService {
   @Override
   public void removeNodeFromCluster(Integer clusterNodeId) {
     ClusterNode clusterNode = clusterNodeRepository.findById(clusterNodeId)
-        .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
+        .orElseThrow(errorNotFound());
     pathRepository.removeByClusterNodeIdToOrClusterNodeIdFrom(clusterNode.getId(), clusterNode.getId());
     entityManager.flush();
     clusterNodeRepository.delete(clusterNode);

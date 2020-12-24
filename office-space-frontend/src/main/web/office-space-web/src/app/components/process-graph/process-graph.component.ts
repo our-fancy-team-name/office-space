@@ -164,7 +164,7 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
   }
 
   nodeClicked(event, node) {
-    this.panToNode.next(node.id);
+    // this.panToNode.next(node.id);
     this.clusterNodeEdit.setData(this.graphDto, +node.id.substring(1));
     this.isHideEditor = false;
   }
