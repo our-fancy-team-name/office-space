@@ -1,7 +1,6 @@
 <mat-form-field appearance="outline" class="w-100">
     <mat-label>{{label | translate}}</mat-label>
     <mat-chip-list #chipList>
-        {{chips}}
         <mat-chip *ngFor="let item of chips" [selectable]="selectable"
             [removable]="removable" (removed)="remove(item)">
             {{item}}

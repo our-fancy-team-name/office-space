@@ -16,4 +16,11 @@ public interface ClusterNodePathRepository extends JpaRepository<ClusterNodePath
       "left join ProcessCluster pc on pc.id = cn.clusterId " +
       "where pc.id= :clusterId")
   List<ClusterNodePath> findAllByCLusterId(@Param("clusterId") Integer clusterId);
+
+  List<ClusterNodePath> findByClusterNodeIdTo(Integer clusterNodeIdTo);
+
+  List<ClusterNodePath> findByClusterNodeIdFrom(Integer clusterNodeIdFrom);
+
+  List<ClusterNodePath> removeByClusterNodeIdToOrClusterNodeIdFrom(Integer clusterNodeIdTo, Integer clusterNodeIdFrom);
+
 }

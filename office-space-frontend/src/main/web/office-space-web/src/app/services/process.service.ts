@@ -19,4 +19,12 @@ export class ProcessService {
   addNodeToCluster(data): Observable<any> {
     return this.http.post(`${this.url}/add-node`, data);
   }
+
+  editClusterNode(data): Observable<any> {
+    return this.http.post(`${this.url}/edit-node`, data);
+  }
+
+  removeNodeFromCluster(id): Observable<any> {
+    return this.http.delete(`${this.url}/remove-node/${id}`);
+  }
 }

@@ -23,6 +23,7 @@ public abstract class AbstractHibernateEnumConverter<E extends Enum<E> & Persist
 
   @Override
   public E convertToEntityAttribute(S dbData) {
+    if (dbData == null) return null;
     E[] enums = clazz.getEnumConstants();
     for (E e : enums) {
       if (e.getName().equals(dbData)) {

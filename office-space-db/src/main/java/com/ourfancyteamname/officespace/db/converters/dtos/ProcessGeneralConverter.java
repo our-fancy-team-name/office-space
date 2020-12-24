@@ -15,6 +15,8 @@ public interface ProcessGeneralConverter {
 
   ProcessGeneralDto fromPathToDto(ClusterNodePath clusterNodePath);
 
+  ClusterNodePath fromClusterNodeEditToPath(ProcessGeneralDto clusterNodeEditDto);
+
   ProcessCluster fromDtoToClusterEntity(ProcessGeneralDto processGeneralDto);
 
   ProcessNode fromDtoToNodeEntity(ProcessGeneralDto processGeneralDto);

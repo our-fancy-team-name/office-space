@@ -1,4 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { ClusterNode, Edge, Node } from '@swimlane/ngx-graph';
 import { merge, Observable, Subject } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap } from 'rxjs/operators';
@@ -6,6 +8,7 @@ import { TableSearchRequest } from 'src/app/dtos/tableSearch';
 import { DataBaseOperation } from 'src/app/enums/tableSearchEnum';
 import { StorageService } from 'src/app/services/auth/storage.service';
 import { ProcessService } from 'src/app/services/process.service';
+import { ValidatorsService } from 'src/app/utils/validators.service';
 import { SelectSearchComponent } from '../select-search/select-search.component';
 import { ClusterNodeEditComponent } from './cluster-node-edit/cluster-node-edit.component';
 
@@ -62,8 +65,11 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
   };
 
   constructor(
+    public validator: ValidatorsService,
     private storage: StorageService,
-    private processService: ProcessService
+    private processService: ProcessService,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
   ) { }
 
   toNode(data) {
@@ -158,9 +164,7 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
   }
 
   nodeClicked(event, node) {
-    console.log(node);
     this.panToNode.next(node.id);
-    console.log(this.graphDto);
     this.clusterNodeEdit.setData(this.graphDto, +node.id.substring(1));
     this.isHideEditor = false;
   }
@@ -199,6 +203,12 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
     };
     this.processService.addNodeToCluster(graphDto).subscribe(res => {
       this.refreshGraph();
+    }, err => {
+      this.translate.get(this.validator.getErrorMessage(err.error.message).message).subscribe(mes => {
+        this.snackBar.open(mes, '', {
+          duration: 5000
+        });
+      });
     });
   }
 }

@@ -52,6 +52,7 @@ export class NodePickerComponent implements OnInit, AfterViewInit {
         this.nodes = res2.content;
       });
     });
+    this.codeSearchCtr.setValue('');
   }
 
   ngOnInit(): void {

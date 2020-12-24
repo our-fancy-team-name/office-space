@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface ClusterNodeRepository extends JpaRepository<ClusterNode, Integer> {
 
+  boolean existsByClusterIdAndNodeId(Integer clusterId, Integer nodeId);
+
   @Query("select " +
       "new com.ourfancyteamname.officespace.dtos.ProcessGeneralDto(cn.id, pn.code, pn.name, pn.description) " +
       "from ProcessNode pn " +
