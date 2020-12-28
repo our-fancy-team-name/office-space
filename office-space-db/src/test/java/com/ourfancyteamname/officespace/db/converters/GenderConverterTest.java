@@ -41,9 +41,9 @@ public class GenderConverterTest {
     Assert.assertEquals(Gender.MALE, gender);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void convertToEntityAttribute_errorNull() {
     Gender gender = genderConverter.convertToEntityAttribute(null);
-    Assert.assertEquals(Gender.MALE, gender);
+    Assert.assertEquals(null, gender);
   }
 }

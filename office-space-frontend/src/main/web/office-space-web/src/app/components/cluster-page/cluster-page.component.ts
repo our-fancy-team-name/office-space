@@ -25,7 +25,7 @@ export class ClusterPageComponent implements OnInit {
   }
 
   isDisplayProcess() {
-    return true;
+    return this.permission.indexOf(PERMISSION_CODE.PROCESS_EDIT) >= 0;
   }
 
 }

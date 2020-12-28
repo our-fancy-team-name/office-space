@@ -35,7 +35,7 @@ const routes: Routes = [
   {
     path: 'cluster-manage', component: ClusterPageComponent,
     canActivate: PERMISSION_PAGE,
-    data: { perm: [PERMISSION_CODE.CLUSTER_EDIT, PERMISSION_CODE.NODE_EDIT] }
+    data: { perm: [PERMISSION_CODE.CLUSTER_EDIT, PERMISSION_CODE.NODE_EDIT, PERMISSION_CODE.PROCESS_EDIT] }
   },
   { path: '**', redirectTo: 'demo', pathMatch: 'full' }
 ];

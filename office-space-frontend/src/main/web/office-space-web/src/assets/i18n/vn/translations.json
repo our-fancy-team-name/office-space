@@ -1,4 +1,12 @@
 {
+  "CLUSTER": {
+    "CLUSTER": "Cụm tiến trình",
+    "CODE": "Mã cụm tiến trình",
+    "CREATE_CLUSTER": "Tạo  cụm tiến trình",
+    "DESCRIPTION": "Miêu tả",
+    "EDIT_CLUSTER": "Chỉnh sửa  cụm tiến trình",
+    "NAME": "Tên cụm tiến trình"
+  },
   "FOOTER": {
     "COPYRIGHT": "© 2020 Bản quyền:",
     "LANG_EN": "Tiếng Anh",
@@ -26,7 +34,15 @@
     "AGREE_TO_UPDATE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN!",
     "AND": "và",
     "INPUT_TO_SEARCH": "Nhập để tìm kiếm",
-    "MORE": "kết quả nữa ..."
+    "MORE": "kết quả nữa ...",
+    "SELECT_TARGET": "Vui lòng chọn mục tiêu"
+  },
+  "NODE": {
+    "CODE": "Mã nút tiến trình",
+    "CREATE_NODE": "Tạo nút tiến trình",
+    "DESCRIPTION": "Miêu tả",
+    "NAME": "Tên nút tiến trình",
+    "NODE": "Nút tiến trình"
   },
   "PACKAGE": {
     "SERIAL_NUMBER": "Số định danh"
@@ -39,9 +55,24 @@
     "CLUS_EDIT": "Chỉnh sửa cụm",
     "NODE_EDIT": "Chỉnh sửa nút",
     "PKG_EDIT": "Chỉnh sửa kiện hàng",
+    "PRCS_EDIT": "Chỉnh sửa tiến trình",
     "PRD_EDIT": "Chỉnh sửa sản phẩm",
     "ROLE_EDIT": "Chỉnh sửa vai trò",
     "USER_EDIT": "Chỉnh sửa người dùng"
+  },
+  "PROCESS": {
+    "ADD_NODE": "Thêm nút vào tiến trình",
+    "EDIT_NODE": "Chỉnh sửa nút tiến trình",
+    "LINK_DELETE": "Xóa liên kết",
+    "LINK_OPEN": "Mở liên kết",
+    "NODE_DELETE": "Xóa nút",
+    "NODE_INPUT": "Nút đầu vào",
+    "NODE_OPEN": "Mở nút",
+    "NODE_OUTPUT": "Nút đầu ra",
+    "NODE_PATH": "Vẽ liên kết",
+    "NODE_PATH_CANCEL": "Hủy",
+    "NODE_PATH_END": "Nút đích",
+    "PROCESS": "Tiến trình"
   },
   "PRODUCT": {
     "DESCRIPTION": "Miêu tả",
@@ -74,6 +105,7 @@
   "SIDEBAR": {
     "EMPLOYEE_LIST": "DS Nhân viên",
     "MANAGE_AUTHORITY": "Quyền truy cập",
+    "MANAGE_CLUSTER": "Q.Lý tiến trình",
     "MANAGE_PRODUCT": "Q.L Sản Phẩm"
   },
   "USER_EDIT_LIST": {

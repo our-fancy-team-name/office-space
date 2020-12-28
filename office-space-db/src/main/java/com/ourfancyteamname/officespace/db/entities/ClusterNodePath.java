@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "`cluster_node_path")
+@Table(name = "`cluster_node_path`")
 public class ClusterNodePath implements Serializable {
   private static final long serialVersionUID = -8909725113323730751L;
 
