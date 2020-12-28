@@ -1,4 +1,12 @@
 {
+  "CLUSTER": {
+    "CLUSTER": "Cluster",
+    "CODE": "Cluster code",
+    "CREATE_CLUSTER": "Cluster Create",
+    "DESCRIPTION": "Description",
+    "EDIT_CLUSTER": "Edit Cluster",
+    "NAME": "Cluster Name"
+  },
   "FOOTER": {
     "COPYRIGHT": "© 2020 Copyright:",
     "LANG_EN": "English",
@@ -28,6 +36,13 @@
     "INPUT_TO_SEARCH": "Input to search",
     "MORE": "more result ..."
   },
+  "NODE": {
+    "CODE": "Node Code",
+    "CREATE_NODE": "Create Node",
+    "DESCRIPTION": "Description",
+    "NAME": "Node Name",
+    "NODE": "Node"
+  },
   "PACKAGE": {
     "SERIAL_NUMBER": "Serial Number"
   },
@@ -42,6 +57,12 @@
     "PRD_EDIT": "Edit Products",
     "ROLE_EDIT": "Edit Roles",
     "USER_EDIT": "Edit Users"
+  },
+  "PROCESS": {
+    "ADD_NODE": "Add (a) node(s)",
+    "NODE_INPUT": "Input Node",
+    "NODE_OUTPUT": "Output node",
+    "PROCESS": "Process"
   },
   "PRODUCT": {
     "DESCRIPTION": "Product Description",
@@ -74,6 +95,7 @@
   "SIDEBAR": {
     "EMPLOYEE_LIST": "Employee List",
     "MANAGE_AUTHORITY": "Manage authority",
+    "MANAGE_CLUSTER": "Manage Cluster",
     "MANAGE_PRODUCT": "Mangage Prod"
   },
   "USER_EDIT_LIST": {
