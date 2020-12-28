@@ -48,7 +48,7 @@
                                 </ng-template>
 
                                 <ng-template #nodeTemplate let-node>
-                                    <svg:g container="body" [ngbPopover]="nodePopContent" class="node cursor-pointer">
+                                    <svg:g [class.node-selected]="startPathNode?.id === node.id" container="body" [ngbPopover]="nodePopContent" class="node cursor-pointer">
                                         <svg:rect [attr.width]="node.dimension.width"
                                             [attr.height]="node.dimension.height" [attr.fill]="node.data.color" />
                                         <svg:text alignment-baseline="central" [attr.x]="10"

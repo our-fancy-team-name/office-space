@@ -137,6 +137,7 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
         return new Observable();
       })
     ).subscribe(data => {
+      this.startPathNode = null;
       this.isHideMap = false;
       this.setSizeForGraph();
       this.setData(data);
@@ -174,10 +175,6 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
     setTimeout(() => {
       el.scrollIntoView({behavior: 'smooth'});
     }, 100);
-  }
-
-  openPopover(event) {
-    console.log(event);
   }
 
   clusterClicked(event, cluster) {
@@ -233,8 +230,6 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
       });
       return;
     }
-    console.log(this.startPathNode);
-    console.log(node);
     this.processService.addPath(+this.startPathNode.id.substring(1), +node.id.substring(1)).subscribe(res => {
       this.startPathNode = null;
       this.refreshGraph();
