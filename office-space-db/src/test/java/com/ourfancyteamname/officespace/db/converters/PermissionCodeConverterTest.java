@@ -40,9 +40,9 @@ public class PermissionCodeConverterTest {
     Assert.assertEquals(PermissionCode.USER_EDIT, permission);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void convertToEntityAttribute_errorNull() {
     PermissionCode permission = permissionCodeConverter.convertToEntityAttribute(null);
-    Assert.assertEquals(PermissionCode.USER_EDIT, permission);
+    Assert.assertEquals(null, permission);
   }
 }
