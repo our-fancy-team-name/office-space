@@ -40,6 +40,10 @@ public class PermissionSecurityService {
     return checkPermission(PermissionCode.NODE_EDIT);
   }
 
+  public boolean canEditProcess() {
+    return checkPermission(PermissionCode.PRCS_EDIT);
+  }
+
   private boolean checkPermission(PermissionCode code) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetailsPrinciple user = (UserDetailsPrinciple) authentication.getPrincipal();

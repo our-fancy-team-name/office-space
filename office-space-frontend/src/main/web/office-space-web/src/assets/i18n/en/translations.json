@@ -55,6 +55,7 @@
     "CLUS_EDIT": "Edit Clusters",
     "NODE_EDIT": "Edit Nodes",
     "PKG_EDIT": "Edit Package",
+    "PRCS_EDIT": "Edit Process",
     "PRD_EDIT": "Edit Products",
     "ROLE_EDIT": "Edit Roles",
     "USER_EDIT": "Edit Users"

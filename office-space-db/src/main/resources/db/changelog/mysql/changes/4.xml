@@ -61,4 +61,12 @@
         </sql>
     </changeSet>
 
+    <changeSet author="office-space" id="04_CREATE_PROCESS_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+            ('PRCS_EDIT');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

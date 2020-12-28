@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.controllers;
 
+import com.ourfancyteamname.officespace.annotations.CanEditProcess;
 import com.ourfancyteamname.officespace.dtos.ClusterNodeEditDto;
 import com.ourfancyteamname.officespace.dtos.GraphDto;
 import com.ourfancyteamname.officespace.services.ProcessService;
@@ -29,6 +30,7 @@ public class ProcessController {
 
   @PostMapping("/add-node")
   @Transactional
+  @CanEditProcess
   public ResponseEntity<Void> addNodeToCluster(@RequestBody GraphDto graphDto) {
     processService.addNodeToCluster(graphDto);
     return ResponseEntity.ok().build();
@@ -36,6 +38,7 @@ public class ProcessController {
 
   @DeleteMapping("/remove-node/{id}")
   @Transactional
+  @CanEditProcess
   public ResponseEntity<Void> removeNodeFromCluster(@PathVariable("id") Integer clusterNodeId) {
     processService.removeNodeFromCluster(clusterNodeId);
     return ResponseEntity.ok().build();
@@ -43,6 +46,7 @@ public class ProcessController {
 
   @PostMapping("/edit-node")
   @Transactional
+  @CanEditProcess
   public ResponseEntity<Void> editClusterNode(@RequestBody ClusterNodeEditDto clusterNodeEditDto) {
     processService.editClusterNode(clusterNodeEditDto);
     return ResponseEntity.ok().build();
@@ -50,6 +54,7 @@ public class ProcessController {
 
   @PostMapping("/add-path/{from}/{to}")
   @Transactional
+  @CanEditProcess
   public ResponseEntity<Void> addPath(@PathVariable("from") Integer clusterNodeIdFrom,
       @PathVariable("to") Integer clusterNodeIdTo) {
     processService.addSinglePath(clusterNodeIdFrom, clusterNodeIdTo);
@@ -58,6 +63,7 @@ public class ProcessController {
 
   @DeleteMapping("/remove-path/{id}")
   @Transactional
+  @CanEditProcess
   public ResponseEntity<Void> removePath(@PathVariable("id") Integer pathId) {
     processService.removePath(pathId);
     return ResponseEntity.ok().build();
