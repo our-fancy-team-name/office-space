@@ -34,7 +34,8 @@
     "AGREE_TO_UPDATE": "I'VE READ THE INFORMATION VERY CAREFULLY!",
     "AND": "and",
     "INPUT_TO_SEARCH": "Input to search",
-    "MORE": "more result ..."
+    "MORE": "more result ...",
+    "SELECT_TARGET": "Please select Target"
   },
   "NODE": {
     "CODE": "Node Code",
@@ -60,8 +61,16 @@
   },
   "PROCESS": {
     "ADD_NODE": "Add (a) node(s)",
+    "EDIT_NODE": "Edit Node",
+    "LINK_DELETE": "Delete link",
+    "LINK_OPEN": "Open link",
+    "NODE_DELETE": "Delete node",
     "NODE_INPUT": "Input Node",
+    "NODE_OPEN": "Open node",
     "NODE_OUTPUT": "Output node",
+    "NODE_PATH": "Draw path",
+    "NODE_PATH_CANCEL": "Cancel",
+    "NODE_PATH_END": "Target Node",
     "PROCESS": "Process"
   },
   "PRODUCT": {

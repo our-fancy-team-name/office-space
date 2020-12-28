@@ -37,6 +37,7 @@ import { MaterialModule } from './material.module';
 import { StorageService } from './services/auth/storage.service';
 import { NodePickerComponent } from './components/process-graph/node-picker/node-picker.component';
 import { ClusterNodeEditComponent } from './components/process-graph/cluster-node-edit/cluster-node-edit.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { ClusterNodeEditComponent } from './components/process-graph/cluster-nod
     MaterialModule,
     NgxSpinnerModule,
     NgxGraphModule,
-    AngularResizedEventModule
+    AngularResizedEventModule,
+    NgbModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

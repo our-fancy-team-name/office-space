@@ -27,4 +27,12 @@ export class ProcessService {
   removeNodeFromCluster(id): Observable<any> {
     return this.http.delete(`${this.url}/remove-node/${id}`);
   }
+
+  addPath(from, to): Observable<any> {
+    return this.http.post(`${this.url}/add-path/${from}/${to}`, {});
+  }
+
+  removePath(id): Observable<any> {
+    return this.http.delete(`${this.url}/remove-path/${id}`);
+  }
 }

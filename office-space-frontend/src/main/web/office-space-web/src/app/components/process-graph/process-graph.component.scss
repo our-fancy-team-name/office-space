@@ -9,8 +9,21 @@ mat-card {
 }
 
 #ngxGraphWrapper {
-    height: calc(100vh - 300px);
+    height: calc(100vh - 270px);
 }
 
+#node-pop-content {
+    width: 100px;
+}
+
+::ng-deep .mat-list-base[dense] .mat-list-item .mat-list-item-content {
+    padding: 0px;
+    cursor: pointer;
+}
+
+::ng-deep .mat-list-base[dense] .mat-list-item .mat-list-item-content:hover {
+    background-color: balck;
+    opacity: 0.5;
+}
 
 

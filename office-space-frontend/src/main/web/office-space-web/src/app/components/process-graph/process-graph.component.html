@@ -48,7 +48,7 @@
                                 </ng-template>
 
                                 <ng-template #nodeTemplate let-node>
-                                    <svg:g (click)="nodeClicked($event, node); scroll(end)" class="node cursor-pointer">
+                                    <svg:g container="body" [ngbPopover]="nodePopContent" class="node cursor-pointer">
                                         <svg:rect [attr.width]="node.dimension.width"
                                             [attr.height]="node.dimension.height" [attr.fill]="node.data.color" />
                                         <svg:text alignment-baseline="central" [attr.x]="10"
@@ -56,11 +56,44 @@
                                             {{node.label}}
                                         </svg:text>
                                     </svg:g>
+
+                                    <ng-template #nodePopContent>
+                                        <div id="node-pop-content">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <mat-list dense>
+                                                        <mat-list-item (click)="startDrawPath(node)">
+                                                            <mat-icon color="primary" mat-list-icon>directions
+                                                            </mat-icon>
+                                                            {{'PROCESS.NODE_PATH' + (startPathNode === null ? '' :
+                                                            '_END') | translate}}
+                                                        </mat-list-item>
+                                                        <mat-list-item *ngIf="startPathNode !== null"
+                                                            (click)="cancleDrawPath(node)">
+                                                            <mat-icon color="primary" mat-list-icon>close
+                                                            </mat-icon>
+                                                            {{'PROCESS.NODE_PATH_CANCEL' | translate}}
+                                                        </mat-list-item>
+                                                        <mat-list-item *ngIf="startPathNode === null"
+                                                            (click)="nodeClicked($event, node); scroll(end)">
+                                                            <mat-icon color="primary" mat-list-icon>folder</mat-icon>
+                                                            {{'PROCESS.NODE_OPEN' | translate}}
+                                                        </mat-list-item>
+                                                        <mat-list-item *ngIf="startPathNode === null"
+                                                            (click)="remvoveFromCluster(node)">
+                                                            <mat-icon color="warn" mat-list-icon>delete_sweep</mat-icon>
+                                                            {{'PROCESS.NODE_DELETE' | translate}}
+                                                        </mat-list-item>
+                                                    </mat-list>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
                                 </ng-template>
 
                                 <ng-template #linkTemplate let-link>
-                                    <svg:g class="edge cursor-pointer">
-                                        <svg:path class="line" stroke-width="2" marker-end="url(#arrow)"></svg:path>
+                                    <svg:g container="body" [ngbPopover]="linkPopContent" class="edge cursor-pointer">
+                                        <svg:path class="line" stroke-width="2.5" marker-end="url(#arrow)"></svg:path>
                                         <svg:text class="edge-label" text-anchor="middle">
                                             <textPath class="text-path" [attr.href]="'#' + link.id"
                                                 [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
@@ -68,6 +101,25 @@
                                             </textPath>
                                         </svg:text>
                                     </svg:g>
+                                    <ng-template #linkPopContent>
+                                        <div *ngIf="startPathNode === null" id="node-pop-content">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <mat-list dense>
+                                                        <!-- <mat-list-item
+                                                            (click)="openPathEditor($event, link); scroll(end)">
+                                                            <mat-icon color="primary" mat-list-icon>folder</mat-icon>
+                                                            {{'PROCESS.LINK_OPEN' | translate}}
+                                                        </mat-list-item> -->
+                                                        <mat-list-item (click)="remvovePath(link)">
+                                                            <mat-icon color="warn" mat-list-icon>delete_sweep</mat-icon>
+                                                            {{'PROCESS.LINK_DELETE' | translate}}
+                                                        </mat-list-item>
+                                                    </mat-list>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
                                 </ng-template>
                             </ngx-graph>
                         </div>

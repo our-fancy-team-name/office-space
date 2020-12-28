@@ -39,6 +39,7 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
   addingNote = false;
   graphDto = null;
   isHideEditor = true;
+  startPathNode = null;
 
   url = `${this.storage.get(StorageService.API)}cluster/list-view`;
 
@@ -175,6 +176,10 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
     }, 100);
   }
 
+  openPopover(event) {
+    console.log(event);
+  }
+
   clusterClicked(event, cluster) {
     console.log(event);
     console.log(cluster);
@@ -210,5 +215,43 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
         });
       });
     });
+  }
+
+  remvoveFromCluster(node) {
+    this.processService.removeNodeFromCluster(+node.id.substring(1)).subscribe(res => {
+      this.refreshGraph();
+    });
+  }
+
+  startDrawPath(node) {
+    if (this.startPathNode === null) {
+      this.startPathNode = node;
+      this.translate.get('MESSAGE.SELECT_TARGET').subscribe(mes => {
+        this.snackBar.open(mes, '', {
+          duration: 5000
+        });
+      });
+      return;
+    }
+    console.log(this.startPathNode);
+    console.log(node);
+    this.processService.addPath(+this.startPathNode.id.substring(1), +node.id.substring(1)).subscribe(res => {
+      this.startPathNode = null;
+      this.refreshGraph();
+    });
+  }
+
+  cancleDrawPath(node) {
+    this.startPathNode = null;
+  }
+
+  remvovePath(path) {
+    this.processService.removePath(+path.id.substring(1)).subscribe(res => {
+      this.refreshGraph();
+    });
+  }
+
+  openPathEditor(event, link) {
+
   }
 }

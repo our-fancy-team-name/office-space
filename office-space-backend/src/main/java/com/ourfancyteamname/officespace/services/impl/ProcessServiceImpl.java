@@ -68,6 +68,19 @@ public class ProcessServiceImpl implements ProcessService {
   }
 
   @Override
+  public void addSinglePath(Integer clusterIdFrom, Integer clusterIdTo) {
+    pathRepository.save(ClusterNodePath.builder()
+        .clusterNodeIdFrom(clusterIdFrom)
+        .clusterNodeIdTo(clusterIdTo)
+        .build());
+  }
+
+  @Override
+  public void removePath(Integer pathId) {
+    pathRepository.deleteById(pathId);
+  }
+
+  @Override
   public void removeNodeFromCluster(Integer clusterNodeId) {
     ClusterNode clusterNode = clusterNodeRepository.findById(clusterNodeId)
         .orElseThrow(errorNotFound());

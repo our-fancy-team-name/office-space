@@ -10,6 +10,10 @@ public interface ProcessService {
 
   ClusterNode addNodeToCluster(GraphDto graphDto);
 
+  void addSinglePath(Integer clusterIdFrom, Integer clusterIdTo);
+
+  void removePath(Integer pathId);
+
   void removeNodeFromCluster(Integer clusterNodeId);
 
   void editClusterNode(ClusterNodeEditDto clusterNodeEditDto);

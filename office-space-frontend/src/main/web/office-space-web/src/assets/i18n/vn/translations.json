@@ -34,7 +34,8 @@
     "AGREE_TO_UPDATE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN!",
     "AND": "và",
     "INPUT_TO_SEARCH": "Nhập để tìm kiếm",
-    "MORE": "kết quả nữa ..."
+    "MORE": "kết quả nữa ...",
+    "SELECT_TARGET": "Vui lòng chọn mục tiêu"
   },
   "NODE": {
     "CODE": "Mã nút tiến trình",
@@ -60,8 +61,16 @@
   },
   "PROCESS": {
     "ADD_NODE": "Thêm nút vào tiến trình",
+    "EDIT_NODE": "Chỉnh sửa nút tiến trình",
+    "LINK_DELETE": "Xóa liên kết",
+    "LINK_OPEN": "Mở liên kết",
+    "NODE_DELETE": "Xóa nút",
     "NODE_INPUT": "Nút đầu vào",
+    "NODE_OPEN": "Mở nút",
     "NODE_OUTPUT": "Nút đầu ra",
+    "NODE_PATH": "Vẽ liên kết",
+    "NODE_PATH_CANCEL": "Hủy",
+    "NODE_PATH_END": "Nút đích",
     "PROCESS": "Tiến trình"
   },
   "PRODUCT": {

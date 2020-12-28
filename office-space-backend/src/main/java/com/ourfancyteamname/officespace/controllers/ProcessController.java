@@ -47,4 +47,19 @@ public class ProcessController {
     processService.editClusterNode(clusterNodeEditDto);
     return ResponseEntity.ok().build();
   }
+
+  @PostMapping("/add-path/{from}/{to}")
+  @Transactional
+  public ResponseEntity<Void> addPath(@PathVariable("from") Integer clusterNodeIdFrom,
+      @PathVariable("to") Integer clusterNodeIdTo) {
+    processService.addSinglePath(clusterNodeIdFrom, clusterNodeIdTo);
+    return ResponseEntity.ok().build();
+  }
+
+  @DeleteMapping("/remove-path/{id}")
+  @Transactional
+  public ResponseEntity<Void> removePath(@PathVariable("id") Integer pathId) {
+    processService.removePath(pathId);
+    return ResponseEntity.ok().build();
+  }
 }
