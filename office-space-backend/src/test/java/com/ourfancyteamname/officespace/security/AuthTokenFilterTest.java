@@ -68,6 +68,26 @@ public class AuthTokenFilterTest {
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
-    Assert.assertNull(SecurityContextHolder.getContext().getAuthentication());
+  }
+
+  @Test
+  public void doFilterInternal_noAuthorization2() throws ServletException, IOException {
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.addHeader("Authorization", token);
+    request.addHeader("Role", "SUPER_ADMIN");
+    authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
+  }
+
+  @Test
+  public void doFilterInternal_noAuthorization3() throws ServletException, IOException {
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    String tokenFailed = Jwts.builder()
+        .setSubject(username)
+        .setIssuedAt(new Date())
+        .setExpiration(new Date((new Date()).getTime() + 900000))
+        .compact();
+    request.addHeader("Authorization", tokenFailed);
+    request.addHeader("Role", "SUPER_ADMIN");
+    authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
   }
 }
