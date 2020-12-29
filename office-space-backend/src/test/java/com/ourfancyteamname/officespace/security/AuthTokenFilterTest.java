@@ -5,8 +5,8 @@ import com.ourfancyteamname.officespace.security.services.JwtService;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -45,7 +45,7 @@ public class AuthTokenFilterTest {
   @Mock
   private UserDetailsSecurityServiceImpl userDetailsService;
 
-  @After
+  @Before
   public void reset() {
     SecurityContextHolder.getContext().setAuthentication(null);
   }
