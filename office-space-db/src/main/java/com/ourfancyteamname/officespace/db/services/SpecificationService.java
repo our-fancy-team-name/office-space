@@ -21,9 +21,6 @@ public class SpecificationService {
       ColumnSearchRequest rq = tableSearchRequest.getColumnSearchRequests().get(i);
       Specification spec = specificationBuilder(rq);
       Specification previousSpec = Specification.where(result);
-      if (previousSpec == null) {
-        return Specification.where(spec);
-      }
       result = rq.isOrTerm() ? previousSpec.or(spec) : previousSpec.and(spec);
     }
     return result;

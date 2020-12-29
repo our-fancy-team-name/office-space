@@ -1,11 +1,11 @@
 package com.ourfancyteamname.officespace.db.services;
 
 
+import com.ourfancyteamname.officespace.db.entities.User;
+import com.ourfancyteamname.officespace.db.entities.User_;
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.DataBaseOperation;
-import com.ourfancyteamname.officespace.db.entities.User;
-import com.ourfancyteamname.officespace.db.entities.User_;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -314,5 +314,32 @@ public class SpecificationServiceTest {
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).equal(lastNamePathMock, SEARCH_TERM);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).equal(firstNamePathMock, SEARCH_TERM);
+  }
+
+  @Test
+  public void specificationBuilder_search_with_null_input() {
+    TableSearchRequest tableSearchRequest = TableSearchRequest
+        .builder()
+        .columnSearchRequests(null)
+        .build();
+    Specification<User> actual = specificationService.specificationBuilder(tableSearchRequest);
+    Assert.assertEquals(Specification.where(null), actual);
+  }
+
+  @Test
+  public void specificationBuilder_search_with_empty_search_term() {
+    ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
+        .columnName(User_.LAST_NAME)
+        .operation(DataBaseOperation.EQUAL)
+        .term("")
+        .isOrTerm(true)
+        .build();
+    TableSearchRequest tableSearchRequest = TableSearchRequest
+        .builder()
+        .columnSearchRequests(Arrays.asList(columnSearchRequest, columnSearchRequest))
+        .build();
+    Specification<User> actual = specificationService.specificationBuilder(tableSearchRequest);
+    Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
+    Assert.assertEquals(null, actualPredicate);
   }
 }
