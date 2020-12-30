@@ -1,0 +1,20 @@
+<mat-form-field appearance="outline" class="w-100">
+    <mat-label>{{label | translate}}</mat-label>
+    <mat-chip-list #chipList>
+        <mat-chip *ngFor="let item of chips" [selectable]="selectable"
+            [removable]="removable" (removed)="remove(item)">
+            {{item}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="{{placeHolder}}" #chipInput [formControl]="chipCtrl"
+            [matAutocomplete]="auto" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete"
+        (optionSelected)="selected($event)">
+        <mat-option *ngFor="let chip of fillterdChips | async" [value]="chip">
+            {{chip}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

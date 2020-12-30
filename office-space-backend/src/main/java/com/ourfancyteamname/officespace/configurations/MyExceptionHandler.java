@@ -24,10 +24,10 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
 
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<Object> exception(Exception ex) {
-    return new ResponseEntity<>(getBody(HttpStatus.INTERNAL_SERVER_ERROR, ex, ex.getMessage()),
-        HttpStatus.INTERNAL_SERVER_ERROR);
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<Object> illegalException(Exception ex) {
+    return new ResponseEntity<>(getBody(HttpStatus.EXPECTATION_FAILED, ex, ex.getMessage()),
+        HttpStatus.EXPECTATION_FAILED);
   }
 
   private Map<String, Object> getBody(HttpStatus status, Exception ex, String message) {

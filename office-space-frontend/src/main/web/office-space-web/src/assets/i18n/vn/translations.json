@@ -1,8 +1,16 @@
 {
+  "CLUSTER": {
+    "CLUSTER": "Cụm tiến trình",
+    "CODE": "Mã cụm tiến trình",
+    "CREATE_CLUSTER": "Tạo  cụm tiến trình",
+    "DESCRIPTION": "Miêu tả",
+    "EDIT_CLUSTER": "Chỉnh sửa  cụm tiến trình",
+    "NAME": "Tên cụm tiến trình"
+  },
   "FOOTER": {
     "COPYRIGHT": "© 2020 Bản quyền:",
     "LANG_EN": "Tiếng Anh",
-    "LANG_VN": "Việt Nam"
+    "LANG_VN": "Tiếng Việt"
   },
   "HEADER": {
     "MY_ACCOUNT": "Tài khoản của tôi",
@@ -21,9 +29,107 @@
     "USERNAME": "Tên đăng nhập",
     "USERNAME_RQ": "Vui lòng điền tên đăng nhập"
   },
+  "MESSAGE": {
+    "AGREE_TO_DELETE": "CHẮC CHẮN XÓA",
+    "AGREE_TO_UPDATE": "TÔI ĐÃ ĐỌC KỸ TẤT CẢ THÔNG TIN TRÊN!",
+    "AND": "và",
+    "INPUT_TO_SEARCH": "Nhập để tìm kiếm",
+    "MORE": "kết quả nữa ...",
+    "SELECT_TARGET": "Vui lòng chọn mục tiêu"
+  },
+  "NODE": {
+    "CODE": "Mã nút tiến trình",
+    "CREATE_NODE": "Tạo nút tiến trình",
+    "DESCRIPTION": "Miêu tả",
+    "NAME": "Tên nút tiến trình",
+    "NODE": "Nút tiến trình"
+  },
+  "PACKAGE": {
+    "SERIAL_NUMBER": "Số định danh"
+  },
+  "PACKAGE_EDIT_LIST": {
+    "CREATE_PKG": "Tạo kiện hàng",
+    "EDIT_PKG": "Chỉnh sửa kiện hàng"
+  },
+  "PERMISSION": {
+    "CLUS_EDIT": "Chỉnh sửa cụm",
+    "NODE_EDIT": "Chỉnh sửa nút",
+    "PKG_EDIT": "Chỉnh sửa kiện hàng",
+    "PRCS_EDIT": "Chỉnh sửa tiến trình",
+    "PRD_EDIT": "Chỉnh sửa sản phẩm",
+    "ROLE_EDIT": "Chỉnh sửa vai trò",
+    "USER_EDIT": "Chỉnh sửa người dùng"
+  },
+  "PROCESS": {
+    "ADD_NODE": "Thêm nút vào tiến trình",
+    "EDIT_NODE": "Chỉnh sửa nút tiến trình",
+    "LINK_DELETE": "Xóa liên kết",
+    "LINK_OPEN": "Mở liên kết",
+    "NODE_DELETE": "Xóa nút",
+    "NODE_INPUT": "Nút đầu vào",
+    "NODE_OPEN": "Mở nút",
+    "NODE_OUTPUT": "Nút đầu ra",
+    "NODE_PATH": "Vẽ liên kết",
+    "NODE_PATH_CANCEL": "Hủy",
+    "NODE_PATH_END": "Nút đích",
+    "PROCESS": "Tiến trình"
+  },
+  "PRODUCT": {
+    "DESCRIPTION": "Miêu tả",
+    "FAMILY": "Dòng Sản phẩm",
+    "NAME": "Tên sản phẩm",
+    "PACKAGE": "Kiện hàng",
+    "PART_NUMBER": "Số bộ",
+    "PRODUCT": "Sản phẩm"
+  },
+  "PRODUCT_EDIT_LIST": {
+    "CREATE_PRD": "Tạo sản phẩm",
+    "EDIT_PRD": "Chỉnh sửa sản phẩm"
+  },
+  "ROLE_EDIT_LIST": {
+    "CODE": "Mã vai trò",
+    "CREATE_ROLE": "Tạo vai trò",
+    "DESCRIPTION": "Thông tin",
+    "EDIT_ROLE": "Chỉnh sửa vai trò",
+    "PERMISSION": "Quyền",
+    "USERS": "Người dùng"
+  },
+  "ROLE_MANAGE": {
+    "ROLE": "Cài đặt vai trò",
+    "USER": "Cài đặt người dùng"
+  },
+  "SELECT_ROLE": {
+    "CARD_DESC": "Ấn tiếp tục để đăng nhập như là",
+    "CONTINUE": "Tiếp tục"
+  },
+  "SIDEBAR": {
+    "EMPLOYEE_LIST": "DS Nhân viên",
+    "MANAGE_AUTHORITY": "Quyền truy cập",
+    "MANAGE_CLUSTER": "Q.Lý tiến trình",
+    "MANAGE_PRODUCT": "Q.L Sản Phẩm"
+  },
+  "USER_EDIT_LIST": {
+    "ADDRESS": "Địa chỉ liên lạc",
+    "ALT_PHONE": "Số điện thoại dự phòng",
+    "CREATE_USER": "Tạo người dùng",
+    "EDIT_USER": "Thông tin người dùng",
+    "EMAIL": "Thư điện tử",
+    "FIRSTNAME": "Tên",
+    "LASTNAME": "Họ và tên đệm",
+    "MALE": "Nam",
+    "NAME": "Tên đầy đủ",
+    "PASSWORD": "Mật khẩu",
+    "PHONE": "Số điện thoại",
+    "REPEAT_PASSWORD": "Nhập lại mật khẩu",
+    "ROLES": "Vai trò",
+    "USERNAME": "Tên đăng nhập"
+  },
   "VALIDATOR": {
+    "DUPLICATED": "Giá trị đã được sử dụng",
     "FIELD_REQUIRED": "Phần bắt buộc",
+    "IN_USE": "Hành động không thể hoàn thành vì đối tượng đang được sử dụng",
     "MAX_LENGTH": "Vượt quá số ký tự cho phép",
-    "MIN_LENGTH": "Chưa đủ độ dài tối thiểu"
+    "MIN_LENGTH": "Chưa đủ độ dài tối thiểu",
+    "NOT_THE_SAME_PASSWORD": "Mật khẩu không trùng"
   }
 }

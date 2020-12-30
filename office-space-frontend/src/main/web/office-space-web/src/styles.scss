@@ -39,3 +39,10 @@ body {
   width: 100%;
   height: 50px;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

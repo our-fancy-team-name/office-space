@@ -7,7 +7,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ValidatorsService {
 
+  readonly FIELD_REQUIRED = 'VALIDATOR.FIELD_REQUIRED';
+  readonly VALIDATOR = 'VALIDATOR';
+
   constructor(private t: TranslateService) { }
+
+  public getErrorMessage(message) {
+    return {message: `${this.VALIDATOR}.${message}`};
+  }
 
   public isValid(formControl: AbstractControl): boolean {
     return formControl.invalid && (formControl.dirty || formControl.touched);
@@ -16,7 +23,7 @@ export class ValidatorsService {
   public required(message?: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any | null } => {
       if (!control.value) {
-        return { message: message ? message : 'VALIDATOR.FIELD_REQUIRED' };
+        return { message: message ? message : this.FIELD_REQUIRED };
       }
       return null;
     };

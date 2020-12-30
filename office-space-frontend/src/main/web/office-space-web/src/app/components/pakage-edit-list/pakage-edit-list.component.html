@@ -1,0 +1,252 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="float-right">
+                <button (click)="addCre()" mat-flat-button color="primary">
+                    <mat-icon>{{isAddingPkg ? 'remove' : 'add'}}</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isAddingPkg" class="row w-100">
+        <div class="col-md-12">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar></div>
+                    <mat-card-title>{{'PACKAGE_EDIT_LIST.CREATE_PKG' | translate}}</mat-card-title>
+                </mat-card-header>
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'PACKAGE.SERIAL_NUMBER' | translate}}</mat-label>
+                            <input autocomplete="off" required [formControl]="serialNumberCreCtr" matInput>
+                            <mat-error *ngIf="validator.isValid(serialNumberCreCtr)">
+                                {{serialNumberCreCtr.errors.message | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <app-select-search #prdCre [isRequired]="true" [displayField]="'displayName'"
+                            [tableSearch]="tableSearchObject" [url]="url" [enableBackEndSearch]="true"
+                            [label]="'PRODUCT.PRODUCT'">
+                        </app-select-search>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'ROLE_EDIT_LIST.DESCRIPTION' | translate}}</mat-label>
+                            <textarea rows="3" matInput [formControl]="descriptionCreCtr"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row" style="height: 20px;">
+                </div>
+                <div class="row w-100 text-danger justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <mat-checkbox [(ngModel)]="agreement">
+                            {{'MESSAGE.AGREE_TO_UPDATE'| uppercase | translate}}
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2">
+                        <div class="float-right">
+                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()" mat-flat-button
+                                color="primary">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="float-right">
+                            <button (click)="closeCre()" mat-flat-button color="warn">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="serialNumber">
+            <th mat-header-cell *matHeaderCellDef>
+                <div class="p-2">
+                    {{'PACKAGE.SERIAL_NUMBER' | translate}}
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-9">
+                        <mat-form-field appearance="outline">
+                            <input [formControl]="serialNumberSearchCtr" matInput>
+                            <button mat-button *ngIf="serialNumberSearchCtr.value" matSuffix mat-icon-button aria-label="Clear"
+                                (click)="serialNumberSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!serialNumberSearchCtr.value" matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.serialNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="product">
+            <th mat-header-cell *matHeaderCellDef>
+                <div class="p-2">
+                    {{'PRODUCT.PRODUCT' | translate}}
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-9">
+                        <mat-form-field appearance="outline">
+                            <input [formControl]="productSearchCtr" matInput>
+                            <button mat-button *ngIf="productSearchCtr.value" matSuffix mat-icon-button aria-label="Clear"
+                                (click)="productSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!productSearchCtr.value" matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.product}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>
+                <div class="p-2">
+                    {{'ROLE_EDIT_LIST.DESCRIPTION' | translate}}
+                </div>
+                <div class="row w-100">
+                    <div class="col-md-9">
+                        <mat-form-field appearance="outline">
+                            <input [formControl]="descriptionSearchCtr" matInput>
+                            <button mat-button *ngIf="descriptionSearchCtr.value" matSuffix mat-icon-button aria-label="Clear"
+                                (click)="descriptionSearchCtr.setValue('')">
+                                <mat-icon matSuffix>close</mat-icon>
+                            </button>
+                            <mat-icon *ngIf="!descriptionSearchCtr.value" matSuffix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <div [hidden]="isHideEditBtn(element)" class="row">
+                    <div class="col-md-6 text-center">
+                        <button (click)="openElement(element)" mat-icon-button color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <button (click)="enableDeletePackage(element)" mat-icon-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div [hidden]="!isHideEditBtn(element)" class="row">
+                    <div class="col-md-6 text-center">
+                        <button (click)="deletePackage(element)" [disabled]="isConfirmDeleteDisable(element)"
+                            mat-icon-button color="primary">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <button (click)="cancelDeletePackage(element)" mat-icon-button color="warn">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div [hidden]="!isHideEditBtn(element)" class="row">
+                    <div class="text-danger text-center col-md-12">
+                        <mat-checkbox [(ngModel)]="agreementToDelete">
+                            {{'MESSAGE.AGREE_TO_DELETE'| uppercase | translate}}
+                        </mat-checkbox>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail" [@detailExpand]="expanDetails(element)">
+                    <div class="row w-100">
+                        <div class="col-md-12">
+                            <mat-card class="mat-elevation-z8">
+                                <mat-card-header>
+                                    <div mat-card-avatar></div>
+                                    <mat-card-title>{{'PACKAGE_EDIT_LIST.EDIT_PKG' | translate}}</mat-card-title>
+                                </mat-card-header>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>{{'PACKAGE.SERIAL_NUMBER' | translate}}</mat-label>
+                                            <input autocomplete="off" required [formControl]="serialNumberCtr" matInput>
+                                            <mat-error *ngIf="validator.isValid(serialNumberCtr)">
+                                                {{serialNumberCtr.errors.message | translate}}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <app-select-search [identifier]="element.id" #prdEdit [isRequired]="true" [displayField]="'displayName'"
+                                            [tableSearch]="tableSearchObject" [url]="url" [enableBackEndSearch]="true"
+                                            [label]="'PRODUCT.PRODUCT'">
+                                        </app-select-search>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>{{'ROLE_EDIT_LIST.DESCRIPTION' | translate}}</mat-label>
+                                            <textarea rows="3" matInput [formControl]="descriptionCtr"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row" style="height: 20px;">
+
+                                </div>
+                                
+                                <div class="row w-100 text-danger justify-content-center">
+                                    <div class="col-md-12 text-center">
+                                        <mat-checkbox [(ngModel)]="agreement">
+                                            {{'MESSAGE.AGREE_TO_UPDATE'| uppercase | translate}}
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8"></div>
+                                    <div class="col-md-2">
+                                        <div class="float-right">
+                                            <button (click)="submit(element)" [disabled]="isSubmitDisable(element)"
+                                                mat-flat-button color="primary">
+                                                <mat-icon>check</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="float-right">
+                                            <button (click)="closeElement()" mat-flat-button color="warn">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <mat-paginator [length]="resultLength" [pageSizeOptions]="[10, 25, 50]" [pageSize]="pageSize"></mat-paginator>
+</div>
