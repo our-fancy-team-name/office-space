@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="office-space" id="03_CREATE_PRODUCT_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+            ('PRD_EDIT');
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_CREATE_PRODUCT_TABLE">
+        <sql>
+            CREATE TABLE `product` (
+            id serial PRIMARY KEY,
+            `part-number` VARCHAR (255),
+            `name` VARCHAR (255),
+            `description` VARCHAR(255),
+            `family` VARCHAR(255),
+            `process-id` INT
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_CREATE_PACKAGE_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+            ('PKG_EDIT');
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_CREATE_PACKAGE_TABLE">
+        <sql>
+            CREATE TABLE `package` (
+            id serial PRIMARY KEY,
+            `product-id` INT,
+            `serial-number` VARCHAR (255),
+            `description` VARCHAR(255)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_CREATE_PACKAGE_LIST_VIEW">
+        <sql>
+            create or replace view package_list_view as
+            select
+            p.id as id,
+            concat(prd.name, ' - ', prd.`part-number`) as product,
+            p.`serial-number` as `serial-number`,
+            p.description as description
+            from package p
+            left join product prd on prd.id = p.`product-id`
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_DROP_COLUMN_PRODUCT_PROCESS_ID">
+        <sql>
+            ALTER TABLE `product`
+            DROP COLUMN `process-id`;
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="03_CREATE_CLUSTER_AND_NODE_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+            ('CLUS_EDIT'),
+            ('NODE_EDIT');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

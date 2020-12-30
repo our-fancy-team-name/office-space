@@ -1,0 +1,33 @@
+
+::ng-deep .ngx-charts {
+    border: 0.5px grey solid;
+    border-radius: 4px;
+}
+
+mat-card {
+    margin: 10px;
+}
+
+#ngxGraphWrapper {
+    height: calc(100vh - 270px);
+}
+
+#node-pop-content {
+    width: 100px;
+}
+
+::ng-deep .mat-list-base[dense] .mat-list-item .mat-list-item-content {
+    padding: 0px;
+    cursor: pointer;
+}
+
+::ng-deep .mat-list-base[dense] .mat-list-item .mat-list-item-content:hover {
+    background-color: balck;
+    opacity: 0.5;
+}
+
+.node-selected {
+    outline: solid 3px black;
+}
+
+

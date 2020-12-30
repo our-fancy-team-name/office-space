@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>com.ourfancyteamname</groupId>
-            <artifactId>office-space-postgres</artifactId>
+            <artifactId>office-space-db</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
@@ -70,9 +70,8 @@
                             </resources>
                         </configuration>
                     </execution>
-
                     <execution>
-                        <id>copy-postgres</id>
+                        <id>copy-mysql</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -82,7 +81,7 @@
                             <resources>
                                 <resource>
                                     <directory>
-                                        ${project.parent.basedir}/office-space-postgres/src/main/resources
+                                        ${project.parent.basedir}/office-space-db/src/main/resources
                                     </directory>
                                 </resource>
                             </resources>

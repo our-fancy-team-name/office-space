@@ -1,0 +1,69 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  max-width: 250px;
+}
+
+.sidenav .mat-toolbar {
+  background: cadetblue;
+  color: darkblue;
+  mat-icon {
+    color: white;
+  }
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-list-item {
+  min-width: 50px;
+  max-width: 205px;
+  .mat-list-icon {
+    color: darkblue;
+  }
+  h4 {
+    min-width: 125px;
+    color: cornsilk;
+  }
+}
+
+mat-select {
+  font-size: 15px;
+}
+
+::ng-deep mat-toolbar .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep mat-toolbar .mat-select-arrow {
+  border: none !important;
+}
+
+::ng-deep mat-toolbar .mat-form-field-infix {
+  width: 100px !important;
+}
+
+::ng-deep mat-toolbar .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent;
+}
+
+mat-toolbar {
+  span {
+    width: 125px;
+    text-align: center;
+  }
+}
+
+mat-sidenav {
+  background-color: lightseagreen;
+}
+
+.active {
+  background-color: aquamarine;
+}
+
