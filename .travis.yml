@@ -11,4 +11,4 @@ script:
 cache:
   directories:
     - $HOME/.m2
-    - node_modules
+    - office-space-frontend/src/main/web/office-space-web/node_modules
