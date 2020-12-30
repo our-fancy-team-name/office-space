@@ -13,7 +13,7 @@ export class AuthService {
   login(credentials: any): Observable<any> {
 
     return this.http.post(
-      `${this.storage.get(StorageService.API).substring(0, this.storage.get(StorageService.API).length - 4)}auth/signin`,
+      `${this.storage.get(StorageService.API).substring(0, this.storage.get(StorageService.API).length - 4)}auth/signIn`,
       {
         username: credentials.username,
         password: credentials.password

@@ -1,0 +1,29 @@
+<div id="role-selector" class="row">
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div *ngFor="let item of userDetails.roles" class="col-md-4 p-4">
+                <mat-card>
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{item.authority}}</mat-card-title>
+                        <mat-card-subtitle>{{item.description}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            {{'SELECT_ROLE.CARD_DESC' | translate}} {{item.authority}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button (click)="continue(item)" mat-button>{{'SELECT_ROLE.CONTINUE' | translate}}</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+</div>

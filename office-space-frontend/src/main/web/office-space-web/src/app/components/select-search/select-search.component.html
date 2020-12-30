@@ -1,0 +1,23 @@
+<mat-form-field appearance="outline" class="w-100">
+    <mat-label>{{label | translate}}</mat-label>
+    <mat-select [compareWith]="compareObjects" [formControl]="selectCtr" disableOptionCentering [required]="isRequired">
+        <mat-form-field id="input-select-search" class="w-100" appearance="outline">
+            <input placeholder="{{'MESSAGE.INPUT_TO_SEARCH' | translate}}" autocomplete="off" matInput
+                [formControl]="searchCtr">
+            <button mat-button *ngIf="isShowclear()" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+                <mat-icon matSuffix>close</mat-icon>
+            </button>
+            <mat-icon *ngIf="!isShowclear()" matSuffix>search</mat-icon>
+        </mat-form-field>
+        <mat-option *ngFor="let option of displayedOptions" [value]="option">
+            {{option[displayField]}}
+        </mat-option>
+        <mat-option disabled>
+            {{'MESSAGE.AND' | translate}} {{totalElementsLeft}} {{'MESSAGE.MORE' | translate}}
+        </mat-option>
+        <ngx-spinner name="sp" [fullScreen]="false" type="ball-spin-clockwise">
+        </ngx-spinner>
+    </mat-select>
+    <mat-error *ngIf="validator.isValid(selectCtr)">
+        {{selectCtr.errors.message | translate}}</mat-error>
+</mat-form-field>
