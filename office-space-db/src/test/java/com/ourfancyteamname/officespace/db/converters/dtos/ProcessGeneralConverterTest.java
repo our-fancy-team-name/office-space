@@ -1,6 +1,5 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.dtos;
 
-import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
 import com.ourfancyteamname.officespace.db.entities.ProcessCluster;
 import com.ourfancyteamname.officespace.db.entities.ProcessNode;

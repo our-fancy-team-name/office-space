@@ -1,6 +1,5 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.dtos;
 
-import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.enums.Gender;

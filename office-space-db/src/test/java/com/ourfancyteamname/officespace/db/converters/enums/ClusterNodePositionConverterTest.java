@@ -1,6 +1,5 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.enums;
 
-import com.ourfancyteamname.officespace.db.converters.enums.ClusterNodePositionConverter;
 import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
 import org.junit.Assert;
 import org.junit.Test;

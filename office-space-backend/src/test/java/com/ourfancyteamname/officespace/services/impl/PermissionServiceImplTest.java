@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.services;
+package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.db.converters.dtos.PermissionConverter;
 import com.ourfancyteamname.officespace.db.entities.Permission;
@@ -8,7 +8,6 @@ import com.ourfancyteamname.officespace.db.repos.RolePermissionRepository;
 import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
-import com.ourfancyteamname.officespace.services.impl.PermissionServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

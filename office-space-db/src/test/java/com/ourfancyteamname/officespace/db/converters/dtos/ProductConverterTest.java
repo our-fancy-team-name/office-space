@@ -1,6 +1,5 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.dtos;
 
-import com.ourfancyteamname.officespace.db.converters.dtos.ProductConverter;
 import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import org.junit.Assert;

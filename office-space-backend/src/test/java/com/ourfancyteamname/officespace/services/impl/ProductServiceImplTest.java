@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.services;
+package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.db.converters.dtos.ProductConverter;
 import com.ourfancyteamname.officespace.db.entities.Product;
@@ -9,7 +9,6 @@ import com.ourfancyteamname.officespace.db.services.SortingService;
 import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import com.ourfancyteamname.officespace.services.impl.ProductServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

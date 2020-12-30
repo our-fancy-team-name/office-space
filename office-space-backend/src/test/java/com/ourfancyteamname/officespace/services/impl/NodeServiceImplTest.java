@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.services;
+package com.ourfancyteamname.officespace.services.impl;
 
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ProcessNode;
@@ -8,7 +8,6 @@ import com.ourfancyteamname.officespace.db.services.SortingService;
 import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import com.ourfancyteamname.officespace.services.impl.NodeServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

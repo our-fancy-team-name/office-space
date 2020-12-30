@@ -1,12 +1,5 @@
-package com.ourfancyteamname.officespace.services;
+package com.ourfancyteamname.officespace.services.impl;
 
-import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
-import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
-import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import com.ourfancyteamname.officespace.dtos.TableSortingRequest;
-import com.ourfancyteamname.officespace.dtos.UserDto;
-import com.ourfancyteamname.officespace.enums.DataBaseDirection;
-import com.ourfancyteamname.officespace.enums.DataBaseOperation;
 import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.db.entities.User_;
@@ -14,7 +7,13 @@ import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.db.services.PaginationService;
 import com.ourfancyteamname.officespace.db.services.SortingService;
 import com.ourfancyteamname.officespace.db.services.SpecificationService;
-import com.ourfancyteamname.officespace.services.impl.UserServiceImpl;
+import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
+import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
+import com.ourfancyteamname.officespace.dtos.TableSortingRequest;
+import com.ourfancyteamname.officespace.dtos.UserDto;
+import com.ourfancyteamname.officespace.enums.DataBaseDirection;
+import com.ourfancyteamname.officespace.enums.DataBaseOperation;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

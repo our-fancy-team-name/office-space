@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.dtos;
 
 import com.ourfancyteamname.officespace.db.converters.enums.PermissionCodeConverter;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
