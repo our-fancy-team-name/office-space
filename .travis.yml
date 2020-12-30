@@ -7,7 +7,7 @@ addons:
 before_install:
   - chmod +x mvnw
 script:
-#  - ./mvnw clean verify sonar:sonar -Pfull -Dsonar.projectKey=our-fancy-team-name_office-space
+  - ./mvnw clean verify sonar:sonar -Dsonar.projectKey=our-fancy-team-name_office-space
 cache:
   directories:
     - $HOME/.m2
