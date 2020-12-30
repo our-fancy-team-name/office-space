@@ -30,6 +30,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/style"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -92,9 +97,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "src/style/table.scss"
+              "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/style"
+              ]
+            },
             "scripts": []
           }
         },
