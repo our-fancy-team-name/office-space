@@ -1,6 +1,8 @@
 package com.ourfancyteamname.officespace.security.services;
 
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.Date;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -52,6 +56,27 @@ public class JwtServiceTest {
     Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
     ReflectionTestUtils.setField(jwtService, "jwtExpirationMs", 0);
     String token = jwtService.generateJwtToken(authentication);
+    Assert.assertFalse(jwtService.validateJwtToken(token));
+  }
+
+  @Test
+  public void generateJwtToken_signatureException() {
+    String token = Jwts.builder()
+        .setSubject("dang")
+        .setIssuedAt(new Date())
+        .setExpiration(new Date((new Date()).getTime() + 900000))
+        .signWith(SignatureAlgorithm.HS512, "jwtSecret111")
+        .compact();
+    Assert.assertFalse(jwtService.validateJwtToken(token));
+  }
+
+  @Test
+  public void generateJwtToken_unsupportedJwtException() {
+    String token = Jwts.builder()
+        .setSubject("dang")
+        .setIssuedAt(new Date())
+        .setExpiration(new Date((new Date()).getTime() + 900000))
+        .compact();
     Assert.assertFalse(jwtService.validateJwtToken(token));
   }
 }

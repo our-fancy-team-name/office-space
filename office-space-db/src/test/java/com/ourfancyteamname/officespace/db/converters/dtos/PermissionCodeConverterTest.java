@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.dtos;
 
 import com.ourfancyteamname.officespace.db.converters.enums.PermissionCodeConverter;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
@@ -36,8 +36,7 @@ public class PermissionCodeConverterTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void convertToEntityAttribute_errorInvalid() {
-    PermissionCode permission = permissionCodeConverter.convertToEntityAttribute("dang");
-    Assert.assertEquals(PermissionCode.USER_EDIT, permission);
+    permissionCodeConverter.convertToEntityAttribute("dang");
   }
 
   @Test

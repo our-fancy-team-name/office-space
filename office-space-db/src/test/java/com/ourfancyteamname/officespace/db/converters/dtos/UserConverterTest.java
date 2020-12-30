@@ -1,10 +1,8 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.dtos;
 
-import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
+import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.enums.Gender;
-import com.ourfancyteamname.officespace.db.entities.User;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
@@ -38,5 +36,29 @@ public class UserConverterTest {
     Assert.assertEquals(userDto.getAlternatePhone(), entity.getAlternatePhone());
     Assert.assertEquals(userDto.getPhone(), entity.getPhone());
     Assert.assertTrue(userDto.getGender() == entity.getGender());
+  }
+
+  @Test
+  public void toDto_null() {
+    UserDto userDto = userConverter.toDto(null);
+    Assert.assertNull(userDto);
+  }
+
+  @Test
+  public void toEntity_null() {
+    User userDto = userConverter.toEntity(null);
+    Assert.assertNull(userDto);
+  }
+
+  @Test
+  public void toEntity_sucess() {
+    User userDto = userConverter.toEntity(UserDto.builder().build());
+    Assert.assertNotNull(userDto);
+  }
+
+  @Test
+  public void toEntity_sucessWithId() {
+    User userDto = userConverter.toEntity(UserDto.builder().id(1).build());
+    Assert.assertNotNull(userDto);
   }
 }

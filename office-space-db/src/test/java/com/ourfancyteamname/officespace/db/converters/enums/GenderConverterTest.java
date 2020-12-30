@@ -1,7 +1,6 @@
-package com.ourfancyteamname.officespace.db.converters;
+package com.ourfancyteamname.officespace.db.converters.enums;
 
 
-import com.ourfancyteamname.officespace.db.converters.enums.GenderConverter;
 import com.ourfancyteamname.officespace.enums.Gender;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,8 +36,7 @@ public class GenderConverterTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void convertToEntityAttribute_errorInvalid() {
-    Gender gender = genderConverter.convertToEntityAttribute("dang");
-    Assert.assertEquals(Gender.MALE, gender);
+    genderConverter.convertToEntityAttribute("dang");
   }
 
   @Test

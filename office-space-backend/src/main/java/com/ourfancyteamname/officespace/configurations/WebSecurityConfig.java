@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
 
@@ -26,6 +27,10 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String[] METHOD_ALLOWED = {"HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"};
+
+  private static final String AUTH_SIGNIN = "/auth/signin";
+
+  private static final String API = "/api/**";
 
   @Autowired
   private UserDetailsSecurityServiceImpl userDetailsService;
@@ -58,19 +63,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
         .cors()
-        .configurationSource(request -> {
-          CorsConfiguration corsConfiguration = new CorsConfiguration();
-          corsConfiguration.setAllowedMethods(Arrays.asList(METHOD_ALLOWED));
-          return corsConfiguration.applyPermitDefaultValues();
-        })
+        .configurationSource(getCorsConfigurationSource())
         .and()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests()
-        .antMatchers("/auth/signin").permitAll()
-        .antMatchers("/api/**").authenticated()
+        .antMatchers(AUTH_SIGNIN).permitAll()
+        .antMatchers(API).authenticated()
         .anyRequest().permitAll();
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+  }
+
+  private CorsConfigurationSource getCorsConfigurationSource() {
+    return request -> {
+      CorsConfiguration corsConfiguration = new CorsConfiguration();
+      corsConfiguration.setAllowedMethods(Arrays.asList(METHOD_ALLOWED));
+      return corsConfiguration.applyPermitDefaultValues();
+    };
   }
 }

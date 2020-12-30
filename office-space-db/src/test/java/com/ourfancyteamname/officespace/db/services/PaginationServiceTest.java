@@ -31,4 +31,12 @@ public class PaginationServiceTest {
     Assert.assertEquals(page, actual.getPageNumber());
     Assert.assertEquals(pageSize, actual.getPageSize());
   }
+
+  @Test
+  public void getPage_empty() {
+    TablePagingRequest request = null;
+    Pageable actual = paginationService.getPage(request, Sort.unsorted());
+    Assert.assertEquals(Sort.unsorted(), actual.getSort());
+    Assert.assertEquals(Pageable.unpaged(), actual);
+  }
 }

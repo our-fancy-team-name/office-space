@@ -59,4 +59,11 @@ public class SortingServiceTest {
     Sort actual = sortingService.getSort(request);
     Assert.assertEquals(Sort.unsorted(), actual);
   }
+
+  @Test
+  public void getSort_unSort3() {
+    TableSortingRequest request = null;
+    Sort actual = sortingService.getSort(request);
+    Assert.assertEquals(Sort.unsorted(), actual);
+  }
 }
