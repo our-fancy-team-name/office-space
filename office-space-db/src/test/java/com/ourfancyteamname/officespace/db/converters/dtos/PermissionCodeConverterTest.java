@@ -36,8 +36,7 @@ public class PermissionCodeConverterTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void convertToEntityAttribute_errorInvalid() {
-    PermissionCode permission = permissionCodeConverter.convertToEntityAttribute("dang");
-    Assert.assertEquals(PermissionCode.USER_EDIT, permission);
+    permissionCodeConverter.convertToEntityAttribute("dang");
   }
 
   @Test

@@ -95,7 +95,6 @@ public class ClusterServiceImplTest {
   @Test
   public void update() {
     ProcessGeneralDto data = ProcessGeneralDto.builder().id(1).code(code).build();
-    ProcessCluster dupData = ProcessCluster.builder().id(2).code(code).build();
     ProcessCluster cluster = ProcessCluster.builder().build();
     Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.of(cluster));
     Mockito.when(processClusterRepository.findByCode(code)).thenReturn(Optional.of(cluster));

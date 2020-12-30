@@ -37,8 +37,7 @@ public class ClusterNodePositionConverterTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void convertToEntityAttribute_errorInvalid() {
-    ClusterNodePosition clusterNodePosition = clusterNodePositionConverter.convertToEntityAttribute("HI");
-    Assert.assertEquals(ClusterNodePosition.TAIL, clusterNodePosition);
+    clusterNodePositionConverter.convertToEntityAttribute("HI");
   }
 
   @Test
