@@ -1,0 +1,17 @@
+<mat-tab-group mat-align-tabs="start">
+    <mat-tab *ngIf="isDisplayClusterMng()" label="{{'CLUSTER.CLUSTER' | translate}}">
+        <ng-template matTabContent>
+            <app-cluster-edit-list></app-cluster-edit-list>
+        </ng-template>
+    </mat-tab>
+    <mat-tab *ngIf="isDisplayNodeMng()" label="{{'NODE.NODE' | translate}}">
+        <ng-template matTabContent>
+            <app-node-edit-list></app-node-edit-list>
+        </ng-template>
+    </mat-tab>
+    <mat-tab *ngIf="isDisplayProcess()" label="{{'PROCESS.PROCESS' | translate}}">
+        <ng-template matTabContent>
+           <app-process-graph></app-process-graph>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

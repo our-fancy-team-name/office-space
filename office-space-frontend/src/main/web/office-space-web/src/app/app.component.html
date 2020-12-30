@@ -1,6 +1,36 @@
-<app-header *ngIf="isLoggedIn"></app-header>
-<main>
-    <div *ngIf="isLoggedIn" style="height: 50px;"></div>
-    <router-outlet style="min-height: 100vh;"></router-outlet>
-</main>
-<app-footer *ngIf="isLoggedIn"></app-footer>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav *ngIf="isLoggedIn" #drawer class="sidenav" fixedInViewport disableClose="false"
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="'side'" [opened]="true">
+        <mat-toolbar>
+            <span *ngIf="isExpanded">{{'HEADER.WELCOME' | translate}}</span>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggleSideBar()">
+                <mat-icon aria-label="Side nav toggle icon">{{!isExpanded ? 'chevron_right': 'chevron_left'}}</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-nav-list>
+            <mat-list-item (click)="openMenuItem(item)" ngClass="{{item.isActive ? 'active' : ''}}" *ngFor="let item of menuItem">
+                <mat-icon *ngIf="item.isActive" mat-list-icon>{{item.icon}}</mat-icon>
+                <h4 mat-line *ngIf="isExpanded && item.isActive">{{'SIDEBAR.'+item.title | translate}}</h4>
+            </mat-list-item>
+            <mat-list-item (click)="logOut()" [ngStyle]="{'top': menuLength}" class="last-item">
+                <mat-icon mat-list-icon>no_meeting_room</mat-icon>
+                <h4 mat-line *ngIf="isExpanded">{{'HEADER.SIGN_OUT' | translate}}</h4>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content [ngStyle]="{'margin-left': marginLeft}">
+        <mat-toolbar *ngIf="isLoggedIn" color="primary">
+            <img style="height: 30px;" src="../assets/img/mdt_logo_white.webp" alt="Medtronic Logo">
+            <span style="flex: 1 1 auto;"></span>
+            <mat-form-field>
+                <mat-select (selectionChange)="changeLang($event)" [(value)]="languageSelected">
+                  <mat-option value="en">{{eng}}</mat-option>
+                  <mat-option value="vn">{{vie}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </mat-toolbar>
+        <app-login *ngIf="!isLoggedIn"></app-login>
+        <router-outlet *ngIf="isLoggedIn"></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<ngx-spinner fullScreen="true" type="ball-spin-clockwise"></ngx-spinner>

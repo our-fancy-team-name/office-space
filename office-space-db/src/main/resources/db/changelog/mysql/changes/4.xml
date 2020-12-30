@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="office-space" id="04_CREATE_NODE">
+        <sql>
+            CREATE TABLE `process_node` (
+            id serial PRIMARY KEY,
+            `name` VARCHAR(255),
+            `description` VARCHAR(255),
+            `code` VARCHAR (50) NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="04_CREATE_CLUSTER">
+        <sql>
+            CREATE TABLE `process_cluster` (
+            id serial PRIMARY KEY,
+            `name` VARCHAR(255),
+            `description` VARCHAR(255),
+            `code` VARCHAR (50) NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="04_CREATE_CLUSTER_NODE">
+        <sql>
+            CREATE TABLE `cluster_node` (
+            id serial PRIMARY KEY,
+            `cluster-id` INT,
+            `node-id` INT,
+            `position` VARCHAR(50),
+            `description` VARCHAR(255)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="04_CREATE_CLUSTER_NODE_PATH">
+        <sql>
+            CREATE TABLE `cluster_node_path` (
+            id serial PRIMARY KEY,
+            `cluster-node-id-to` INT,
+            `cluster-node-id-from` INT,
+            `label` VARCHAR(50),
+            `description` VARCHAR(255)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="04_CREATE_CLUSTER_NODE_PACKAGE">
+        <sql>
+            CREATE TABLE `cluster_node_package` (
+            id serial PRIMARY KEY,
+            `cluster-node-id` INT,
+            `package-id` INT,
+            `add-time` DATE
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="04_CREATE_PROCESS_PERMISSION">
+        <sql>
+            INSERT INTO `permission` (code)
+            VALUES
+            ('PRCS_EDIT');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="office-space" id="CREATE_TABLE_USER">
+        <sql>
+            CREATE TABLE `user` (
+            id serial NOT NULL AUTO_INCREMENT,
+            username varchar(50) NOT NULL,
+            `password` varchar(255) NOT NULL,
+            email varchar(355) NOT NULL,
+            PRIMARY KEY ( id )
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="ADD_COLUMN_TO_USER_TABLE">
+        <sql>
+            ALTER TABLE `user`
+            ADD COLUMN gender VARCHAR (50),
+            ADD COLUMN `first-name` VARCHAR (100),
+            ADD COLUMN `last-name` VARCHAR (100),
+            ADD COLUMN `phone` VARCHAR (100),
+            ADD COLUMN `alternate-phone` VARCHAR (100),
+            ADD COLUMN `address` VARCHAR (500);
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="INSERT_USER">
+        <sql>
+            INSERT INTO `user` (username,`password`,email, gender ) VALUES
+            ('dang','$2a$10$ZnoVjM2zmkU5UjJkmEMwce2XRVXZDhEdwYIqIZtGPAgBQEfPj/oAC','dangnguyen@gmail.com', 'MALE');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

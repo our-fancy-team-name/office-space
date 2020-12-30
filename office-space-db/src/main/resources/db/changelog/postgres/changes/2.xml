@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="office-space" id="2_ADD_COLUMN_TO_USER_TABLE">
+        <sql>
+            ALTER TABLE "user"
+            ADD COLUMN IF NOT exists gender VARCHAR (50),
+            ADD COLUMN IF NOT exists "first-name" VARCHAR (100),
+            ADD COLUMN IF NOT exists "last-name" VARCHAR (100),
+            ADD COLUMN IF NOT exists "phone" VARCHAR (100),
+            ADD COLUMN IF NOT exists "alternate-phone" VARCHAR (100),
+            ADD COLUMN IF NOT exists "address" VARCHAR (500);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

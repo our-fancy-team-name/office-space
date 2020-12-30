@@ -1,4 +1,12 @@
 {
+  "CLUSTER": {
+    "CLUSTER": "Cluster",
+    "CODE": "Cluster code",
+    "CREATE_CLUSTER": "Cluster Create",
+    "DESCRIPTION": "Description",
+    "EDIT_CLUSTER": "Edit Cluster",
+    "NAME": "Cluster Name"
+  },
   "FOOTER": {
     "COPYRIGHT": "© 2020 Copyright:",
     "LANG_EN": "English",
@@ -21,9 +29,107 @@
     "USERNAME": "User name",
     "USERNAME_RQ": "Please fill out the username"
   },
+  "MESSAGE": {
+    "AGREE_TO_DELETE": "I AGREE TO DELETE",
+    "AGREE_TO_UPDATE": "I'VE READ THE INFORMATION VERY CAREFULLY!",
+    "AND": "and",
+    "INPUT_TO_SEARCH": "Input to search",
+    "MORE": "more result ...",
+    "SELECT_TARGET": "Please select Target"
+  },
+  "NODE": {
+    "CODE": "Node Code",
+    "CREATE_NODE": "Create Node",
+    "DESCRIPTION": "Description",
+    "NAME": "Node Name",
+    "NODE": "Node"
+  },
+  "PACKAGE": {
+    "SERIAL_NUMBER": "Serial Number"
+  },
+  "PACKAGE_EDIT_LIST": {
+    "CREATE_PKG": "Create Package",
+    "EDIT_PKG": "Edit Package"
+  },
+  "PERMISSION": {
+    "CLUS_EDIT": "Edit Clusters",
+    "NODE_EDIT": "Edit Nodes",
+    "PKG_EDIT": "Edit Package",
+    "PRCS_EDIT": "Edit Process",
+    "PRD_EDIT": "Edit Products",
+    "ROLE_EDIT": "Edit Roles",
+    "USER_EDIT": "Edit Users"
+  },
+  "PROCESS": {
+    "ADD_NODE": "Add (a) node(s)",
+    "EDIT_NODE": "Edit Node",
+    "LINK_DELETE": "Delete link",
+    "LINK_OPEN": "Open link",
+    "NODE_DELETE": "Delete node",
+    "NODE_INPUT": "Input Node",
+    "NODE_OPEN": "Open node",
+    "NODE_OUTPUT": "Output node",
+    "NODE_PATH": "Draw path",
+    "NODE_PATH_CANCEL": "Cancel",
+    "NODE_PATH_END": "Target Node",
+    "PROCESS": "Process"
+  },
+  "PRODUCT": {
+    "DESCRIPTION": "Product Description",
+    "FAMILY": "Product Family",
+    "NAME": "Product name",
+    "PACKAGE": "Package",
+    "PART_NUMBER": "Part number",
+    "PRODUCT": "Product"
+  },
+  "PRODUCT_EDIT_LIST": {
+    "CREATE_PRD": "Create Product",
+    "EDIT_PRD": "Edit Product"
+  },
+  "ROLE_EDIT_LIST": {
+    "CODE": "Role code",
+    "CREATE_ROLE": "Role creation",
+    "DESCRIPTION": "Description",
+    "EDIT_ROLE": "Role Edition",
+    "PERMISSION": "Permission",
+    "USERS": "Users belong"
+  },
+  "ROLE_MANAGE": {
+    "ROLE": "Role settings",
+    "USER": "User settings"
+  },
+  "SELECT_ROLE": {
+    "CARD_DESC": "Press continue to login as",
+    "CONTINUE": "Continue"
+  },
+  "SIDEBAR": {
+    "EMPLOYEE_LIST": "Employee List",
+    "MANAGE_AUTHORITY": "Manage authority",
+    "MANAGE_CLUSTER": "Manage Cluster",
+    "MANAGE_PRODUCT": "Mangage Prod"
+  },
+  "USER_EDIT_LIST": {
+    "ADDRESS": "Address",
+    "ALT_PHONE": "Alternative phone",
+    "CREATE_USER": "User creation",
+    "EDIT_USER": "Edit User",
+    "EMAIL": "Email",
+    "FIRSTNAME": "First name",
+    "LASTNAME": "Last name",
+    "MALE": "Male",
+    "NAME": "Full name",
+    "PASSWORD": "Password",
+    "PHONE": "Phone",
+    "REPEAT_PASSWORD": "Repeat password",
+    "ROLES": "Roles",
+    "USERNAME": "User name"
+  },
   "VALIDATOR": {
+    "DUPLICATED": "This value is already used",
     "FIELD_REQUIRED": "Required Field",
+    "IN_USE": "The operation cannot be performed because the object is in used",
     "MAX_LENGTH": "Exceed max length allowed",
-    "MIN_LENGTH": "Less than min length allow"
+    "MIN_LENGTH": "Less than min length allow",
+    "NOT_THE_SAME_PASSWORD": "Password not match"
   }
 }

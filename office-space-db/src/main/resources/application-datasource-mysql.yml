@@ -1,0 +1,13 @@
+spring:
+  profiles: datasource-mysql
+  jpa:
+    show-sql: false
+    hibernate:
+      default_schema: public
+      ddl-auto: none
+      auto: none
+  datasource:
+    url: jdbc:mysql://localhost:5432/root?allowpublickeyretrieval=true&usessl=false
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver

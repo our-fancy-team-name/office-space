@@ -1,18 +1,17 @@
 package com.ourfancyteamname.officespace.security.services;
 
 
+import com.ourfancyteamname.officespace.db.converters.dtos.RoleConverter;
+import com.ourfancyteamname.officespace.db.entities.Role;
+import com.ourfancyteamname.officespace.db.entities.User;
+import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
+import com.ourfancyteamname.officespace.db.repos.RoleRepository;
+import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
-import com.ourfancyteamname.officespace.postgres.converters.RoleConverter;
-import com.ourfancyteamname.officespace.postgres.entities.Role;
-import com.ourfancyteamname.officespace.postgres.entities.User;
-import com.ourfancyteamname.officespace.postgres.repos.PermissionRepository;
-import com.ourfancyteamname.officespace.postgres.repos.RoleRepository;
-import com.ourfancyteamname.officespace.postgres.repos.UserRepository;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,7 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
   private RoleConverter roleConverter;
 
   @Override
-  public UserDetails loadUserByUsername(String username) {
+  public UserDetailsPrinciple loadUserByUsername(String username) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(error(username));
     List<Role> roles = roleRepository.findByUserId(user.getId());

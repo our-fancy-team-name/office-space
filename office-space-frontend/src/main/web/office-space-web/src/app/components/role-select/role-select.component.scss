@@ -1,0 +1,20 @@
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+mat-card {
+    height: 220px;
+}
+
+mat-card-content {
+    height: 80px;
+    overflow: auto;
+    border-top: 1px solid green;
+    padding: 10px;
+}
+
+#role-selector {
+    min-height:calc(100vh - 64px);
+}
+
