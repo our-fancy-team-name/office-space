@@ -1,6 +1,7 @@
 package com.ourfancyteamname.officespace.db.entities.view;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,9 +13,10 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "`user_role_list_view`")
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "`user_role_list_view`")
 public class UserRoleListView implements Serializable {
 
   private static final long serialVersionUID = -311943895663931128L;
