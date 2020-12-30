@@ -68,6 +68,7 @@ public class AuthTokenFilterTest {
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
+    Mockito.verify(jwtService, Mockito.times(1)).validateJwtToken(Mockito.any());
   }
 
   @Test
@@ -76,6 +77,7 @@ public class AuthTokenFilterTest {
     request.addHeader("Authorization", token);
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
+    Mockito.verify(jwtService, Mockito.times(1)).validateJwtToken(Mockito.any());
   }
 
   @Test
@@ -89,5 +91,6 @@ public class AuthTokenFilterTest {
     request.addHeader("Authorization", tokenFailed);
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
+    Mockito.verify(jwtService, Mockito.times(1)).validateJwtToken(Mockito.any());
   }
 }

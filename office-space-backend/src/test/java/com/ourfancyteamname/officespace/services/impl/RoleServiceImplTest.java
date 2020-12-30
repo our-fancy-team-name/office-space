@@ -91,6 +91,9 @@ public class RoleServiceImplTest {
     Mockito.when(roleRepository.findById(1)).thenReturn(Optional.of(role1));
     Mockito.when(roleRepository.findByCode("code2")).thenReturn(Optional.empty());
     service.updateRole(RoleDto.builder().id(1).authority("code2").build());
+    Mockito.verify(roleRepository, Mockito.times(1)).findById(1);
+    Mockito.verify(roleRepository, Mockito.times(1)).findByCode("code2");
+    Mockito.verify(roleRepository, Mockito.times(1)).save(Mockito.any());
   }
 
   @Test
@@ -99,6 +102,9 @@ public class RoleServiceImplTest {
     Mockito.when(roleRepository.findById(1)).thenReturn(Optional.of(role1));
     Mockito.when(roleRepository.findByCode("code")).thenReturn(Optional.of(role1));
     service.updateRole(RoleDto.builder().id(1).authority("code").build());
+    Mockito.verify(roleRepository, Mockito.times(1)).findById(1);
+    Mockito.verify(roleRepository, Mockito.times(1)).findByCode("code");
+    Mockito.verify(roleRepository, Mockito.times(1)).save(Mockito.any());
   }
 
   @Test
