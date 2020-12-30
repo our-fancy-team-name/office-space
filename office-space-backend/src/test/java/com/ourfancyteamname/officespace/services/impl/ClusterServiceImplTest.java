@@ -61,6 +61,8 @@ public class ClusterServiceImplTest {
     ProcessCluster result = processGeneralConverter.fromDtoToClusterEntity(data);
     Mockito.when(processClusterRepository.save(result)).thenReturn(result);
     clusterService.create(data);
+    Mockito.verify(processClusterRepository, Mockito.times(1)).existsByCode(Mockito.any());
+    Mockito.verify(processClusterRepository, Mockito.times(1)).save(Mockito.any());
   }
 
   @Test
@@ -99,5 +101,8 @@ public class ClusterServiceImplTest {
     Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.of(cluster));
     Mockito.when(processClusterRepository.findByCode(code)).thenReturn(Optional.of(cluster));
     clusterService.update(data);
+    Mockito.verify(processClusterRepository, Mockito.times(1)).findById(Mockito.any());
+    Mockito.verify(processClusterRepository, Mockito.times(1)).findByCode(Mockito.any());
+    Mockito.verify(processClusterRepository, Mockito.times(1)).save(Mockito.any());
   }
 }

@@ -1,6 +1,7 @@
 package com.ourfancyteamname.officespace.configurations;
 
 import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
+import com.ourfancyteamname.officespace.security.AuthTokenFilter;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -42,8 +44,8 @@ public class WebSecurityConfigTest {
 
   @Test
   public void bean() throws Exception {
-    webSecurityConfig.authenticationJwtTokenFilter();
-    webSecurityConfig.passwordEncoder();
+    Assert.assertSame(AuthTokenFilter.class, webSecurityConfig.authenticationJwtTokenFilter().getClass());
+    Assert.assertSame(BCryptPasswordEncoder.class, webSecurityConfig.passwordEncoder().getClass());
   }
 
   @Test
@@ -59,7 +61,11 @@ public class WebSecurityConfigTest {
     HttpSecurity httpSecurity =
         new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
             Mockito.mock(Map.class));
+    HttpSecurity httpSecurity2 =
+        new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
+            Mockito.mock(Map.class));
     webSecurityConfig.configure(httpSecurity);
+    Assert.assertNotSame(httpSecurity2, httpSecurity);
   }
 
   @Test

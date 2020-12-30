@@ -2,6 +2,7 @@ package com.ourfancyteamname.officespace.db.services;
 
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -12,28 +13,28 @@ import javax.persistence.criteria.Path;
 @Service
 public class SpecificationService {
 
-  public Specification specificationBuilder(TableSearchRequest tableSearchRequest) {
+  public <T> Specification<T> specificationBuilder(TableSearchRequest tableSearchRequest) {
     if (CollectionUtils.isEmpty(tableSearchRequest.getColumnSearchRequests())) {
       return Specification.where(null);
     }
-    Specification result = specificationBuilder(tableSearchRequest.getColumnSearchRequests().get(0));
+    Specification<T> result = specificationBuilder(tableSearchRequest.getColumnSearchRequests().get(0));
     for (int i = 1; i < tableSearchRequest.getColumnSearchRequests().size(); i++) {
+      Specification<T> previousSpec = ObjectUtils.defaultIfNull(Specification.where(result), Specification.where(null));
       ColumnSearchRequest rq = tableSearchRequest.getColumnSearchRequests().get(i);
-      Specification spec = specificationBuilder(rq);
-      Specification previousSpec = Specification.where(result);
+      Specification<T> spec = specificationBuilder(rq);
       result = rq.isOrTerm() ? previousSpec.or(spec) : previousSpec.and(spec);
     }
     return result;
   }
 
-  private Specification specificationBuilder(ColumnSearchRequest columnSearchRequest) {
+  private <T> Specification<T> specificationBuilder(ColumnSearchRequest columnSearchRequest) {
     return (root, query, builder) -> {
       String columnName = columnSearchRequest.getColumnName();
       String term = columnSearchRequest.getTerm();
       if (StringUtils.isBlank(term)) {
         return null;
       }
-      Path path = root.get(columnName);
+      Path<String> path = root.get(columnName);
       switch (columnSearchRequest.getOperation()) {
         case EQUAL:
           return builder.equal(path, term);

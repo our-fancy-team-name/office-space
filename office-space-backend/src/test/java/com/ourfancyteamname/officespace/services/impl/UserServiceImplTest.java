@@ -104,7 +104,7 @@ public class UserServiceImplTest {
         .id(1)
         .email("dang")
         .build();
-    Specification<User> specs = (root, query, builder) -> builder.equal(root.get(User_.LAST_NAME), SEARCH_TERM);
+    Specification specs = (root, query, builder) -> builder.equal(root.get(User_.LAST_NAME), SEARCH_TERM);
     Mockito.when(specificationService.specificationBuilder(tableSearchRequest)).thenReturn(specs);
     Mockito.when(sortingService.getSort(tableSortingRequest)).thenReturn(Sort.unsorted());
     Mockito.when(paginationService.getPage(tablePagingRequest, Sort.unsorted())).thenReturn(PageRequest.of(0, 10));
