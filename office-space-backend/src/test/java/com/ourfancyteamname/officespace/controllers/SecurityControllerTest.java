@@ -43,7 +43,7 @@ public class SecurityControllerTest {
   public void version() {
     controller.version();
     Mockito.verify(gitProperties, Mockito.times(1)).getBranch();
-    Mockito.verify(gitProperties, Mockito.times(1)).getCommitId();
+    Mockito.verify(gitProperties, Mockito.times(1)).getShortCommitId();
     Mockito.verify(gitProperties, Mockito.times(1)).get("build.time");
   }
 
