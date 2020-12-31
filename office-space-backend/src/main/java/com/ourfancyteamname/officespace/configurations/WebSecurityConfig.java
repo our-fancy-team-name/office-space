@@ -4,6 +4,7 @@ import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
 import com.ourfancyteamname.officespace.security.AuthTokenFilter;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String AUTH_SIGNIN = "/auth/signin";
 
   private static final String API = "/api/**";
+
+  @Value("${cors.disable-CSRF}")
+  private boolean isDisableCSRF;
 
   @Autowired
   private UserDetailsSecurityServiceImpl userDetailsService;
@@ -61,8 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable()
-        .cors()
+    if (isDisableCSRF) {
+      http.csrf().disable();
+    }
+    http.cors()
         .configurationSource(getCorsConfigurationSource())
         .and()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
