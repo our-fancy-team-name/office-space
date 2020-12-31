@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -89,5 +90,18 @@ public class WebSecurityConfigTest {
     CorsConfigurationSource corsConfigurationSource = (CorsConfigurationSource) method.invoke(webSecurityConfig);
     CorsConfiguration corsConfiguration = corsConfigurationSource.getCorsConfiguration(new MockHttpServletRequest());
     Assert.assertArrayEquals(METHOD_ALLOWED, corsConfiguration.getAllowedMethods().toArray());
+  }
+
+  @Test
+  public void corsConfigDisableCsrf() throws Exception {
+    ReflectionTestUtils.setField(webSecurityConfig, "isDisableCSRF", true);
+    HttpSecurity httpSecurity =
+        new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
+            Mockito.mock(Map.class));
+    HttpSecurity httpSecurity2 =
+        new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
+            Mockito.mock(Map.class));
+    webSecurityConfig.configure(httpSecurity);
+    Assert.assertNotSame(httpSecurity2, httpSecurity);
   }
 }

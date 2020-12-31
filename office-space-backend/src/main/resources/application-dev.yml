@@ -1,0 +1,3 @@
+# override cors
+cors:
+  disable-CSRF: true
