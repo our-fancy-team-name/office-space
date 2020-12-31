@@ -20,6 +20,11 @@ export class AuthService {
       });
   }
 
+  version(): Observable<any> {
+    return this.http.get(
+      `${this.storage.get(StorageService.API).substring(0, this.storage.get(StorageService.API).length - 4)}auth/version`);
+  }
+
   logout() {
     this.storage.clear();
     window.location.reload();

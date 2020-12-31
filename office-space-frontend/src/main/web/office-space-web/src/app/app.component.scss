@@ -67,3 +67,14 @@ mat-sidenav {
   background-color: aquamarine;
 }
 
+.version {
+  position: absolute;
+  z-index: 9999;
+  top: 45px;
+  left: 15px;
+  font-style: italic;
+  color: grey;
+  span {
+      color: red;
+  }
+}

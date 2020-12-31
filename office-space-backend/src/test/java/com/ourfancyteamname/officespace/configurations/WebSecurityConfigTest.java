@@ -71,9 +71,9 @@ public class WebSecurityConfigTest {
 
   @Test
   public void pathAuthSignIn() throws Exception {
-    Field field = WebSecurityConfig.class.getDeclaredField("AUTH_SIGNIN");
+    Field field = WebSecurityConfig.class.getDeclaredField("NO_AUTH_PATH");
     field.setAccessible(true);
-    Assert.assertEquals("/auth/signin", field.get(webSecurityConfig));
+    Assert.assertArrayEquals(new String[]{"/auth/signin", "/auth/version"}, (String[]) field.get(webSecurityConfig));
   }
 
   @Test

@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String[] METHOD_ALLOWED = {"HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"};
 
-  private static final String AUTH_SIGNIN = "/auth/signin";
+  private static final String[] NO_AUTH_PATH = {"/auth/signin", "/auth/version"};
 
   private static final String API = "/api/**";
 
@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests()
-        .antMatchers(AUTH_SIGNIN).permitAll()
+        .antMatchers(NO_AUTH_PATH).permitAll()
         .antMatchers(API).authenticated()
         .anyRequest().permitAll();
 

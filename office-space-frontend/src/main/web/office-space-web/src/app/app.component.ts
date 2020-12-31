@@ -10,6 +10,7 @@ import { LANGUAGES } from './enums/languagesEnum';
 import { SideMenuService } from './services/side-menu.service';
 import { MENU_ITEM } from './enums/menuItemEnum';
 import { Router } from '@angular/router';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,8 @@ export class AppComponent implements OnInit, AfterContentInit {
   languageSelected = this.storage.get(StorageService.LANGUAGE) || LANGUAGES.EN;
   eng;
   vie;
+  showVersion = isDevMode();
+  version: any = {};
 
   menuItem = [];
 
@@ -41,6 +44,7 @@ export class AppComponent implements OnInit, AfterContentInit {
 
   constructor(
     private storage: StorageService,
+    private authService: AuthService,
     private breakpointObserver: BreakpointObserver,
     private spinner: NgxSpinnerService,
     private translate: TranslateService,
@@ -52,6 +56,7 @@ export class AppComponent implements OnInit, AfterContentInit {
       this.updateMenuLength();
     });
   }
+
   ngAfterContentInit(): void {
     this.changeLang(null);
     this.spinner.hide();
@@ -69,7 +74,11 @@ export class AppComponent implements OnInit, AfterContentInit {
     this.storage.set(StorageService.API, isDevMode() ? environment.api : `${window.location.origin}/api/`);
     this.isLoggedIn = !!this.storage.get(StorageService.TOKEN_KEY);
     this.isSelectedRole = !!this.storage.get(StorageService.ROLE);
-
+    if (isDevMode()) {
+      this.authService.version().subscribe(res => {
+        this.version = res;
+      });
+    }
     if (this.isLoggedIn) {
       const user = JSON.parse(this.storage.get(StorageService.USER_KEY));
       this.username = user.userDetails.username;

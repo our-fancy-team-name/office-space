@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.info.GitProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,9 @@ public class SecurityControllerTest {
   @Mock
   private JwtService jwtService;
 
+  @Mock
+  private GitProperties gitProperties;
+
   @Test
   public void authenticateUser() {
     Mockito.when(authenticationManager.authenticate(Mockito.any()))
@@ -33,6 +37,14 @@ public class SecurityControllerTest {
     controller.authenticateUser(LoginRequest.builder().build());
     Mockito.verify(authenticationManager, Mockito.times(1)).authenticate(Mockito.any());
     Mockito.verify(jwtService, Mockito.times(1)).generateJwtToken(Mockito.any());
+  }
+
+  @Test
+  public void version() {
+    controller.version();
+    Mockito.verify(gitProperties, Mockito.times(1)).getBranch();
+    Mockito.verify(gitProperties, Mockito.times(1)).getCommitId();
+    Mockito.verify(gitProperties, Mockito.times(1)).get("build.time");
   }
 
 }
