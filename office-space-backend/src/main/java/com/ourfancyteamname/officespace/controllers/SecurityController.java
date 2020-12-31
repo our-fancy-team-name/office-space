@@ -4,7 +4,6 @@ import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
 import com.ourfancyteamname.officespace.security.payload.JwtResponse;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import com.ourfancyteamname.officespace.security.services.JwtService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,6 @@ import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Slf4j
 @RestController
 @RequestMapping("/auth")
 public class SecurityController {
@@ -43,7 +41,6 @@ public class SecurityController {
         new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
     UserDetailsPrinciple userDetails = (UserDetailsPrinciple) authentication.getPrincipal();
-    "a".compareTo()
     return ResponseEntity.ok(JwtResponse.builder()
         .token(jwtService.generateJwtToken(authentication))
         .type(JwtService.TOKEN_TYPE)
