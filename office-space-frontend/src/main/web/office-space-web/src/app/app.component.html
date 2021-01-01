@@ -31,6 +31,17 @@
         </mat-toolbar>
         <app-login *ngIf="!isLoggedIn"></app-login>
         <router-outlet *ngIf="isLoggedIn"></router-outlet>
+        <div class="version" *ngIf="showVersion">
+            Commit id
+            <span>
+                <a target="_blank"
+                    href="https://github.com/our-fancy-team-name/office-space/commit/{{version.commitId}}">
+                    {{version.commitId}}
+                </a>
+            </span>
+            on branch 
+            <span>{{version.branch}}</span> in <span>{{version.buildTime | date: "hh:mm dd/MM/yyyy"}}</span>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
 <ngx-spinner fullScreen="true" type="ball-spin-clockwise"></ngx-spinner>

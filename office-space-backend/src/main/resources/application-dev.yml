@@ -1,3 +1,6 @@
 # override cors
 cors:
   disable-CSRF: true
+# override jwt token time out
+jwt:
+  expirationMs: 9000000 # 900000ms = 15 minutes

@@ -10,7 +10,7 @@
             <div class="md-form">
                 <input formControlName="password" type="password" id="password" class="form-control mb-4">
                 <label for="password" class="">{{'LOGIN.PASSWORD' | translate}}</label>
-                    <mdb-error *ngIf="passwordValid">{{password.errors.message | translate}}</mdb-error>
+                <mdb-error *ngIf="passwordValid">{{password.errors.message | translate}}</mdb-error>
             </div>
             <div class="row">
                 <div class="col-xs-12 center-block text-danger text-center w-100">
@@ -18,12 +18,14 @@
                 </div>
             </div>
             <p>{{'LOGIN.NOT_A_MEMBER' | translate}} <a target="_blank" rel="noopener noreferrer"
-                    href="https://github.com/our-fancy-team-name/office-space/issues">{{'LOGIN.CONTACT_US' | translate}}</a>
+                    href="https://github.com/our-fancy-team-name/office-space/issues">{{'LOGIN.CONTACT_US' |
+                    translate}}</a>
             </p>
             <div class="row">
                 <div class="col-md-7">
                     <button [disabled]="form.disabled" mdbBtn block="true"
-                        class="my-4 rounded-pill btn btn-outline-info waves-effect">{{'LOGIN.FORGOT_PASSWORD' | translate}}</button>
+                        class="my-4 rounded-pill btn btn-outline-info waves-effect">{{'LOGIN.FORGOT_PASSWORD' |
+                        translate}}</button>
                 </div>
                 <div class="col-md-5">
                     <button type="submit" [disabled]="form.invalid || form.disabled" mdbBtn color="info" block="true"

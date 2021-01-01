@@ -1,3 +1,3 @@
 jwt:
   secret: ourSecurityKey
-  expirationMs: 90000000 # 900000ms = 15 minutes
+  expirationMs: 1800000 # 900000ms = 15 minutes
