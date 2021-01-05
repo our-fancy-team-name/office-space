@@ -45,8 +45,18 @@ mvn -N io.takari:maven:0.7.7:wrapper
 ```
 Noted: for Mac, we use `./mvnw` instead of `mvnw`
 
-To build:
-```$xslt
-mvnw clean package 
+Script (for windows)
 ```
-The artifact available at `office-space-backend/target`
+📦script
+ ┣ 📂build
+ ┃ ┣ 📜build-w-test.cmd             // build with test
+ ┃ ┗ 📜build_wo_test.cmd            // build without test
+ ┣ 📂db
+ ┃ ┣ 📜docker-compose-mysql.yml
+ ┃ ┣ 📜start.cmd                    // start mysql
+ ┃ ┗ 📜stop.cmd                     // stop mysql
+ ┗ 📂utils
+ ┃ ┣ 📜git.cmd                      // git note
+ ┃ ┣ 📜jacoco-report.cmd            // generate jacoco report
+ ┃ ┗ 📜javadoc.cmd                  // generate javadocs
+```
