@@ -46,7 +46,27 @@ mvn -N io.takari:maven:0.7.7:wrapper
 Noted: for Mac, we use `./mvnw` instead of `mvnw`
 
 To build:
-```$xslt
-mvnw clean package 
 ```
-The artifact available at `office-space-backend/target`
+root   
+│
+└───script
+      │
+      └───build
+```
+
+The artifact available at
+```
+root   
+│
+└───office-space-backend
+      │
+      └───target
+```
+The docker for mysql available at
+```
+root   
+│
+└───script
+      │
+      └───db
+```
