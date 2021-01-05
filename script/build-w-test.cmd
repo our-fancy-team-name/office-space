@@ -1,2 +1,0 @@
-cd ../
-mvnw clean install
