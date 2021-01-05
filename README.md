@@ -45,28 +45,18 @@ mvn -N io.takari:maven:0.7.7:wrapper
 ```
 Noted: for Mac, we use `./mvnw` instead of `mvnw`
 
-To build:
+Script (for windows)
 ```
-root   
-│
-└───script
-      │
-      └───build
-```
-
-The artifact available at
-```
-root   
-│
-└───office-space-backend
-      │
-      └───target
-```
-The docker for mysql available at
-```
-root   
-│
-└───script
-      │
-      └───db
+📦script
+ ┣ 📂build
+ ┃ ┣ 📜build-w-test.cmd             // build with test
+ ┃ ┗ 📜build_wo_test.cmd            // build without test
+ ┣ 📂db
+ ┃ ┣ 📜docker-compose-mysql.yml
+ ┃ ┣ 📜start.cmd                    // start mysql
+ ┃ ┗ 📜stop.cmd                     // stop mysql
+ ┗ 📂utils
+ ┃ ┣ 📜git.cmd                      // git note
+ ┃ ┣ 📜jacoco-report.cmd            // generate jacoco report
+ ┃ ┗ 📜javadoc.cmd                  // generate javadocs
 ```
