@@ -165,7 +165,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
       });
       this.codeCtr.setValue(element.code);
       this.descriptionCtr.setValue(element.description);
-      this.expandedElement = this.expandedElement?.code === element?.code ? null : element;
+      this.expandedElement = this.expandedElement === element ? null : element;
       this.agreement = false;
     });
   }
@@ -199,7 +199,7 @@ export class RoleEditListComponent implements OnInit, AfterViewInit {
   }
 
   expanDetails(element) {
-    return element?.code === this.expandedElement?.code ? 'expanded' : 'collapsed';
+    return element === this.expandedElement ? 'expanded' : 'collapsed';
   }
 
   add(event: MatChipInputEvent): void {

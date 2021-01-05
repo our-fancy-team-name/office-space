@@ -1,0 +1,13 @@
+version: '2.0'
+services:
+  local-mysql:
+    container_name: local-mysql
+    image: mysql:8.0
+    ports:
+      - 5432:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=Root@2018
+      - MYSQL_DATABASE=root
+    command: mysqld --sql_mode=""
+    volumes:
+      - ./mysql:/var/lib/mysql

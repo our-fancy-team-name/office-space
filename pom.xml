@@ -72,7 +72,7 @@
                     <reportOutputDirectory>
                         ./documents
                     </reportOutputDirectory>
-                    <destDir>api</destDir>
+                    <destDir>javadoc</destDir>
                 </configuration>
             </plugin>
             <plugin>

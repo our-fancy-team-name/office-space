@@ -80,3 +80,5 @@ Thumbs.db
 
 # javadocs files
 documents/api
+# mysql
+/docker/db/mysql

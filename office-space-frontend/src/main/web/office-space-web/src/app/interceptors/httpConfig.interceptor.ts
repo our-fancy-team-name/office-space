@@ -30,8 +30,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     }
     return next.handle(authReq).pipe(
       map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-        }
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
