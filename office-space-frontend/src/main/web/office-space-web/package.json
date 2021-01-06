@@ -6,7 +6,6 @@
     "start": "ng serve",
     "build": "ng build",
     "buildProd": "ng build --configuration=production",
-    "sonar": "sonar-scanner -Dsonar.branch.name=$TRAVIS_BRANCH",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

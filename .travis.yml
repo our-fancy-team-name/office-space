@@ -7,6 +7,7 @@ addons:
 before_install:
   - chmod +x mvnw
 script:
+  - cd ./office-space-frontend/src/main/web/office-space-web/ & sonar-scanner -Dsonar.branch.name=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
   - ./mvnw clean verify sonar:sonar -Pno-front-end -Dsonar.projectKey=our-fancy-team-name_office-space
 cache:
   directories:

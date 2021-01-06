@@ -40,15 +40,6 @@
                             <arguments>run-script lint</arguments>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>sonar</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run-script sonar</arguments>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
