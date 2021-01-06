@@ -79,5 +79,9 @@ Thumbs.db
 
 # javadocs files
 documents/api
+
 # mysql
 /script/db/mysql
+
+# sonar front end
+/office-space-frontend/src/main/web/office-space-web/.scannerwork/
