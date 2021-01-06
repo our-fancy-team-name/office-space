@@ -18,4 +18,5 @@ public class ProductDto {
   private String description;
   private String family;
   private String displayName;
+  private Integer clusterId;
 }

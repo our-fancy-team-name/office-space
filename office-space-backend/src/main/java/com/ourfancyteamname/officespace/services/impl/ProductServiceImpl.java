@@ -92,6 +92,7 @@ public class ProductServiceImpl implements ProductService {
     target.setFamily(productDto.getFamily());
     target.setName(productDto.getName());
     target.setPartNumber(productDto.getPartNumber());
+    target.setClusterId(productDto.getClusterId());
     return productRepository.save(target);
   }
 

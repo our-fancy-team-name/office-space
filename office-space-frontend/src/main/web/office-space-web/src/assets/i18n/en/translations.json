@@ -48,8 +48,8 @@
     "SERIAL_NUMBER": "Serial Number"
   },
   "PACKAGE_EDIT_LIST": {
-    "CREATE_PKG": "Create Package",
-    "EDIT_PKG": "Edit Package"
+    "CREATE_PKG": "Create Serial",
+    "EDIT_PKG": "Edit Serial"
   },
   "PERMISSION": {
     "CLUS_EDIT": "Edit Clusters",
@@ -78,7 +78,7 @@
     "DESCRIPTION": "Product Description",
     "FAMILY": "Product Family",
     "NAME": "Product name",
-    "PACKAGE": "Package",
+    "PACKAGE": "Serial",
     "PART_NUMBER": "Part number",
     "PRODUCT": "Product"
   },
@@ -106,7 +106,7 @@
     "EMPLOYEE_LIST": "Employee List",
     "MANAGE_AUTHORITY": "Manage authority",
     "MANAGE_CLUSTER": "Manage Cluster",
-    "MANAGE_PRODUCT": "Mangage Prod"
+    "MANAGE_PRODUCT": "Manage Prod"
   },
   "USER_EDIT_LIST": {
     "ADDRESS": "Address",

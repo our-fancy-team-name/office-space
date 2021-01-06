@@ -36,14 +36,16 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
   ) { }
 
   ngAfterContentInit(): void {
-    if (this.isRequired) {
-      this.selectCtr = new FormControl('', [this.validator.required()]);
-    }
-    if (this.enableBackEndSearch) {
-      this.search('');
-    } else {
-      this.displayedOptions = this.options;
-    }
+    setTimeout(() => {
+      if (this.isRequired) {
+        this.selectCtr = new FormControl('', [this.validator.required()]);
+      }
+      if (this.enableBackEndSearch) {
+        this.search('');
+      } else {
+        this.displayedOptions = this.options;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -87,6 +89,12 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
   }
 
   compareObjects(thiz: any, that: any) {
+    if (thiz == null && that == null) {
+      return false;
+    }
+    if ((thiz != null && that == null) || (thiz == null && that != null)) {
+      return false;
+    }
     const compareImpl = (tiz, tat) => {
       for (const key of Object.keys(tiz)) {
         if (!Object.prototype.hasOwnProperty.call(tat, key) || tiz[key] !== tat[key]) {
