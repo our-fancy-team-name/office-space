@@ -1,15 +1,24 @@
 # office-space
-##### Version: 0.0.1-SNAPSHOT
-
 [![Build Status](https://travis-ci.com/our-fancy-team-name/office-space.svg?branch=master)](https://travis-ci.com/our-fancy-team-name/office-space)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=alert_status)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
-[![DeepScan grade](https://deepscan.io/api/teams/8125/projects/10280/branches/140197/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8125&pid=10280&bid=140197)
+### Back-end
 
-## Project Master branch analyst
+##### build status
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=alert_status)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
+
+##### code analyst
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=ncloc)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=coverage)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
+
+### Front-end
+[![DeepScan grade](https://deepscan.io/api/teams/8125/projects/10280/branches/140197/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8125&pid=10280&bid=140197)
+
+##### code analyst
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=office-space-web&metric=ncloc)](https://sonarcloud.io/dashboard?id=office-space-web)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=office-space-web&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=office-space-web)
+
 
 ## Technical Specs:
 
