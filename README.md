@@ -2,8 +2,6 @@
 [![Build Status](https://travis-ci.com/our-fancy-team-name/office-space.svg?branch=master)](https://travis-ci.com/our-fancy-team-name/office-space)
 ### Back-end
 
-##### build status
-
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=alert_status)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 
 ##### code analyst
