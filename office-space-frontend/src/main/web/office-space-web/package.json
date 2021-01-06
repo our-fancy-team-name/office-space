@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "buildProd": "ng build --configuration=production",
-    "travisSonar": "sonar-scanner -Dsonar.branch.name=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}",
+    "travisSonarBranch": "sonar-scanner -Dsonar.branch.name=$TRAVIS_BRANCH",
+    "travisSonarPR": "sonar-scanner -Dsonar.pullrequest.branch=$TRAVIS_PULL_REQUEST_BRANCH",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
