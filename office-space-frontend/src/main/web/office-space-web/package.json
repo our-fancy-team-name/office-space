@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "buildProd": "ng build --configuration=production",
-    "sonar": "sonar-scanner -Dsonar.branch.name=$(git branch --show-current)",
+    "sonar": "sonar-scanner -Dsonar.branch.name=$(git rev-parse --abbrev-ref HEAD)",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
