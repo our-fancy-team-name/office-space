@@ -7,7 +7,7 @@ addons:
 before_install:
   - chmod +x mvnw
 script:
-  - if [ $TRAVIS_PULL_REQUEST == "true" ]; then npm run-script travisSonarPR --prefix office-space-frontend/src/main/web/office-space-web; else npm run-script travisSonarBranch --prefix office-space-frontend/src/main/web/office-space-web; fi
+  - if [ $TRAVIS_PULL_REQUEST == "false" ]; then npm run-script travisSonarBranch travisSonarPR --prefix office-space-frontend/src/main/web/office-space-web; else npm run-script travisSonarPR --prefix office-space-frontend/src/main/web/office-space-web; fi
   - ./mvnw clean verify sonar:sonar -Pno-front-end -Dsonar.projectKey=our-fancy-team-name_office-space
 cache:
   directories:
