@@ -41,14 +41,13 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>prod</id>
+                        <id>sonar</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run-script buildProd</arguments>
+                            <arguments>run-script sonar</arguments>
                         </configuration>
-                        <phase>generate-resources</phase>
                     </execution>
                 </executions>
             </plugin>
