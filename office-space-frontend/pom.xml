@@ -40,6 +40,16 @@
                             <arguments>run-script lint</arguments>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>prod</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run-script buildProd</arguments>
+                        </configuration>
+                        <phase>generate-resources</phase>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
