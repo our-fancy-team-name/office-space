@@ -54,8 +54,11 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>6.0.0.Alpha4</version>
-            <optional>true</optional>
+            <version>6.0.0.Alpha6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
     </dependencies>
     <modules>
@@ -97,9 +100,9 @@
                             <version>1.18.10</version>
                         </path>
                         <path>
-                            <groupId>org.hibernate</groupId>
+                            <groupId>org.hibernate.orm</groupId>
                             <artifactId>hibernate-jpamodelgen</artifactId>
-                            <version>6.0.0.Alpha4</version>
+                            <version>6.0.0.Alpha6</version>
                         </path>
                     </annotationProcessorPaths>
                     <compilerArgs>

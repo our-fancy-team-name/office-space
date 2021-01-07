@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component
 @Slf4j
+@Component
 public class JwtService {
 
   public static final String TOKEN_TYPE = "Bearer";
@@ -45,15 +45,15 @@ public class JwtService {
       Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
       return true;
     } catch (SignatureException e) {
-      log.error("SignatureException JWT signature: {}", e.getMessage());
+      log.debug("SignatureException JWT signature: {}", e.getMessage());
     } catch (MalformedJwtException e) {
-      log.error("MalformedJwtException JWT token: {}", e.getMessage());
+      log.debug("MalformedJwtException JWT token: {}", e.getMessage());
     } catch (ExpiredJwtException e) {
-      log.error("ExpiredJwtException token is expired: {}", e.getMessage());
+      log.debug("ExpiredJwtException token is expired: {}", e.getMessage());
     } catch (UnsupportedJwtException e) {
-      log.error("UnsupportedJwtException token is unsupported: {}", e.getMessage());
+      log.debug("UnsupportedJwtException token is unsupported: {}", e.getMessage());
     } catch (IllegalArgumentException e) {
-      log.error("IllegalArgumentException claims string is empty: {}", e.getMessage());
+      log.debug("IllegalArgumentException claims string is empty: {}", e.getMessage());
     }
     return false;
   }
