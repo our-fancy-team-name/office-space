@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Import;
 public class OfficeSpaceApplication {
 
   public static void main(String[] args) {
-    // Separate log file
-    log.debug(System.lineSeparator());
-    log.error(System.lineSeparator());
     SpringApplication.run(OfficeSpaceApplication.class);
   }
 

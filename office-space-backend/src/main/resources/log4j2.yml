@@ -1,0 +1,78 @@
+configuration:
+  properties:
+    property:
+      - name: LOG_PATTERN
+        value: '%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c{1.}[%03L] - %m%n'
+      - name: LOG_PATTERN_DETAIL
+        value: '%d{yyyy-MM-dd HH:mm:ss} %c.%M[%03L] - %m%n'
+      - name: APP_LOG_ROOT
+        value: logs
+      - name: CLASSPATH
+        value: com.ourfancyteamname.officespace
+  appenders:
+    Console:
+      PatternLayout:
+        pattern: ${LOG_PATTERN}
+      follow: true
+      name: Console
+      target: SYSTEM_OUT
+    RollingFile:
+      - DefaultRolloverStrategy:
+          max: '10'
+        PatternLayout:
+          pattern: ${LOG_PATTERN}
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 19500KB
+        fileName: ${APP_LOG_ROOT}/app.log
+        filePattern: ${APP_LOG_ROOT}/app-%d{yyyy-MM-dd}-%i.log
+        name: allLog
+      - DefaultRolloverStrategy:
+          max: '10'
+        LevelRangeFilter:
+          maxLevel: DEBUG
+          minLevel: DEBUG
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: ${LOG_PATTERN_DETAIL}
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 19500KB
+        fileName: ${APP_LOG_ROOT}/debug.log
+        filePattern: ${APP_LOG_ROOT}/debug-%d{yyyy-MM-dd}-%i.log
+        name: debugLog
+      - DefaultRolloverStrategy:
+          max: '10'
+        LevelRangeFilter:
+          maxLevel: ERROR
+          minLevel: ERROR
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: ${LOG_PATTERN_DETAIL}
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 19500KB
+        fileName: ${APP_LOG_ROOT}/error.log
+        filePattern: ${APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log
+        name: errorLog
+  loggers:
+    Root:
+      AppenderRef:
+        - ref: allLog
+        - ref: Console
+      additivity: false
+      level: info
+    logger:
+      - AppenderRef:
+          - ref: debugLog
+          - ref: errorLog
+          - ref: allLog
+          - ref: Console
+        additivity: false
+        level: debug
+        name: ${CLASSPATH}
+  monitorInterval: 30
+  status: WARN
+
