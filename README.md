@@ -9,7 +9,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=our-fancy-team-name_office-space&metric=coverage)](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 
-### <a href="https://sonarcloud.io/dashboard?id=office-space-web" target="_blank">Front-end</a>[])
+### <a href="https://sonarcloud.io/dashboard?id=office-space-web" target="_blank">Front-end</a>
 [![DeepScan grade](https://deepscan.io/api/teams/8125/projects/10280/branches/140197/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8125&pid=10280&bid=140197)
 
 
