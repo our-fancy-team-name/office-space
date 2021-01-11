@@ -131,8 +131,8 @@ public class ProductServiceImplTest {
     service.update(productDto);
   }
 
-  @Test
-  public void update_clusterInUse2() {
+  @Test(expected = IllegalArgumentException.class)
+  public void update_clusterInUse() {
     ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Product product1 = Product.builder().id(1).clusterId(2).partNumber("partNumber1").name("name1").build();
     Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
@@ -143,14 +143,14 @@ public class ProductServiceImplTest {
     Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any());
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void update_clusterInUse() {
+  @Test
+  public void update_cluster_notInUse() {
     ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
-    Product product1 = Product.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
+    Product product1 = Product.builder().id(1).clusterId(2).partNumber("partNumber1").name("name1").build();
     Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
     Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
     Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));
-    Mockito.when(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1)).thenReturn(true);
+    Mockito.when(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1)).thenReturn(false);
     service.update(productDto);
     Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any());
   }
