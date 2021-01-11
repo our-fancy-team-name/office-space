@@ -13,7 +13,7 @@ public class PackageStatusTest {
   @Test
   public void name() {
     Stream.of(PackageStatus.values())
-        .map(Enum::name)
+        .map(PackageStatus::getName)
         .forEach(s -> Assert.assertTrue(ArrayUtils.contains(names, s)));
   }
 }
