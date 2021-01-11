@@ -94,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
           String.join(CharConstants.DELIMITER.getValue(), ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name()));
     }
 
-    if (target.getClusterId() != productDto.getClusterId() &&
+    if (target.getClusterId().equals(productDto.getClusterId()) &&
         processListViewRepository.existsByProductIdAndClusterCurrentNotNull(productDto.getId())) {
       throw new IllegalArgumentException(
           String.join(CharConstants.DELIMITER.getValue(), ErrorObject.CLUSTER.name(), ErrorCode.IN_USE.name()));
