@@ -133,7 +133,7 @@ public class ProductServiceImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void update_clusterInUse() {
-    ProductDto productDto = ProductDto.builder().id(1).clusterId(2).partNumber("partNumber1").name("name1").build();
+    ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Product product1 = Product.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
     Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
@@ -145,8 +145,8 @@ public class ProductServiceImplTest {
 
   @Test
   public void update_success() {
-    ProductDto productDto = ProductDto.builder().id(1).partNumber("partNumber1").name("name1").build();
-    Product product1 = Product.builder().id(1).partNumber("partNumber1").name("name1").build();
+    ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
+    Product product1 = Product.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
     Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
     Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));
