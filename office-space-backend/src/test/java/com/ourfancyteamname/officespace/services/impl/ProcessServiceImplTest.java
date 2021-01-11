@@ -4,6 +4,7 @@ import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConvert
 import com.ourfancyteamname.officespace.db.entities.ClusterNode;
 import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
 import com.ourfancyteamname.officespace.db.entities.ProcessCluster;
+import com.ourfancyteamname.officespace.db.repos.ClusterNodePackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodePathRepository;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodeRepository;
 import com.ourfancyteamname.officespace.db.repos.ProcessClusterRepository;
@@ -45,6 +46,9 @@ public class ProcessServiceImplTest {
 
   @Mock
   private ProcessGeneralConverter processGeneralConverter;
+
+  @Mock
+  private ClusterNodePackageRepository clusterNodePackageRepository;
 
   @Test(expected = IllegalArgumentException.class)
   public void getGraph_notFound() {
@@ -125,7 +129,8 @@ public class ProcessServiceImplTest {
     Mockito.verify(clusterNodeRepository, Mockito.times(1)).findById(clusterNodeId);
     Mockito.verify(pathRepository, Mockito.times(1))
         .removeByClusterNodeIdToOrClusterNodeIdFrom(clusterNodeId, clusterNodeId);
-    Mockito.verify(entityManager, Mockito.times(1)).flush();
+    Mockito.verify(entityManager, Mockito.times(2)).flush();
+    Mockito.verify(clusterNodePackageRepository, Mockito.times(1)).removeByClusterNodeId(clusterNodeId);
     Mockito.verify(clusterNodeRepository, Mockito.times(1)).delete(clusterNode);
   }
 
