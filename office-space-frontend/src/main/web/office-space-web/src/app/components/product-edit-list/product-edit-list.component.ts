@@ -296,6 +296,8 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       const message = this.validator.getErrorMessage(err.error.message.split(':')[1]);
       if (objectError.includes('NAME')) {
         this.nameCtr.setErrors(message);
+      } else if (objectError.includes('CLUSTER')) {
+        this.clusterEdits.filter(i => i.identifier === element.id)[0].selectCtr.setErrors(message);
       } else {
         this.partNumberCtr.setErrors(message);
       }

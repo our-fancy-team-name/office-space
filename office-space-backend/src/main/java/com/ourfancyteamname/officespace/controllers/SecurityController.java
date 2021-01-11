@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.controllers;
 
+import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
 import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
 import com.ourfancyteamname.officespace.security.payload.JwtResponse;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
@@ -35,6 +36,9 @@ public class SecurityController {
   @Autowired
   private GitProperties gitProperties;
 
+  @Autowired
+  private ProcessListViewRepository processListViewRepository;
+
   @PostMapping("/signIn")
   public ResponseEntity<JwtResponse<UserDetails>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
     Authentication authentication = authenticationManager.authenticate(
@@ -50,6 +54,7 @@ public class SecurityController {
 
   @GetMapping("/version")
   public ResponseEntity<Map<String, String>> version() {
+    processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1);
     Map<String, String> result = new LinkedHashMap<>();
     result.put("branch", gitProperties.getBranch());
     result.put("commitId", gitProperties.getShortCommitId());

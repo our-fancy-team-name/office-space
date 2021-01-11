@@ -11,6 +11,7 @@ import { ChipsComponent } from '../../chips/chips.component';
 })
 export class ClusterNodeEditComponent implements OnInit {
   allChips  = [];
+  allSerial = [];
   agreement = false;
   codeCreCtr = new FormControl({value: '', disabled: true}, [
     this.validator.required(),
@@ -27,6 +28,7 @@ export class ClusterNodeEditComponent implements OnInit {
 
   @ViewChild('chipInput') chipInput: ChipsComponent;
   @ViewChild('chipOutput') chipOutput: ChipsComponent;
+  @ViewChild('chipSerial') chipSerial: ChipsComponent;
   constructor(
     public validator: ValidatorsService,
     private processService: ProcessService

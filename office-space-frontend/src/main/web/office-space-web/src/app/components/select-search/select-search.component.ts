@@ -36,10 +36,10 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
   ) { }
 
   ngAfterContentInit(): void {
+    if (this.isRequired) {
+      this.selectCtr = new FormControl('', [this.validator.required()]);
+    }
     setTimeout(() => {
-      if (this.isRequired) {
-        this.selectCtr = new FormControl('', [this.validator.required()]);
-      }
       if (this.enableBackEndSearch) {
         this.search('');
       } else {
@@ -90,7 +90,7 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
 
   compareObjects(thiz: any, that: any) {
     if (thiz == null && that == null) {
-      return false;
+      return true;
     }
     if ((thiz != null && that == null) || (thiz == null && that != null)) {
       return false;

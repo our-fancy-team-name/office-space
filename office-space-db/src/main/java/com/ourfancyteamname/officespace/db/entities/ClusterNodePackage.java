@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.db.entities;
 
+import com.ourfancyteamname.officespace.enums.PackageStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,4 +42,10 @@ public class ClusterNodePackage implements Serializable {
   @Column(name = "`add-time`", insertable = false, updatable = false)
   @Temporal(TemporalType.TIMESTAMP)
   private Date addTime;
+
+  @Column(name = "`amount`")
+  private Integer amount;
+
+  @Column(name = "`status`")
+  private PackageStatus status;
 }

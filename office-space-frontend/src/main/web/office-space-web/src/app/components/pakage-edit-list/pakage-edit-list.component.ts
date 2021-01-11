@@ -140,7 +140,13 @@ export class PakageEditListComponent implements OnInit, AfterViewInit {
       this.expandedElement = null;
       this.paginator.page.emit();
     }, err => {
-      this.serialNumberCtr.setErrors(this.validator.getErrorMessage(err.error.message));
+      const objectError = err.error.message.split(':')[0];
+      const message = this.validator.getErrorMessage(err.error.message.split(':')[1]);
+      if (objectError.includes('CLUSTER')) {
+        this.productEdits.filter(i => i.identifier === element.id)[0].selectCtr.setErrors(message);
+      } else {
+        this.serialNumberCtr.setErrors(message);
+      }
       this.spinner.hide();
     });
 
