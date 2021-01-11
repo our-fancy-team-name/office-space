@@ -98,8 +98,6 @@ public class PackageServiceImplTest {
     Package aPackage = Package.builder().id(1).productId(1).serialNumber(serialNumber).build();
     Mockito.when(packageRepository.findById(1)).thenReturn(Optional.of(aPackage));
     Mockito.when(packageRepository.findBySerialNumber(serialNumber)).thenReturn(Optional.of(aPackage));
-    Mockito.when(processListViewRepository.existsBySerialAndClusterCurrentNotNull(serialNumber))
-        .thenReturn(false);
     service.update(packageDto);
     Mockito.verify(packageRepository, Mockito.times(1)).save(Mockito.any());
   }
