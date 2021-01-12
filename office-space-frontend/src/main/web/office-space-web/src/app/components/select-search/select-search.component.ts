@@ -18,7 +18,7 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
     Text: 'text'
   };
 
-  @Input() displayType = SelectSearchComponent.displayTypeEnum.Number;
+  @Input() displayType = SelectSearchComponent.displayTypeEnum.Text;
   @Input() identifier;
   @Input() label;
   @Input() options;

@@ -27,10 +27,6 @@ public interface ProcessListViewRepository extends JpaRepository<ProcessListView
       " or cnplv.clusterNodeNext like '%' || ',' || :clusterNodeId " +
       " or cnplv.clusterNodeNext like :clusterNodeId || ',' || '%' " +
       " or cnplv.clusterNodeNext like :clusterNodeId or " +
-      "cnplv.clusterNodePrev like '%' || ',' || :clusterNodeId || ',' || '%' " +
-      " or cnplv.clusterNodePrev like '%' || ',' || :clusterNodeId " +
-      " or cnplv.clusterNodePrev like :clusterNodeId || ',' || '%' " +
-      " or cnplv.clusterNodePrev like :clusterNodeId or " +
       "cnplv.clusterCurrent like :clusterNodeId " +
       ") " +
       "and cnplv.clusterSchematic = :clusterSchematic")
