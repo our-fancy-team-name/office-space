@@ -6,4 +6,4 @@
 
 ## PRODUCT & CLUSTER
 
-<img alt="product.svg" src="./schemas/product.svg">
+<img alt="product-cluster.svg" src="./schemas/product-cluster.svg">

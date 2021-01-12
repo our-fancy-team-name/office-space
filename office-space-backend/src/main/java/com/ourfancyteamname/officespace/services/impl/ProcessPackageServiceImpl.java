@@ -34,8 +34,7 @@ public class ProcessPackageServiceImpl implements ProcessPackageService {
     String clusterSchematic = clusterNodeRepository.getClusterSchematic(clusterNodeId)
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId)) {
-      return processListViewRepository
-          .findPossiblePkgsOnStartNode(String.valueOf(clusterNodeId), clusterSchematic);
+      return processListViewRepository.findPossiblePkgsOnStartNode(clusterSchematic);
     }
     return processListViewRepository
         .findPossiblePkgsOnMiddleNode(String.valueOf(clusterNodeId), clusterSchematic);

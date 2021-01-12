@@ -7,8 +7,10 @@ public class ProcessListViewTest {
 
   @Test
   public void processListViewTest() {
-    ProcessListView processListView = new ProcessListView("serial", 1);
-    Assert.assertEquals("serial", processListView.getSerial());
-    Assert.assertTrue(1 == processListView.getPackageId());
+    Integer packageId = 1;
+    String serial = "serial";
+    ProcessListView processListView = new ProcessListView(serial, packageId);
+    Assert.assertEquals(serial, processListView.getSerial());
+    Assert.assertEquals(packageId, processListView.getPackageId());
   }
 }

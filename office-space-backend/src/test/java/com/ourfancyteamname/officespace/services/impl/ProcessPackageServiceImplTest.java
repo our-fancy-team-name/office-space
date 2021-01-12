@@ -52,7 +52,7 @@ public class ProcessPackageServiceImplTest {
     Mockito.verify(processListViewRepository, Mockito.times(1))
         .findPossiblePkgsOnMiddleNode(String.valueOf(clusterNodeId), clusterSchematic);
     Mockito.verify(processListViewRepository, Mockito.times(0))
-        .findPossiblePkgsOnStartNode(String.valueOf(clusterNodeId), clusterSchematic);
+        .findPossiblePkgsOnStartNode(clusterSchematic);
     Mockito.verify(clusterNodeRepository, Mockito.times(1)).getClusterSchematic(clusterNodeId);
     Mockito.verify(clusterNodePathRepository, Mockito.times(1)).existsByClusterNodeIdTo(clusterNodeId);
   }
@@ -65,7 +65,7 @@ public class ProcessPackageServiceImplTest {
     Mockito.when(clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId)).thenReturn(false);
     service.getValidPksToAdd(clusterNodeId);
     Mockito.verify(processListViewRepository, Mockito.times(1))
-        .findPossiblePkgsOnStartNode(String.valueOf(clusterNodeId), clusterSchematic);
+        .findPossiblePkgsOnStartNode(clusterSchematic);
     Mockito.verify(processListViewRepository, Mockito.times(0))
         .findPossiblePkgsOnMiddleNode(String.valueOf(clusterNodeId), clusterSchematic);
     Mockito.verify(clusterNodeRepository, Mockito.times(1)).getClusterSchematic(clusterNodeId);

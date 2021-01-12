@@ -19,7 +19,7 @@
         </sql>
     </changeSet>
 
-    <changeSet author="office-space" id="05_CREATE_CLUSTER-NODE-PACKAGE-LIST-VIEW">
+    <changeSet author="office-space" id="05_CREATE_CLUSTER-NODE-PACKAGE-LIST-VIEW_01">
         <sql>
             create or replace view cluster_node_package_list_view as
             SELECT
@@ -48,7 +48,7 @@
             left join package p2 on p2.`product-id` = p.id
             left join cluster_node_package cnp on cnp.`package-id` = p2.id
             left join cluster_node cn on cn.id = cnp.`cluster-node-id`
-            left join process_cluster pcc on pcc.id = cnp.`cluster-node-id`
+            left join process_cluster pcc on pcc.id = cn.`cluster-id`
             WHERE p2.id is not NULL
         </sql>
     </changeSet>

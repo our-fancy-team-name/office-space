@@ -40,20 +40,6 @@ public interface ProcessListViewRepository extends JpaRepository<ProcessListView
   @Query("SELECT distinct " +
       "new com.ourfancyteamname.officespace.db.entities.view.ProcessListView(cnplv.serial, cnplv.packageId) " +
       "from ProcessListView cnplv " +
-      "where " +
-      "( " +
-      "cnplv.clusterNodeNext like '%' || ',' || :clusterNodeId || ',' || '%' " +
-      " or cnplv.clusterNodeNext like '%' || ',' || :clusterNodeId " +
-      " or cnplv.clusterNodeNext like :clusterNodeId || ',' || '%' " +
-      " or cnplv.clusterNodeNext like :clusterNodeId or " +
-      "cnplv.clusterNodePrev like '%' || ',' || :clusterNodeId || ',' || '%' " +
-      " or cnplv.clusterNodePrev like '%' || ',' || :clusterNodeId " +
-      " or cnplv.clusterNodePrev like :clusterNodeId || ',' || '%' " +
-      " or cnplv.clusterNodePrev like :clusterNodeId or " +
-      "cnplv.clusterCurrent is null " +
-      " or cnplv.clusterCurrent like :clusterNodeId " +
-      ") " +
-      "and cnplv.clusterSchematic = :clusterSchematic")
-  List<ProcessListView> findPossiblePkgsOnStartNode(@Param("clusterNodeId") String clusterNodeId,
-      @Param("clusterSchematic") String clusterSchematic);
+      "where cnplv.clusterSchematic = :clusterSchematic")
+  List<ProcessListView> findPossiblePkgsOnStartNode(@Param("clusterSchematic") String clusterSchematic);
 }
