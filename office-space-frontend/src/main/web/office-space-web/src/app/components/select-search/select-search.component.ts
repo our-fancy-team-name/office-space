@@ -13,6 +13,12 @@ import { ValidatorsService } from 'src/app/utils/validators.service';
 })
 export class SelectSearchComponent implements OnInit, AfterViewInit, AfterContentInit {
 
+  static readonly displayTypeEnum = {
+    Number: 'number',
+    Text: 'text'
+  };
+
+  @Input() displayType = SelectSearchComponent.displayTypeEnum.Number;
   @Input() identifier;
   @Input() label;
   @Input() options;
@@ -68,7 +74,11 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
         this.spinner.hide(this.spinnerName);
       });
     } else {
-      this.displayedOptions = this.options.filter(i => i.includes(value));
+      if (this.displayType === SelectSearchComponent.displayTypeEnum.Text) {
+        this.displayedOptions = this.options.filter(i => i[this.displayField].includes(value));
+      } else {
+        this.displayedOptions = this.options.filter(i => i[this.displayField] === +value);
+      }
     }
   }
 
@@ -78,6 +88,11 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
 
   clear() {
     this.searchCtr.setValue('');
+  }
+
+  setOptions(options) {
+    this.options = options;
+    this.displayedOptions = options;
   }
 
   getValue() {

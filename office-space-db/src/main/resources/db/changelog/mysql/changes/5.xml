@@ -19,13 +19,14 @@
         </sql>
     </changeSet>
 
-    <changeSet author="office-space" id="05_ADD_CLUSTER-NODE-PACKAGE-LIST-VIEW">
+    <changeSet author="office-space" id="05_CREATE_CLUSTER-NODE-PACKAGE-LIST-VIEW">
         <sql>
             create or replace view cluster_node_package_list_view as
             SELECT
             UUID() as id,
             p2.`serial-number` as `serial`,
-            p.id as `product-id` ,
+            p2.id as `package-id`,
+            p.id as `product-id`,
             p.`part-number` as `part-number`,
             pc.code as `cluster-schematic`,
             pcc.code as `cluster-current`,

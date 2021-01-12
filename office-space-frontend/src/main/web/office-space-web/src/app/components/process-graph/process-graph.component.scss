@@ -1,11 +1,8 @@
+@import 'mat-card';
 
 ::ng-deep .ngx-charts {
     border: 0.5px grey solid;
     border-radius: 4px;
-}
-
-mat-card {
-    margin: 10px;
 }
 
 #ngxGraphWrapper {

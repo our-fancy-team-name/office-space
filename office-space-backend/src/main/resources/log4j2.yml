@@ -62,6 +62,8 @@ configuration:
       AppenderRef:
         - ref: allLog
         - ref: Console
+        - ref: debugLog
+        - ref: errorLog
       additivity: false
       level: info
     logger:

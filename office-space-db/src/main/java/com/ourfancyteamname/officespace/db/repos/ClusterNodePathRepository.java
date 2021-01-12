@@ -19,6 +19,8 @@ public interface ClusterNodePathRepository extends JpaRepository<ClusterNodePath
 
   List<ClusterNodePath> findByClusterNodeIdTo(Integer clusterNodeIdTo);
 
+  boolean existsByClusterNodeIdTo(Integer clusterNodeIdTo);
+
   List<ClusterNodePath> findByClusterNodeIdFrom(Integer clusterNodeIdFrom);
 
   List<ClusterNodePath> removeByClusterNodeIdToOrClusterNodeIdFrom(Integer clusterNodeIdTo, Integer clusterNodeIdFrom);

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoleUserUpdateDto {
   private RoleDto roleDto;
   private UserDto userDto;

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -22,4 +23,9 @@ public interface ClusterNodeRepository extends JpaRepository<ClusterNode, Intege
       "left join ProcessCluster pc on cn.clusterId = pc.id " +
       "where pc.id = :clusterId")
   List<ProcessGeneralDto> getClusterNodesByClusterId(@Param("clusterId") int clusterId);
+
+  @Query("SELECT pc.code from ClusterNode cn " +
+      "left join ProcessCluster pc on cn.clusterId = pc.id " +
+      "WHERE cn.id = :clusterId")
+  Optional<String> getClusterSchematic(@Param("clusterId") int clusterId);
 }

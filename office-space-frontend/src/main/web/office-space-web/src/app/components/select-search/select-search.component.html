@@ -12,7 +12,10 @@
         <mat-option *ngFor="let option of displayedOptions" [value]="option">
             {{option[displayField]}}
         </mat-option>
-        <mat-option disabled>
+        <mat-option *ngIf="(options || []).length === 0 && !enableBackEndSearch" disabled>
+            {{'MESSAGE.NO_RESULT' | translate}}
+        </mat-option>
+        <mat-option *ngIf="enableBackEndSearch" disabled>
             {{'MESSAGE.AND' | translate}} {{totalElementsLeft}} {{'MESSAGE.MORE' | translate}}
         </mat-option>
         <ngx-spinner name="sp" [fullScreen]="false" type="ball-spin-clockwise">

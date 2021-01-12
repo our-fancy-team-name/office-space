@@ -38,6 +38,7 @@ import { StorageService } from './services/auth/storage.service';
 import { NodePickerComponent } from './components/process-graph/node-picker/node-picker.component';
 import { ClusterNodeEditComponent } from './components/process-graph/cluster-node-edit/cluster-node-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClusterPackageListComponent } from './components/process-graph/cluster-package-list/cluster-package-list.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NodeEditListComponent,
     ProcessGraphComponent,
     NodePickerComponent,
-    ClusterNodeEditComponent
+    ClusterNodeEditComponent,
+    ClusterPackageListComponent
   ],
   imports: [
     BrowserModule,

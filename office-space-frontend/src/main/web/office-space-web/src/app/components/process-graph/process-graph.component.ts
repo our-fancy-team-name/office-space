@@ -11,6 +11,7 @@ import { ProcessService } from 'src/app/services/process.service';
 import { ValidatorsService } from 'src/app/utils/validators.service';
 import { SelectSearchComponent } from '../select-search/select-search.component';
 import { ClusterNodeEditComponent } from './cluster-node-edit/cluster-node-edit.component';
+import { ClusterPackageListComponent } from './cluster-package-list/cluster-package-list.component';
 
 @Component({
   selector: 'app-process-graph',
@@ -32,6 +33,7 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
   @ViewChild('ngxGraphWrapper') graphWrapper: ElementRef;
   @ViewChild('clusterSelector') clusterSelector: SelectSearchComponent;
   @ViewChild(ClusterNodeEditComponent) clusterNodeEdit: ClusterNodeEditComponent;
+  @ViewChild(ClusterPackageListComponent) clusterPkgList: ClusterPackageListComponent;
   clusters: ClusterNode[] = [];
   nodes: Node[] = [];
   links: Edge[] = [];
@@ -168,6 +170,7 @@ export class ProcessGraphComponent implements OnInit, AfterViewInit, AfterConten
   nodeClicked(event, node) {
     // this.panToNode.next(node.id);
     this.clusterNodeEdit.setData(this.graphDto, +node.id.substring(1));
+    this.clusterPkgList.setData(+node.id.substring(1));
     this.isHideEditor = false;
   }
 

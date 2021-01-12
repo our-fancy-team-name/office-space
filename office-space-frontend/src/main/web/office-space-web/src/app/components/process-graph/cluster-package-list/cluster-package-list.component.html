@@ -1,0 +1,32 @@
+<mat-card class="mat-elevation-z8 w-100">
+    <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>{{'PROCESS.PACKAGE_LIST' | translate}}</mat-card-title>
+    </mat-card-header>
+
+    <div class="row d-flex align-items-center">
+        <div class="col-md-3">
+            <app-select-search #packageSelect [options]="options" [displayField]="'serial'"
+                [label]="'PRODUCT.PACKAGE'"></app-select-search>
+        </div>
+        <div class="col-md-3">
+            <app-select-search #statusSelect [options]="status" [displayField]="'value'"
+             [label]="'PRODUCT.STATUS'"></app-select-search>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'PRODUCT.QUATITY' | translate}}</mat-label>
+                <input type="number" min="0" [formControl]="quatity" matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <div class="float-right">
+                <button (click)="submit()" [disabled]="isSubmitCreDisable()" mat-flat-button color="primary">
+                    <mat-icon>check</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</mat-card>
