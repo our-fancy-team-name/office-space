@@ -4,6 +4,7 @@ import com.ourfancyteamname.officespace.db.converters.dtos.ProductConverter;
 import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ProductRepository;
+import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
 import com.ourfancyteamname.officespace.db.services.PaginationService;
 import com.ourfancyteamname.officespace.db.services.SortingService;
 import com.ourfancyteamname.officespace.db.services.SpecificationService;
@@ -49,6 +50,9 @@ public class ProductServiceImplTest {
 
   @Mock
   private PackageRepository packageRepository;
+
+  @Mock
+  private ProcessListViewRepository processListViewRepository;
 
   @Test
   public void findALl() {
@@ -127,10 +131,34 @@ public class ProductServiceImplTest {
     service.update(productDto);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void update_clusterInUse() {
+    ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
+    Product product1 = Product.builder().id(1).clusterId(2).partNumber("partNumber1").name("name1").build();
+    Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
+    Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
+    Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));
+    Mockito.when(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1)).thenReturn(true);
+    service.update(productDto);
+    Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any());
+  }
+
+  @Test
+  public void update_cluster_notInUse() {
+    ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
+    Product product1 = Product.builder().id(1).clusterId(2).partNumber("partNumber1").name("name1").build();
+    Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
+    Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
+    Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));
+    Mockito.when(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1)).thenReturn(false);
+    service.update(productDto);
+    Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any());
+  }
+
   @Test
   public void update_success() {
-    ProductDto productDto = ProductDto.builder().id(1).partNumber("partNumber1").name("name1").build();
-    Product product1 = Product.builder().id(1).partNumber("partNumber1").name("name1").build();
+    ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
+    Product product1 = Product.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
     Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
     Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));

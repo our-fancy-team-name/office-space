@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.stream.Stream;
 
 public class ErrorObjectTest {
-  public static final String[] names = {"NAME", "PART_NUMBER"};
+  public static final String[] names = {"NAME", "PART_NUMBER", "CLUSTER", "SERIAL"};
 
   @Test
   public void name() {

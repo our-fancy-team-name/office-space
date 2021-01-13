@@ -50,13 +50,13 @@
         </sql>
     </changeSet>
 
-    <changeSet author="office-space" id="04_CREATE_CLUSTER_NODE_PACKAGE">
+    <changeSet author="office-space" id="04_CREATE_CLUSTER_NODE_PACKAGE_01">
         <sql>
             CREATE TABLE `cluster_node_package` (
             id serial PRIMARY KEY,
             `cluster-node-id` INT,
             `package-id` INT,
-            `add-time` DATE
+            `add-time` DATETIME
             );
         </sql>
     </changeSet>

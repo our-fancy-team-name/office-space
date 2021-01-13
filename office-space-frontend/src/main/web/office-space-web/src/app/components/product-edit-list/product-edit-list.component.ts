@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,8 +9,11 @@ import { merge, Observable } from 'rxjs';
 import { debounceTime, startWith, switchMap, map, catchError } from 'rxjs/operators';
 import { TableSearchRequest, TablePagingRequest, ColumnSearchRequest } from 'src/app/dtos/tableSearch';
 import { DataBaseOperation } from 'src/app/enums/tableSearchEnum';
+import { StorageService } from 'src/app/services/auth/storage.service';
+import { ClusterService } from 'src/app/services/cluster.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ValidatorsService } from 'src/app/utils/validators.service';
+import { SelectSearchComponent } from '../select-search/select-search.component';
 
 @Component({
   selector: 'app-product-edit-list',
@@ -53,10 +56,49 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
   expandedElement = null;
   resultLength = 0;
   pageSize = 0;
+  url = `${this.storage.get(StorageService.API)}cluster/list-view`;
+  tableSearchObject: TableSearchRequest = {
+    columnSearchRequests: [
+      {
+        columnName: 'code',
+        operation: DataBaseOperation.LIKE,
+        term: '',
+        isOrTerm: true
+      },
+      {
+        columnName: 'name',
+        operation: DataBaseOperation.LIKE,
+        term: '',
+        isOrTerm: true
+      }
+    ],
+    pagingRequest: {
+      page: 0,
+      pageSize: 6
+    },
+    sortingRequest: null
+  };
+  tableSearchObjectId: TableSearchRequest = {
+    columnSearchRequests: [
+      {
+        columnName: 'id',
+        operation: DataBaseOperation.EQUAL,
+        term: '',
+        isOrTerm: false
+      }
+    ],
+    pagingRequest: {
+      page: 0,
+      pageSize: 1
+    },
+    sortingRequest: null
+  };
 
   columnsToDisplay = ['name', 'partNumber', 'description', 'family', 'action'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('clusterSelect') clusterSelect: SelectSearchComponent;
+  @ViewChildren('clusterEdit') clusterEdits: QueryList<SelectSearchComponent>;
 
   dataSource = [];
   agreementToDelete = false;
@@ -64,11 +106,13 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
   elementToDelete = null;
 
   constructor(
+    private storage: StorageService,
     public validator: ValidatorsService,
     private spinner: NgxSpinnerService,
     private productService: ProductService,
     private snackBar: MatSnackBar,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private clusterService: ClusterService
   ) { }
 
   ngAfterViewInit(): void {
@@ -144,7 +188,8 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       partNumber: this.partNumberCreCtr.value,
       name: this.nameCreCtr.value,
       description: this.descriptionCreCtr.value,
-      family: this.familyCreCtr.value
+      family: this.familyCreCtr.value,
+      clusterId: this.clusterSelect.getValue()?.id
     };
     this.spinner.show();
     this.productService.create(productDto).subscribe(res => {
@@ -192,6 +237,14 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
     this.partNumberCtr.setValue(element.partNumber);
     this.descriptionCtr.setValue(element.description);
     this.familyCtr.setValue(element.family);
+    if (element.clusterId == null) {
+      return;
+    }
+    const data = JSON.parse(JSON.stringify(this.tableSearchObjectId));
+    data.columnSearchRequests[0].term = element.clusterId;
+    this.clusterService.getListView(data).subscribe(res => {
+      this.clusterEdits.filter(i => i.identifier === element.id)[0].setValue(res.content[0]);
+    });
   }
 
   enableDeletePrd(element) {
@@ -230,7 +283,8 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       partNumber: this.partNumberCtr.value,
       name: this.nameCtr.value,
       description: this.descriptionCtr.value,
-      family: this.familyCtr.value
+      family: this.familyCtr.value,
+      clusterId: this.clusterEdits.filter(i => i.identifier === element.id)[0].getValue().id
     };
     this.spinner.show();
     this.productService.update(productDto).subscribe(res => {
@@ -242,6 +296,8 @@ export class ProductEditListComponent implements OnInit, AfterViewInit {
       const message = this.validator.getErrorMessage(err.error.message.split(':')[1]);
       if (objectError.includes('NAME')) {
         this.nameCtr.setErrors(message);
+      } else if (objectError.includes('CLUSTER')) {
+        this.clusterEdits.filter(i => i.identifier === element.id)[0].selectCtr.setErrors(message);
       } else {
         this.partNumberCtr.setErrors(message);
       }

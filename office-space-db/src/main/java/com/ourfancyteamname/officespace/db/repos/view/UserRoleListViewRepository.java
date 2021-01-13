@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRoleListViewRepository
-    extends JpaRepository<UserRoleListView, Integer>, JpaSpecificationExecutor<UserRoleListView> {
+public interface UserRoleListViewRepository extends JpaRepository<UserRoleListView, Integer>,
+    JpaSpecificationExecutor<UserRoleListView> {
 }

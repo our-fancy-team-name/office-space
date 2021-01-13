@@ -39,4 +39,7 @@ public class Product implements Serializable {
 
   @Column(name = "`family`")
   private String family;
+
+  @Column(name = "`cluster-id`")
+  private Integer clusterId;
 }

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProductDto {
   private int id;
@@ -18,4 +18,5 @@ public class ProductDto {
   private String description;
   private String family;
   private String displayName;
+  private Integer clusterId;
 }

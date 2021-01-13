@@ -106,11 +106,6 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <mat-list dense>
-                                                        <!-- <mat-list-item
-                                                            (click)="openPathEditor($event, link); scroll(end)">
-                                                            <mat-icon color="primary" mat-list-icon>folder</mat-icon>
-                                                            {{'PROCESS.LINK_OPEN' | translate}}
-                                                        </mat-list-item> -->
                                                         <mat-list-item (click)="remvovePath(link)">
                                                             <mat-icon color="warn" mat-list-icon>delete_sweep</mat-icon>
                                                             {{'PROCESS.LINK_DELETE' | translate}}
@@ -157,4 +152,9 @@
         </div>
     </div>
     <div #end></div>
+    <div [hidden]="isHideEditor" class="row w-100">
+        <div class="col-md-12">
+            <app-cluster-package-list></app-cluster-package-list>
+        </div>
+    </div>
 </div>

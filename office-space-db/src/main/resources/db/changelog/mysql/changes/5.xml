@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="office-space" id="05_ADD_PRODUCT_MAP_WITH_CLUSTER">
+        <sql>
+            ALTER TABLE `product`
+            ADD COLUMN `cluster-id` INT;
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="05_ADD_CLUSTER_NODE_PACKAGE_AMOUNT_STATUS">
+        <sql>
+            ALTER TABLE `cluster_node_package`
+            ADD COLUMN `amount` INT,
+            ADD COLUMN `status` VARCHAR (50)
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="05_CREATE_CLUSTER-NODE-PACKAGE-LIST-VIEW_01">
+        <sql>
+            create or replace view cluster_node_package_list_view as
+            SELECT
+            UUID() as id,
+            p2.`serial-number` as `serial`,
+            p2.id as `package-id`,
+            p.id as `product-id`,
+            p.`part-number` as `part-number`,
+            pc.code as `cluster-schematic`,
+            pcc.code as `cluster-current`,
+            cn.id as `cluster-node-current`,
+            cnp.amount as `amount`,
+            cnp.status as `status`,
+            (
+            Select GROUP_CONCAT(cnp4.`cluster-node-id-to`)
+            from cluster_node_path cnp4
+            where cnp4.`cluster-node-id-from` = cn.id
+            ) as `cluster-node-next`,
+            (
+            Select GROUP_CONCAT(cnp4.`cluster-node-id-from`)
+            from cluster_node_path cnp4
+            where cnp4.`cluster-node-id-to` = cn.id
+            ) as `cluster-node-prev`
+            from product p
+            left join process_cluster pc on pc.id = p.`cluster-id`
+            left join package p2 on p2.`product-id` = p.id
+            left join cluster_node_package cnp on cnp.`package-id` = p2.id
+            left join cluster_node cn on cn.id = cnp.`cluster-node-id`
+            left join process_cluster pcc on pcc.id = cn.`cluster-id`
+            WHERE p2.id is not NULL
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

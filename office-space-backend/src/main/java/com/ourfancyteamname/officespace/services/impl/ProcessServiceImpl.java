@@ -3,6 +3,7 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ClusterNode;
 import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
+import com.ourfancyteamname.officespace.db.repos.ClusterNodePackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodePathRepository;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodeRepository;
 import com.ourfancyteamname.officespace.db.repos.ProcessClusterRepository;
@@ -37,6 +38,9 @@ public class ProcessServiceImpl implements ProcessService {
 
   @Autowired
   private ProcessGeneralConverter processGeneralConverter;
+
+  @Autowired
+  private ClusterNodePackageRepository clusterNodePackageRepository;
 
   @Override
   public GraphDto getGraph(Integer clusterId) {
@@ -85,6 +89,8 @@ public class ProcessServiceImpl implements ProcessService {
     ClusterNode clusterNode = clusterNodeRepository.findById(clusterNodeId)
         .orElseThrow(errorNotFound());
     pathRepository.removeByClusterNodeIdToOrClusterNodeIdFrom(clusterNode.getId(), clusterNode.getId());
+    entityManager.flush();
+    clusterNodePackageRepository.removeByClusterNodeId(clusterNodeId);
     entityManager.flush();
     clusterNodeRepository.delete(clusterNode);
   }

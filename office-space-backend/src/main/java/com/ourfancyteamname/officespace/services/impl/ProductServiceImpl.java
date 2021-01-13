@@ -4,11 +4,13 @@ import com.ourfancyteamname.officespace.db.converters.dtos.ProductConverter;
 import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ProductRepository;
+import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
 import com.ourfancyteamname.officespace.db.services.PaginationService;
 import com.ourfancyteamname.officespace.db.services.SortingService;
 import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
+import com.ourfancyteamname.officespace.enums.CharConstants;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.enums.ErrorObject;
 import com.ourfancyteamname.officespace.services.ProductService;
@@ -23,7 +25,6 @@ import org.springframework.util.Assert;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-  private static final String DELIMITER = ":";
 
   @Autowired
   private ProductRepository productRepository;
@@ -42,6 +43,9 @@ public class ProductServiceImpl implements ProductService {
 
   @Autowired
   private PackageRepository packageRepository;
+
+  @Autowired
+  private ProcessListViewRepository processListViewRepository;
 
   @Override
   public Page<ProductDto> findAll(TableSearchRequest tableSearchRequest) {
@@ -64,9 +68,9 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public Product create(ProductDto productDto) {
     Assert.isTrue(!productRepository.existsByName(productDto.getName()),
-        String.join(DELIMITER, ErrorObject.NAME.name(), ErrorCode.DUPLICATED.name()));
+        String.join(CharConstants.DELIMITER.getValue(), ErrorObject.NAME.name(), ErrorCode.DUPLICATED.name()));
     Assert.isTrue(!productRepository.existsByPartNumber(productDto.getPartNumber()),
-        String.join(DELIMITER, ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name()));
+        String.join(CharConstants.DELIMITER.getValue(), ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name()));
     return productRepository.save(productConverter.toEntity(productDto));
   }
 
@@ -78,7 +82,8 @@ public class ProductServiceImpl implements ProductService {
         .map(Product::getName)
         .map(name -> name.equals(target.getName()))
         .orElse(true)) {
-      throw new IllegalArgumentException(String.join(DELIMITER, ErrorObject.NAME.name(), ErrorCode.DUPLICATED.name()));
+      throw new IllegalArgumentException(
+          String.join(CharConstants.DELIMITER.getValue(), ErrorObject.NAME.name(), ErrorCode.DUPLICATED.name()));
     }
 
     if (!productRepository.findByPartNumber(productDto.getPartNumber())
@@ -86,12 +91,20 @@ public class ProductServiceImpl implements ProductService {
         .map(partNumber -> partNumber.equals(target.getPartNumber()))
         .orElse(true)) {
       throw new IllegalArgumentException(
-          String.join(DELIMITER, ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name()));
+          String.join(CharConstants.DELIMITER.getValue(), ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name()));
     }
+
+    if (!target.getClusterId().equals(productDto.getClusterId()) &&
+        processListViewRepository.existsByProductIdAndClusterCurrentNotNull(productDto.getId())) {
+      throw new IllegalArgumentException(
+          String.join(CharConstants.DELIMITER.getValue(), ErrorObject.CLUSTER.name(), ErrorCode.IN_USE.name()));
+    }
+
     target.setDescription(productDto.getDescription());
     target.setFamily(productDto.getFamily());
     target.setName(productDto.getName());
     target.setPartNumber(productDto.getPartNumber());
+    target.setClusterId(productDto.getClusterId());
     return productRepository.save(target);
   }
 

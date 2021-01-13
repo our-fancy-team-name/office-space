@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -34,7 +34,7 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     log.error(message, ex);
     Map<String, Object> body = new LinkedHashMap<>();
     body.put("message", message);
-    body.put("timestamp", new Date());
+    body.put("timestamp", ZonedDateTime.now());
     body.put("status", status.value());
     body.put("error", status.getReasonPhrase());
     Throwable cause = ex.getCause();

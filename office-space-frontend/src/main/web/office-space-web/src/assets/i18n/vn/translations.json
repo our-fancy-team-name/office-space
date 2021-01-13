@@ -48,8 +48,8 @@
     "SERIAL_NUMBER": "Số định danh"
   },
   "PACKAGE_EDIT_LIST": {
-    "CREATE_PKG": "Tạo kiện hàng",
-    "EDIT_PKG": "Chỉnh sửa kiện hàng"
+    "CREATE_PKG": "Tạo định danh",
+    "EDIT_PKG": "Chỉnh sửa định danh"
   },
   "PERMISSION": {
     "CLUS_EDIT": "Chỉnh sửa cụm",
@@ -78,7 +78,7 @@
     "DESCRIPTION": "Miêu tả",
     "FAMILY": "Dòng Sản phẩm",
     "NAME": "Tên sản phẩm",
-    "PACKAGE": "Kiện hàng",
+    "PACKAGE": "Số định danh",
     "PART_NUMBER": "Số bộ",
     "PRODUCT": "Sản phẩm"
   },

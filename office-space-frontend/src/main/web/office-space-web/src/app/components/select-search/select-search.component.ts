@@ -13,6 +13,12 @@ import { ValidatorsService } from 'src/app/utils/validators.service';
 })
 export class SelectSearchComponent implements OnInit, AfterViewInit, AfterContentInit {
 
+  static readonly displayTypeEnum = {
+    Number: 'number',
+    Text: 'text'
+  };
+
+  @Input() displayType = SelectSearchComponent.displayTypeEnum.Text;
   @Input() identifier;
   @Input() label;
   @Input() options;
@@ -39,11 +45,13 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
     if (this.isRequired) {
       this.selectCtr = new FormControl('', [this.validator.required()]);
     }
-    if (this.enableBackEndSearch) {
-      this.search('');
-    } else {
-      this.displayedOptions = this.options;
-    }
+    setTimeout(() => {
+      if (this.enableBackEndSearch) {
+        this.search('');
+      } else {
+        this.displayedOptions = this.options;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -66,7 +74,11 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
         this.spinner.hide(this.spinnerName);
       });
     } else {
-      this.displayedOptions = this.options.filter(i => i.includes(value));
+      if (this.displayType === SelectSearchComponent.displayTypeEnum.Text) {
+        this.displayedOptions = this.options.filter(i => i[this.displayField].includes(value));
+      } else {
+        this.displayedOptions = this.options.filter(i => i[this.displayField] === +value);
+      }
     }
   }
 
@@ -78,6 +90,11 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
     this.searchCtr.setValue('');
   }
 
+  setOptions(options) {
+    this.options = options;
+    this.displayedOptions = options;
+  }
+
   getValue() {
     return this.selectCtr.value;
   }
@@ -87,6 +104,12 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
   }
 
   compareObjects(thiz: any, that: any) {
+    if (thiz == null && that == null) {
+      return true;
+    }
+    if ((thiz != null && that == null) || (thiz == null && that != null)) {
+      return false;
+    }
     const compareImpl = (tiz, tat) => {
       for (const key of Object.keys(tiz)) {
         if (!Object.prototype.hasOwnProperty.call(tat, key) || tiz[key] !== tat[key]) {

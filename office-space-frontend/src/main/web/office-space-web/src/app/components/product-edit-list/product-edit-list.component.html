@@ -16,7 +16,7 @@
                     <mat-card-title>{{'PRODUCT_EDIT_LIST.CREATE_PRD' | translate}}</mat-card-title>
                 </mat-card-header>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'PRODUCT.NAME' | translate}}</mat-label>
                             <input required [formControl]="nameCreCtr" matInput>
@@ -24,7 +24,7 @@
                                 {{nameCreCtr.errors.message | translate}}</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'PRODUCT.PART_NUMBER' | translate}}</mat-label>
                             <input required [formControl]="partNumberCreCtr" matInput>
@@ -32,11 +32,17 @@
                                 {{partNumberCreCtr.errors.message | translate}}</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'PRODUCT.FAMILY' | translate}}</mat-label>
                             <input [formControl]="familyCreCtr" matInput>
                         </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                        <app-select-search [identifier]="100000" #clusterSelect [isRequired]="false" [displayField]="'code'"
+                            [tableSearch]="tableSearchObject" [url]="url" [enableBackEndSearch]="true"
+                            [label]="'CLUSTER.CLUSTER'">
+                        </app-select-search>
                     </div>
                 </div>
                 <div class="row">
@@ -210,7 +216,7 @@
                                     <mat-card-title>{{'PRODUCT_EDIT_LIST.EDIT_PRD' | translate}}</mat-card-title>
                                 </mat-card-header>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <mat-form-field appearance="outline" class="w-100">
                                             <mat-label>{{'PRODUCT.NAME' | translate}}</mat-label>
                                             <input required [formControl]="nameCtr" matInput>
@@ -218,7 +224,7 @@
                                                 {{nameCtr.errors.message | translate}}</mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <mat-form-field appearance="outline" class="w-100">
                                             <mat-label>{{'PRODUCT.PART_NUMBER' | translate}}</mat-label>
                                             <input required [formControl]="partNumberCtr" matInput>
@@ -226,11 +232,17 @@
                                                 {{partNumberCtr.errors.message | translate}}</mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <mat-form-field appearance="outline" class="w-100">
                                             <mat-label>{{'PRODUCT.FAMILY' | translate}}</mat-label>
                                             <input [formControl]="familyCtr" matInput>
                                         </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <app-select-search [identifier]="element.id" #clusterEdit [isRequired]="false" [displayField]="'code'"
+                                            [tableSearch]="tableSearchObject" [url]="url" [enableBackEndSearch]="true"
+                                            [label]="'CLUSTER.CLUSTER'">
+                                        </app-select-search>
                                     </div>
                                 </div>
                                 <div class="row">
