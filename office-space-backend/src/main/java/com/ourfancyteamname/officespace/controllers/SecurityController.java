@@ -4,6 +4,7 @@ import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
 import com.ourfancyteamname.officespace.security.payload.JwtResponse;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import com.ourfancyteamname.officespace.security.services.JwtService;
+import com.ourfancyteamname.officespace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,9 @@ public class SecurityController {
   @Autowired
   private GitProperties gitProperties;
 
+  @Autowired
+  private UserService userService;
+
   @PostMapping("/signIn")
   public ResponseEntity<JwtResponse<UserDetails>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
     Authentication authentication = authenticationManager.authenticate(
@@ -50,6 +54,7 @@ public class SecurityController {
 
   @GetMapping("/version")
   public ResponseEntity<Map<String, String>> version() {
+    userService.findById(1);
     Map<String, String> result = new LinkedHashMap<>();
     result.put("branch", gitProperties.getBranch());
     result.put("commitId", gitProperties.getShortCommitId());

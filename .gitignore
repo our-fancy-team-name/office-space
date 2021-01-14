@@ -87,4 +87,6 @@ documents/api
 /office-space-frontend/src/main/web/office-space-web/.scannerwork/
 # log files
 logs
+
+# cache folder
 cache
