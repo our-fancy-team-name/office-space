@@ -1,0 +1,7 @@
+cache.template:
+  time-to-live: 30 #minutes
+  resources:
+    heap-entries: 1000
+    off-heap-size: 10 # MB
+    disk-size: 20 # MB
+
