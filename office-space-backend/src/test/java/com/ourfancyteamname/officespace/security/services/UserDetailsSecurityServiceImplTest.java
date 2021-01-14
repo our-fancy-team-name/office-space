@@ -64,7 +64,7 @@ public class UserDetailsSecurityServiceImplTest {
     Mockito.when(roleConverter.toDto(admin, admin))
         .thenReturn(RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build());
 
-    UserDetailsPrinciple result = (UserDetailsPrinciple) userDetailsSecurityService.loadUserByUsername("dang");
+    UserDetailsPrinciple result = userDetailsSecurityService.loadUserByUsername("dang");
     Assert.assertEquals(result.getUsername(), user.getUsername());
     Assert.assertEquals(result.getPermissionCodes().size(), permissionCodes.size());
     IntStream.range(0, result.getPermissionCodes().size()).forEach(i -> {
@@ -98,7 +98,7 @@ public class UserDetailsSecurityServiceImplTest {
     Mockito.when(roleConverter.toDto(Mockito.any(), Mockito.any()))
         .thenReturn(RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build());
 
-    UserDetailsPrinciple result = (UserDetailsPrinciple) userDetailsSecurityService.loadUserByUsername("dang");
+    UserDetailsPrinciple result = userDetailsSecurityService.loadUserByUsername("dang");
     Assert.assertEquals(result.getUsername(), user.getUsername());
     Assert.assertEquals(result.getPermissionCodes().size(), permissionCodes.size());
     IntStream.range(0, result.getPermissionCodes().size()).forEach(i -> {
@@ -121,7 +121,7 @@ public class UserDetailsSecurityServiceImplTest {
     Mockito.when(roleConverter.toDto(Mockito.any(), Mockito.any()))
         .thenReturn(RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build());
 
-    UserDetailsPrinciple result = (UserDetailsPrinciple) userDetailsSecurityService.loadUserByUsername("dang");
+    UserDetailsPrinciple result = userDetailsSecurityService.loadUserByUsername("dang");
     Assert.assertEquals(result.getUsername(), user.getUsername());
     Assert.assertEquals(0, result.getPermissionCodes().size());
     IntStream.range(0, result.getPermissionCodes().size()).forEach(i -> {

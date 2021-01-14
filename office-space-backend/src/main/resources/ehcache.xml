@@ -1,0 +1,3 @@
+<config xmlns='http://www.ehcache.org/v3'>
+    <persistence directory="cache"/>
+</config>
