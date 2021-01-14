@@ -1,6 +1,5 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
 import com.ourfancyteamname.officespace.security.AuthTokenFilter;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import org.junit.Assert;
@@ -11,11 +10,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.cors.CorsConfiguration;
@@ -37,16 +36,22 @@ public class WebSecurityConfigTest {
   @Mock
   private UserDetailsSecurityServiceImpl userDetailsService;
 
-  @Mock
-  private AuthEntryPointJwt unauthorizedHandler;
-
-  @Mock
-  WebSecurityConfigurerAdapter adapter;
-
   @Test
   public void bean() throws Exception {
     Assert.assertSame(AuthTokenFilter.class, webSecurityConfig.authenticationJwtTokenFilter().getClass());
     Assert.assertSame(BCryptPasswordEncoder.class, webSecurityConfig.passwordEncoder().getClass());
+
+  }
+
+  @Test
+  public void authenticationManagerBean() throws Exception {
+    WebSecurityConfig a = new WebSecurityConfig();
+    AuthenticationManagerBuilder authenticationBuilder = Mockito.mock(AuthenticationManagerBuilder.class);
+    ApplicationContext context = Mockito.mock(ApplicationContext.class);
+    Mockito.when(context.getBeanNamesForType(Mockito.any(Class.class))).thenReturn(new String[]{});
+    ReflectionTestUtils.setField(a, "authenticationBuilder", authenticationBuilder);
+    ReflectionTestUtils.setField(a, "context", context);
+    a.authenticationManagerBean();
   }
 
   @Test
