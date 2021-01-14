@@ -1,6 +1,8 @@
 package com.ourfancyteamname.officespace.db.repos;
 
 import com.ourfancyteamname.officespace.db.entities.Role;
+import com.ourfancyteamname.officespace.enums.CacheName;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +31,12 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 
   @Query("select r.code from Role r")
   List<String> findAllCode();
+
+  @Override
+  @CacheEvict(cacheNames = CacheName.USER_PRINCIPLE, allEntries = true)
+  <S extends Role> S save(S s);
+
+  @Override
+  @CacheEvict(cacheNames = CacheName.USER_PRINCIPLE, allEntries = true)
+  void deleteById(Integer integer);
 }

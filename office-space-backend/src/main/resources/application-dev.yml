@@ -7,6 +7,6 @@ jwt:
   expirationMs: 9000000 # 900000ms = 15 minutes
 
 # print out sql log
-logging.level.org.hibernate:
-  SQL: DEBUG
-  type.descriptor.sql.BasicBinder: DEBUG
+#logging.level.org.hibernate:
+#  SQL: DEBUG
+#  type.descriptor.sql.BasicBinder: DEBUG

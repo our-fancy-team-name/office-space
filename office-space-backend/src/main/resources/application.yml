@@ -6,3 +6,6 @@ server:
 spring:
   jpa:
     open-in-view: false
+  cache:
+    jcache:
+      config: classpath:ehcache.xml

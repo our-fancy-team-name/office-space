@@ -8,10 +8,12 @@ import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.enums.CacheName;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,7 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
   private RoleConverter roleConverter;
 
   @Override
+  @Cacheable(value = CacheName.USER_PRINCIPLE, key = "#username")
   public UserDetailsPrinciple loadUserByUsername(String username) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(error(username));
