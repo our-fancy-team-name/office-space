@@ -45,13 +45,14 @@ public class WebSecurityConfigTest {
 
   @Test
   public void authenticationManagerBean() throws Exception {
-    WebSecurityConfig a = new WebSecurityConfig();
+    WebSecurityConfig config = new WebSecurityConfig();
     AuthenticationManagerBuilder authenticationBuilder = Mockito.mock(AuthenticationManagerBuilder.class);
     ApplicationContext context = Mockito.mock(ApplicationContext.class);
     Mockito.when(context.getBeanNamesForType(Mockito.any(Class.class))).thenReturn(new String[]{});
-    ReflectionTestUtils.setField(a, "authenticationBuilder", authenticationBuilder);
-    ReflectionTestUtils.setField(a, "context", context);
-    a.authenticationManagerBean();
+    ReflectionTestUtils.setField(config, "authenticationBuilder", authenticationBuilder);
+    ReflectionTestUtils.setField(config, "context", context);
+    config.authenticationManagerBean();
+    Mockito.verify(context, Mockito.times(1)).getBeanNamesForType(Mockito.any(Class.class));
   }
 
   @Test

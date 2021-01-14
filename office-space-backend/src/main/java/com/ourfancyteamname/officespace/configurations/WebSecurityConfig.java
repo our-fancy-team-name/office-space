@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String API = "/api/**";
 
-  @Value("${cors.disable-CSRF}")
+  @Value("${cors.disable-CSRF:true}")
   private boolean isDisableCSRF;
 
   @Autowired
