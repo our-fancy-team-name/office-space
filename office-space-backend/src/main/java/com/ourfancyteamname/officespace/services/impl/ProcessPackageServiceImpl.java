@@ -31,7 +31,7 @@ public class ProcessPackageServiceImpl implements ProcessPackageService {
 
   @Override
   public List<ProcessListView> getValidPksToAdd(Integer clusterNodeId) {
-    String clusterSchematic = clusterNodeRepository.getClusterSchematic(clusterNodeId)
+    final String clusterSchematic = clusterNodeRepository.getClusterSchematic(clusterNodeId)
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId)) {
       return processListViewRepository.findPossiblePkgsOnStartNode(clusterSchematic);
@@ -42,7 +42,7 @@ public class ProcessPackageServiceImpl implements ProcessPackageService {
 
   @Override
   public void addPkgToCltNode(ProcessPackageDto processPackageDto) {
-    ClusterNodePackage target =
+    final ClusterNodePackage target =
         clusterNodePackageRepository.findByPackageIdAndClusterNodeIdAndStatus(processPackageDto.getPackageId(),
             processPackageDto.getClusterNodeId(), processPackageDto.getStatus())
             .orElseGet(() -> ClusterNodePackage.builder().packageId(processPackageDto.getPackageId())

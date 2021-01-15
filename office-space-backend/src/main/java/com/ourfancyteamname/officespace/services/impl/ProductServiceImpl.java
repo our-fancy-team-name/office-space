@@ -32,7 +32,7 @@ public class ProductServiceImpl extends AbstractViewServiceImpl<Product, Product
   private ProcessListViewRepository processListViewRepository;
 
   @Override
-  public ProductRepository getExecutor() {
+  protected ProductRepository getExecutor() {
     return this.productRepository;
   }
 
@@ -57,7 +57,7 @@ public class ProductServiceImpl extends AbstractViewServiceImpl<Product, Product
 
   @Override
   public Product update(ProductDto productDto) {
-    Product target = productRepository.findById(productDto.getId())
+    final Product target = productRepository.findById(productDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!productRepository.findByName(productDto.getName())
         .map(Product::getName)

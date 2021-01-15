@@ -30,7 +30,7 @@ public class NodeServiceImpl extends AbstractViewServiceImpl<ProcessNode, Proces
 
   @Override
   public ProcessNode update(ProcessGeneralDto processGeneralDto) {
-    ProcessNode target = processNodeRepository.findById(processGeneralDto.getId())
+    final ProcessNode target = processNodeRepository.findById(processGeneralDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!processNodeRepository.findByCode(processGeneralDto.getCode())
         .map(ProcessNode::getCode)
@@ -50,7 +50,7 @@ public class NodeServiceImpl extends AbstractViewServiceImpl<ProcessNode, Proces
   }
 
   @Override
-  public ProcessNodeRepository getExecutor() {
+  protected ProcessNodeRepository getExecutor() {
     return this.processNodeRepository;
   }
 }

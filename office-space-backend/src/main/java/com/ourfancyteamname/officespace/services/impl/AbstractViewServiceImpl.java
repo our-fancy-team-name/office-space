@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.function.Function;
 
-public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecutor<E>> implements ViewService<E, R> {
+public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecutor<E>> implements ViewService<E> {
 
   @Autowired
   private SortingBuilderService sortingBuilderService;
@@ -25,6 +25,8 @@ public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecu
 
   @Autowired
   private SpecificationBuilderService specificationBuilderService;
+
+  protected abstract R getExecutor();
 
   @Override
   public Page<E> findAll(TableSearchRequest tableSearchRequest) {

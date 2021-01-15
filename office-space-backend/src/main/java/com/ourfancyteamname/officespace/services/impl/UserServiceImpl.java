@@ -64,7 +64,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
 
   @Override
   public User editUser(UserDto userDto) {
-    User target = userRepository.findById(userDto.getId())
+    final User target = userRepository.findById(userDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!userRepository.findByUsername(userDto.getUsername())
         .map(User::getId)
@@ -86,7 +86,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
   @Override
   public User createUser(UserDto userDto) {
     Assert.isTrue(!userRepository.existsByUsername(userDto.getUsername()), ErrorCode.DUPLICATED.name());
-    User user = userConverter.toEntity(userDto);
+    final User user = userConverter.toEntity(userDto);
     user.setPassword(passwordEncoder.encode(userDto.getPassword()));
     return userRepository.save(user);
   }
@@ -95,7 +95,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
   public List<UserRole> updateUserRole(RoleDto roleDto, List<String> users) {
     deleteUserRoleByRoleId(roleDto.getId());
     entityManager.flush();
-    List<UserRole> userRoles = users.stream()
+    final List<UserRole> userRoles = users.stream()
         .map(userRepository::findByUsername)
         .filter(Optional::isPresent)
         .map(Optional::get)
@@ -109,7 +109,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
   public List<UserRole> updateRoleUser(UserDto userDto, List<String> roles) {
     deleteUserRoleByUserId(userDto.getId());
     entityManager.flush();
-    List<UserRole> userRoles = roles.stream()
+    final List<UserRole> userRoles = roles.stream()
         .map(roleRepository::findByCode)
         .filter(Optional::isPresent)
         .map(Optional::get)
@@ -168,7 +168,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
   }
 
   @Override
-  public UserRepository getExecutor() {
+  protected UserRepository getExecutor() {
     return this.userRepository;
   }
 }

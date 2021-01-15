@@ -37,7 +37,7 @@ public class PermissionServiceImpl implements PermissionService {
   public List<RolePermission> updateRolePermission(RoleDto role, List<PermissionDto> perm) {
     deleteRolePermissionByRoleId(role.getId());
     entityManager.flush();
-    List<RolePermission> target = perm.stream()
+    final List<RolePermission> target = perm.stream()
         .map(PermissionDto::getCode)
         .map(PermissionCode::valueOf)
         .map(permissionRepository::findByCode)
@@ -53,7 +53,7 @@ public class PermissionServiceImpl implements PermissionService {
 
   @Override
   public List<RolePermission> createRolePermission(Role role, List<PermissionDto> perm) {
-    List<RolePermission> target = perm.stream()
+    final List<RolePermission> target = perm.stream()
         .map(PermissionDto::getCode)
         .map(PermissionCode::valueOf)
         .map(permissionRepository::findByCode)

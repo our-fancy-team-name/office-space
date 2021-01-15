@@ -12,7 +12,7 @@ public class UserRoleServiceImpl extends AbstractViewServiceImpl<UserRoleListVie
   private UserRoleListViewRepository userRoleListViewRepository;
 
   @Override
-  public UserRoleListViewRepository getExecutor() {
+  protected UserRoleListViewRepository getExecutor() {
     return this.userRoleListViewRepository;
   }
 }

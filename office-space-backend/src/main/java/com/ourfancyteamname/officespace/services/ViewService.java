@@ -2,13 +2,10 @@ package com.ourfancyteamname.officespace.services;
 
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.function.Function;
 
-public interface ViewService<E, R extends JpaSpecificationExecutor<E>> {
-
-  R getExecutor();
+public interface ViewService<E> {
 
   Page<E> findAll(TableSearchRequest tableSearchRequest);
 

@@ -23,7 +23,7 @@ public class ClusterServiceImpl extends AbstractViewServiceImpl<ProcessCluster, 
   private ProcessGeneralConverter processGeneralConverter;
 
   @Override
-  public ProcessClusterRepository getExecutor() {
+  protected ProcessClusterRepository getExecutor() {
     return this.processClusterRepository;
   }
 
@@ -40,7 +40,7 @@ public class ClusterServiceImpl extends AbstractViewServiceImpl<ProcessCluster, 
 
   @Override
   public ProcessCluster update(ProcessGeneralDto processGeneralDto) {
-    ProcessCluster target = processClusterRepository.findById(processGeneralDto.getId())
+    final ProcessCluster target = processClusterRepository.findById(processGeneralDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
 
     if (!processClusterRepository.findByCode(processGeneralDto.getCode())

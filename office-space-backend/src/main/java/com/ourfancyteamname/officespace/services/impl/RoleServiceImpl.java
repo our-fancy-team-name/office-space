@@ -26,7 +26,7 @@ public class RoleServiceImpl extends AbstractViewServiceImpl<RoleUserListView, R
 
   @Override
   public Role updateRole(RoleDto roleDto) {
-    Role target = roleRepository.findById(roleDto.getId())
+    final Role target = roleRepository.findById(roleDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
 
     if (!roleRepository.findByCode(roleDto.getAuthority())
@@ -67,7 +67,7 @@ public class RoleServiceImpl extends AbstractViewServiceImpl<RoleUserListView, R
   }
 
   @Override
-  public RoleUserListViewRepository getExecutor() {
+  protected RoleUserListViewRepository getExecutor() {
     return this.roleUserListViewRepository;
   }
 }

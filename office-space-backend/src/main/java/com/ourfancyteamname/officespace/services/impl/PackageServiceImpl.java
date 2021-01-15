@@ -41,15 +41,14 @@ public class PackageServiceImpl extends AbstractViewServiceImpl<PackageListView,
 
   @Override
   public Package update(PackageDto packageDto) {
-    Package target = packageRepository.findById(packageDto.getId())
+    final Package target = packageRepository.findById(packageDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!packageRepository.findBySerialNumber(packageDto.getSerialNumber())
         .map(Package::getSerialNumber)
         .map(name -> name.equals(target.getSerialNumber()))
         .orElse(true)) {
       throw new IllegalArgumentException(
-          String
-              .join(CharConstants.DELIMITER.getValue(), ErrorObject.SERIAL.name(), ErrorCode.DUPLICATED.name()));
+          String.join(CharConstants.DELIMITER.getValue(), ErrorObject.SERIAL.name(), ErrorCode.DUPLICATED.name()));
     }
     if (target.getProductId() != packageDto.getProductId()
         && processListViewRepository.existsBySerialAndClusterCurrentNotNull(target.getSerialNumber())) {
@@ -73,7 +72,7 @@ public class PackageServiceImpl extends AbstractViewServiceImpl<PackageListView,
   }
 
   @Override
-  public PackageListViewRepository getExecutor() {
+  protected PackageListViewRepository getExecutor() {
     return this.packageListViewRepository;
   }
 }
