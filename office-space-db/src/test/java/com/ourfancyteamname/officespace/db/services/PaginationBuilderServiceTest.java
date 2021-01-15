@@ -12,13 +12,13 @@ import org.springframework.data.domain.Sort;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class PaginationServiceTest {
+public class PaginationBuilderServiceTest {
 
   private static final int page = 1;
   private static final int pageSize = 10;
 
   @InjectMocks
-  private PaginationService paginationService;
+  private PaginationBuilderService paginationBuilderService;
 
   @Test
   public void getPage() {
@@ -26,7 +26,7 @@ public class PaginationServiceTest {
         .page(page)
         .pageSize(pageSize)
         .build();
-    Pageable actual = paginationService.getPage(request, Sort.unsorted());
+    Pageable actual = paginationBuilderService.from(request, Sort.unsorted());
     Assert.assertEquals(Sort.unsorted(), actual.getSort());
     Assert.assertEquals(page, actual.getPageNumber());
     Assert.assertEquals(pageSize, actual.getPageSize());
@@ -35,7 +35,7 @@ public class PaginationServiceTest {
   @Test
   public void getPage_empty() {
     TablePagingRequest request = null;
-    Pageable actual = paginationService.getPage(request, Sort.unsorted());
+    Pageable actual = paginationBuilderService.from(request, Sort.unsorted());
     Assert.assertEquals(Sort.unsorted(), actual.getSort());
     Assert.assertEquals(Pageable.unpaged(), actual);
   }

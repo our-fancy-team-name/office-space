@@ -7,9 +7,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaginationService {
+public class PaginationBuilderService {
 
-  public Pageable getPage(TablePagingRequest tablepagingRequest, Sort sort) {
+  public Pageable from(TablePagingRequest tablepagingRequest, Sort sort) {
     if (tablepagingRequest == null) {
       return Pageable.unpaged();
     }

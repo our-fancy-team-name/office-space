@@ -4,14 +4,12 @@ import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.db.entities.User_;
-import com.ourfancyteamname.officespace.db.entities.view.UserRoleListView;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRoleRepository;
-import com.ourfancyteamname.officespace.db.repos.view.UserRoleListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
+import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
+import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
+import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
@@ -31,7 +29,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,13 +54,13 @@ public class UserServiceImplTest {
   private RoleRepository roleRepository;
 
   @Mock
-  private PaginationService paginationService;
+  private PaginationBuilderService paginationBuilderService;
 
   @Mock
-  private SortingService sortingService;
+  private SortingBuilderService sortingBuilderService;
 
   @Mock
-  private SpecificationService specificationService;
+  private SpecificationBuilderService specificationBuilderService;
 
   @Mock
   private UserConverter userConverter;
@@ -75,10 +72,10 @@ public class UserServiceImplTest {
   private EntityManager entityManager;
 
   @Mock
-  private UserRoleListViewRepository userRoleListViewRepository;
+  private PasswordEncoder passwordEncoder;
 
   @Mock
-  private PasswordEncoder passwordEncoder;
+  private UserRoleServiceImpl userRoleService;
 
   @Test
   public void findAllByPaging() {
@@ -105,9 +102,9 @@ public class UserServiceImplTest {
         .email("dang")
         .build();
     Specification specs = (root, query, builder) -> builder.equal(root.get(User_.LAST_NAME), SEARCH_TERM);
-    Mockito.when(specificationService.specificationBuilder(tableSearchRequest)).thenReturn(specs);
-    Mockito.when(sortingService.getSort(tableSortingRequest)).thenReturn(Sort.unsorted());
-    Mockito.when(paginationService.getPage(tablePagingRequest, Sort.unsorted())).thenReturn(PageRequest.of(0, 10));
+    Mockito.when(specificationBuilderService.from(tableSearchRequest)).thenReturn(specs);
+    Mockito.when(sortingBuilderService.from(tableSortingRequest)).thenReturn(Sort.unsorted());
+    Mockito.when(paginationBuilderService.from(tablePagingRequest, Sort.unsorted())).thenReturn(PageRequest.of(0, 10));
     Mockito.when(userRepository.findAll(specs, PageRequest.of(0, 10)))
         .thenReturn(new PageImpl(Arrays.asList(aUser), PageRequest.of(0, 10), 1));
     Mockito.when(userConverter.toDto(aUser))
@@ -260,12 +257,7 @@ public class UserServiceImplTest {
   @Test
   public void findUserRoleListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification specs = specificationService.specificationBuilder(tableSearchRequest);
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), null);
-    Page result = new PageImpl(Arrays.asList(UserRoleListView.builder().build()));
-    Mockito.when(userRoleListViewRepository.findAll(specs, pageable))
-        .thenReturn(result);
-    Page actual = service.findUserRoleListView(tableSearchRequest);
-    Assert.assertEquals(1, actual.getTotalElements());
+    service.findUserRoleListView(tableSearchRequest);
+    Mockito.verify(userRoleService, Mockito.times(1)).findAll(tableSearchRequest);
   }
 }

@@ -5,9 +5,9 @@ import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ProductRepository;
 import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
+import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
+import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
+import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import org.junit.Assert;
@@ -19,11 +19,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -37,13 +38,13 @@ public class ProductServiceImplTest {
   private ProductRepository productRepository;
 
   @Mock
-  private SpecificationService specificationService;
+  private SpecificationBuilderService specificationBuilderService;
 
   @Mock
-  private PaginationService paginationService;
+  private PaginationBuilderService paginationBuilderService;
 
   @Mock
-  private SortingService sortingService;
+  private SortingBuilderService sortingBuilderService;
 
   @Mock
   private ProductConverter productConverter;
@@ -55,14 +56,16 @@ public class ProductServiceImplTest {
   private ProcessListViewRepository processListViewRepository;
 
   @Test
-  public void findALl() {
+  public void findAll() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification specs = specificationService.specificationBuilder(tableSearchRequest);
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), null);
-    Page result = new PageImpl(Arrays.asList(Product.builder().build()));
-    Mockito.when(productRepository.findAll(specs, pageable))
+    Specification specs = null;
+    Sort sort = null;
+    List<Product> result = Arrays.asList(Product.builder().build());
+    Mockito.when(paginationBuilderService.from(null, null))
+        .thenReturn(Pageable.unpaged());
+    Mockito.when(productRepository.findAll(specs, sort))
         .thenReturn(result);
-    Page<ProductDto> processGeneralDtos = service.findAll(tableSearchRequest);
+    Page<ProductDto> processGeneralDtos = service.findByPaging(tableSearchRequest);
     Assert.assertEquals(1, processGeneralDtos.getTotalElements());
     Mockito.verify(productConverter, Mockito.times(1)).toDto(Mockito.any());
   }
@@ -70,11 +73,11 @@ public class ProductServiceImplTest {
   @Test
   public void findProductWithDisplayName() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification specs = specificationService.specificationBuilder(tableSearchRequest);
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), null);
-    Page result = new PageImpl(Arrays.asList(Product.builder().build()));
-    Mockito.when(productRepository.findAll(specs, pageable))
-        .thenReturn(result);
+    Specification specs = null;
+    Sort sort = null;
+    List<Product> result = Arrays.asList(Product.builder().build());
+    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
+    Mockito.when(productRepository.findAll(specs, sort)).thenReturn(result);
     Page<ProductDto> processGeneralDtos = service.findProductWithDisplayName(tableSearchRequest);
     Assert.assertEquals(1, processGeneralDtos.getTotalElements());
     Mockito.verify(productConverter, Mockito.times(1)).toDtoWithDisplayName(Mockito.any());
