@@ -20,9 +20,9 @@ public class ProductControllerTest {
   private ProductService productService;
 
   @Test
-  public void getUserRoleListView() {
-    controller.getUserRoleListView(null);
-    Mockito.verify(productService, Mockito.times(1)).findAll(Mockito.any());
+  public void findByPaging() {
+    controller.findByPaging(null);
+    Mockito.verify(productService, Mockito.times(1)).findByPaging(Mockito.any());
   }
 
   @Test

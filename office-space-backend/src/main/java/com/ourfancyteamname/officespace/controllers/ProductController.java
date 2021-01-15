@@ -23,8 +23,8 @@ public class ProductController {
   private ProductService productService;
 
   @PostMapping("/list")
-  public ResponseEntity<Page<ProductDto>> getUserRoleListView(@RequestBody TableSearchRequest tableSearchRequest) {
-    return ResponseEntity.ok(productService.findAll(tableSearchRequest));
+  public ResponseEntity<Page<ProductDto>> findByPaging(@RequestBody TableSearchRequest tableSearchRequest) {
+    return ResponseEntity.ok(productService.findByPaging(tableSearchRequest));
   }
 
   @PostMapping("/create")

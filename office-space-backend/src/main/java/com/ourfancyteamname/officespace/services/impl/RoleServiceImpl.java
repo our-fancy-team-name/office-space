@@ -4,36 +4,22 @@ import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.view.RoleUserListView;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
 import com.ourfancyteamname.officespace.db.repos.view.RoleUserListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends AbstractViewServiceImpl<RoleUserListView, RoleUserListViewRepository>
+    implements RoleService {
 
   @Autowired
   private RoleRepository roleRepository;
-
-  @Autowired
-  private SpecificationService specificationService;
-
-  @Autowired
-  private SortingService sortingService;
-
-  @Autowired
-  private PaginationService paginationService;
 
   @Autowired
   private RoleUserListViewRepository roleUserListViewRepository;
@@ -77,9 +63,11 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   public Page<RoleUserListView> getRoleUserListView(TableSearchRequest tableSearchRequest) {
-    Specification<RoleUserListView> specs = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return roleUserListViewRepository.findAll(specs, page);
+    return findAll(tableSearchRequest);
+  }
+
+  @Override
+  public RoleUserListViewRepository getExecutor() {
+    return this.roleUserListViewRepository;
   }
 }

@@ -4,9 +4,9 @@ import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.view.RoleUserListView;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
 import com.ourfancyteamname.officespace.db.repos.view.RoleUserListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
+import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
+import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
+import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import org.junit.Assert;
@@ -18,11 +18,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -36,13 +37,13 @@ public class RoleServiceImplTest {
   private RoleRepository roleRepository;
 
   @Mock
-  private SpecificationService specificationService;
+  private SpecificationBuilderService specificationBuilderService;
 
   @Mock
-  private SortingService sortingService;
+  private SortingBuilderService sortingBuilderService;
 
   @Mock
-  private PaginationService paginationService;
+  private PaginationBuilderService paginationBuilderService;
 
   @Mock
   private RoleUserListViewRepository roleUserListViewRepository;
@@ -116,11 +117,11 @@ public class RoleServiceImplTest {
   @Test
   public void getRoleUserListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification specs = specificationService.specificationBuilder(tableSearchRequest);
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), null);
-    Page result = new PageImpl(Arrays.asList(RoleUserListView.builder().build()));
-    Mockito.when(roleUserListViewRepository.findAll(specs, pageable))
-        .thenReturn(result);
+    Specification specs = specificationBuilderService.from(tableSearchRequest);
+    Sort sort = null;
+    List<RoleUserListView> result = Arrays.asList(RoleUserListView.builder().build());
+    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
+    Mockito.when(service.getExecutor().findAll(specs, sort)).thenReturn(result);
     Page<RoleUserListView> roleUserListView = service.getRoleUserListView(tableSearchRequest);
     Assert.assertEquals(1, roleUserListView.getTotalElements());
   }

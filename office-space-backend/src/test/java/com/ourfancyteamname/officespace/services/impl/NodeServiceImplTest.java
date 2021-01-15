@@ -3,9 +3,9 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ProcessNode;
 import com.ourfancyteamname.officespace.db.repos.ProcessNodeRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
+import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
+import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
+import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import org.junit.Assert;
@@ -17,11 +17,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -38,13 +39,13 @@ public class NodeServiceImplTest {
   private ProcessGeneralConverter processGeneralConverter;
 
   @Mock
-  private SpecificationService specificationService;
+  private SpecificationBuilderService specificationBuilderService;
 
   @Mock
-  private PaginationService paginationService;
+  private PaginationBuilderService paginationBuilderService;
 
   @Mock
-  private SortingService sortingService;
+  private SortingBuilderService sortingBuilderService;
 
   @Test(expected = IllegalArgumentException.class)
   public void create_dup() {
@@ -89,11 +90,11 @@ public class NodeServiceImplTest {
   @Test
   public void getListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification specs = specificationService.specificationBuilder(tableSearchRequest);
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), null);
-    Page result = new PageImpl(Arrays.asList(ProcessNode.builder().build()));
-    Mockito.when(processNodeRepository.findAll(specs, pageable))
-        .thenReturn(result);
+    Specification specs = specificationBuilderService.from(tableSearchRequest);
+    Sort sort = null;
+    List<ProcessNode> result = Arrays.asList(ProcessNode.builder().build());
+    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
+    Mockito.when(service.getExecutor().findAll(specs, sort)).thenReturn(result);
     Page<ProcessGeneralDto> processGeneralDtos = service.getListView(tableSearchRequest);
     Assert.assertEquals(1, processGeneralDtos.getTotalElements());
   }

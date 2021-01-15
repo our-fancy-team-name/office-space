@@ -3,9 +3,9 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ProcessCluster;
 import com.ourfancyteamname.officespace.db.repos.ProcessClusterRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
+import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
+import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
+import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import org.junit.Assert;
@@ -18,6 +18,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -31,7 +32,7 @@ public class ClusterServiceImplTest {
   private static final String code = "code";
 
   @InjectMocks
-  private ClusterServiceImpl clusterService;
+  private ClusterServiceImpl service;
 
   @Mock
   private ProcessClusterRepository processClusterRepository;
@@ -40,18 +41,18 @@ public class ClusterServiceImplTest {
   private ProcessGeneralConverter processGeneralConverter;
 
   @Mock
-  private SpecificationService specificationService;
+  private SpecificationBuilderService specificationBuilderService;
 
   @Mock
-  private PaginationService paginationService;
+  private PaginationBuilderService paginationBuilderService;
 
   @Mock
-  private SortingService sortingService;
+  private SortingBuilderService sortingBuilderService;
 
   @Test(expected = IllegalArgumentException.class)
   public void create_duplicatedCode() {
     Mockito.when(processClusterRepository.existsByCode(code)).thenReturn(true);
-    clusterService.create(ProcessGeneralDto.builder().code(code).build());
+    service.create(ProcessGeneralDto.builder().code(code).build());
   }
 
   @Test
@@ -60,7 +61,7 @@ public class ClusterServiceImplTest {
     Mockito.when(processClusterRepository.existsByCode(code)).thenReturn(false);
     ProcessCluster result = processGeneralConverter.fromDtoToClusterEntity(data);
     Mockito.when(processClusterRepository.save(result)).thenReturn(result);
-    clusterService.create(data);
+    service.create(data);
     Mockito.verify(processClusterRepository, Mockito.times(1)).existsByCode(Mockito.any());
     Mockito.verify(processClusterRepository, Mockito.times(1)).save(Mockito.any());
   }
@@ -68,12 +69,12 @@ public class ClusterServiceImplTest {
   @Test
   public void getListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification specs = specificationService.specificationBuilder(tableSearchRequest);
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), null);
+    Specification specs = specificationBuilderService.from(tableSearchRequest);
+    Pageable page = PageRequest.of(1, 2);
     Page result = new PageImpl(Arrays.asList(ProcessCluster.builder().code(code).build()));
-    Mockito.when(processClusterRepository.findAll(specs, pageable))
-        .thenReturn(result);
-    Page<ProcessGeneralDto> processGeneralDtos = clusterService.getListView(tableSearchRequest);
+    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(page);
+    Mockito.when(service.getExecutor().findAll(specs, page)).thenReturn(result);
+    Page<ProcessGeneralDto> processGeneralDtos = service.getListView(tableSearchRequest);
     Assert.assertEquals(1, processGeneralDtos.getTotalElements());
   }
 
@@ -81,7 +82,7 @@ public class ClusterServiceImplTest {
   public void update_notFound() {
     ProcessGeneralDto data = ProcessGeneralDto.builder().id(1).code(code).build();
     Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.empty());
-    clusterService.update(data);
+    service.update(data);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -91,7 +92,7 @@ public class ClusterServiceImplTest {
     ProcessCluster cluster = ProcessCluster.builder().build();
     Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.of(cluster));
     Mockito.when(processClusterRepository.findByCode(code)).thenReturn(Optional.of(dupData));
-    clusterService.update(data);
+    service.update(data);
   }
 
   @Test
@@ -100,7 +101,7 @@ public class ClusterServiceImplTest {
     ProcessCluster cluster = ProcessCluster.builder().build();
     Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.of(cluster));
     Mockito.when(processClusterRepository.findByCode(code)).thenReturn(Optional.of(cluster));
-    clusterService.update(data);
+    service.update(data);
     Mockito.verify(processClusterRepository, Mockito.times(1)).findById(Mockito.any());
     Mockito.verify(processClusterRepository, Mockito.times(1)).findByCode(Mockito.any());
     Mockito.verify(processClusterRepository, Mockito.times(1)).save(Mockito.any());

@@ -6,9 +6,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SortingService {
+public class SortingBuilderService {
 
-  public Sort getSort(TableSortingRequest tableSortingRequest) {
+  public Sort from(TableSortingRequest tableSortingRequest) {
     if (tableSortingRequest == null
         || StringUtils.isBlank(tableSortingRequest.getColumnName())
         || tableSortingRequest.getDirection() == null) {

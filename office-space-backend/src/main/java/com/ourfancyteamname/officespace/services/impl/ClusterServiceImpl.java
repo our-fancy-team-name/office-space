@@ -3,23 +3,18 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ProcessCluster;
 import com.ourfancyteamname.officespace.db.repos.ProcessClusterRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.ClusterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class ClusterServiceImpl implements ClusterService {
+public class ClusterServiceImpl extends AbstractViewServiceImpl<ProcessCluster, ProcessClusterRepository>
+    implements ClusterService {
 
   @Autowired
   private ProcessClusterRepository processClusterRepository;
@@ -27,14 +22,10 @@ public class ClusterServiceImpl implements ClusterService {
   @Autowired
   private ProcessGeneralConverter processGeneralConverter;
 
-  @Autowired
-  private SpecificationService specificationService;
-
-  @Autowired
-  private PaginationService paginationService;
-
-  @Autowired
-  private SortingService sortingService;
+  @Override
+  public ProcessClusterRepository getExecutor() {
+    return this.processClusterRepository;
+  }
 
   @Override
   public ProcessCluster create(ProcessGeneralDto processGeneralDto) {
@@ -44,11 +35,7 @@ public class ClusterServiceImpl implements ClusterService {
 
   @Override
   public Page<ProcessGeneralDto> getListView(TableSearchRequest tableSearchRequest) {
-    Specification<ProcessCluster> specification = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return processClusterRepository.findAll(specification, pageable)
-        .map(processGeneralConverter::fromClusterToDto);
+    return findAll(tableSearchRequest, processGeneralConverter::fromClusterToDto);
   }
 
   @Override

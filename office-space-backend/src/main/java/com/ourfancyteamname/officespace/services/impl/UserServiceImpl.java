@@ -8,10 +8,6 @@ import com.ourfancyteamname.officespace.db.entities.view.UserRoleListView;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRoleRepository;
-import com.ourfancyteamname.officespace.db.repos.view.UserRoleListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
@@ -20,9 +16,6 @@ import com.ourfancyteamname.officespace.services.UserService;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -34,22 +27,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepository> implements UserService {
 
   @Autowired
   private UserRepository userRepository;
 
   @Autowired
   private RoleRepository roleRepository;
-
-  @Autowired
-  private PaginationService paginationService;
-
-  @Autowired
-  private SortingService sortingService;
-
-  @Autowired
-  private SpecificationService specificationService;
 
   @Autowired
   private UserConverter userConverter;
@@ -61,18 +45,14 @@ public class UserServiceImpl implements UserService {
   private EntityManager entityManager;
 
   @Autowired
-  private UserRoleListViewRepository userRoleListViewRepository;
+  private PasswordEncoder passwordEncoder;
 
   @Autowired
-  private PasswordEncoder passwordEncoder;
+  private UserRoleServiceImpl userRoleService;
 
   @Override
   public Page<UserDto> findAllByPaging(TableSearchRequest tableSearchRequest) {
-    Specification<User> specs = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return userRepository.findAll(specs, page)
-        .map(userConverter::toDto);
+    return findAll(tableSearchRequest, userConverter::toDto);
   }
 
   @Override
@@ -174,10 +154,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public Page<UserRoleListView> findUserRoleListView(TableSearchRequest tableSearchRequest) {
-    Specification<UserRoleListView> specs = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable page = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return userRoleListViewRepository.findAll(specs, page);
+    return userRoleService.findAll(tableSearchRequest);
   }
 
   @Override
@@ -188,5 +165,10 @@ public class UserServiceImpl implements UserService {
   @Override
   public void deleteUserRoleByUserId(Integer userId) {
     userRoleRepository.removeByUserId(userId);
+  }
+
+  @Override
+  public UserRepository getExecutor() {
+    return this.userRepository;
   }
 }

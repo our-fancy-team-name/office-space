@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 
 public interface ProductService {
 
-  Page<ProductDto> findAll(TableSearchRequest tableSearchRequest);
+  Page<ProductDto> findByPaging(TableSearchRequest tableSearchRequest);
 
   Page<ProductDto> findProductWithDisplayName(TableSearchRequest tableSearchRequest);
 

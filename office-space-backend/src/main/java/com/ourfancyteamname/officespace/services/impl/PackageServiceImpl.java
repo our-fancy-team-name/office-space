@@ -6,9 +6,6 @@ import com.ourfancyteamname.officespace.db.entities.view.PackageListView;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.view.PackageListViewRepository;
 import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.PackageDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.CharConstants;
@@ -17,14 +14,12 @@ import com.ourfancyteamname.officespace.enums.ErrorObject;
 import com.ourfancyteamname.officespace.services.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class PackageServiceImpl implements PackageService {
+public class PackageServiceImpl extends AbstractViewServiceImpl<PackageListView, PackageListViewRepository>
+    implements PackageService {
 
   @Autowired
   private PackageRepository packageRepository;
@@ -34,15 +29,6 @@ public class PackageServiceImpl implements PackageService {
 
   @Autowired
   private PackageListViewRepository packageListViewRepository;
-
-  @Autowired
-  private SpecificationService specificationService;
-
-  @Autowired
-  private PaginationService paginationService;
-
-  @Autowired
-  private SortingService sortingService;
 
   @Autowired
   private ProcessListViewRepository processListViewRepository;
@@ -83,9 +69,11 @@ public class PackageServiceImpl implements PackageService {
 
   @Override
   public Page<PackageListView> getListView(TableSearchRequest tableSearchRequest) {
-    Specification<PackageListView> specification = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return packageListViewRepository.findAll(specification, pageable);
+    return findAll(tableSearchRequest);
+  }
+
+  @Override
+  public PackageListViewRepository getExecutor() {
+    return this.packageListViewRepository;
   }
 }

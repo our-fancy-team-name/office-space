@@ -11,23 +11,23 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.criteria.Path;
 
 @Service
-public class SpecificationService {
+public class SpecificationBuilderService {
 
-  public <T> Specification<T> specificationBuilder(TableSearchRequest tableSearchRequest) {
+  public <T> Specification<T> from(TableSearchRequest tableSearchRequest) {
     if (CollectionUtils.isEmpty(tableSearchRequest.getColumnSearchRequests())) {
       return Specification.where(null);
     }
-    Specification<T> result = specificationBuilder(tableSearchRequest.getColumnSearchRequests().get(0));
+    Specification<T> result = this.from(tableSearchRequest.getColumnSearchRequests().get(0));
     for (int i = 1; i < tableSearchRequest.getColumnSearchRequests().size(); i++) {
       Specification<T> previousSpec = ObjectUtils.defaultIfNull(Specification.where(result), Specification.where(null));
       ColumnSearchRequest rq = tableSearchRequest.getColumnSearchRequests().get(i);
-      Specification<T> spec = specificationBuilder(rq);
+      Specification<T> spec = from(rq);
       result = rq.isOrTerm() ? previousSpec.or(spec) : previousSpec.and(spec);
     }
     return result;
   }
 
-  private <T> Specification<T> specificationBuilder(ColumnSearchRequest columnSearchRequest) {
+  private <T> Specification<T> from(ColumnSearchRequest columnSearchRequest) {
     return (root, query, builder) -> {
       String columnName = columnSearchRequest.getColumnName();
       String term = columnSearchRequest.getTerm();

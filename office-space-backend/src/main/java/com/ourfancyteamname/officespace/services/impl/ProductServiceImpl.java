@@ -5,9 +5,6 @@ import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ProductRepository;
 import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationService;
-import com.ourfancyteamname.officespace.db.services.SortingService;
-import com.ourfancyteamname.officespace.db.services.SpecificationService;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.CharConstants;
@@ -16,27 +13,14 @@ import com.ourfancyteamname.officespace.enums.ErrorObject;
 import com.ourfancyteamname.officespace.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class ProductServiceImpl implements ProductService {
-
+public class ProductServiceImpl extends AbstractViewServiceImpl<Product, ProductRepository> implements ProductService {
 
   @Autowired
   private ProductRepository productRepository;
-
-  @Autowired
-  private SpecificationService specificationService;
-
-  @Autowired
-  private PaginationService paginationService;
-
-  @Autowired
-  private SortingService sortingService;
 
   @Autowired
   private ProductConverter productConverter;
@@ -48,21 +32,18 @@ public class ProductServiceImpl implements ProductService {
   private ProcessListViewRepository processListViewRepository;
 
   @Override
-  public Page<ProductDto> findAll(TableSearchRequest tableSearchRequest) {
-    Specification<Product> productSpecification = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return productRepository.findAll(productSpecification, pageable)
-        .map(productConverter::toDto);
+  public ProductRepository getExecutor() {
+    return this.productRepository;
+  }
+
+  @Override
+  public Page<ProductDto> findByPaging(TableSearchRequest tableSearchRequest) {
+    return findAll(tableSearchRequest, productConverter::toDto);
   }
 
   @Override
   public Page<ProductDto> findProductWithDisplayName(TableSearchRequest tableSearchRequest) {
-    Specification<Product> productSpecification = specificationService.specificationBuilder(tableSearchRequest);
-    Sort sort = sortingService.getSort(tableSearchRequest.getSortingRequest());
-    Pageable pageable = paginationService.getPage(tableSearchRequest.getPagingRequest(), sort);
-    return productRepository.findAll(productSpecification, pageable)
-        .map(productConverter::toDtoWithDisplayName);
+    return findAll(tableSearchRequest, productConverter::toDtoWithDisplayName);
   }
 
   @Override
