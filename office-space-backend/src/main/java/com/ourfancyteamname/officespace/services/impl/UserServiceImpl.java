@@ -13,8 +13,10 @@ import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.UserService;
+import com.ourfancyteamname.officespace.services.ViewService;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,7 +50,8 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
   private PasswordEncoder passwordEncoder;
 
   @Autowired
-  private UserRoleServiceImpl userRoleService;
+  @Qualifier("userRoleListViewServiceImpl")
+  private ViewService userRoleService;
 
   @Override
   public Page<UserDto> findAllByPaging(TableSearchRequest tableSearchRequest) {

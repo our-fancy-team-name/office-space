@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserRoleServiceImpl extends AbstractViewServiceImpl<UserRoleListView, UserRoleListViewRepository> {
+public class UserRoleListViewServiceImpl extends AbstractViewServiceImpl<UserRoleListView, UserRoleListViewRepository> {
 
   @Autowired
   private UserRoleListViewRepository userRoleListViewRepository;

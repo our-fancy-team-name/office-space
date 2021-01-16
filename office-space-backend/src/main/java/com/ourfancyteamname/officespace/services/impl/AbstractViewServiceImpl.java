@@ -13,8 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.function.Function;
-
 public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecutor<E>> implements ViewService<E> {
 
   @Autowired
@@ -39,8 +37,4 @@ public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecu
     return this.getExecutor().findAll(specification, pageable);
   }
 
-  @Override
-  public <D> Page<D> findAll(TableSearchRequest tableSearchRequest, Function<E, D> mapper) {
-    return this.findAll(tableSearchRequest).map(mapper);
-  }
 }

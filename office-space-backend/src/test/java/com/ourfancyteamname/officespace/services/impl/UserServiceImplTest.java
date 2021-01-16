@@ -75,7 +75,7 @@ public class UserServiceImplTest {
   private PasswordEncoder passwordEncoder;
 
   @Mock
-  private UserRoleServiceImpl userRoleService;
+  private UserRoleListViewServiceImpl userRoleService;
 
   @Test
   public void findAllByPaging() {
