@@ -51,7 +51,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
 
   @Autowired
   @Qualifier("userRoleListViewServiceImpl")
-  private ViewService userRoleService;
+  private ViewService<UserRoleListView> userRoleService;
 
   @Override
   public Page<UserDto> findAllByPaging(TableSearchRequest tableSearchRequest) {
