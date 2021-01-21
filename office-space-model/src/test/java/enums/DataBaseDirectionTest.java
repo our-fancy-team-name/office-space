@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-public class DataBaseDirectionTest {
+class DataBaseDirectionTest {
   public static final String[] names = {"ASC", "DESC"};
 
   @Test
-  public void name() {
+  void name() {
     Stream.of(DataBaseDirection.values())
         .map(Enum::name)
         .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));

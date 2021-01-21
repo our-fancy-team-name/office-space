@@ -3,10 +3,10 @@ package com.ourfancyteamname.officespace.security.payload;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class UserDetailsPrincipleTest {
+class UserDetailsPrincipleTest {
 
   @Test
-  public void userDetailsPrinciple() {
+  void userDetailsPrinciple() {
     UserDetailsPrinciple userDetailsPrinciple = new UserDetailsPrinciple();
     Assertions.assertEquals(0, userDetailsPrinciple.getAuthorities().size());
     Assertions.assertTrue(userDetailsPrinciple.isAccountNonExpired());

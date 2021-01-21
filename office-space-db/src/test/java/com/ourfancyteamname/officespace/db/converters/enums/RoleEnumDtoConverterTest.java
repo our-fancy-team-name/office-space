@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-public class RoleEnumDtoConverterTest {
+class RoleEnumDtoConverterTest {
 
   private RoleConverter roleConverter = Mappers.getMapper(RoleConverter.class);
 
   @Test
-  public void toDto_success() {
+  void toDto_success() {
     Role role = new Role();
     role.setCode("SUPER_ADMIN");
     role.setId(1);
@@ -29,7 +29,7 @@ public class RoleEnumDtoConverterTest {
   }
 
   @Test
-  public void toDto_fail() {
+  void toDto_fail() {
     Role role = new Role();
     role.setCode("SUPER_ADMIN");
     role.setId(1);

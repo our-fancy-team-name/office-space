@@ -3,10 +3,10 @@ package com.ourfancyteamname.officespace.db.entities.view;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ProcessListViewTest {
+class ProcessListViewTest {
 
   @Test
-  public void processListViewTest() {
+  void processListViewTest() {
     Integer packageId = 1;
     String serial = "serial";
     ProcessListView processListView = new ProcessListView(serial, packageId);

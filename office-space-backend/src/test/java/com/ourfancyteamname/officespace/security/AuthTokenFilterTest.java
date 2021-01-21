@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
-public class AuthTokenFilterTest {
+class AuthTokenFilterTest {
 
   private static final String username = "dang";
 
@@ -35,7 +35,7 @@ public class AuthTokenFilterTest {
       .compact();
 
   @InjectMocks
-  AuthTokenFilter authTokenFilter;
+  private AuthTokenFilter authTokenFilter;
 
   @Mock
   private JwtService jwtService;
@@ -44,12 +44,12 @@ public class AuthTokenFilterTest {
   private UserDetailsSecurityServiceImpl userDetailsService;
 
   @BeforeEach
-  public void reset() {
+  void reset() {
     SecurityContextHolder.getContext().setAuthentication(null);
   }
 
   @Test
-  public void doFilterInternal_Sucess() throws ServletException, IOException {
+  void doFilterInternal_Sucess() throws ServletException, IOException {
     Mockito.when(jwtService.validateJwtToken(token)).thenReturn(true);
     Mockito.when(jwtService.getUserNameFromJwtToken(token)).thenReturn(username);
     Mockito.when(userDetailsService.loadUserByUsername(username)).thenReturn(new UserDetailsPrinciple());
@@ -62,7 +62,7 @@ public class AuthTokenFilterTest {
   }
 
   @Test
-  public void doFilterInternal_noAuthorization() throws ServletException, IOException {
+  void doFilterInternal_noAuthorization() throws ServletException, IOException {
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
@@ -70,7 +70,7 @@ public class AuthTokenFilterTest {
   }
 
   @Test
-  public void doFilterInternal_noAuthorization2() throws ServletException, IOException {
+  void doFilterInternal_noAuthorization2() throws ServletException, IOException {
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Authorization", token);
     request.addHeader("Role", "SUPER_ADMIN");
@@ -79,7 +79,7 @@ public class AuthTokenFilterTest {
   }
 
   @Test
-  public void doFilterInternal_noAuthorization3() throws ServletException, IOException {
+  void doFilterInternal_noAuthorization3() throws ServletException, IOException {
     MockHttpServletRequest request = new MockHttpServletRequest();
     String tokenFailed = Jwts.builder()
         .setSubject(username)

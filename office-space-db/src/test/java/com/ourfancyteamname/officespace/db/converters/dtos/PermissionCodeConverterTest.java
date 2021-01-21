@@ -9,37 +9,40 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class PermissionCodeConverterTest {
+class PermissionCodeConverterTest {
 
   @InjectMocks
   private PermissionCodeConverter permissionCodeConverter;
 
   @Test
-  public void convertToDatabaseColumn_success() {
+  void convertToDatabaseColumn_success() {
     String permission = permissionCodeConverter.convertToDatabaseColumn(PermissionCode.USER_EDIT);
     Assertions.assertEquals(permission, PermissionCode.USER_EDIT.name());
   }
 
   @Test
-  public void convertToDatabaseColumn_null() {
+  void convertToDatabaseColumn_null() {
     String permission = permissionCodeConverter.convertToDatabaseColumn(null);
-    Assertions.assertEquals(null, permission);
+    Assertions.assertNull(permission);
   }
 
   @Test
-  public void convertToEntityAttribute_success() {
+  void convertToEntityAttribute_success() {
     PermissionCode permission = permissionCodeConverter.convertToEntityAttribute(PermissionCode.USER_EDIT.name());
     Assertions.assertEquals(PermissionCode.USER_EDIT, permission);
   }
 
-//  @Test(expected = IllegalArgumentException.class)
-//  public void convertToEntityAttribute_errorInvalid() {
-//    permissionCodeConverter.convertToEntityAttribute("dang");
-//  }
+  @Test
+  void convertToEntityAttribute_errorInvalid() {
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> permissionCodeConverter.convertToEntityAttribute("dang")
+    );
+  }
 
   @Test
-  public void convertToEntityAttribute_errorNull() {
+  void convertToEntityAttribute_errorNull() {
     PermissionCode permission = permissionCodeConverter.convertToEntityAttribute(null);
-    Assertions.assertEquals(null, permission);
+    Assertions.assertNull(permission);
   }
 }

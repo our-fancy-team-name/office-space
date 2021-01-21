@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-public class CharConstantsTest {
+class CharConstantsTest {
   public static final String[] names = {":"};
 
   @Test
-  public void name() {
+  void name() {
     Stream.of(CharConstants.values())
         .map(CharConstants::getValue)
         .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));

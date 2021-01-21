@@ -7,13 +7,13 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class IndexControllerTest {
+class IndexControllerTest {
 
   @InjectMocks
   private IndexController controller;
 
   @Test
-  public void shouldReturnIndex() {
+  void shouldReturnIndex() {
     Assertions.assertEquals("forward:/index.html", controller.home(null));
   }
 }

@@ -13,13 +13,13 @@ import org.springframework.security.core.AuthenticationException;
 import java.io.IOException;
 
 @ExtendWith(MockitoExtension.class)
-public class AuthEntryPointJwtTest {
+class AuthEntryPointJwtTest {
 
   @InjectMocks
-  AuthEntryPointJwt authEntryPointJwt;
+  private AuthEntryPointJwt authEntryPointJwt;
 
   @Test
-  public void commence() throws IOException {
+  void commence() throws IOException {
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
     MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
     AuthenticationException authenticationException = new AuthenticationCredentialsNotFoundException("");

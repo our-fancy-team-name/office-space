@@ -16,12 +16,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityManager;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class PermissionServiceImplTest {
+class PermissionServiceImplTest {
 
   @InjectMocks
   private PermissionServiceImpl service;
@@ -39,9 +39,9 @@ public class PermissionServiceImplTest {
   private PermissionConverter permissionConverter;
 
   @Test
-  public void updateRolePermission() {
+  void updateRolePermission() {
     RoleDto roleDto = RoleDto.builder().id(1).build();
-    List<PermissionDto> permissionDtos = Arrays.asList(PermissionDto.builder()
+    List<PermissionDto> permissionDtos = Collections.singletonList(PermissionDto.builder()
         .code(PermissionCode.PRCS_EDIT.name())
         .build());
     Mockito.when(permissionRepository.findByCode(PermissionCode.PRCS_EDIT))
@@ -53,9 +53,9 @@ public class PermissionServiceImplTest {
   }
 
   @Test
-  public void createRolePermission() {
+  void createRolePermission() {
     Role roleDto = Role.builder().id(1).build();
-    List<PermissionDto> permissionDtos = Arrays.asList(PermissionDto.builder()
+    List<PermissionDto> permissionDtos = Collections.singletonList(PermissionDto.builder()
         .code(PermissionCode.PRCS_EDIT.name())
         .build());
     Mockito.when(permissionRepository.findByCode(PermissionCode.PRCS_EDIT))
@@ -65,9 +65,10 @@ public class PermissionServiceImplTest {
   }
 
   @Test
-  public void findAllPermissionByRole() {
+  void findAllPermissionByRole() {
     String role = "SUPER_ADMIN";
-    List<Permission> permissions = Arrays.asList(Permission.builder().code(PermissionCode.PRCS_EDIT).build());
+    List<Permission> permissions =
+        Collections.singletonList(Permission.builder().code(PermissionCode.PRCS_EDIT).build());
     Mockito.when(permissionRepository.findPermissionByRole(role))
         .thenReturn(permissions);
     service.findAllPermissionByRole(role);

@@ -13,13 +13,13 @@ import javax.cache.Cache;
 import javax.cache.CacheManager;
 
 @ExtendWith(MockitoExtension.class)
-public class CacheConfigTest {
+class CacheConfigTest {
 
   @InjectMocks
   private CacheConfig cacheConfig;
 
   @BeforeEach
-  public void setConfigValue() {
+  void setConfigValue() {
     ReflectionTestUtils.setField(cacheConfig, "heapEntries", 1000);
     ReflectionTestUtils.setField(cacheConfig, "timeToLive", 30);
     ReflectionTestUtils.setField(cacheConfig, "offHeapSize", 10);
@@ -27,9 +27,9 @@ public class CacheConfigTest {
   }
 
   @Test
-  public void cacheManagerCustomizer() {
+  void cacheManagerCustomizer() {
     CacheManager cacheManager = Mockito.mock(CacheManager.class);
-    Cache cache = Mockito.mock(Cache.class);
+    Cache<Object, Object> cache = Mockito.mock(Cache.class);
     Mockito.when(cacheManager.createCache(Mockito.any(), Mockito.any())).thenReturn(cache);
     JCacheManagerCustomizer jCacheManagerCustomizer = cacheConfig.cacheManagerCustomizer();
     jCacheManagerCustomizer.customize(cacheManager);

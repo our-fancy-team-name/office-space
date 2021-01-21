@@ -6,24 +6,24 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-public class ProductConverterTest {
+class ProductConverterTest {
 
-  private ProductConverter converter = Mappers.getMapper(ProductConverter.class);
+  private final ProductConverter converter = Mappers.getMapper(ProductConverter.class);
 
   @Test
-  public void toDto() {
+  void toDto() {
     Assertions.assertNull(converter.toDto(null));
     Assertions.assertNotNull(converter.toDto(new Product()));
   }
 
   @Test
-  public void toEntity() {
+  void toEntity() {
     Assertions.assertNull(converter.toEntity(null));
     Assertions.assertNotNull(converter.toEntity(new ProductDto()));
   }
 
   @Test
-  public void toDtoWithDisplayName() {
+  void toDtoWithDisplayName() {
     Assertions.assertNull(converter.toDtoWithDisplayName(null));
     Assertions.assertEquals(String.join(" - ", "name", "partNumber"),
         converter.toDtoWithDisplayName(Product.builder()

@@ -12,36 +12,36 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.Map;
 
 @ExtendWith(MockitoExtension.class)
-public class MyExceptionHandlerTest {
+class MyExceptionHandlerTest {
 
   @InjectMocks
   MyExceptionHandler myExceptionHandler;
 
   @Test
-  public void userNameNotFoundException() {
+  void userNameNotFoundException() {
     String message = "message";
     Exception ex = new Exception(message);
     ResponseEntity<Object> result = myExceptionHandler.userNameNotFoundException(ex);
     Assertions.assertEquals(HttpStatus.UNAUTHORIZED, result.getStatusCode());
-    Assertions.assertEquals(message, Map.class.cast(result.getBody()).get("message"));
+    Assertions.assertEquals(message, ((Map) result.getBody()).get("message"));
   }
 
   @Test
-  public void userNameNotFoundExceptionWithCause() {
+  void userNameNotFoundExceptionWithCause() {
     String message = "message";
     Exception ex = new Exception(message, new UsernameNotFoundException(message));
     ResponseEntity<Object> result = myExceptionHandler.userNameNotFoundException(ex);
     Assertions.assertEquals(HttpStatus.UNAUTHORIZED, result.getStatusCode());
-    Assertions.assertEquals(message, Map.class.cast(result.getBody()).get("message"));
+    Assertions.assertEquals(message, ((Map) result.getBody()).get("message"));
   }
 
   @Test
-  public void illegalException() {
+  void illegalException() {
     String message = "message";
     Exception ex = new Exception(message);
     ResponseEntity<Object> result = myExceptionHandler.illegalException(ex);
     Assertions.assertEquals(HttpStatus.EXPECTATION_FAILED, result.getStatusCode());
-    Assertions.assertEquals(message, Map.class.cast(result.getBody()).get("message"));
+    Assertions.assertEquals(message, ((Map) result.getBody()).get("message"));
   }
 
 }

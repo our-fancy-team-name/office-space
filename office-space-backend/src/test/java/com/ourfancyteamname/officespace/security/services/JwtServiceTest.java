@@ -16,10 +16,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
-public class JwtServiceTest {
+class JwtServiceTest {
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     ReflectionTestUtils.setField(jwtService, "jwtSecret", "jwtSecret");
     ReflectionTestUtils.setField(jwtService, "jwtExpirationMs", 900000);
   }
@@ -28,7 +28,7 @@ public class JwtServiceTest {
   private JwtService jwtService;
 
   @Test
-  public void generateJwtToken_success() {
+  void generateJwtToken_success() {
     UserDetailsPrinciple userDetailsPrinciple = new UserDetailsPrinciple();
     Authentication authentication = Mockito.mock(Authentication.class);
     Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
@@ -38,17 +38,17 @@ public class JwtServiceTest {
   }
 
   @Test
-  public void generateJwtToken_malformedJwtException() {
+  void generateJwtToken_malformedJwtException() {
     Assertions.assertFalse(jwtService.validateJwtToken("random token"));
   }
 
   @Test
-  public void generateJwtToken_illegalArgumentException() {
+  void generateJwtToken_illegalArgumentException() {
     Assertions.assertFalse(jwtService.validateJwtToken(null));
   }
 
   @Test
-  public void generateJwtToken_expiredJwtException() {
+  void generateJwtToken_expiredJwtException() {
     UserDetailsPrinciple userDetailsPrinciple = new UserDetailsPrinciple();
     Authentication authentication = Mockito.mock(Authentication.class);
     Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
@@ -58,7 +58,7 @@ public class JwtServiceTest {
   }
 
   @Test
-  public void generateJwtToken_signatureException() {
+  void generateJwtToken_signatureException() {
     String token = Jwts.builder()
         .setSubject("dang")
         .setIssuedAt(new Date())
@@ -69,7 +69,7 @@ public class JwtServiceTest {
   }
 
   @Test
-  public void generateJwtToken_unsupportedJwtException() {
+  void generateJwtToken_unsupportedJwtException() {
     String token = Jwts.builder()
         .setSubject("dang")
         .setIssuedAt(new Date())

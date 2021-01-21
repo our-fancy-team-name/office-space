@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import com.ourfancyteamname.officespace.db.entities.UserRole;
 import com.ourfancyteamname.officespace.db.entities.view.UserRoleListView;
 import com.ourfancyteamname.officespace.db.repos.view.UserRoleListViewRepository;
 import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
@@ -18,11 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 @ExtendWith(MockitoExtension.class)
-public class UserRoleListViewServiceImplTest {
+class UserRoleListViewServiceImplTest {
 
   @InjectMocks
   private UserRoleListViewServiceImpl service;
@@ -34,23 +34,21 @@ public class UserRoleListViewServiceImplTest {
   private PaginationBuilderService paginationBuilderService;
 
   @Mock
-  private SpecificationBuilderService specificationBuilderService;
+  private SpecificationBuilderService<UserRole> specificationBuilderService;
 
   @Mock
   private SortingBuilderService sortingBuilderService;
 
   @Test
-  public void getExecutor() {
+  void getExecutor() {
     Assertions.assertEquals(userRoleListViewRepository, service.getExecutor());
   }
 
   @Test
-  public void findAll() {
-    List<UserRoleListView> result = Arrays.asList(UserRoleListView.builder().build());
-    Specification specs = null;
-    Sort sort = null;
+  void findAll() {
+    var result = Collections.singletonList(UserRoleListView.builder().build());
     Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
-    Mockito.when(service.getExecutor().findAll(specs, sort)).thenReturn(result);
+    Mockito.when(service.getExecutor().findAll((Specification<UserRoleListView>) null, (Sort) null)).thenReturn(result);
     Page<UserRoleListView> actual = service.findAll(TableSearchRequest.builder().build());
     Assertions.assertEquals(1, actual.getTotalElements());
   }
@@ -59,7 +57,7 @@ public class UserRoleListViewServiceImplTest {
    * for @{@link org.springframework.beans.factory.annotation.Qualifier} on {@link UserServiceImpl}
    */
   @Test
-  public void qualifier() {
+  void qualifier() {
     Assertions.assertEquals("UserRoleListViewServiceImpl", service.getClass().getSimpleName());
   }
 

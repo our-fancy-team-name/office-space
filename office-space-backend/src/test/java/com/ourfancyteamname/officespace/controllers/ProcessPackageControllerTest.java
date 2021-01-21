@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class ProcessPackageControllerTest {
+class ProcessPackageControllerTest {
 
   @InjectMocks
   private ProcessPackageController controller;
@@ -18,13 +18,13 @@ public class ProcessPackageControllerTest {
   private ProcessPackageService processPackageService;
 
   @Test
-  public void getValidPksToAdd() {
+  void getValidPksToAdd() {
     controller.getValidPksToAdd(1);
     Mockito.verify(processPackageService, Mockito.times(1)).getValidPksToAdd(1);
   }
 
   @Test
-  public void addPkgToCltNode() {
+  void addPkgToCltNode() {
     controller.addPkgToCltNode(null);
     Mockito.verify(processPackageService, Mockito.times(1)).addPkgToCltNode(null);
   }

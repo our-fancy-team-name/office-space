@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class ProcessControllerTest {
+class ProcessControllerTest {
 
   @InjectMocks
   private ProcessController controller;
@@ -18,37 +18,37 @@ public class ProcessControllerTest {
   private ProcessService processService;
 
   @Test
-  public void getByClusterId() {
+  void getByClusterId() {
     controller.getByClusterId(null);
     Mockito.verify(processService, Mockito.times(1)).getGraph(Mockito.any());
   }
 
   @Test
-  public void addNodeToCluster() {
+  void addNodeToCluster() {
     controller.addNodeToCluster(null);
     Mockito.verify(processService, Mockito.times(1)).addNodeToCluster(Mockito.any());
   }
 
   @Test
-  public void removeNodeFromCluster() {
+  void removeNodeFromCluster() {
     controller.removeNodeFromCluster(null);
     Mockito.verify(processService, Mockito.times(1)).removeNodeFromCluster(Mockito.any());
   }
 
   @Test
-  public void editClusterNode() {
+  void editClusterNode() {
     controller.editClusterNode(null);
     Mockito.verify(processService, Mockito.times(1)).editClusterNode(Mockito.any());
   }
 
   @Test
-  public void addPath() {
+  void addPath() {
     controller.addPath(null, null);
     Mockito.verify(processService, Mockito.times(1)).addSinglePath(Mockito.any(), Mockito.any());
   }
 
   @Test
-  public void removePath() {
+  void removePath() {
     controller.removePath(null);
     Mockito.verify(processService, Mockito.times(1)).removePath(Mockito.any());
   }

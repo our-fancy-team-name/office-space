@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class NodeControllerTest {
+class NodeControllerTest {
 
   @InjectMocks
   private NodeController controller;
@@ -18,19 +18,19 @@ public class NodeControllerTest {
   private NodeService nodeService;
 
   @Test
-  public void create() {
+  void create() {
     controller.create(null);
     Mockito.verify(nodeService, Mockito.times(1)).create(Mockito.any());
   }
 
   @Test
-  public void getListView() {
+  void getListView() {
     controller.getListView(null);
     Mockito.verify(nodeService, Mockito.times(1)).getListView(Mockito.any());
   }
 
   @Test
-  public void update() {
+  void update() {
     controller.update(null);
     Mockito.verify(nodeService, Mockito.times(1)).update(Mockito.any());
   }

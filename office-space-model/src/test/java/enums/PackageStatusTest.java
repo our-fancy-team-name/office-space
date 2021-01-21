@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-public class PackageStatusTest {
+class PackageStatusTest {
   public static final String[] names = {"FAIL", "WIP", "PASS"};
 
   @Test
-  public void name() {
+  void name() {
     Stream.of(PackageStatus.values())
         .map(PackageStatus::getName)
         .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));

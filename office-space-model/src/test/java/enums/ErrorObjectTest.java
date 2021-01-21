@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-public class ErrorObjectTest {
+class ErrorObjectTest {
   public static final String[] names = {"NAME", "PART_NUMBER", "CLUSTER", "SERIAL"};
 
   @Test
-  public void name() {
+  void name() {
     Stream.of(ErrorObject.values())
         .map(Enum::name)
         .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));

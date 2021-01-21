@@ -9,37 +9,40 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class GenderConverterTest {
+class GenderConverterTest {
 
   @InjectMocks
   private GenderConverter genderConverter;
 
   @Test
-  public void convertToDatabaseColumn_success() {
+  void convertToDatabaseColumn_success() {
     String gender = genderConverter.convertToDatabaseColumn(Gender.MALE);
     Assertions.assertEquals(gender, Gender.MALE.name());
   }
 
   @Test
-  public void convertToDatabaseColumn_null() {
+  void convertToDatabaseColumn_null() {
     String gender = genderConverter.convertToDatabaseColumn(null);
-    Assertions.assertEquals(null, gender);
+    Assertions.assertNull(gender);
   }
 
   @Test
-  public void convertToEntityAttribute_success() {
+  void convertToEntityAttribute_success() {
     Gender gender = genderConverter.convertToEntityAttribute(Gender.MALE.name());
     Assertions.assertEquals(Gender.MALE, gender);
   }
 
-//  @Test(expected = IllegalArgumentException.class)
-//  public void convertToEntityAttribute_errorInvalid() {
-//    genderConverter.convertToEntityAttribute("dang");
-//  }
+  @Test
+  void convertToEntityAttribute_errorInvalid() {
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> genderConverter.convertToEntityAttribute("dang")
+    );
+  }
 
   @Test
-  public void convertToEntityAttribute_errorNull() {
+  void convertToEntityAttribute_errorNull() {
     Gender gender = genderConverter.convertToEntityAttribute(null);
-    Assertions.assertEquals(null, gender);
+    Assertions.assertNull(gender);
   }
 }

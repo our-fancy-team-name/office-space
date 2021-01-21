@@ -6,7 +6,9 @@ import com.ourfancyteamname.officespace.db.repos.ClusterNodePathRepository;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodeRepository;
 import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
 import com.ourfancyteamname.officespace.dtos.ProcessPackageDto;
+import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.enums.PackageStatus;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class ProcessPackageServiceImplTest {
+class ProcessPackageServiceImplTest {
 
   @InjectMocks
   private ProcessPackageServiceImpl service;
@@ -34,14 +36,17 @@ public class ProcessPackageServiceImplTest {
   @Mock
   private ClusterNodePackageRepository clusterNodePackageRepository;
 
-//  @Test(expected = IllegalArgumentException.class)
-//  public void getValidPksToAdd_notFoundSchematic() {
-//    Mockito.when(clusterNodeRepository.getClusterSchematic(1)).thenReturn(Optional.empty());
-//    service.getValidPksToAdd(1);
-//  }
+  @Test
+  void getValidPksToAdd_notFoundSchematic() {
+    Mockito.when(clusterNodeRepository.getClusterSchematic(1)).thenReturn(Optional.empty());
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> service.getValidPksToAdd(1),
+        ErrorCode.NOT_FOUND.name());
+  }
 
   @Test
-  public void getValidPksToAdd_getPckFromMiddleNode() {
+  void getValidPksToAdd_getPckFromMiddleNode() {
     String clusterSchematic = "PRD_1";
     int clusterNodeId = 1;
     Mockito.when(clusterNodeRepository.getClusterSchematic(clusterNodeId)).thenReturn(Optional.of(clusterSchematic));
@@ -56,7 +61,7 @@ public class ProcessPackageServiceImplTest {
   }
 
   @Test
-  public void getValidPksToAdd_getPckFromStartNode() {
+  void getValidPksToAdd_getPckFromStartNode() {
     String clusterSchematic = "PRD_1";
     int clusterNodeId = 1;
     Mockito.when(clusterNodeRepository.getClusterSchematic(clusterNodeId)).thenReturn(Optional.of(clusterSchematic));
@@ -71,7 +76,7 @@ public class ProcessPackageServiceImplTest {
   }
 
   @Test
-  public void addPkgToCltNode_edit() {
+  void addPkgToCltNode_edit() {
     ProcessPackageDto data = ProcessPackageDto.builder()
         .packageId(1)
         .clusterNodeId(1)
@@ -90,7 +95,7 @@ public class ProcessPackageServiceImplTest {
   }
 
   @Test
-  public void addPkgToCltNode_create() {
+  void addPkgToCltNode_create() {
     ProcessPackageDto data = ProcessPackageDto.builder()
         .packageId(1)
         .clusterNodeId(1)

@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class PackageControllerTest {
+class PackageControllerTest {
 
   @InjectMocks
   private PackageController controller;
@@ -18,25 +18,25 @@ public class PackageControllerTest {
   private PackageService packageService;
 
   @Test
-  public void create() {
+  void create() {
     controller.create(null);
     Mockito.verify(packageService, Mockito.times(1)).create(Mockito.any());
   }
 
   @Test
-  public void getListView() {
+  void getListView() {
     controller.getListView(null);
     Mockito.verify(packageService, Mockito.times(1)).getListView(Mockito.any());
   }
 
   @Test
-  public void update() {
+  void update() {
     controller.update(null);
     Mockito.verify(packageService, Mockito.times(1)).update(Mockito.any());
   }
 
   @Test
-  public void delete() {
+  void delete() {
     controller.delete(null);
     Mockito.verify(packageService, Mockito.times(1)).delete(Mockito.any());
   }

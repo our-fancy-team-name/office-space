@@ -8,6 +8,7 @@ import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
 import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
+import com.ourfancyteamname.officespace.enums.ErrorCode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,11 +22,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class ClusterServiceImplTest {
+class ClusterServiceImplTest {
 
   private static final String code = "code";
 
@@ -39,7 +40,7 @@ public class ClusterServiceImplTest {
   private ProcessGeneralConverter processGeneralConverter;
 
   @Mock
-  private SpecificationBuilderService specificationBuilderService;
+  private SpecificationBuilderService<ProcessCluster> specificationBuilderService;
 
   @Mock
   private PaginationBuilderService paginationBuilderService;
@@ -47,14 +48,15 @@ public class ClusterServiceImplTest {
   @Mock
   private SortingBuilderService sortingBuilderService;
 
-//  @Test(expected = IllegalArgumentException.class)
-//  public void create_duplicatedCode() {
-//    Mockito.when(processClusterRepository.existsByCode(code)).thenReturn(true);
-//    service.create(ProcessGeneralDto.builder().code(code).build());
-//  }
+  @Test
+  void create_duplicatedCode() {
+    Mockito.when(processClusterRepository.existsByCode(code)).thenReturn(true);
+    var dto = ProcessGeneralDto.builder().code(code).build();
+    Assertions.assertThrows(IllegalArgumentException.class, () -> service.create(dto), ErrorCode.DUPLICATED.name());
+  }
 
   @Test
-  public void create_success() {
+  void create_success() {
     ProcessGeneralDto data = ProcessGeneralDto.builder().code(code).build();
     Mockito.when(processClusterRepository.existsByCode(code)).thenReturn(false);
     ProcessCluster result = processGeneralConverter.fromDtoToClusterEntity(data);
@@ -65,36 +67,37 @@ public class ClusterServiceImplTest {
   }
 
   @Test
-  public void getListView() {
+  void getListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification specs = specificationBuilderService.from(tableSearchRequest);
+    Specification<ProcessCluster> specs = specificationBuilderService.from(tableSearchRequest);
     Pageable page = PageRequest.of(1, 2);
-    Page result = new PageImpl(Arrays.asList(ProcessCluster.builder().code(code).build()));
+    Page<ProcessCluster> result =
+        new PageImpl<>(Collections.singletonList(ProcessCluster.builder().code(code).build()));
     Mockito.when(paginationBuilderService.from(null, null)).thenReturn(page);
     Mockito.when(service.getExecutor().findAll(specs, page)).thenReturn(result);
     Page<ProcessGeneralDto> processGeneralDtos = service.getListView(tableSearchRequest);
     Assertions.assertEquals(1, processGeneralDtos.getTotalElements());
   }
 
-//  @Test(expected = IllegalArgumentException.class)
-//  public void update_notFound() {
-//    ProcessGeneralDto data = ProcessGeneralDto.builder().id(1).code(code).build();
-//    Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.empty());
-//    service.update(data);
-//  }
-
-//  @Test(expected = IllegalArgumentException.class)
-//  public void update_duplicate() {
-//    ProcessGeneralDto data = ProcessGeneralDto.builder().id(1).code(code).build();
-//    ProcessCluster dupData = ProcessCluster.builder().id(2).code(code).build();
-//    ProcessCluster cluster = ProcessCluster.builder().build();
-//    Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.of(cluster));
-//    Mockito.when(processClusterRepository.findByCode(code)).thenReturn(Optional.of(dupData));
-//    service.update(data);
-//  }
+  @Test
+  void update_notFound() {
+    var data = ProcessGeneralDto.builder().id(1).code(code).build();
+    Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.empty());
+    Assertions.assertThrows(IllegalArgumentException.class, () -> service.update(data), ErrorCode.NOT_FOUND.name());
+  }
 
   @Test
-  public void update() {
+  void update_duplicate() {
+    var data = ProcessGeneralDto.builder().id(1).code(code).build();
+    var dupData = ProcessCluster.builder().id(2).code(code).build();
+    var cluster = ProcessCluster.builder().build();
+    Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.of(cluster));
+    Mockito.when(processClusterRepository.findByCode(code)).thenReturn(Optional.of(dupData));
+    Assertions.assertThrows(IllegalArgumentException.class, () -> service.update(data), ErrorCode.DUPLICATED.name());
+  }
+
+  @Test
+  void update() {
     ProcessGeneralDto data = ProcessGeneralDto.builder().id(1).code(code).build();
     ProcessCluster cluster = ProcessCluster.builder().build();
     Mockito.when(processClusterRepository.findById(1)).thenReturn(Optional.of(cluster));

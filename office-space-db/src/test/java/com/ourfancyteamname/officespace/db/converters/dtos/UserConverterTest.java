@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-public class UserConverterTest {
+class UserConverterTest {
 
-  private UserConverter userConverter = Mappers.getMapper(UserConverter.class);
+  private final UserConverter userConverter = Mappers.getMapper(UserConverter.class);
 
   @Test
-  public void toDto_success() {
+  void toDto_success() {
     User entity = User.builder()
         .email("dang")
         .id(1)
@@ -37,25 +37,25 @@ public class UserConverterTest {
   }
 
   @Test
-  public void toDto_null() {
+  void toDto_null() {
     UserDto userDto = userConverter.toDto(null);
     Assertions.assertNull(userDto);
   }
 
   @Test
-  public void toEntity_null() {
+  void toEntity_null() {
     User userDto = userConverter.toEntity(null);
     Assertions.assertNull(userDto);
   }
 
   @Test
-  public void toEntity_sucess() {
+  void toEntity_sucess() {
     User userDto = userConverter.toEntity(UserDto.builder().build());
     Assertions.assertNotNull(userDto);
   }
 
   @Test
-  public void toEntity_sucessWithId() {
+  void toEntity_sucessWithId() {
     User userDto = userConverter.toEntity(UserDto.builder().id(1).build());
     Assertions.assertNotNull(userDto);
   }

@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class PermissionControllerTest {
+class PermissionControllerTest {
 
   @InjectMocks
   private PermissionController controller;
@@ -18,7 +18,7 @@ public class PermissionControllerTest {
   private PermissionService permissionService;
 
   @Test
-  public void getPermissionByRole() {
+  void getPermissionByRole() {
     controller.getPermissionByRole(null);
     Mockito.verify(permissionService, Mockito.times(1)).findAllPermissionByRole(Mockito.any());
   }

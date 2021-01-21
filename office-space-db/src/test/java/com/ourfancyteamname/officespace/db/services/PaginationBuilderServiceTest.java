@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class PaginationBuilderServiceTest {
+class PaginationBuilderServiceTest {
 
   private static final int page = 1;
   private static final int pageSize = 10;
@@ -21,7 +21,7 @@ public class PaginationBuilderServiceTest {
   private PaginationBuilderService paginationBuilderService;
 
   @Test
-  public void getPage() {
+  void getPage() {
     TablePagingRequest request = TablePagingRequest.builder()
         .page(page)
         .pageSize(pageSize)
@@ -33,7 +33,7 @@ public class PaginationBuilderServiceTest {
   }
 
   @Test
-  public void getPage_empty() {
+  void getPage_empty() {
     TablePagingRequest request = null;
     Pageable actual = paginationBuilderService.from(request, Sort.unsorted());
     Assertions.assertEquals(Sort.unsorted(), actual.getSort());

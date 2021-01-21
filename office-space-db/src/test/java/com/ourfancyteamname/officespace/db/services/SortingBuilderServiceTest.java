@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class SortingBuilderServiceTest {
+class SortingBuilderServiceTest {
 
   private static String columnName = "dang";
 
@@ -21,7 +21,7 @@ public class SortingBuilderServiceTest {
   private SortingBuilderService sortingBuilderService;
 
   @Test
-  public void getSort_asc() {
+  void getSort_asc() {
     TableSortingRequest request = TableSortingRequest.builder()
         .columnName(columnName)
         .direction(DataBaseDirection.ASC)
@@ -31,7 +31,7 @@ public class SortingBuilderServiceTest {
   }
 
   @Test
-  public void getSort_desc() {
+  void getSort_desc() {
     TableSortingRequest request = TableSortingRequest.builder()
         .columnName(columnName)
         .direction(DataBaseDirection.DESC)
@@ -41,7 +41,7 @@ public class SortingBuilderServiceTest {
   }
 
   @Test
-  public void getSort_unSort1() {
+  void getSort_unSort1() {
     TableSortingRequest request = TableSortingRequest.builder()
         .columnName(StringUtils.EMPTY)
         .direction(DataBaseDirection.DESC)
@@ -51,7 +51,7 @@ public class SortingBuilderServiceTest {
   }
 
   @Test
-  public void getSort_unSort2() {
+  void getSort_unSort2() {
     TableSortingRequest request = TableSortingRequest.builder()
         .columnName(columnName)
         .direction(null)
@@ -61,7 +61,7 @@ public class SortingBuilderServiceTest {
   }
 
   @Test
-  public void getSort_unSort3() {
+  void getSort_unSort3() {
     TableSortingRequest request = null;
     Sort actual = sortingBuilderService.from(request);
     Assertions.assertEquals(Sort.unsorted(), actual);

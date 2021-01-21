@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-public class PermissionCodeTest {
+class PermissionCodeTest {
   public static final String[] names =
       {"USER_EDIT", "ROLE_EDIT", "PRD_EDIT", "PKG_EDIT", "CLUS_EDIT", "NODE_EDIT", "PRCS_EDIT"};
 
   @Test
-  public void name() {
+  void name() {
     Stream.of(PermissionCode.values())
         .map(PermissionCode::getName)
         .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));

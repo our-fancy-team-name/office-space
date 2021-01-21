@@ -6,28 +6,28 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-public class PackageConverterTest {
+class PackageConverterTest {
 
-  private PackageConverter packageConverter = Mappers.getMapper(PackageConverter.class);
+  private final PackageConverter packageConverter = Mappers.getMapper(PackageConverter.class);
 
   @Test
-  public void toDto_null() {
+  void toDto_null() {
     Assertions.assertNull(packageConverter.toDto(null));
   }
 
   @Test
-  public void toDto_success() {
+  void toDto_success() {
     Assertions.assertNotNull(packageConverter.toDto(Package.builder().productId(1).build()));
     Assertions.assertNotNull(packageConverter.toDto(Package.builder().build()));
   }
 
   @Test
-  public void toEntity_null() {
+  void toEntity_null() {
     Assertions.assertNull(packageConverter.toEntity(null));
   }
 
   @Test
-  public void toEntity_success() {
+  void toEntity_success() {
     Assertions.assertNotNull(packageConverter.toEntity(PackageDto.builder().productId(1).build()));
     Assertions.assertNotNull(packageConverter.toEntity(PackageDto.builder().build()));
   }

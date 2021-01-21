@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-public class ErrorCodeTest {
+class ErrorCodeTest {
   public static final String[] names = {"DUPLICATED", "NOT_FOUND", "IN_USE"};
 
   @Test
-  public void name() {
+  void name() {
     Stream.of(ErrorCode.values())
         .map(Enum::name)
         .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));

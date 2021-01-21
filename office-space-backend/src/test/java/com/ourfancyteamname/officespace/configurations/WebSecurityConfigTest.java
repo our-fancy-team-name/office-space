@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 @ExtendWith(MockitoExtension.class)
-public class WebSecurityConfigTest {
+class WebSecurityConfigTest {
 
   private static final String[] METHOD_ALLOWED = {"HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"};
 
@@ -35,14 +35,14 @@ public class WebSecurityConfigTest {
   private UserDetailsSecurityServiceImpl userDetailsService;
 
   @Test
-  public void bean() throws Exception {
+  void bean() {
     Assertions.assertSame(AuthTokenFilter.class, webSecurityConfig.authenticationJwtTokenFilter().getClass());
     Assertions.assertSame(BCryptPasswordEncoder.class, webSecurityConfig.passwordEncoder().getClass());
 
   }
 
   @Test
-  public void authenticationManagerBean() throws Exception {
+  void authenticationManagerBean() throws Exception {
     WebSecurityConfig config = new WebSecurityConfig();
     AuthenticationManagerBuilder authenticationBuilder = Mockito.mock(AuthenticationManagerBuilder.class);
     ApplicationContext context = Mockito.mock(ApplicationContext.class);
@@ -54,7 +54,7 @@ public class WebSecurityConfigTest {
   }
 
   @Test
-  public void configure() throws Exception {
+  void configure() throws Exception {
     AuthenticationManagerBuilder managerBuilder =
         new AuthenticationManagerBuilder(Mockito.mock(ObjectPostProcessor.class));
     webSecurityConfig.configure(managerBuilder);
@@ -62,7 +62,7 @@ public class WebSecurityConfigTest {
   }
 
   @Test
-  public void configureHttp() throws Exception {
+  void configureHttp() throws Exception {
     HttpSecurity httpSecurity =
         new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
             Mockito.mock(Map.class));
@@ -74,7 +74,7 @@ public class WebSecurityConfigTest {
   }
 
   @Test
-  public void pathAuthSignIn() throws Exception {
+  void pathAuthSignIn() throws Exception {
     Field field = WebSecurityConfig.class.getDeclaredField("NO_AUTH_PATH");
     field.setAccessible(true);
     Assertions
@@ -82,14 +82,14 @@ public class WebSecurityConfigTest {
   }
 
   @Test
-  public void pathAPI() throws Exception {
+  void pathAPI() throws Exception {
     Field field = WebSecurityConfig.class.getDeclaredField("API");
     field.setAccessible(true);
     Assertions.assertEquals("/api/**", field.get(webSecurityConfig));
   }
 
   @Test
-  public void corsConfig() throws Exception {
+  void corsConfig() throws Exception {
     Method method = WebSecurityConfig.class.getDeclaredMethod("getCorsConfigurationSource");
     method.setAccessible(true);
     CorsConfigurationSource corsConfigurationSource = (CorsConfigurationSource) method.invoke(webSecurityConfig);
@@ -98,7 +98,7 @@ public class WebSecurityConfigTest {
   }
 
   @Test
-  public void corsConfigDisableCsrf() throws Exception {
+  void corsConfigDisableCsrf() throws Exception {
     ReflectionTestUtils.setField(webSecurityConfig, "isDisableCSRF", true);
     HttpSecurity httpSecurity =
         new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),

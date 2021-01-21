@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class OfficeSpaceApplicationTest {
+class OfficeSpaceApplicationTest {
 
   @InjectMocks
   private OfficeSpaceApplication application;

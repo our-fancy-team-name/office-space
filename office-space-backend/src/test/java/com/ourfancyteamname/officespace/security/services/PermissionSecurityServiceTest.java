@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class PermissionSecurityServiceTest {
+class PermissionSecurityServiceTest {
   private static final RoleDto admin = RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build();
   private static final List<RoleDto> roles = Arrays.asList(admin);
   private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.USER_EDIT);
@@ -50,7 +50,7 @@ public class PermissionSecurityServiceTest {
   private PermissionConverter permissionConverter;
 
   @Test
-  public void withoutRole() {
+  void withoutRole() {
     UserDetailsPrinciple user = UserDetailsPrinciple.builder()
         .email("dang@dang.dang")
         .password("$2a$10$ZnoVjM2zmkU5UjJkmEMwce2XRVXZDhEdwYIqIZtGPAgBQEfPj/oAC")
@@ -68,7 +68,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditUser_true() {
+  void canEditUser_true() {
     userDetailsPrinciple.setPermissionCodes(permissionCodes);
     Authentication authentication = Mockito.mock(Authentication.class);
     SecurityContext securityContext = Mockito.mock(SecurityContext.class);
@@ -80,7 +80,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canDeleteUser_false() {
+  void canDeleteUser_false() {
     userDetailsPrinciple.setPermissionCodes(Collections.emptyList());
     Authentication authentication = Mockito.mock(Authentication.class);
     SecurityContext securityContext = Mockito.mock(SecurityContext.class);
@@ -91,7 +91,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditProduct_true() {
+  void canEditProduct_true() {
     PermissionCode permissionCodeToTest = PermissionCode.PRD_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -105,7 +105,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditProduct_false() {
+  void canEditProduct_false() {
     PermissionCode permissionCodeToTest = PermissionCode.PRD_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -119,7 +119,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditPackage_true() {
+  void canEditPackage_true() {
     PermissionCode permissionCodeToTest = PermissionCode.PKG_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -133,7 +133,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditPackage_false() {
+  void canEditPackage_false() {
     PermissionCode permissionCodeToTest = PermissionCode.PKG_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -147,7 +147,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditCluster_true() {
+  void canEditCluster_true() {
     PermissionCode permissionCodeToTest = PermissionCode.CLUS_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -161,7 +161,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditCluster_false() {
+  void canEditCluster_false() {
     PermissionCode permissionCodeToTest = PermissionCode.CLUS_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -175,7 +175,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditNode_true() {
+  void canEditNode_true() {
     PermissionCode permissionCodeToTest = PermissionCode.NODE_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -189,7 +189,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditNode_false() {
+  void canEditNode_false() {
     PermissionCode permissionCodeToTest = PermissionCode.NODE_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -203,7 +203,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditProcess_true() {
+  void canEditProcess_true() {
     PermissionCode permissionCodeToTest = PermissionCode.PRCS_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);
@@ -217,7 +217,7 @@ public class PermissionSecurityServiceTest {
   }
 
   @Test
-  public void canEditProcess_false() {
+  void canEditProcess_false() {
     PermissionCode permissionCodeToTest = PermissionCode.PRCS_EDIT;
     userDetailsPrinciple.setPermissionCodes(Arrays.asList(permissionCodeToTest));
     Authentication authentication = Mockito.mock(Authentication.class);

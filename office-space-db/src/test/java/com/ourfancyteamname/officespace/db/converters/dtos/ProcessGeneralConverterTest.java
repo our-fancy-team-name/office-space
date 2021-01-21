@@ -8,42 +8,42 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-public class ProcessGeneralConverterTest {
+class ProcessGeneralConverterTest {
 
-  private ProcessGeneralConverter converter = Mappers.getMapper(ProcessGeneralConverter.class);
+  private final ProcessGeneralConverter converter = Mappers.getMapper(ProcessGeneralConverter.class);
 
   @Test
-  public void fromClusterToDto() {
+  void fromClusterToDto() {
     Assertions.assertNull(converter.fromClusterToDto(null));
     Assertions.assertNotNull(converter.fromClusterToDto(new ProcessCluster()));
   }
 
   @Test
-  public void fromNodeToDto() {
+  void fromNodeToDto() {
     Assertions.assertNull(converter.fromNodeToDto(null));
     Assertions.assertNotNull(converter.fromNodeToDto(new ProcessNode()));
   }
 
   @Test
-  public void fromPathToDto() {
+  void fromPathToDto() {
     Assertions.assertNull(converter.fromPathToDto(null));
     Assertions.assertNotNull(converter.fromPathToDto(new ClusterNodePath()));
   }
 
   @Test
-  public void fromClusterNodeEditToPath() {
+  void fromClusterNodeEditToPath() {
     Assertions.assertNull(converter.fromClusterNodeEditToPath(null));
     Assertions.assertNotNull(converter.fromClusterNodeEditToPath(new ProcessGeneralDto()));
   }
 
   @Test
-  public void fromDtoToClusterEntity() {
+  void fromDtoToClusterEntity() {
     Assertions.assertNull(converter.fromDtoToClusterEntity(null));
     Assertions.assertNotNull(converter.fromDtoToClusterEntity(new ProcessGeneralDto()));
   }
 
   @Test
-  public void fromDtoToNodeEntity() {
+  void fromDtoToNodeEntity() {
     Assertions.assertNull(converter.fromDtoToNodeEntity(null));
     Assertions.assertNotNull(converter.fromDtoToNodeEntity(new ProcessGeneralDto()));
   }

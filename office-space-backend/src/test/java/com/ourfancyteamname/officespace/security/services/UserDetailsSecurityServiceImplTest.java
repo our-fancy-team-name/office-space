@@ -16,14 +16,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
 @ExtendWith(MockitoExtension.class)
-public class UserDetailsSecurityServiceImplTest {
+class UserDetailsSecurityServiceImplTest {
 
   private static final User user = User.builder()
       .id(1)
@@ -32,8 +33,8 @@ public class UserDetailsSecurityServiceImplTest {
       .email("dang@dang.com")
       .build();
   private static final Role admin = new Role(1, "", "SUPER_ADMIN");
-  private static final List<Role> roles = Arrays.asList(admin);
-  private static final List<PermissionCode> permissionCodes = Arrays.asList(PermissionCode.USER_EDIT);
+  private static final List<Role> roles = Collections.singletonList(admin);
+  private static final List<PermissionCode> permissionCodes = Collections.singletonList(PermissionCode.USER_EDIT);
 
 
   @InjectMocks
@@ -52,7 +53,7 @@ public class UserDetailsSecurityServiceImplTest {
   private RoleConverter roleConverter;
 
   @Test
-  public void loadUserByUsernameTest_success() {
+  void loadUserByUsernameTest_success() {
 
     Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
     Mockito.when(roleRepository.findByUserId(user.getId())).thenReturn(roles);
@@ -64,9 +65,8 @@ public class UserDetailsSecurityServiceImplTest {
     UserDetailsPrinciple result = userDetailsSecurityService.loadUserByUsername("dang");
     Assertions.assertEquals(result.getUsername(), user.getUsername());
     Assertions.assertEquals(result.getPermissionCodes().size(), permissionCodes.size());
-    IntStream.range(0, result.getPermissionCodes().size()).forEach(i -> {
-      Assertions.assertEquals(result.getPermissionCodes().get(i), permissionCodes.get(i));
-    });
+    IntStream.range(0, result.getPermissionCodes().size())
+        .forEach(i -> Assertions.assertEquals(result.getPermissionCodes().get(i), permissionCodes.get(i)));
     Assertions.assertEquals(result.getEmail(), user.getEmail());
     Assertions.assertEquals(result.getPassword(), user.getPassword());
     Assertions.assertEquals(result.getRoles().size(), roles.size());
@@ -75,20 +75,26 @@ public class UserDetailsSecurityServiceImplTest {
       Assertions.assertTrue(r.getIsUsing());
     }
   }
-//
-//  @Test(expected = UsernameNotFoundException.class)
-//  public void loadUserByUsernameTest_missingUser() {
-//    userDetailsSecurityService.loadUserByUsername("dang");
-//  }
-//
-//  @Test(expected = UsernameNotFoundException.class)
-//  public void loadUserByUsernameTest_missingRole() {
-//    Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
-//    userDetailsSecurityService.loadUserByUsername("dang");
-//  }
 
   @Test
-  public void loadUserByUsernameTest_missingLastRoleUsage() {
+  void loadUserByUsernameTest_missingUser() {
+    Assertions.assertThrows(
+        UsernameNotFoundException.class,
+        () -> userDetailsSecurityService.loadUserByUsername("dang")
+    );
+  }
+
+  @Test
+  void loadUserByUsernameTest_missingRole() {
+    Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
+    Assertions.assertThrows(
+        UsernameNotFoundException.class,
+        () -> userDetailsSecurityService.loadUserByUsername("dang")
+    );
+  }
+
+  @Test
+  void loadUserByUsernameTest_missingLastRoleUsage() {
     Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
     Mockito.when(roleRepository.findByUserId(user.getId())).thenReturn(roles);
     Mockito.when(permissionRepository.findPermissionCodeByRoleId(admin.getId())).thenReturn(permissionCodes);
@@ -98,9 +104,8 @@ public class UserDetailsSecurityServiceImplTest {
     UserDetailsPrinciple result = userDetailsSecurityService.loadUserByUsername("dang");
     Assertions.assertEquals(result.getUsername(), user.getUsername());
     Assertions.assertEquals(result.getPermissionCodes().size(), permissionCodes.size());
-    IntStream.range(0, result.getPermissionCodes().size()).forEach(i -> {
-      Assertions.assertEquals(result.getPermissionCodes().get(i), permissionCodes.get(i));
-    });
+    IntStream.range(0, result.getPermissionCodes().size())
+        .forEach(i -> Assertions.assertEquals(result.getPermissionCodes().get(i), permissionCodes.get(i)));
     Assertions.assertEquals(result.getEmail(), user.getEmail());
     Assertions.assertEquals(result.getPassword(), user.getPassword());
     Assertions.assertEquals(result.getRoles().size(), roles.size());
@@ -111,7 +116,7 @@ public class UserDetailsSecurityServiceImplTest {
   }
 
   @Test
-  public void loadUserByUsernameTest_missingPermission() {
+  void loadUserByUsernameTest_missingPermission() {
     Mockito.when(userRepository.findByUsername("dang")).thenReturn(Optional.of(user));
     Mockito.when(roleRepository.findByUserId(user.getId())).thenReturn(roles);
     Mockito.when(roleRepository.findLastUsageByUserId(user.getId())).thenReturn(Optional.of(admin));
@@ -121,9 +126,8 @@ public class UserDetailsSecurityServiceImplTest {
     UserDetailsPrinciple result = userDetailsSecurityService.loadUserByUsername("dang");
     Assertions.assertEquals(result.getUsername(), user.getUsername());
     Assertions.assertEquals(0, result.getPermissionCodes().size());
-    IntStream.range(0, result.getPermissionCodes().size()).forEach(i -> {
-      Assertions.assertEquals(result.getPermissionCodes().get(i), permissionCodes.get(i));
-    });
+    IntStream.range(0, result.getPermissionCodes().size())
+        .forEach(i -> Assertions.assertEquals(result.getPermissionCodes().get(i), permissionCodes.get(i)));
     Assertions.assertEquals(result.getEmail(), user.getEmail());
     Assertions.assertEquals(result.getPassword(), user.getPassword());
     Assertions.assertEquals(result.getRoles().size(), roles.size());

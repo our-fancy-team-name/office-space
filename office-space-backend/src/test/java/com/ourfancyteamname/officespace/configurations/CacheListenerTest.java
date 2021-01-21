@@ -2,46 +2,46 @@ package com.ourfancyteamname.officespace.configurations;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.cache.event.CacheEntryEvent;
-import java.util.Arrays;
+import java.util.Collections;
 
 @ExtendWith(MockitoExtension.class)
-public class CacheListenerTest {
+class CacheListenerTest {
 
   public static final CacheListener subject = new CacheListener();
 
+  @Mock
+  private CacheEntryEvent<Object, Object> cacheEntryEvent;
+
   @Test
-  public void onCreated() {
-    CacheEntryEvent cacheEntryEvent = Mockito.mock(CacheEntryEvent.class);
-    subject.onCreated(Arrays.asList(cacheEntryEvent));
+  void onCreated() {
+    subject.onCreated(Collections.singletonList(cacheEntryEvent));
     verify(cacheEntryEvent);
   }
 
   @Test
-  public void onExpired() {
-    CacheEntryEvent cacheEntryEvent = Mockito.mock(CacheEntryEvent.class);
-    subject.onExpired(Arrays.asList(cacheEntryEvent));
+  void onExpired() {
+    subject.onExpired(Collections.singletonList(cacheEntryEvent));
     verify(cacheEntryEvent);
   }
 
   @Test
-  public void onRemoved() {
-    CacheEntryEvent cacheEntryEvent = Mockito.mock(CacheEntryEvent.class);
-    subject.onRemoved(Arrays.asList(cacheEntryEvent));
+  void onRemoved() {
+    subject.onRemoved(Collections.singletonList(cacheEntryEvent));
     verify(cacheEntryEvent);
   }
 
   @Test
-  public void onUpdated() {
-    CacheEntryEvent cacheEntryEvent = Mockito.mock(CacheEntryEvent.class);
-    subject.onUpdated(Arrays.asList(cacheEntryEvent));
+  void onUpdated() {
+    subject.onUpdated(Collections.singletonList(cacheEntryEvent));
     verify(cacheEntryEvent);
   }
 
-  private void verify(CacheEntryEvent cacheEntryEvent) {
+  private void verify(CacheEntryEvent<Object, Object> cacheEntryEvent) {
     Mockito.verify(cacheEntryEvent, Mockito.times(1)).getKey();
     Mockito.verify(cacheEntryEvent, Mockito.times(1)).getOldValue();
     Mockito.verify(cacheEntryEvent, Mockito.times(1)).getValue();

@@ -14,7 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @ExtendWith(MockitoExtension.class)
-public class SecurityControllerTest {
+class SecurityControllerTest {
 
   @InjectMocks
   private SecurityController controller;
@@ -29,7 +29,7 @@ public class SecurityControllerTest {
   private GitProperties gitProperties;
 
   @Test
-  public void authenticateUser() {
+  void authenticateUser() {
     Mockito.when(authenticationManager.authenticate(Mockito.any()))
         .thenReturn(new UsernamePasswordAuthenticationToken(UserDetailsPrinciple.builder().build(), ""));
     controller.authenticateUser(LoginRequest.builder().build());
@@ -38,7 +38,7 @@ public class SecurityControllerTest {
   }
 
   @Test
-  public void version() {
+  void version() {
     controller.version();
     Mockito.verify(gitProperties, Mockito.times(1)).getBranch();
     Mockito.verify(gitProperties, Mockito.times(1)).getShortCommitId();
