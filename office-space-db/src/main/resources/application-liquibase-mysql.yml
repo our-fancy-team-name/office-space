@@ -1,5 +1,4 @@
 spring:
-  profiles: liquibase-mysql
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/mysql/changelog-master.xml
