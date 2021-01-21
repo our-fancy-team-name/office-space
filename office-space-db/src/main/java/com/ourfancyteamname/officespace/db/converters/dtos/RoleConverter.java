@@ -5,7 +5,7 @@ import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface RoleConverter {
 
   @Mapping(source = "role.code", target = "authority")

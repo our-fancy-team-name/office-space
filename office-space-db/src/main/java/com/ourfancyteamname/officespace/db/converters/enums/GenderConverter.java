@@ -6,7 +6,9 @@ import javax.persistence.Converter;
 
 @Converter(autoApply = true)
 public class GenderConverter extends AbstractHibernateEnumConverter<Gender, String> {
-  public GenderConverter() {
-    super(Gender.class);
+
+  @Override
+  protected Class<Gender> getClazz() {
+    return Gender.class;
   }
 }

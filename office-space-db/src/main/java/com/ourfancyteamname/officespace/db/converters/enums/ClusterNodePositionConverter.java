@@ -6,7 +6,8 @@ import javax.persistence.Converter;
 
 @Converter(autoApply = true)
 public class ClusterNodePositionConverter extends AbstractHibernateEnumConverter<ClusterNodePosition, String> {
-  public ClusterNodePositionConverter() {
-    super(ClusterNodePosition.class);
+  @Override
+  protected Class<ClusterNodePosition> getClazz() {
+    return ClusterNodePosition.class;
   }
 }

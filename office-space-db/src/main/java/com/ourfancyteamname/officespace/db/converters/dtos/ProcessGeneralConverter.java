@@ -6,7 +6,7 @@ import com.ourfancyteamname.officespace.db.entities.ProcessNode;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface ProcessGeneralConverter {
 
   ProcessGeneralDto fromClusterToDto(ProcessCluster processCluster);

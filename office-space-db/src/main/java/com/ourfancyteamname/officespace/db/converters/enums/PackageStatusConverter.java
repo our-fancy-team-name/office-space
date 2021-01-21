@@ -6,7 +6,9 @@ import javax.persistence.Converter;
 
 @Converter(autoApply = true)
 public class PackageStatusConverter extends AbstractHibernateEnumConverter<PackageStatus, String> {
-  public PackageStatusConverter() {
-    super(PackageStatus.class);
+
+  @Override
+  protected Class<PackageStatus> getClazz() {
+    return PackageStatus.class;
   }
 }

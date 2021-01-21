@@ -5,14 +5,17 @@ import com.ourfancyteamname.officespace.dtos.ProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface ProductConverter {
 
   ProductDto toDto(Product product);
 
   Product toEntity(ProductDto productDto);
 
-  @Mapping(expression = "java(String.join(\" - \", product.getName(), product.getPartNumber()))", target = "displayName")
+  @Mapping(
+      expression = "java(String.join(\" - \", product.getName(), product.getPartNumber()))",
+      target = "displayName"
+  )
   ProductDto toDtoWithDisplayName(Product product);
 
 }

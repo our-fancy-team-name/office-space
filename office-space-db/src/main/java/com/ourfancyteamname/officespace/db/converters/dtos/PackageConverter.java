@@ -4,7 +4,7 @@ import com.ourfancyteamname.officespace.db.entities.Package;
 import com.ourfancyteamname.officespace.dtos.PackageDto;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface PackageConverter {
 
   PackageDto toDto(Package aPackage);

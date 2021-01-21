@@ -5,7 +5,7 @@ import com.ourfancyteamname.officespace.dtos.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface UserConverter {
 
   @Mapping(target = "password", ignore = true)
