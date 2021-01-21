@@ -11,9 +11,9 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.criteria.Path;
 
 @Service
-public class SpecificationBuilderService {
+public class SpecificationBuilderService<T> {
 
-  public <T> Specification<T> from(TableSearchRequest tableSearchRequest) {
+  public Specification<T> from(TableSearchRequest tableSearchRequest) {
     if (CollectionUtils.isEmpty(tableSearchRequest.getColumnSearchRequests())) {
       return Specification.where(null);
     }
@@ -27,7 +27,7 @@ public class SpecificationBuilderService {
     return result;
   }
 
-  private <T> Specification<T> from(ColumnSearchRequest columnSearchRequest) {
+  private Specification<T> from(ColumnSearchRequest columnSearchRequest) {
     return (root, query, builder) -> {
       String columnName = columnSearchRequest.getColumnName();
       String term = columnSearchRequest.getTerm();

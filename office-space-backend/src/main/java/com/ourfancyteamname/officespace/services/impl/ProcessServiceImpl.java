@@ -11,13 +11,13 @@ import com.ourfancyteamname.officespace.dtos.ClusterNodeEditDto;
 import com.ourfancyteamname.officespace.dtos.GraphDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.ProcessService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -44,7 +44,7 @@ public class ProcessServiceImpl implements ProcessService {
 
   @Override
   public GraphDto getGraph(Integer clusterId) {
-    final GraphDto result = new GraphDto();
+    val result = new GraphDto();
     result.setCluster(clusterRepository.findById(clusterId)
         .map(processGeneralConverter::fromClusterToDto)
         .orElseThrow(errorNotFound()));
@@ -64,7 +64,7 @@ public class ProcessServiceImpl implements ProcessService {
         .existsByClusterIdAndNodeId(graphDto.getCluster().getId(), graphDto.getNodes().get(0).getId())) {
       throw new IllegalArgumentException(ErrorCode.DUPLICATED.name());
     }
-    final ClusterNode clusterNode = ClusterNode.builder()
+    val clusterNode = ClusterNode.builder()
         .clusterId(graphDto.getCluster().getId())
         .nodeId(graphDto.getNodes().get(0).getId())
         .build();
@@ -86,7 +86,7 @@ public class ProcessServiceImpl implements ProcessService {
 
   @Override
   public void removeNodeFromCluster(Integer clusterNodeId) {
-    final ClusterNode clusterNode = clusterNodeRepository.findById(clusterNodeId)
+    val clusterNode = clusterNodeRepository.findById(clusterNodeId)
         .orElseThrow(errorNotFound());
     pathRepository.removeByClusterNodeIdToOrClusterNodeIdFrom(clusterNode.getId(), clusterNode.getId());
     entityManager.flush();
@@ -102,7 +102,7 @@ public class ProcessServiceImpl implements ProcessService {
   }
 
   private void editOrCreateOutputPath(ClusterNodeEditDto clusterNodeEditDto) {
-    final List<ClusterNodePath> outputPaths = pathRepository.findByClusterNodeIdFrom(clusterNodeEditDto.getId());
+    val outputPaths = pathRepository.findByClusterNodeIdFrom(clusterNodeEditDto.getId());
     if (CollectionUtils.isEmpty(clusterNodeEditDto.getOutput())) {
       pathRepository.deleteAll(outputPaths);
     } else {
@@ -121,7 +121,7 @@ public class ProcessServiceImpl implements ProcessService {
   }
 
   private void editOrCreateInputPath(ClusterNodeEditDto clusterNodeEditDto) {
-    final List<ClusterNodePath> inputPaths = pathRepository.findByClusterNodeIdTo(clusterNodeEditDto.getId());
+    val inputPaths = pathRepository.findByClusterNodeIdTo(clusterNodeEditDto.getId());
     if (CollectionUtils.isEmpty(clusterNodeEditDto.getInput())) {
       pathRepository.deleteAll(inputPaths);
     } else {

@@ -8,6 +8,7 @@ import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.RoleService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class RoleServiceImpl extends AbstractViewServiceImpl<RoleUserListView, R
 
   @Override
   public Role updateRole(RoleDto roleDto) {
-    final Role target = roleRepository.findById(roleDto.getId())
+    val target = roleRepository.findById(roleDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
 
     if (!roleRepository.findByCode(roleDto.getAuthority())

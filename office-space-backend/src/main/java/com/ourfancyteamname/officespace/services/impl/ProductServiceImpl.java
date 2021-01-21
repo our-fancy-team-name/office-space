@@ -11,6 +11,7 @@ import com.ourfancyteamname.officespace.enums.CharConstants;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.enums.ErrorObject;
 import com.ourfancyteamname.officespace.services.ProductService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class ProductServiceImpl extends AbstractViewServiceImpl<Product, Product
 
   @Override
   public Product update(ProductDto productDto) {
-    final Product target = productRepository.findById(productDto.getId())
+    val target = productRepository.findById(productDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!productRepository.findByName(productDto.getName())
         .map(Product::getName)

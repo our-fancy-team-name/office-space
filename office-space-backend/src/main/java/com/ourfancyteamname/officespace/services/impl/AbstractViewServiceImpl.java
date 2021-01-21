@@ -5,12 +5,10 @@ import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
 import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.services.ViewService;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecutor<E>> implements ViewService<E> {
@@ -22,15 +20,15 @@ public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecu
   private PaginationBuilderService paginationBuilderService;
 
   @Autowired
-  private SpecificationBuilderService specificationBuilderService;
+  private SpecificationBuilderService<E> specificationBuilderService;
 
   protected abstract R getExecutor();
 
   @Override
   public Page<E> findAll(TableSearchRequest tableSearchRequest) {
-    final Specification<E> specification = specificationBuilderService.from(tableSearchRequest);
-    final Sort sort = sortingBuilderService.from(tableSearchRequest.getSortingRequest());
-    final Pageable pageable = paginationBuilderService.from(tableSearchRequest.getPagingRequest(), sort);
+    val specification = specificationBuilderService.from(tableSearchRequest);
+    val sort = sortingBuilderService.from(tableSearchRequest.getSortingRequest());
+    val pageable = paginationBuilderService.from(tableSearchRequest.getPagingRequest(), sort);
     if (pageable.isUnpaged()) {
       return new PageImpl<>(this.getExecutor().findAll(specification, sort));
     }
