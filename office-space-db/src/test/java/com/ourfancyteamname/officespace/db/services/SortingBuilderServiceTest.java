@@ -3,16 +3,16 @@ package com.ourfancyteamname.officespace.db.services;
 import com.ourfancyteamname.officespace.dtos.TableSortingRequest;
 import com.ourfancyteamname.officespace.enums.DataBaseDirection;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 
 @SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class SortingBuilderServiceTest {
 
   private static String columnName = "dang";
@@ -27,7 +27,7 @@ public class SortingBuilderServiceTest {
         .direction(DataBaseDirection.ASC)
         .build();
     Sort actual = sortingBuilderService.from(request);
-    Assert.assertEquals(Sort.Direction.ASC, actual.getOrderFor(columnName).getDirection());
+    Assertions.assertEquals(Sort.Direction.ASC, actual.getOrderFor(columnName).getDirection());
   }
 
   @Test
@@ -37,7 +37,7 @@ public class SortingBuilderServiceTest {
         .direction(DataBaseDirection.DESC)
         .build();
     Sort actual = sortingBuilderService.from(request);
-    Assert.assertEquals(Sort.Direction.DESC, actual.getOrderFor(columnName).getDirection());
+    Assertions.assertEquals(Sort.Direction.DESC, actual.getOrderFor(columnName).getDirection());
   }
 
   @Test
@@ -47,7 +47,7 @@ public class SortingBuilderServiceTest {
         .direction(DataBaseDirection.DESC)
         .build();
     Sort actual = sortingBuilderService.from(request);
-    Assert.assertEquals(Sort.unsorted(), actual);
+    Assertions.assertEquals(Sort.unsorted(), actual);
   }
 
   @Test
@@ -57,13 +57,13 @@ public class SortingBuilderServiceTest {
         .direction(null)
         .build();
     Sort actual = sortingBuilderService.from(request);
-    Assert.assertEquals(Sort.unsorted(), actual);
+    Assertions.assertEquals(Sort.unsorted(), actual);
   }
 
   @Test
   public void getSort_unSort3() {
     TableSortingRequest request = null;
     Sort actual = sortingBuilderService.from(request);
-    Assert.assertEquals(Sort.unsorted(), actual);
+    Assertions.assertEquals(Sort.unsorted(), actual);
   }
 }

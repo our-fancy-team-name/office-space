@@ -1,7 +1,7 @@
 package com.ourfancyteamname.officespace.db.entities.view;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ProcessListViewTest {
 
@@ -10,7 +10,7 @@ public class ProcessListViewTest {
     Integer packageId = 1;
     String serial = "serial";
     ProcessListView processListView = new ProcessListView(serial, packageId);
-    Assert.assertEquals(serial, processListView.getSerial());
-    Assert.assertEquals(packageId, processListView.getPackageId());
+    Assertions.assertEquals(serial, processListView.getSerial());
+    Assertions.assertEquals(packageId, processListView.getPackageId());
   }
 }

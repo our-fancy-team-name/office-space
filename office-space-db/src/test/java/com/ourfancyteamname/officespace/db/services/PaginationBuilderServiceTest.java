@@ -1,17 +1,17 @@
 package com.ourfancyteamname.officespace.db.services;
 
 import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 @SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class PaginationBuilderServiceTest {
 
   private static final int page = 1;
@@ -27,16 +27,16 @@ public class PaginationBuilderServiceTest {
         .pageSize(pageSize)
         .build();
     Pageable actual = paginationBuilderService.from(request, Sort.unsorted());
-    Assert.assertEquals(Sort.unsorted(), actual.getSort());
-    Assert.assertEquals(page, actual.getPageNumber());
-    Assert.assertEquals(pageSize, actual.getPageSize());
+    Assertions.assertEquals(Sort.unsorted(), actual.getSort());
+    Assertions.assertEquals(page, actual.getPageNumber());
+    Assertions.assertEquals(pageSize, actual.getPageSize());
   }
 
   @Test
   public void getPage_empty() {
     TablePagingRequest request = null;
     Pageable actual = paginationBuilderService.from(request, Sort.unsorted());
-    Assert.assertEquals(Sort.unsorted(), actual.getSort());
-    Assert.assertEquals(Pageable.unpaged(), actual);
+    Assertions.assertEquals(Sort.unsorted(), actual.getSort());
+    Assertions.assertEquals(Pageable.unpaged(), actual);
   }
 }

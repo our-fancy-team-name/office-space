@@ -1,14 +1,14 @@
 package enums;
 
 import com.ourfancyteamname.officespace.enums.CacheName;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class CacheNameTest {
 
   @Test
   public void cacheName() {
-    Assert.assertEquals("USER_PRINCIPLE", CacheName.USER_PRINCIPLE);
-    Assert.assertEquals("PERMISSIONS", CacheName.PERMISSIONS);
+    Assertions.assertEquals("USER_PRINCIPLE", CacheName.USER_PRINCIPLE);
+    Assertions.assertEquals("PERMISSIONS", CacheName.PERMISSIONS);
   }
 }

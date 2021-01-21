@@ -1,17 +1,17 @@
 package dtos;
 
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ProcessGeneralDtoTest {
 
   @Test
   public void processGeneralDtoTest() {
     ProcessGeneralDto processGeneralDto = new ProcessGeneralDto(1, "code", "name", "description");
-    Assert.assertEquals(1, processGeneralDto.getId());
-    Assert.assertEquals("code", processGeneralDto.getCode());
-    Assert.assertEquals("name", processGeneralDto.getName());
-    Assert.assertEquals("description", processGeneralDto.getDescription());
+    Assertions.assertEquals(1, processGeneralDto.getId());
+    Assertions.assertEquals("code", processGeneralDto.getCode());
+    Assertions.assertEquals("name", processGeneralDto.getName());
+    Assertions.assertEquals("description", processGeneralDto.getDescription());
   }
 }

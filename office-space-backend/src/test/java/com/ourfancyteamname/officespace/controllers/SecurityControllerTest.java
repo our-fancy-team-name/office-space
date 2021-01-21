@@ -3,19 +3,17 @@ package com.ourfancyteamname.officespace.controllers;
 import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import com.ourfancyteamname.officespace.security.services.JwtService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.info.GitProperties;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class SecurityControllerTest {
 
   @InjectMocks

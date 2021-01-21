@@ -1,26 +1,24 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CacheConfigTest {
 
   @InjectMocks
   private CacheConfig cacheConfig;
 
-  @Before
+  @BeforeEach
   public void setConfigValue() {
     ReflectionTestUtils.setField(cacheConfig, "heapEntries", 1000);
     ReflectionTestUtils.setField(cacheConfig, "timeToLive", 30);

@@ -5,15 +5,14 @@ import com.ourfancyteamname.officespace.security.services.JwtService;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -23,8 +22,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Date;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AuthTokenFilterTest {
 
   private static final String username = "dang";
@@ -45,7 +43,7 @@ public class AuthTokenFilterTest {
   @Mock
   private UserDetailsSecurityServiceImpl userDetailsService;
 
-  @Before
+  @BeforeEach
   public void reset() {
     SecurityContextHolder.getContext().setAuthentication(null);
   }
@@ -60,7 +58,7 @@ public class AuthTokenFilterTest {
     request.addHeader("Authorization", JwtService.TOKEN_TYPE + " " + token);
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
-    Assert.assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+    Assertions.assertNotNull(SecurityContextHolder.getContext().getAuthentication());
   }
 
   @Test

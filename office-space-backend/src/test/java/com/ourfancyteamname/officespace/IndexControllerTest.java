@@ -1,14 +1,12 @@
 package com.ourfancyteamname.officespace;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class IndexControllerTest {
 
   @InjectMocks
@@ -16,6 +14,6 @@ public class IndexControllerTest {
 
   @Test
   public void shouldReturnIndex() {
-    Assert.assertEquals("forward:/index.html", controller.home(null));
+    Assertions.assertEquals("forward:/index.html", controller.home(null));
   }
 }

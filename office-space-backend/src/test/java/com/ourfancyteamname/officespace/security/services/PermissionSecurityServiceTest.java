@@ -6,14 +6,13 @@ import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class PermissionSecurityServiceTest {
   private static final RoleDto admin = RoleDto.builder().authority("SUPER_ADMIN").isUsing(true).build();
   private static final List<RoleDto> roles = Arrays.asList(admin);
@@ -66,7 +64,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
     Mockito.when(authentication.getPrincipal()).thenReturn(user);
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionSecurityService.canEditUser());
+    Assertions.assertFalse(permissionSecurityService.canEditUser());
   }
 
   @Test
@@ -78,7 +76,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN")).thenReturn(permission);
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertTrue(permissionSecurityService.canEditUser());
+    Assertions.assertTrue(permissionSecurityService.canEditUser());
   }
 
   @Test
@@ -89,7 +87,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
     Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionSecurityService.canEditRole());
+    Assertions.assertFalse(permissionSecurityService.canEditRole());
   }
 
   @Test
@@ -103,7 +101,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(permissionCodeToTest).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertTrue(permissionSecurityService.canEditProduct());
+    Assertions.assertTrue(permissionSecurityService.canEditProduct());
   }
 
   @Test
@@ -117,7 +115,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(null).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionSecurityService.canEditProduct());
+    Assertions.assertFalse(permissionSecurityService.canEditProduct());
   }
 
   @Test
@@ -131,7 +129,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(permissionCodeToTest).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertTrue(permissionSecurityService.canEditPackage());
+    Assertions.assertTrue(permissionSecurityService.canEditPackage());
   }
 
   @Test
@@ -145,7 +143,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(null).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionSecurityService.canEditPackage());
+    Assertions.assertFalse(permissionSecurityService.canEditPackage());
   }
 
   @Test
@@ -159,7 +157,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(permissionCodeToTest).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertTrue(permissionSecurityService.canEditCluster());
+    Assertions.assertTrue(permissionSecurityService.canEditCluster());
   }
 
   @Test
@@ -173,7 +171,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(null).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionSecurityService.canEditCluster());
+    Assertions.assertFalse(permissionSecurityService.canEditCluster());
   }
 
   @Test
@@ -187,7 +185,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(permissionCodeToTest).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertTrue(permissionSecurityService.canEditNode());
+    Assertions.assertTrue(permissionSecurityService.canEditNode());
   }
 
   @Test
@@ -201,7 +199,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(null).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionSecurityService.canEditNode());
+    Assertions.assertFalse(permissionSecurityService.canEditNode());
   }
 
   @Test
@@ -215,7 +213,7 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(permissionCodeToTest).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertTrue(permissionSecurityService.canEditProcess());
+    Assertions.assertTrue(permissionSecurityService.canEditProcess());
   }
 
   @Test
@@ -229,6 +227,6 @@ public class PermissionSecurityServiceTest {
     Mockito.when(permissionRepository.findPermissionByRole("SUPER_ADMIN"))
         .thenReturn(Arrays.asList(Permission.builder().code(null).build()));
     SecurityContextHolder.setContext(securityContext);
-    Assert.assertFalse(permissionSecurityService.canEditProcess());
+    Assertions.assertFalse(permissionSecurityService.canEditProcess());
   }
 }

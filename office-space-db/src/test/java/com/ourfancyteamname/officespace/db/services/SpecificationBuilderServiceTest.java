@@ -6,13 +6,13 @@ import com.ourfancyteamname.officespace.db.entities.User_;
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.DataBaseOperation;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -25,8 +25,8 @@ import java.util.Arrays;
 
 
 @SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class SpecificationBuilderServiceTest {
+@ExtendWith(MockitoExtension.class)
+class SpecificationBuilderServiceTest {
 
   @InjectMocks
   private SpecificationBuilderService specificationBuilderService;
@@ -39,15 +39,15 @@ public class SpecificationBuilderServiceTest {
 
   private static final String SEARCH_TERM = "foo";
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     criteriaBuilderMock = Mockito.mock(CriteriaBuilder.class);
     criteriaQueryMock = Mockito.mock(CriteriaQuery.class);
     userRootMock = Mockito.mock(Root.class);
   }
 
   @Test
-  public void specificationBuilder_search_like() {
+  void specificationBuilder_search_like() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -68,11 +68,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).like(lastNamePathMock, "%" + SEARCH_TERM + "%");
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_equal() {
+  void specificationBuilder_search_equal() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -93,11 +93,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).equal(lastNamePathMock, SEARCH_TERM);
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_GreaterThan() {
+  void specificationBuilder_search_GreaterThan() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -117,11 +117,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).greaterThan(lastNamePathMock, SEARCH_TERM);
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_GreaterThanOrEqual() {
+  void specificationBuilder_search_GreaterThanOrEqual() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -141,11 +141,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).greaterThanOrEqualTo(lastNamePathMock, SEARCH_TERM);
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_lessThan() {
+  void specificationBuilder_search_lessThan() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -165,11 +165,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).lessThan(lastNamePathMock, SEARCH_TERM);
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_lessThanOrEqual() {
+  void specificationBuilder_search_lessThanOrEqual() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -189,11 +189,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).lessThanOrEqualTo(lastNamePathMock, SEARCH_TERM);
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_notEqual() {
+  void specificationBuilder_search_notEqual() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -213,11 +213,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).notEqual(lastNamePathMock, SEARCH_TERM);
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_unSupport() {
+  void specificationBuilder_search_unSupport() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
     Predicate lastNameIsLikePredicateMock = Mockito.mock(Predicate.class);
@@ -238,11 +238,11 @@ public class SpecificationBuilderServiceTest {
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
     Mockito.verify(criteriaBuilderMock, Mockito.times(1)).notEqual(lastNamePathMock, SEARCH_TERM);
-    Assert.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
+    Assertions.assertEquals(lastNameIsLikePredicateMock, actualPredicate);
   }
 
   @Test
-  public void specificationBuilder_search_multiple_and() {
+  void specificationBuilder_search_multiple_and() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Path firstNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
@@ -280,7 +280,7 @@ public class SpecificationBuilderServiceTest {
 
 
   @Test
-  public void specificationBuilder_search_multiple_or() {
+  void specificationBuilder_search_multiple_or() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Path firstNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
@@ -317,17 +317,17 @@ public class SpecificationBuilderServiceTest {
   }
 
   @Test
-  public void specificationBuilder_search_with_null_input() {
+  void specificationBuilder_search_with_null_input() {
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
         .columnSearchRequests(null)
         .build();
     Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
-    Assert.assertEquals(Specification.where(null), actual);
+    Assertions.assertEquals(Specification.where(null), actual);
   }
 
   @Test
-  public void specificationBuilder_search_with_empty_search_term() {
+  void specificationBuilder_search_with_empty_search_term() {
     ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
         .columnName(User_.LAST_NAME)
         .operation(DataBaseOperation.EQUAL)
@@ -340,6 +340,6 @@ public class SpecificationBuilderServiceTest {
         .build();
     Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
-    Assert.assertEquals(null, actualPredicate);
+    Assertions.assertEquals(null, actualPredicate);
   }
 }
