@@ -19,6 +19,7 @@ matrix:
       node_js: 12
       dist: trusty
       script:
+        - npm run-script build --prefix office-space-frontend/src/main/web/office-space-web
         - if [ $TRAVIS_PULL_REQUEST == "false" ]; then npm run-script travisSonarBranch --prefix office-space-frontend/src/main/web/office-space-web; else npm run-script travisSonarPR --prefix office-space-frontend/src/main/web/office-space-web; fi
       cache:
         directories:
