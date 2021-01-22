@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ourfancyteamname</groupId>
     <artifactId>officespace</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>officespace</name>
     <packaging>pom</packaging>
     <parent>
@@ -16,7 +16,6 @@
 
     <properties>
         <java.version>15</java.version>
-        <revision>0.0.1-SNAPSHOT</revision>
     </properties>
 
     <dependencies>
@@ -74,6 +73,7 @@
         <module>office-space-backend</module>
     </modules>
     <build>
+        <finalName>OfficeSpace-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
