@@ -242,6 +242,26 @@ class SpecificationBuilderServiceImplTest {
   }
 
   @Test
+  void specificationBuilder_search_nullOperator() {
+    Path lastNamePathMock = Mockito.mock(Path.class);
+    Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
+    ColumnSearchRequest columnSearchRequest = ColumnSearchRequest.builder()
+        .columnName(User_.LAST_NAME)
+        .operation(null)
+        .term(SEARCH_TERM)
+        .build();
+    TableSearchRequest tableSearchRequest = TableSearchRequest
+        .builder()
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
+        .build();
+    Specification<User> actual = service.from(tableSearchRequest);
+    Assertions.assertThrows(NullPointerException.class,
+        () -> actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock));
+    Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
+    Mockito.verifyNoMoreInteractions(userRootMock);
+  }
+
+  @Test
   void specificationBuilder_search_unSupport() {
     Path lastNamePathMock = Mockito.mock(Path.class);
     Mockito.when(userRootMock.get(User_.LAST_NAME)).thenReturn(lastNamePathMock);
