@@ -7,9 +7,9 @@ import com.ourfancyteamname.officespace.db.entities.User_;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRepository;
 import com.ourfancyteamname.officespace.db.repos.UserRoleRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
@@ -29,7 +29,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -52,14 +51,14 @@ class UserServiceImplTest {
   @Mock
   private RoleRepository roleRepository;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<User> specificationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private SpecificationBuilderService<User> specificationBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Mock
   private UserConverter userConverter;
@@ -101,9 +100,9 @@ class UserServiceImplTest {
         .email("dang")
         .build();
     Specification<User> specs = (root, query, builder) -> builder.equal(root.get(User_.LAST_NAME), SEARCH_TERM);
-    Mockito.when(specificationBuilderService.from(tableSearchRequest)).thenReturn(specs);
-    Mockito.when(sortingBuilderService.from(tableSortingRequest)).thenReturn(Sort.unsorted());
-    Mockito.when(paginationBuilderService.from(tablePagingRequest, Sort.unsorted())).thenReturn(PageRequest.of(0, 10));
+    Mockito.when(specificationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(specs);
+    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest))
+        .thenReturn(PageRequest.of(0, 10));
     Mockito.when(userRepository.findAll(specs, PageRequest.of(0, 10)))
         .thenReturn(new PageImpl<>(Collections.singletonList(aUser), PageRequest.of(0, 10), 1));
     Mockito.when(userConverter.toDto(aUser))

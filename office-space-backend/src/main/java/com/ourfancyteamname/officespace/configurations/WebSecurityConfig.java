@@ -33,8 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String API = "/api/**";
 
-  @Value("${cors.disable-CSRF:true}")
+  @Value("${cors.disable-CSRF}")
   private boolean isDisableCSRF;
+
+  @Value("${spring.config.import}")
+  private String a;
 
   @Autowired
   private UserDetailsSecurityServiceImpl userDetailsService;

@@ -3,9 +3,9 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ProcessCluster;
 import com.ourfancyteamname.officespace.db.repos.ProcessClusterRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
@@ -39,14 +39,14 @@ class ClusterServiceImplTest {
   @Mock
   private ProcessGeneralConverter processGeneralConverter;
 
-  @Mock
-  private SpecificationBuilderService<ProcessCluster> specificationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<ProcessCluster> specificationBuilderServiceImpl;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Test
   void create_duplicatedCode() {
@@ -69,11 +69,11 @@ class ClusterServiceImplTest {
   @Test
   void getListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification<ProcessCluster> specs = specificationBuilderService.from(tableSearchRequest);
+    Specification<ProcessCluster> specs = specificationBuilderServiceImpl.from(tableSearchRequest);
     Pageable page = PageRequest.of(1, 2);
     Page<ProcessCluster> result =
         new PageImpl<>(Collections.singletonList(ProcessCluster.builder().code(code).build()));
-    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(page);
+    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(page);
     Mockito.when(service.getExecutor().findAll(specs, page)).thenReturn(result);
     Page<ProcessGeneralDto> processGeneralDtos = service.getListView(tableSearchRequest);
     Assertions.assertEquals(1, processGeneralDtos.getTotalElements());

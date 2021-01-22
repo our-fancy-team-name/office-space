@@ -3,9 +3,9 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.entities.UserRole;
 import com.ourfancyteamname.officespace.db.entities.view.UserRoleListView;
 import com.ourfancyteamname.officespace.db.repos.view.UserRoleListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,14 +30,14 @@ class UserRoleListViewServiceImplTest {
   @Mock
   private UserRoleListViewRepository userRoleListViewRepository;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<UserRole> specificationBuilderServiceImpl;
 
-  @Mock
-  private SpecificationBuilderService<UserRole> specificationBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Test
   void getExecutor() {
@@ -47,7 +47,8 @@ class UserRoleListViewServiceImplTest {
   @Test
   void findAll() {
     var result = Collections.singletonList(UserRoleListView.builder().build());
-    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
+    Mockito.when(paginationBuilderServiceImpl.from(TableSearchRequest.builder().build()))
+        .thenReturn(Pageable.unpaged());
     Mockito.when(service.getExecutor().findAll((Specification<UserRoleListView>) null, (Sort) null)).thenReturn(result);
     Page<UserRoleListView> actual = service.findAll(TableSearchRequest.builder().build());
     Assertions.assertEquals(1, actual.getTotalElements());

@@ -1,5 +1,6 @@
-package com.ourfancyteamname.officespace.db.services;
+package com.ourfancyteamname.officespace.db.services.impl;
 
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSortingRequest;
 import com.ourfancyteamname.officespace.enums.DataBaseDirection;
 import org.apache.commons.lang3.StringUtils;
@@ -13,57 +14,69 @@ import org.springframework.data.domain.Sort;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class SortingBuilderServiceTest {
+class SortingBuilderServiceImplTest {
 
   private static String columnName = "dang";
 
   @InjectMocks
-  private SortingBuilderService sortingBuilderService;
+  private SortingBuilderServiceImpl service;
 
   @Test
   void getSort_asc() {
-    TableSortingRequest request = TableSortingRequest.builder()
+    var request = TableSortingRequest.builder()
         .columnName(columnName)
         .direction(DataBaseDirection.ASC)
         .build();
-    Sort actual = sortingBuilderService.from(request);
+    var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
+    var actual = service.from(tableSearchRequest);
     Assertions.assertEquals(Sort.Direction.ASC, actual.getOrderFor(columnName).getDirection());
   }
 
   @Test
   void getSort_desc() {
-    TableSortingRequest request = TableSortingRequest.builder()
+    var request = TableSortingRequest.builder()
         .columnName(columnName)
         .direction(DataBaseDirection.DESC)
         .build();
-    Sort actual = sortingBuilderService.from(request);
+    var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
+    var actual = service.from(tableSearchRequest);
     Assertions.assertEquals(Sort.Direction.DESC, actual.getOrderFor(columnName).getDirection());
   }
 
   @Test
   void getSort_unSort1() {
-    TableSortingRequest request = TableSortingRequest.builder()
+    var request = TableSortingRequest.builder()
         .columnName(StringUtils.EMPTY)
         .direction(DataBaseDirection.DESC)
         .build();
-    Sort actual = sortingBuilderService.from(request);
+    var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
+    var actual = service.from(tableSearchRequest);
     Assertions.assertEquals(Sort.unsorted(), actual);
   }
 
   @Test
   void getSort_unSort2() {
-    TableSortingRequest request = TableSortingRequest.builder()
+    var request = TableSortingRequest.builder()
         .columnName(columnName)
         .direction(null)
         .build();
-    Sort actual = sortingBuilderService.from(request);
+    var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
+    var actual = service.from(tableSearchRequest);
     Assertions.assertEquals(Sort.unsorted(), actual);
   }
 
   @Test
   void getSort_unSort3() {
-    TableSortingRequest request = null;
-    Sort actual = sortingBuilderService.from(request);
+    var tableSearchRequest = TableSearchRequest.builder().build();
+    var actual = service.from(tableSearchRequest);
     Assertions.assertEquals(Sort.unsorted(), actual);
+  }
+
+  /**
+   * for @{@link org.springframework.beans.factory.annotation.Qualifier}
+   */
+  @Test
+  void qualifier() {
+    Assertions.assertEquals("SortingBuilderServiceImpl", service.getClass().getSimpleName());
   }
 }

@@ -5,9 +5,9 @@ import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ProductRepository;
 import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.CharConstants;
@@ -38,14 +38,14 @@ class ProductServiceImplTest {
   @Mock
   private ProductRepository productRepository;
 
-  @Mock
-  private SpecificationBuilderService<Product> specificationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<Product> specificationBuilderServiceImpl;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Mock
   private ProductConverter productConverter;
@@ -59,11 +59,10 @@ class ProductServiceImplTest {
   @Test
   void findAll() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Sort sort = null;
     List<Product> result = Collections.singletonList(Product.builder().build());
-    Mockito.when(paginationBuilderService.from(null, null))
+    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest))
         .thenReturn(Pageable.unpaged());
-    Mockito.when(productRepository.findAll((Specification<Product>) null, sort))
+    Mockito.when(productRepository.findAll((Specification<Product>) null, (Sort) null))
         .thenReturn(result);
     Page<ProductDto> processGeneralDtos = service.findByPaging(tableSearchRequest);
     Assertions.assertEquals(1, processGeneralDtos.getTotalElements());
@@ -73,10 +72,9 @@ class ProductServiceImplTest {
   @Test
   void findProductWithDisplayName() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Sort sort = null;
     List<Product> result = Collections.singletonList(Product.builder().build());
-    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
-    Mockito.when(productRepository.findAll((Specification<Product>) null, sort)).thenReturn(result);
+    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(Pageable.unpaged());
+    Mockito.when(productRepository.findAll((Specification<Product>) null, (Sort) null)).thenReturn(result);
     Page<ProductDto> processGeneralDtos = service.findProductWithDisplayName(tableSearchRequest);
     Assertions.assertEquals(1, processGeneralDtos.getTotalElements());
     Mockito.verify(productConverter, Mockito.times(1)).toDtoWithDisplayName(Mockito.any());

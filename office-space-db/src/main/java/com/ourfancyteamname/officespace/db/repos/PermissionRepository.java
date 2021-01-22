@@ -16,16 +16,18 @@ import java.util.Optional;
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission, Integer> {
 
-  @Query("select p.code from Permission p " +
-      "left join RolePermission rp on rp.permissionId = p.id " +
-      "where rp.roleId = :roleId")
+  @Query("""
+      select p.code from Permission p 
+      left join RolePermission rp on rp.permissionId = p.id 
+      where rp.roleId = :roleId""")
   List<PermissionCode> findPermissionCodeByRoleId(@Param("roleId") Integer roleId);
 
   @Cacheable(value = CacheName.PERMISSIONS, key = "#role")
-  @Query("select p from Permission p " +
-      "left join RolePermission rp on rp.permissionId = p.id " +
-      "left join Role r on r.id = rp.roleId " +
-      "where r.code = :role")
+  @Query("""
+      select p from Permission p 
+      left join RolePermission rp on rp.permissionId = p.id 
+      left join Role r on r.id = rp.roleId 
+      where r.code = :role""")
   List<Permission> findPermissionByRole(@Param("role") String role);
 
   Optional<Permission> findByCode(PermissionCode code);

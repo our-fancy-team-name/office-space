@@ -6,9 +6,9 @@ import com.ourfancyteamname.officespace.db.entities.view.PackageListView;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
 import com.ourfancyteamname.officespace.db.repos.view.PackageListViewRepository;
 import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.PackageDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.CharConstants;
@@ -45,14 +45,14 @@ class PackageServiceImplTest {
   @Mock
   private PackageListViewRepository packageListViewRepository;
 
-  @Mock
-  private SpecificationBuilderService<PackageListView> specificationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<PackageListView> specificationBuilderServiceImpl;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Mock
   private ProcessListViewRepository processListViewRepository;
@@ -146,10 +146,10 @@ class PackageServiceImplTest {
   @Test
   void getListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
-    Specification<PackageListView> specs = specificationBuilderService.from(tableSearchRequest);
+    Specification<PackageListView> specs = specificationBuilderServiceImpl.from(tableSearchRequest);
     Sort sort = null;
     List<PackageListView> result = Collections.singletonList(PackageListView.builder().build());
-    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
+    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(Pageable.unpaged());
     Mockito.when(service.getExecutor().findAll(specs, sort)).thenReturn(result);
     Page<PackageListView> processGeneralDtos = service.getListView(tableSearchRequest);
     Assertions.assertEquals(1, processGeneralDtos.getTotalElements());

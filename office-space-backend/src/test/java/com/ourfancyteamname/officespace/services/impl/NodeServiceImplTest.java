@@ -3,9 +3,9 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ProcessNode;
 import com.ourfancyteamname.officespace.db.repos.ProcessNodeRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
@@ -36,14 +36,14 @@ class NodeServiceImplTest {
   @Mock
   private ProcessGeneralConverter processGeneralConverter;
 
-  @Mock
-  private SpecificationBuilderService<ProcessNode> specificationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<ProcessNode> specificationBuilderServiceImpl;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Test
   void create_dup() {
@@ -91,11 +91,10 @@ class NodeServiceImplTest {
   @Test
   void getListView() {
     var tableSearchRequest = TableSearchRequest.builder().build();
-    var specs = specificationBuilderService.from(tableSearchRequest);
-    Sort sort = null;
+    var specs = specificationBuilderServiceImpl.from(tableSearchRequest);
     List<ProcessNode> result = Collections.singletonList(ProcessNode.builder().build());
-    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
-    Mockito.when(service.getExecutor().findAll(specs, sort)).thenReturn(result);
+    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(Pageable.unpaged());
+    Mockito.when(service.getExecutor().findAll(specs, (Sort) null)).thenReturn(result);
     Page<ProcessGeneralDto> processGeneralDtos = service.getListView(tableSearchRequest);
     Assertions.assertEquals(1, processGeneralDtos.getTotalElements());
   }

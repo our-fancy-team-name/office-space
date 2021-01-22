@@ -1,11 +1,17 @@
-spring.profiles.include: datasource-mysql, jwt, liquibase-mysql, cors, cache
+spring:
+  profiles.include:
+    datasource-mysql,
+    jwt,
+    liquibase-mysql,
+    cache,
+    cors
+  config:
+    import:
+      resource:common/
+  jpa:
+    open-in-view: false
+  banner.location: classpath:/common/banner
+
 
 server:
   port: 9090
-
-spring:
-  jpa:
-    open-in-view: false
-  cache:
-    jcache:
-      config: classpath:ehcache.xml

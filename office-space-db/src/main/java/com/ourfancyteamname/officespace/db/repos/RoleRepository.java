@@ -14,15 +14,16 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-  @Query("select r from Role r " +
-      "left join UserRole ur on r.id = ur.roleId " +
-      "where ur.userId= :userId")
+  @Query("""
+      select r from Role r 
+      left join UserRole ur on r.id = ur.roleId 
+      where ur.userId= :userId""")
   List<Role> findByUserId(@Param("userId") Integer userId);
 
-  @Query("select r from Role r " +
-      "left join UserRole ur on r.id = ur.roleId " +
-      "where ur.userId= :userId " +
-      "and ur.isRecentlyUse = true")
+  @Query("""
+      select r from Role r 
+      left join UserRole ur on r.id = ur.roleId 
+      where ur.userId= :userId and ur.isRecentlyUse = true""")
   Optional<Role> findLastUsageByUserId(@Param("userId") Integer userId);
 
   boolean existsByCode(String code);

@@ -4,9 +4,9 @@ import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.view.RoleUserListView;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
 import com.ourfancyteamname.officespace.db.repos.view.RoleUserListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
@@ -33,14 +33,14 @@ class RoleServiceImplTest {
   @Mock
   private RoleRepository roleRepository;
 
-  @Mock
-  private SpecificationBuilderService<RoleUserListView> specificationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<RoleUserListView> specificationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Mock
   private RoleUserListViewRepository roleUserListViewRepository;
@@ -127,9 +127,9 @@ class RoleServiceImplTest {
   @Test
   void getRoleUserListView() {
     var tableSearchRequest = TableSearchRequest.builder().build();
-    var specs = specificationBuilderService.from(tableSearchRequest);
+    var specs = specificationBuilderServiceImpl.from(tableSearchRequest);
     var result = Collections.singletonList(RoleUserListView.builder().build());
-    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
+    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(Pageable.unpaged());
     Mockito.when(service.getExecutor().findAll(specs, (Sort) null)).thenReturn(result);
     Page<RoleUserListView> roleUserListView = service.getRoleUserListView(tableSearchRequest);
     Assertions.assertEquals(1, roleUserListView.getTotalElements());

@@ -1,4 +1,4 @@
-package com.ourfancyteamname.officespace.db.services;
+package com.ourfancyteamname.officespace.db.services.impl;
 
 
 import com.ourfancyteamname.officespace.db.entities.User;
@@ -22,14 +22,15 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Arrays;
+import java.util.Collections;
 
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class SpecificationBuilderServiceTest {
+class SpecificationBuilderServiceImplTest {
 
   @InjectMocks
-  private SpecificationBuilderService specificationBuilderService;
+  private SpecificationBuilderServiceImpl service;
 
   private CriteriaBuilder criteriaBuilderMock;
 
@@ -61,9 +62,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -86,9 +87,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -110,9 +111,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -134,9 +135,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -158,9 +159,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -182,9 +183,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -206,9 +207,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -231,9 +232,9 @@ class SpecificationBuilderServiceTest {
         .build();
     TableSearchRequest tableSearchRequest = TableSearchRequest
         .builder()
-        .columnSearchRequests(Arrays.asList(columnSearchRequest))
+        .columnSearchRequests(Collections.singletonList(columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verifyNoMoreInteractions(userRootMock);
@@ -269,7 +270,7 @@ class SpecificationBuilderServiceTest {
         .builder()
         .columnSearchRequests(Arrays.asList(columnSearchRequest, columnSearchRequest2))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.FIRST_NAME);
@@ -307,7 +308,7 @@ class SpecificationBuilderServiceTest {
         .builder()
         .columnSearchRequests(Arrays.asList(columnSearchRequest, columnSearchRequest2))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.LAST_NAME);
     Mockito.verify(userRootMock, Mockito.times(1)).get(User_.FIRST_NAME);
@@ -322,7 +323,7 @@ class SpecificationBuilderServiceTest {
         .builder()
         .columnSearchRequests(null)
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Assertions.assertEquals(Specification.where(null), actual);
   }
 
@@ -338,8 +339,16 @@ class SpecificationBuilderServiceTest {
         .builder()
         .columnSearchRequests(Arrays.asList(columnSearchRequest, columnSearchRequest))
         .build();
-    Specification<User> actual = specificationBuilderService.from(tableSearchRequest);
+    Specification<User> actual = service.from(tableSearchRequest);
     Predicate actualPredicate = actual.toPredicate(userRootMock, criteriaQueryMock, criteriaBuilderMock);
-    Assertions.assertEquals(null, actualPredicate);
+    Assertions.assertNull(actualPredicate);
+  }
+
+  /**
+   * for @{@link org.springframework.beans.factory.annotation.Qualifier}
+   */
+  @Test
+  void qualifier() {
+    Assertions.assertEquals("SpecificationBuilderServiceImpl", service.getClass().getSimpleName());
   }
 }
