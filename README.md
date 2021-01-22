@@ -25,10 +25,8 @@ IDE:
  
 Technical stack
  1. Back end
-  * Languages: Java 1.8
-  * Framework: [spring](https://spring.io/)
-  * DB schema management: [liquibase](https://www.liquibase.org/)
-  * Plugin: [lombok](https://projectlombok.org/)
+  * Languages: [Java 15](https://www.oracle.com/java/technologies/javase-downloads.html)
+  * Framework: [spring boot 2.4.2](https://spring.io/)
   * CI-CD: [travis](travis-ci.com)
   * Quality check: [sonarcloud](https://sonarcloud.io/) and [deepscan](https://deepscan.io/)
   * Build tool: [maven](https://maven.apache.org/)
@@ -36,7 +34,7 @@ Technical stack
   * Languages: typescript/js
   * Package manager: [npm](https://www.npmjs.com/)
   * Framework: [Angular 9.0.5](http://angular.io/)
-  * Components library: [mdbootstrap](https://mdbootstrap.com/docs/angular/) and [material angular](https://material.angular.io/)
+  * Components library: [material angular](https://material.angular.io/)
   
 ## Start development process:
  1. Make sure you use the same IDE listed above. It all free and it match with our code base so we can format code the same.

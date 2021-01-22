@@ -43,7 +43,7 @@ public class SpecificationBuilderServiceImpl<T> implements TableSearchBuilderSer
         case LESS_THAN -> builder.lessThan(path, term);
         case GREATER_THAN -> builder.greaterThan(path, term);
         case LESS_THAN_OR_EQUAL_TO -> builder.lessThanOrEqualTo(path, term);
-        case GREATER_THAN_OR_EQUAL_TO -> builder.greaterThanOrEqualTo(path, term);
+        default -> builder.greaterThanOrEqualTo(path, term);
       };
     };
   }
