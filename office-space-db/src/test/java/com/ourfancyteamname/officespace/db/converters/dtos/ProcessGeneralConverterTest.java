@@ -4,49 +4,47 @@ import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
 import com.ourfancyteamname.officespace.db.entities.ProcessCluster;
 import com.ourfancyteamname.officespace.db.entities.ProcessNode;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class ProcessGeneralConverterTest {
+class ProcessGeneralConverterTest {
 
-  private ProcessGeneralConverter converter = Mappers.getMapper(ProcessGeneralConverter.class);
+  private final ProcessGeneralConverter converter = Mappers.getMapper(ProcessGeneralConverter.class);
 
   @Test
-  public void fromClusterToDto() {
-    Assert.assertNull(converter.fromClusterToDto(null));
-    Assert.assertNotNull(converter.fromClusterToDto(new ProcessCluster()));
+  void fromClusterToDto() {
+    Assertions.assertNull(converter.fromClusterToDto(null));
+    Assertions.assertNotNull(converter.fromClusterToDto(new ProcessCluster()));
   }
 
   @Test
-  public void fromNodeToDto() {
-    Assert.assertNull(converter.fromNodeToDto(null));
-    Assert.assertNotNull(converter.fromNodeToDto(new ProcessNode()));
+  void fromNodeToDto() {
+    Assertions.assertNull(converter.fromNodeToDto(null));
+    Assertions.assertNotNull(converter.fromNodeToDto(new ProcessNode()));
   }
 
   @Test
-  public void fromPathToDto() {
-    Assert.assertNull(converter.fromPathToDto(null));
-    Assert.assertNotNull(converter.fromPathToDto(new ClusterNodePath()));
+  void fromPathToDto() {
+    Assertions.assertNull(converter.fromPathToDto(null));
+    Assertions.assertNotNull(converter.fromPathToDto(new ClusterNodePath()));
   }
 
   @Test
-  public void fromClusterNodeEditToPath() {
-    Assert.assertNull(converter.fromClusterNodeEditToPath(null));
-    Assert.assertNotNull(converter.fromClusterNodeEditToPath(new ProcessGeneralDto()));
+  void fromClusterNodeEditToPath() {
+    Assertions.assertNull(converter.fromClusterNodeEditToPath(null));
+    Assertions.assertNotNull(converter.fromClusterNodeEditToPath(new ProcessGeneralDto()));
   }
 
   @Test
-  public void fromDtoToClusterEntity() {
-    Assert.assertNull(converter.fromDtoToClusterEntity(null));
-    Assert.assertNotNull(converter.fromDtoToClusterEntity(new ProcessGeneralDto()));
+  void fromDtoToClusterEntity() {
+    Assertions.assertNull(converter.fromDtoToClusterEntity(null));
+    Assertions.assertNotNull(converter.fromDtoToClusterEntity(new ProcessGeneralDto()));
   }
 
   @Test
-  public void fromDtoToNodeEntity() {
-    Assert.assertNull(converter.fromDtoToNodeEntity(null));
-    Assert.assertNotNull(converter.fromDtoToNodeEntity(new ProcessGeneralDto()));
+  void fromDtoToNodeEntity() {
+    Assertions.assertNull(converter.fromDtoToNodeEntity(null));
+    Assertions.assertNotNull(converter.fromDtoToNodeEntity(new ProcessGeneralDto()));
   }
 }

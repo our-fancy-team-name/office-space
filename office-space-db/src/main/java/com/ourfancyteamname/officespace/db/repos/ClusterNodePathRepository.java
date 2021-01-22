@@ -11,10 +11,11 @@ import java.util.List;
 @Repository
 public interface ClusterNodePathRepository extends JpaRepository<ClusterNodePath, Integer> {
 
-  @Query("select cnp from ClusterNodePath cnp " +
-      "left join ClusterNode cn on cn.id = cnp.clusterNodeIdTo " +
-      "left join ProcessCluster pc on pc.id = cn.clusterId " +
-      "where pc.id= :clusterId")
+  @Query("""
+      select cnp from ClusterNodePath cnp 
+      left join ClusterNode cn on cn.id = cnp.clusterNodeIdTo 
+      left join ProcessCluster pc on pc.id = cn.clusterId 
+      where pc.id= :clusterId""")
   List<ClusterNodePath> findAllByCLusterId(@Param("clusterId") Integer clusterId);
 
   List<ClusterNodePath> findByClusterNodeIdTo(Integer clusterNodeIdTo);

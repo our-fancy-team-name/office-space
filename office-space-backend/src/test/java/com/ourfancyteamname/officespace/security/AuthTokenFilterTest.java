@@ -5,15 +5,14 @@ import com.ourfancyteamname.officespace.security.services.JwtService;
 import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -23,9 +22,8 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Date;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class AuthTokenFilterTest {
+@ExtendWith(MockitoExtension.class)
+class AuthTokenFilterTest {
 
   private static final String username = "dang";
 
@@ -37,7 +35,7 @@ public class AuthTokenFilterTest {
       .compact();
 
   @InjectMocks
-  AuthTokenFilter authTokenFilter;
+  private AuthTokenFilter authTokenFilter;
 
   @Mock
   private JwtService jwtService;
@@ -45,13 +43,13 @@ public class AuthTokenFilterTest {
   @Mock
   private UserDetailsSecurityServiceImpl userDetailsService;
 
-  @Before
-  public void reset() {
+  @BeforeEach
+  void reset() {
     SecurityContextHolder.getContext().setAuthentication(null);
   }
 
   @Test
-  public void doFilterInternal_Sucess() throws ServletException, IOException {
+  void doFilterInternal_Sucess() throws ServletException, IOException {
     Mockito.when(jwtService.validateJwtToken(token)).thenReturn(true);
     Mockito.when(jwtService.getUserNameFromJwtToken(token)).thenReturn(username);
     Mockito.when(userDetailsService.loadUserByUsername(username)).thenReturn(new UserDetailsPrinciple());
@@ -60,11 +58,11 @@ public class AuthTokenFilterTest {
     request.addHeader("Authorization", JwtService.TOKEN_TYPE + " " + token);
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
-    Assert.assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+    Assertions.assertNotNull(SecurityContextHolder.getContext().getAuthentication());
   }
 
   @Test
-  public void doFilterInternal_noAuthorization() throws ServletException, IOException {
+  void doFilterInternal_noAuthorization() throws ServletException, IOException {
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
@@ -72,7 +70,7 @@ public class AuthTokenFilterTest {
   }
 
   @Test
-  public void doFilterInternal_noAuthorization2() throws ServletException, IOException {
+  void doFilterInternal_noAuthorization2() throws ServletException, IOException {
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Authorization", token);
     request.addHeader("Role", "SUPER_ADMIN");
@@ -81,7 +79,7 @@ public class AuthTokenFilterTest {
   }
 
   @Test
-  public void doFilterInternal_noAuthorization3() throws ServletException, IOException {
+  void doFilterInternal_noAuthorization3() throws ServletException, IOException {
     MockHttpServletRequest request = new MockHttpServletRequest();
     String tokenFailed = Jwts.builder()
         .setSubject(username)

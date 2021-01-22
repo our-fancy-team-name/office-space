@@ -1,0 +1,1 @@
+jwt.expirationMs: 9000000 # 900000ms = 15 minutes

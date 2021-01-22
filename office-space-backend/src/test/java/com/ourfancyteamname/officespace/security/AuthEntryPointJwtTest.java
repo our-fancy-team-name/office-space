@@ -1,11 +1,10 @@
 package com.ourfancyteamname.officespace.security;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -13,20 +12,18 @@ import org.springframework.security.core.AuthenticationException;
 
 import java.io.IOException;
 
-
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class AuthEntryPointJwtTest {
+@ExtendWith(MockitoExtension.class)
+class AuthEntryPointJwtTest {
 
   @InjectMocks
-  AuthEntryPointJwt authEntryPointJwt;
+  private AuthEntryPointJwt authEntryPointJwt;
 
   @Test
-  public void commence() throws IOException {
+  void commence() throws IOException {
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
     MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
     AuthenticationException authenticationException = new AuthenticationCredentialsNotFoundException("");
     authEntryPointJwt.commence(mockHttpServletRequest, mockHttpServletResponse, authenticationException);
-    Assert.assertEquals("Error: Unauthorized", mockHttpServletResponse.getErrorMessage());
+    Assertions.assertEquals("Error: Unauthorized", mockHttpServletResponse.getErrorMessage());
   }
 }

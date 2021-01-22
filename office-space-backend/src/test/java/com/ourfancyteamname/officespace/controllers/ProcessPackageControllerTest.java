@@ -1,17 +1,15 @@
 package com.ourfancyteamname.officespace.controllers;
 
 import com.ourfancyteamname.officespace.services.ProcessPackageService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class ProcessPackageControllerTest {
+@ExtendWith(MockitoExtension.class)
+class ProcessPackageControllerTest {
 
   @InjectMocks
   private ProcessPackageController controller;
@@ -20,13 +18,13 @@ public class ProcessPackageControllerTest {
   private ProcessPackageService processPackageService;
 
   @Test
-  public void getValidPksToAdd() {
+  void getValidPksToAdd() {
     controller.getValidPksToAdd(1);
     Mockito.verify(processPackageService, Mockito.times(1)).getValidPksToAdd(1);
   }
 
   @Test
-  public void addPkgToCltNode() {
+  void addPkgToCltNode() {
     controller.addPkgToCltNode(null);
     Mockito.verify(processPackageService, Mockito.times(1)).addPkgToCltNode(null);
   }

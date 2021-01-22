@@ -9,7 +9,6 @@ import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
 import com.ourfancyteamname.officespace.dtos.ProcessPackageDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.ProcessPackageService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class ProcessPackageServiceImpl implements ProcessPackageService {
 
   @Override
   public List<ProcessListView> getValidPksToAdd(Integer clusterNodeId) {
-    val clusterSchematic = clusterNodeRepository.getClusterSchematic(clusterNodeId)
+    final var clusterSchematic = clusterNodeRepository.getClusterSchematic(clusterNodeId)
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId)) {
       return processListViewRepository.findPossiblePkgsOnStartNode(clusterSchematic);
@@ -43,7 +42,7 @@ public class ProcessPackageServiceImpl implements ProcessPackageService {
 
   @Override
   public void addPkgToCltNode(ProcessPackageDto processPackageDto) {
-    val target =
+    final var target =
         clusterNodePackageRepository.findByPackageIdAndClusterNodeIdAndStatus(processPackageDto.getPackageId(),
             processPackageDto.getClusterNodeId(), processPackageDto.getStatus())
             .orElseGet(() -> ClusterNodePackage.builder().packageId(processPackageDto.getPackageId())

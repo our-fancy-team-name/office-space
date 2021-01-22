@@ -4,17 +4,15 @@ import com.ourfancyteamname.officespace.dtos.RoleUserUpdateDto;
 import com.ourfancyteamname.officespace.services.PermissionService;
 import com.ourfancyteamname.officespace.services.RoleService;
 import com.ourfancyteamname.officespace.services.UserService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class RoleControllerTest {
+@ExtendWith(MockitoExtension.class)
+class RoleControllerTest {
 
   @InjectMocks
   private RoleController controller;
@@ -29,7 +27,7 @@ public class RoleControllerTest {
   private PermissionService permissionService;
 
   @Test
-  public void update() {
+  void update() {
     controller.update(RoleUserUpdateDto.builder().build());
     Mockito.verify(roleService, Mockito.times(1)).updateRole(Mockito.any());
     Mockito.verify(userService, Mockito.times(1)).updateUserRole(Mockito.any(), Mockito.any());
@@ -37,7 +35,7 @@ public class RoleControllerTest {
   }
 
   @Test
-  public void create() {
+  void create() {
     controller.create(RoleUserUpdateDto.builder().build());
     Mockito.verify(roleService, Mockito.times(1)).createRole(Mockito.any());
     Mockito.verify(userService, Mockito.times(1)).createUserRole(Mockito.any(), Mockito.any());
@@ -45,7 +43,7 @@ public class RoleControllerTest {
   }
 
   @Test
-  public void delete() {
+  void delete() {
     controller.delete(null);
     Mockito.verify(roleService, Mockito.times(1)).deleteRole(Mockito.any());
     Mockito.verify(userService, Mockito.times(1)).deleteUserRoleByRoleId(Mockito.any());
@@ -53,13 +51,13 @@ public class RoleControllerTest {
   }
 
   @Test
-  public void getRoleUserListView() {
+  void getRoleUserListView() {
     controller.getRoleUserListView(null);
     Mockito.verify(roleService, Mockito.times(1)).getRoleUserListView(Mockito.any());
   }
 
   @Test
-  public void getAllRoleCode() {
+  void getAllRoleCode() {
     controller.getAllRoleCode();
     Mockito.verify(roleService, Mockito.times(1)).getRoleCodes();
   }

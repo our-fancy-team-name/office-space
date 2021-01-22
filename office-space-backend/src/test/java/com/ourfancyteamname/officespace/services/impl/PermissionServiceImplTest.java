@@ -8,22 +8,20 @@ import com.ourfancyteamname.officespace.db.repos.RolePermissionRepository;
 import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityManager;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class PermissionServiceImplTest {
+@ExtendWith(MockitoExtension.class)
+class PermissionServiceImplTest {
 
   @InjectMocks
   private PermissionServiceImpl service;
@@ -41,9 +39,9 @@ public class PermissionServiceImplTest {
   private PermissionConverter permissionConverter;
 
   @Test
-  public void updateRolePermission() {
+  void updateRolePermission() {
     RoleDto roleDto = RoleDto.builder().id(1).build();
-    List<PermissionDto> permissionDtos = Arrays.asList(PermissionDto.builder()
+    List<PermissionDto> permissionDtos = Collections.singletonList(PermissionDto.builder()
         .code(PermissionCode.PRCS_EDIT.name())
         .build());
     Mockito.when(permissionRepository.findByCode(PermissionCode.PRCS_EDIT))
@@ -55,9 +53,9 @@ public class PermissionServiceImplTest {
   }
 
   @Test
-  public void createRolePermission() {
+  void createRolePermission() {
     Role roleDto = Role.builder().id(1).build();
-    List<PermissionDto> permissionDtos = Arrays.asList(PermissionDto.builder()
+    List<PermissionDto> permissionDtos = Collections.singletonList(PermissionDto.builder()
         .code(PermissionCode.PRCS_EDIT.name())
         .build());
     Mockito.when(permissionRepository.findByCode(PermissionCode.PRCS_EDIT))
@@ -67,9 +65,10 @@ public class PermissionServiceImplTest {
   }
 
   @Test
-  public void findAllPermissionByRole() {
+  void findAllPermissionByRole() {
     String role = "SUPER_ADMIN";
-    List<Permission> permissions = Arrays.asList(Permission.builder().code(PermissionCode.PRCS_EDIT).build());
+    List<Permission> permissions =
+        Collections.singletonList(Permission.builder().code(PermissionCode.PRCS_EDIT).build());
     Mockito.when(permissionRepository.findPermissionByRole(role))
         .thenReturn(permissions);
     service.findAllPermissionByRole(role);

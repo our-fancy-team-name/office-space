@@ -1,3 +1,8 @@
+spring:
+  cache:
+    jcache:
+      config: classpath:common/ehcache.xml
+
 cache.template:
   time-to-live: 30 #minutes
   resources:

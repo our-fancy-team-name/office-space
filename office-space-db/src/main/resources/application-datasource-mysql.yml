@@ -1,5 +1,4 @@
 spring:
-  profiles: datasource-mysql
   jpa:
     show-sql: false
     hibernate:

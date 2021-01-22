@@ -1,27 +1,25 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class CacheConfigTest {
+@ExtendWith(MockitoExtension.class)
+class CacheConfigTest {
 
   @InjectMocks
   private CacheConfig cacheConfig;
 
-  @Before
-  public void setConfigValue() {
+  @BeforeEach
+  void setConfigValue() {
     ReflectionTestUtils.setField(cacheConfig, "heapEntries", 1000);
     ReflectionTestUtils.setField(cacheConfig, "timeToLive", 30);
     ReflectionTestUtils.setField(cacheConfig, "offHeapSize", 10);
@@ -29,9 +27,9 @@ public class CacheConfigTest {
   }
 
   @Test
-  public void cacheManagerCustomizer() {
+  void cacheManagerCustomizer() {
     CacheManager cacheManager = Mockito.mock(CacheManager.class);
-    Cache cache = Mockito.mock(Cache.class);
+    Cache<Object, Object> cache = Mockito.mock(Cache.class);
     Mockito.when(cacheManager.createCache(Mockito.any(), Mockito.any())).thenReturn(cache);
     JCacheManagerCustomizer jCacheManagerCustomizer = cacheConfig.cacheManagerCustomizer();
     jCacheManagerCustomizer.customize(cacheManager);

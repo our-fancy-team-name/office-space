@@ -3,18 +3,16 @@ package com.ourfancyteamname.officespace.db.converters.dtos;
 import com.ourfancyteamname.officespace.db.entities.User;
 import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.enums.Gender;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class UserConverterTest {
+class UserConverterTest {
 
-  private UserConverter userConverter = Mappers.getMapper(UserConverter.class);
+  private final UserConverter userConverter = Mappers.getMapper(UserConverter.class);
 
   @Test
-  public void toDto_success() {
+  void toDto_success() {
     User entity = User.builder()
         .email("dang")
         .id(1)
@@ -28,37 +26,37 @@ public class UserConverterTest {
         .phone("phone")
         .build();
     UserDto userDto = userConverter.toDto(entity);
-    Assert.assertEquals(userDto.getAddress(), entity.getAddress());
-    Assert.assertEquals(userDto.getEmail(), entity.getEmail());
-    Assert.assertEquals(userDto.getAlternatePhone(), entity.getAlternatePhone());
-    Assert.assertEquals(userDto.getFirstName(), entity.getFirstName());
-    Assert.assertEquals(userDto.getLastName(), entity.getLastName());
-    Assert.assertEquals(userDto.getAlternatePhone(), entity.getAlternatePhone());
-    Assert.assertEquals(userDto.getPhone(), entity.getPhone());
-    Assert.assertSame(userDto.getGender(), entity.getGender());
+    Assertions.assertEquals(userDto.getAddress(), entity.getAddress());
+    Assertions.assertEquals(userDto.getEmail(), entity.getEmail());
+    Assertions.assertEquals(userDto.getAlternatePhone(), entity.getAlternatePhone());
+    Assertions.assertEquals(userDto.getFirstName(), entity.getFirstName());
+    Assertions.assertEquals(userDto.getLastName(), entity.getLastName());
+    Assertions.assertEquals(userDto.getAlternatePhone(), entity.getAlternatePhone());
+    Assertions.assertEquals(userDto.getPhone(), entity.getPhone());
+    Assertions.assertSame(userDto.getGender(), entity.getGender());
   }
 
   @Test
-  public void toDto_null() {
+  void toDto_null() {
     UserDto userDto = userConverter.toDto(null);
-    Assert.assertNull(userDto);
+    Assertions.assertNull(userDto);
   }
 
   @Test
-  public void toEntity_null() {
+  void toEntity_null() {
     User userDto = userConverter.toEntity(null);
-    Assert.assertNull(userDto);
+    Assertions.assertNull(userDto);
   }
 
   @Test
-  public void toEntity_sucess() {
+  void toEntity_sucess() {
     User userDto = userConverter.toEntity(UserDto.builder().build());
-    Assert.assertNotNull(userDto);
+    Assertions.assertNotNull(userDto);
   }
 
   @Test
-  public void toEntity_sucessWithId() {
+  void toEntity_sucessWithId() {
     User userDto = userConverter.toEntity(UserDto.builder().id(1).build());
-    Assert.assertNotNull(userDto);
+    Assertions.assertNotNull(userDto);
   }
 }

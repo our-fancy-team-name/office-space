@@ -1,17 +1,15 @@
 package com.ourfancyteamname.officespace.controllers;
 
 import com.ourfancyteamname.officespace.services.PermissionService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class PermissionControllerTest {
+@ExtendWith(MockitoExtension.class)
+class PermissionControllerTest {
 
   @InjectMocks
   private PermissionController controller;
@@ -20,7 +18,7 @@ public class PermissionControllerTest {
   private PermissionService permissionService;
 
   @Test
-  public void getPermissionByRole() {
+  void getPermissionByRole() {
     controller.getPermissionByRole(null);
     Mockito.verify(permissionService, Mockito.times(1)).findAllPermissionByRole(Mockito.any());
   }

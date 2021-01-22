@@ -2,46 +2,47 @@ package com.ourfancyteamname.officespace.db.converters.enums;
 
 
 import com.ourfancyteamname.officespace.enums.Gender;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class GenderConverterTest {
+@ExtendWith(MockitoExtension.class)
+class GenderConverterTest {
 
   @InjectMocks
   private GenderConverter genderConverter;
 
   @Test
-  public void convertToDatabaseColumn_success() {
+  void convertToDatabaseColumn_success() {
     String gender = genderConverter.convertToDatabaseColumn(Gender.MALE);
-    Assert.assertEquals(gender, Gender.MALE.name());
+    Assertions.assertEquals(gender, Gender.MALE.name());
   }
 
   @Test
-  public void convertToDatabaseColumn_null() {
+  void convertToDatabaseColumn_null() {
     String gender = genderConverter.convertToDatabaseColumn(null);
-    Assert.assertEquals(null, gender);
+    Assertions.assertNull(gender);
   }
 
   @Test
-  public void convertToEntityAttribute_success() {
+  void convertToEntityAttribute_success() {
     Gender gender = genderConverter.convertToEntityAttribute(Gender.MALE.name());
-    Assert.assertEquals(Gender.MALE, gender);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void convertToEntityAttribute_errorInvalid() {
-    genderConverter.convertToEntityAttribute("dang");
+    Assertions.assertEquals(Gender.MALE, gender);
   }
 
   @Test
-  public void convertToEntityAttribute_errorNull() {
+  void convertToEntityAttribute_errorInvalid() {
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> genderConverter.convertToEntityAttribute("dang")
+    );
+  }
+
+  @Test
+  void convertToEntityAttribute_errorNull() {
     Gender gender = genderConverter.convertToEntityAttribute(null);
-    Assert.assertEquals(null, gender);
+    Assertions.assertNull(gender);
   }
 }

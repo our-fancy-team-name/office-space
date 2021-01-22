@@ -1,21 +1,19 @@
 package com.ourfancyteamname.officespace;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class IndexControllerTest {
+@ExtendWith(MockitoExtension.class)
+class IndexControllerTest {
 
   @InjectMocks
   private IndexController controller;
 
   @Test
-  public void shouldReturnIndex() {
-    Assert.assertEquals("forward:/index.html", controller.home(null));
+  void shouldReturnIndex() {
+    Assertions.assertEquals("forward:/index.html", controller.home(null));
   }
 }

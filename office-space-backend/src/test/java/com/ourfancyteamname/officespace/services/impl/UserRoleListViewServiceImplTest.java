@@ -1,30 +1,28 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import com.ourfancyteamname.officespace.db.entities.UserRole;
 import com.ourfancyteamname.officespace.db.entities.view.UserRoleListView;
 import com.ourfancyteamname.officespace.db.repos.view.UserRoleListViewRepository;
-import com.ourfancyteamname.officespace.db.services.PaginationBuilderService;
-import com.ourfancyteamname.officespace.db.services.SortingBuilderService;
-import com.ourfancyteamname.officespace.db.services.SpecificationBuilderService;
+import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
+import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class UserRoleListViewServiceImplTest {
+@ExtendWith(MockitoExtension.class)
+class UserRoleListViewServiceImplTest {
 
   @InjectMocks
   private UserRoleListViewServiceImpl service;
@@ -32,37 +30,36 @@ public class UserRoleListViewServiceImplTest {
   @Mock
   private UserRoleListViewRepository userRoleListViewRepository;
 
-  @Mock
-  private PaginationBuilderService paginationBuilderService;
+  @Mock(name = "specificationBuilderService")
+  private SpecificationBuilderServiceImpl<UserRole> specificationBuilderServiceImpl;
 
-  @Mock
-  private SpecificationBuilderService specificationBuilderService;
+  @Mock(name = "paginationBuilderService")
+  private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock
-  private SortingBuilderService sortingBuilderService;
+  @Mock(name = "sortingBuilderService")
+  private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Test
-  public void getExecutor() {
-    Assert.assertEquals(userRoleListViewRepository, service.getExecutor());
+  void getExecutor() {
+    Assertions.assertEquals(userRoleListViewRepository, service.getExecutor());
   }
 
   @Test
-  public void findAll() {
-    List<UserRoleListView> result = Arrays.asList(UserRoleListView.builder().build());
-    Specification specs = null;
-    Sort sort = null;
-    Mockito.when(paginationBuilderService.from(null, null)).thenReturn(Pageable.unpaged());
-    Mockito.when(service.getExecutor().findAll(specs, sort)).thenReturn(result);
+  void findAll() {
+    var result = Collections.singletonList(UserRoleListView.builder().build());
+    Mockito.when(paginationBuilderServiceImpl.from(TableSearchRequest.builder().build()))
+        .thenReturn(Pageable.unpaged());
+    Mockito.when(service.getExecutor().findAll((Specification<UserRoleListView>) null, (Sort) null)).thenReturn(result);
     Page<UserRoleListView> actual = service.findAll(TableSearchRequest.builder().build());
-    Assert.assertEquals(1, actual.getTotalElements());
+    Assertions.assertEquals(1, actual.getTotalElements());
   }
 
   /**
    * for @{@link org.springframework.beans.factory.annotation.Qualifier} on {@link UserServiceImpl}
    */
   @Test
-  public void qualifier() {
-    Assert.assertEquals("UserRoleListViewServiceImpl", service.getClass().getSimpleName());
+  void qualifier() {
+    Assertions.assertEquals("UserRoleListViewServiceImpl", service.getClass().getSimpleName());
   }
 
 }

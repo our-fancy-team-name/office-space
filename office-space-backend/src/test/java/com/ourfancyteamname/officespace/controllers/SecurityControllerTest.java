@@ -3,20 +3,18 @@ package com.ourfancyteamname.officespace.controllers;
 import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import com.ourfancyteamname.officespace.security.services.JwtService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.info.GitProperties;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class SecurityControllerTest {
+@ExtendWith(MockitoExtension.class)
+class SecurityControllerTest {
 
   @InjectMocks
   private SecurityController controller;
@@ -31,7 +29,7 @@ public class SecurityControllerTest {
   private GitProperties gitProperties;
 
   @Test
-  public void authenticateUser() {
+  void authenticateUser() {
     Mockito.when(authenticationManager.authenticate(Mockito.any()))
         .thenReturn(new UsernamePasswordAuthenticationToken(UserDetailsPrinciple.builder().build(), ""));
     controller.authenticateUser(LoginRequest.builder().build());
@@ -40,7 +38,7 @@ public class SecurityControllerTest {
   }
 
   @Test
-  public void version() {
+  void version() {
     controller.version();
     Mockito.verify(gitProperties, Mockito.times(1)).getBranch();
     Mockito.verify(gitProperties, Mockito.times(1)).getShortCommitId();

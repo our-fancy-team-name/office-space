@@ -2,32 +2,30 @@ package com.ourfancyteamname.officespace.db.converters.dtos;
 
 import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class ProductConverterTest {
+class ProductConverterTest {
 
-  private ProductConverter converter = Mappers.getMapper(ProductConverter.class);
+  private final ProductConverter converter = Mappers.getMapper(ProductConverter.class);
 
   @Test
-  public void toDto() {
-    Assert.assertNull(converter.toDto(null));
-    Assert.assertNotNull(converter.toDto(new Product()));
+  void toDto() {
+    Assertions.assertNull(converter.toDto(null));
+    Assertions.assertNotNull(converter.toDto(new Product()));
   }
 
   @Test
-  public void toEntity() {
-    Assert.assertNull(converter.toEntity(null));
-    Assert.assertNotNull(converter.toEntity(new ProductDto()));
+  void toEntity() {
+    Assertions.assertNull(converter.toEntity(null));
+    Assertions.assertNotNull(converter.toEntity(new ProductDto()));
   }
 
   @Test
-  public void toDtoWithDisplayName() {
-    Assert.assertNull(converter.toDtoWithDisplayName(null));
-    Assert.assertEquals(String.join(" - ", "name", "partNumber"),
+  void toDtoWithDisplayName() {
+    Assertions.assertNull(converter.toDtoWithDisplayName(null));
+    Assertions.assertEquals(String.join(" - ", "name", "partNumber"),
         converter.toDtoWithDisplayName(Product.builder()
             .name("name")
             .partNumber("partNumber")

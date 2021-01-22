@@ -1,22 +1,20 @@
 package com.ourfancyteamname.officespace;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-public class OfficeSpaceApplicationTest {
+@ExtendWith(MockitoExtension.class)
+class OfficeSpaceApplicationTest {
 
   @InjectMocks
   private OfficeSpaceApplication application;
 
   @Test
-  public void appClassTest() {
-    Assert.assertEquals("public class com.ourfancyteamname.officespace.OfficeSpaceApplication",
+  void appClassTest() {
+    Assertions.assertEquals("public class com.ourfancyteamname.officespace.OfficeSpaceApplication",
         application.getClass().toGenericString());
   }
 

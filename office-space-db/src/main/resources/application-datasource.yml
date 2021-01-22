@@ -1,5 +1,4 @@
 spring:
-  profiles: datasource
   jpa:
     database: POSTGRESQL
     show-sql: false
