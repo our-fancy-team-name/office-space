@@ -20,6 +20,9 @@
         <sonar.login>3185d6ac5f0cffdafd42de7e56468d3adf32a106</sonar.login>
         <sonar.organization>our-fancy-team-name</sonar.organization>
         <sonar.projectKey>office-space-java</sonar.projectKey>
+        <sonar.moduleKey>
+            ${project.groupId}:${project.artifactId}
+        </sonar.moduleKey>
     </properties>
 
     <dependencies>
