@@ -23,9 +23,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1.4.3
+      - name: checkout source
+        uses: actions/checkout@v2
+      - name: setup java 15
+        uses: actions/setup-java@v1.4.3
         with:
           java-version: 15
+      - name: chmod mvnw
+        run: chmod +x mvnw 
       - name: clean install
         run: ./mvnw clean install
