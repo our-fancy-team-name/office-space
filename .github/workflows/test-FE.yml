@@ -22,12 +22,14 @@ jobs:
 
     env:
       PR_NUMBER: ${{ github.event.number }}
-      BRANCH_NAME: ${GITHUB_REF##*/}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout source
         uses: actions/checkout@v2
+
+      - name: Get branch name
+        uses: nelonoel/branch-name@v1.0.1
 
       - name: setup npm
         uses: actions/setup-node@v2
