@@ -59,20 +59,20 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: clean test back end for push commit
-        if: $GITHUB_EVENT_NAME == 'push'
+        if: ${GITHUB_EVENT_NAME} == 'push'
         run: ./mvnw clean verify sonar:sonar -Dsonar.branch.name=$BRANCH_NAME
 
       - name: clean test back end for pull request
-        if: $GITHUB_EVENT_NAME == 'pull_request'
+        if: ${GITHUB_EVENT_NAME} == 'pull_request'
         run: ./mvnw clean verify sonar:sonar -Dsonar.pullrequest.branch=$BRANCH_NAME -Dsonar.pullrequest.key=$PR_NUMBER
 
       - name: install angular dependencies
         run: npm install --prefix office-space-frontend/src/main/web/office-space-web office-space-frontend/src/main/web/office-space-web
 
       - name: clean test front end for push commit
-        if: $GITHUB_EVENT_NAME == 'push'
+        if: ${GITHUB_EVENT_NAME} == 'push'
         run: npm run-script travisSonarBranch --prefix office-space-frontend/src/main/web/office-space-web
 
       - name: clean test front end for pull request
-        if: $GITHUB_EVENT_NAME == 'pull_request'
+        if: ${GITHUB_EVENT_NAME} == 'pull_request'
         run: npm run-script travisSonarPR --prefix office-space-frontend/src/main/web/office-space-web
