@@ -43,25 +43,25 @@ jobs:
         uses: actions/cache@v2.1.3
         with:
           path: office-space-frontend/src/main/web/office-space-web/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('office-space-frontend/src/main/web/office-space-web/package-lock.json') }}
+          key: ${{ runner.os }}-npmtestBE-${{ hashFiles('office-space-frontend/src/main/web/office-space-web/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-npmtestBE-
 
       - name: Cache maven dependencies
         uses: actions/cache@v2.1.3
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-maventestBE-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-
+            ${{ runner.os }}-maventestBE-
 
       - name: Cache sonar dependencies
         uses: actions/cache@v2.1.3
         with:
           path: ~/.sonar
-          key: ${{ runner.os }}-sonar-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-sonartestBE-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-sonar-
+            ${{ runner.os }}-sonartestBE-
 
       - name: Clean test back end for push commit
         if: ${{ github.event_name == 'push'}}
