@@ -5,8 +5,8 @@ name: Test
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
+  #  push:
+  #    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -39,5 +39,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: clean test
-        run: ./mvnw clean test -Pno-front-end
+        run: ./mvnw clean verify sonar:sonar -Pno-front-end -Dsonar.pullrequest.branch=$GITHUB_REF -Dsonar.pullrequest.key=${{ github.event.number }}
       
