@@ -7,7 +7,7 @@
     "build": "ng build",
     "buildProd": "ng build --configuration=production",
     "travisSonarBranch": "sonar-scanner -Dsonar.branch.name=$GITHUB_REF",
-    "travisSonarPR": "sonar-scanner -Dsonar.pullrequest.branch=$GITHUB_REF -Dsonar.pullrequest.key=${{ github.event.number }}",
+    "travisSonarPR": "sonar-scanner -Dsonar.pullrequest.branch=$GITHUB_REF -Dsonar.pullrequest.key=$PR_NUMBER",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
