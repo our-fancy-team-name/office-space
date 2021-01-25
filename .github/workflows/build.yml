@@ -46,5 +46,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: clean install
-        run: ./mvnw verify sonar:sonar -Dsonar.pullrequest.branch=$GITHUB_REF
+        run: ./mvnw clean install -Dmaven.test.skip=true
       
