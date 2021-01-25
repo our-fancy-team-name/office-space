@@ -4,8 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ourfancyteamname</groupId>
     <artifactId>office-space-frontend</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>${module.version}</version>
     <name>office-space-frontend</name>
+
+    <properties>
+        <module.version>0.1.1-SNAPSHOT</module.version>
+    </properties>
 
     <build>
         <plugins>

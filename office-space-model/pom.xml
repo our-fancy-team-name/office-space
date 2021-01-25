@@ -8,9 +8,14 @@
         <artifactId>officespace</artifactId>
         <version>0.1.1-SNAPSHOT</version>
     </parent>
+
     <groupId>com.ourfancyteamname</groupId>
     <artifactId>office-space-model</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>${module.version}</version>
+
+    <properties>
+        <module.version>0.1.1-SNAPSHOT</module.version>
+    </properties>
 
     <dependencies>
         <dependency>
