@@ -1,5 +1,5 @@
 # office-space
-[![Build Status](https://travis-ci.com/our-fancy-team-name/office-space.svg?branch=master)](https://travis-ci.com/our-fancy-team-name/office-space)
+![Build](https://github.com/our-fancy-team-name/office-space/workflows/Build/badge.svg)
 ### [Back-end](https://sonarcloud.io/dashboard?id=our-fancy-team-name_office-space)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=office-space-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=office-space-java)
