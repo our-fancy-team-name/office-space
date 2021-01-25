@@ -30,9 +30,7 @@ jobs:
         with:
           java-version: 15
       - name: chmod mvnw
-        run: chmod +x mvnw 
-      - name: clean install
-        run: ./mvnw clean install
+        run: chmod +x mvnw
       - name: Cache
         uses: actions/cache@v2.1.3
         with:
@@ -40,3 +38,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: clean install
+        run: ./mvnw clean install
+      
