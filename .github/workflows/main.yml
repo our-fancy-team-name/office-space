@@ -28,4 +28,4 @@ jobs:
         with:
           java-version: 15
       - name: clean install
-        run: .mvnw clean install
+        run: ./mvnw clean install
