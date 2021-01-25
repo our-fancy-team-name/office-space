@@ -37,5 +37,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: clean test
-        run: ./mvnw clean verify sonar:sonar -Pno-front-end -Dsonar.branch.name=$GITHUB_REF
+        run: ./mvnw clean verify sonar:sonar -Dsonar.branch.name=$GITHUB_REF
       
