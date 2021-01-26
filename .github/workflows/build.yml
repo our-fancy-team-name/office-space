@@ -23,15 +23,15 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: checkout source
+      - name: Checkout source
         uses: actions/checkout@v2
 
-      - name: setup jdk
+      - name: Setup jdk
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 15
 
-      - name: chmod mvnw
+      - name: Grand permission mvnw
         run: chmod +x mvnw
 
       - name: Cache node module
@@ -50,6 +50,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-mavenbuild-
 
-      - name: clean install
+      - name: Clean install
         run: ./mvnw clean install -Dmaven.test.skip=true
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          path: office-space-backend/target/^OfficeSpace-.{5,}.jar$
       
