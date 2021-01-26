@@ -5,23 +5,18 @@
     <parent>
         <groupId>com.ourfancyteamname</groupId>
         <artifactId>officespace</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
+        <version>0.1.1</version>
     </parent>
 
     <groupId>com.ourfancyteamname</groupId>
     <artifactId>office-space-db</artifactId>
-    <version>${module.version}</version>
     <name>office-space-db</name>
-
-    <properties>
-        <module.version>0.1.1-SNAPSHOT</module.version>
-    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.ourfancyteamname</groupId>
             <artifactId>office-space-model</artifactId>
-            <version>${module.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
