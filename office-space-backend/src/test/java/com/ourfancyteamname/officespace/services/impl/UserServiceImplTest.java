@@ -51,13 +51,13 @@ class UserServiceImplTest {
   @Mock
   private RoleRepository roleRepository;
 
-  @Mock(name = "specificationBuilderService")
+  @Mock(name = "specificationBuilderServiceImpl")
   private SpecificationBuilderServiceImpl<User> specificationBuilderServiceImpl;
 
-  @Mock(name = "paginationBuilderService")
+  @Mock(name = "paginationBuilderServiceImpl")
   private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock(name = "sortingBuilderService")
+  @Mock(name = "sortingBuilderServiceImpl")
   private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Mock

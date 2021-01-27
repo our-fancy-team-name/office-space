@@ -45,13 +45,13 @@ class PackageServiceImplTest {
   @Mock
   private PackageListViewRepository packageListViewRepository;
 
-  @Mock(name = "specificationBuilderService")
+  @Mock(name = "specificationBuilderServiceImpl")
   private SpecificationBuilderServiceImpl<PackageListView> specificationBuilderServiceImpl;
 
-  @Mock(name = "paginationBuilderService")
+  @Mock(name = "paginationBuilderServiceImpl")
   private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock(name = "sortingBuilderService")
+  @Mock(name = "sortingBuilderServiceImpl")
   private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Mock

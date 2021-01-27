@@ -38,13 +38,13 @@ class ProductServiceImplTest {
   @Mock
   private ProductRepository productRepository;
 
-  @Mock(name = "specificationBuilderService")
+  @Mock(name = "specificationBuilderServiceImpl")
   private SpecificationBuilderServiceImpl<Product> specificationBuilderServiceImpl;
 
-  @Mock(name = "paginationBuilderService")
+  @Mock(name = "paginationBuilderServiceImpl")
   private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock(name = "sortingBuilderService")
+  @Mock(name = "sortingBuilderServiceImpl")
   private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Mock

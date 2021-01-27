@@ -36,13 +36,13 @@ class NodeServiceImplTest {
   @Mock
   private ProcessGeneralConverter processGeneralConverter;
 
-  @Mock(name = "specificationBuilderService")
+  @Mock(name = "specificationBuilderServiceImpl")
   private SpecificationBuilderServiceImpl<ProcessNode> specificationBuilderServiceImpl;
 
-  @Mock(name = "paginationBuilderService")
+  @Mock(name = "paginationBuilderServiceImpl")
   private PaginationBuilderServiceImpl paginationBuilderServiceImpl;
 
-  @Mock(name = "sortingBuilderService")
+  @Mock(name = "sortingBuilderServiceImpl")
   private SortingBuilderServiceImpl sortingBuilderServiceImpl;
 
   @Test
