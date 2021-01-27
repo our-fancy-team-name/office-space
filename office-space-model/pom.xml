@@ -8,8 +8,6 @@
         <artifactId>officespace</artifactId>
         <version>0.1.2-SNAPSHOT</version>
     </parent>
-
-    <groupId>com.ourfancyteamname</groupId>
     <artifactId>office-space-model</artifactId>
 
     <dependencies>

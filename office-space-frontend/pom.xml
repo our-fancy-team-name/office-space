@@ -8,7 +8,6 @@
         <version>0.1.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.ourfancyteamname</groupId>
     <artifactId>office-space-frontend</artifactId>
     <name>office-space-frontend</name>
 

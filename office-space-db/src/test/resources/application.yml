@@ -1,4 +1,4 @@
-spring.profiles.include: datasource, jwt, no-liquibase
+spring.profiles.include: datasource-h2, jwt, no-liquibase
 
 server:
   port: 9090
