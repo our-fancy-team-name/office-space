@@ -16,7 +16,6 @@ import com.ourfancyteamname.officespace.services.UserService;
 import com.ourfancyteamname.officespace.services.ViewService;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,8 +49,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
   private PasswordEncoder passwordEncoder;
 
   @Autowired
-  @Qualifier("userRoleListViewServiceImpl")
-  private ViewService<UserRoleListView> userRoleService;
+  private ViewService<UserRoleListView> userRoleListViewServiceImpl;
 
   @Override
   public Page<UserDto> findAllByPaging(TableSearchRequest tableSearchRequest) {
@@ -157,7 +155,7 @@ public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepositor
 
   @Override
   public Page<UserRoleListView> findUserRoleListView(TableSearchRequest tableSearchRequest) {
-    return userRoleService.findAll(tableSearchRequest);
+    return userRoleListViewServiceImpl.findAll(tableSearchRequest);
   }
 
   @Override
