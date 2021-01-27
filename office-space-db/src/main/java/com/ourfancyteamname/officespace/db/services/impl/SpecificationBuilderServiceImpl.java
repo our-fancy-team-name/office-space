@@ -20,10 +20,10 @@ public class SpecificationBuilderServiceImpl<T> implements TableSearchBuilderSer
     }
     var result = this.from(tableSearchRequest.getColumnSearchRequests().get(0));
     for (int i = 1; i < tableSearchRequest.getColumnSearchRequests().size(); i++) {
-      var previousSpec =
+      final var previousSpec =
           ObjectUtils.defaultIfNull(Specification.where(result), Specification.where((Specification<T>) null));
-      var rq = tableSearchRequest.getColumnSearchRequests().get(i);
-      var spec = from(rq);
+      final var rq = tableSearchRequest.getColumnSearchRequests().get(i);
+      final var spec = from(rq);
       result = rq.isOrTerm() ? previousSpec.or(spec) : previousSpec.and(spec);
     }
     return result;
@@ -31,11 +31,11 @@ public class SpecificationBuilderServiceImpl<T> implements TableSearchBuilderSer
 
   private Specification<T> from(ColumnSearchRequest columnSearchRequest) {
     return (root, query, builder) -> {
-      var term = columnSearchRequest.getTerm();
+      final var term = columnSearchRequest.getTerm();
       if (StringUtils.isBlank(term)) {
         return null;
       }
-      Path<String> path = root.get(columnSearchRequest.getColumnName());
+      final Path<String> path = root.get(columnSearchRequest.getColumnName());
       return switch (columnSearchRequest.getOperation()) {
         case EQUAL -> builder.equal(path, term);
         case NOT_EQUAL -> builder.notEqual(path, term);

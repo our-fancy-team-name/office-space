@@ -9,7 +9,6 @@ import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.services.PermissionService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +37,7 @@ public class PermissionServiceImpl implements PermissionService {
   public List<RolePermission> updateRolePermission(RoleDto role, List<PermissionDto> perm) {
     deleteRolePermissionByRoleId(role.getId());
     entityManager.flush();
-    val target = perm.stream()
+    final var target = perm.stream()
         .map(PermissionDto::getCode)
         .map(PermissionCode::valueOf)
         .map(permissionRepository::findByCode)
@@ -54,7 +53,7 @@ public class PermissionServiceImpl implements PermissionService {
 
   @Override
   public List<RolePermission> createRolePermission(Role role, List<PermissionDto> perm) {
-    val target = perm.stream()
+    final var target = perm.stream()
         .map(PermissionDto::getCode)
         .map(PermissionCode::valueOf)
         .map(permissionRepository::findByCode)

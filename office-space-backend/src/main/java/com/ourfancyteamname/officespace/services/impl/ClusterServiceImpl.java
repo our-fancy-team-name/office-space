@@ -7,7 +7,6 @@ import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.ClusterService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,7 @@ public class ClusterServiceImpl extends AbstractViewServiceImpl<ProcessCluster, 
 
   @Override
   public ProcessCluster update(ProcessGeneralDto processGeneralDto) {
-    val target = processClusterRepository.findById(processGeneralDto.getId())
+    final var target = processClusterRepository.findById(processGeneralDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
 
     if (!processClusterRepository.findByCode(processGeneralDto.getCode())

@@ -1,7 +1,6 @@
 package com.ourfancyteamname.officespace.controllers;
 
 import com.ourfancyteamname.officespace.annotations.CanEditRole;
-import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.view.RoleUserListView;
 import com.ourfancyteamname.officespace.dtos.RoleUserUpdateDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
@@ -49,7 +48,7 @@ public class RoleController {
   @Transactional
   @CanEditRole
   public ResponseEntity<Void> create(@RequestBody RoleUserUpdateDto roleUserUpdateDto) {
-    Role role = roleService.createRole(roleUserUpdateDto.getRoleDto());
+    final var role = roleService.createRole(roleUserUpdateDto.getRoleDto());
     userService.createUserRole(role, roleUserUpdateDto.getUsers());
     permissionService.createRolePermission(role, roleUserUpdateDto.getPermissionDto());
     return ResponseEntity.ok().build();

@@ -11,7 +11,6 @@ import com.ourfancyteamname.officespace.dtos.ClusterNodeEditDto;
 import com.ourfancyteamname.officespace.dtos.GraphDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.ProcessService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -44,7 +43,7 @@ public class ProcessServiceImpl implements ProcessService {
 
   @Override
   public GraphDto getGraph(Integer clusterId) {
-    val result = new GraphDto();
+    final var result = new GraphDto();
     result.setCluster(clusterRepository.findById(clusterId)
         .map(processGeneralConverter::fromClusterToDto)
         .orElseThrow(errorNotFound()));
@@ -64,7 +63,7 @@ public class ProcessServiceImpl implements ProcessService {
         .existsByClusterIdAndNodeId(graphDto.getCluster().getId(), graphDto.getNodes().get(0).getId())) {
       throw new IllegalArgumentException(ErrorCode.DUPLICATED.name());
     }
-    val clusterNode = ClusterNode.builder()
+    final var clusterNode = ClusterNode.builder()
         .clusterId(graphDto.getCluster().getId())
         .nodeId(graphDto.getNodes().get(0).getId())
         .build();
@@ -86,7 +85,7 @@ public class ProcessServiceImpl implements ProcessService {
 
   @Override
   public void removeNodeFromCluster(Integer clusterNodeId) {
-    val clusterNode = clusterNodeRepository.findById(clusterNodeId)
+    final var clusterNode = clusterNodeRepository.findById(clusterNodeId)
         .orElseThrow(errorNotFound());
     pathRepository.removeByClusterNodeIdToOrClusterNodeIdFrom(clusterNode.getId(), clusterNode.getId());
     entityManager.flush();
@@ -102,11 +101,11 @@ public class ProcessServiceImpl implements ProcessService {
   }
 
   private void editOrCreateOutputPath(ClusterNodeEditDto clusterNodeEditDto) {
-    val outputPaths = pathRepository.findByClusterNodeIdFrom(clusterNodeEditDto.getId());
+    final var outputPaths = pathRepository.findByClusterNodeIdFrom(clusterNodeEditDto.getId());
     if (CollectionUtils.isEmpty(clusterNodeEditDto.getOutput())) {
       pathRepository.deleteAll(outputPaths);
     } else {
-      pathRepository.saveAll(clusterNodeEditDto.getOutput().stream()
+      final var clusterNodePaths = clusterNodeEditDto.getOutput().stream()
           .map(dto -> outputPaths.stream()
               .filter(e -> e.getClusterNodeIdTo().equals(dto.getClusterNodeIdTo()))
               .findAny()
@@ -116,16 +115,17 @@ public class ProcessServiceImpl implements ProcessService {
                 return e;
               })
               .orElseGet(() -> processGeneralConverter.fromClusterNodeEditToPath(dto)))
-          .collect(Collectors.toList()));
+          .collect(Collectors.toList());
+      pathRepository.saveAll(clusterNodePaths);
     }
   }
 
   private void editOrCreateInputPath(ClusterNodeEditDto clusterNodeEditDto) {
-    val inputPaths = pathRepository.findByClusterNodeIdTo(clusterNodeEditDto.getId());
+    final var inputPaths = pathRepository.findByClusterNodeIdTo(clusterNodeEditDto.getId());
     if (CollectionUtils.isEmpty(clusterNodeEditDto.getInput())) {
       pathRepository.deleteAll(inputPaths);
     } else {
-      pathRepository.saveAll(clusterNodeEditDto.getInput().stream()
+      final var clusterNodePaths = clusterNodeEditDto.getInput().stream()
           .map(dto -> inputPaths.stream()
               .filter(e -> e.getClusterNodeIdFrom().equals(dto.getClusterNodeIdFrom()))
               .findAny()
@@ -135,7 +135,8 @@ public class ProcessServiceImpl implements ProcessService {
                 return e;
               })
               .orElseGet(() -> processGeneralConverter.fromClusterNodeEditToPath(dto)))
-          .collect(Collectors.toList()));
+          .collect(Collectors.toList());
+      pathRepository.saveAll(clusterNodePaths);
     }
   }
 

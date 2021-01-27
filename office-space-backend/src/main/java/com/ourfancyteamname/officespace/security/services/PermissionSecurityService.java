@@ -6,7 +6,6 @@ import com.ourfancyteamname.officespace.enums.PermissionCode;
 import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -45,8 +44,8 @@ public class PermissionSecurityService {
   }
 
   private boolean checkPermission(PermissionCode code) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    UserDetailsPrinciple user = (UserDetailsPrinciple) authentication.getPrincipal();
+    final var authentication = SecurityContextHolder.getContext().getAuthentication();
+    final var user = (UserDetailsPrinciple) authentication.getPrincipal();
     if (StringUtils.isBlank(user.getCurrentRole())) {
       return false;
     }

@@ -3,7 +3,6 @@ package com.ourfancyteamname.officespace.services.impl;
 import com.ourfancyteamname.officespace.db.services.TableSearchBuilderService;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.services.ViewService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -31,8 +30,8 @@ public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecu
 
   @Override
   public Page<E> findAll(TableSearchRequest tableSearchRequest) {
-    val specification = specificationBuilderService.from(tableSearchRequest);
-    val pageable = paginationBuilderService.from(tableSearchRequest);
+    final var specification = specificationBuilderService.from(tableSearchRequest);
+    final var pageable = paginationBuilderService.from(tableSearchRequest);
     if (pageable.isUnpaged()) {
       return new PageImpl<>(
           this.getExecutor().findAll(specification, sortingBuilderService.from(tableSearchRequest)));

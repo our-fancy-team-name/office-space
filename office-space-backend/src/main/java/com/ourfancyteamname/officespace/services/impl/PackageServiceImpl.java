@@ -12,7 +12,6 @@ import com.ourfancyteamname.officespace.enums.CharConstants;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.enums.ErrorObject;
 import com.ourfancyteamname.officespace.services.PackageService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class PackageServiceImpl extends AbstractViewServiceImpl<PackageListView,
 
   @Override
   public Package update(PackageDto packageDto) {
-    val target = packageRepository.findById(packageDto.getId())
+    final var target = packageRepository.findById(packageDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!packageRepository.findBySerialNumber(packageDto.getSerialNumber())
         .map(Package::getSerialNumber)

@@ -13,7 +13,7 @@ public class LoggingAspect {
 
   @Around("@annotation(com.ourfancyteamname.officespace.annotations.LogExecutionTime)")
   public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-    final long start = System.currentTimeMillis();
+    final var start = System.currentTimeMillis();
     try {
       return joinPoint.proceed();
     } finally {

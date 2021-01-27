@@ -7,7 +7,6 @@ import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.NodeService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class NodeServiceImpl extends AbstractViewServiceImpl<ProcessNode, Proces
 
   @Override
   public ProcessNode update(ProcessGeneralDto processGeneralDto) {
-    val target = processNodeRepository.findById(processGeneralDto.getId())
+    final var target = processNodeRepository.findById(processGeneralDto.getId())
         .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NOT_FOUND.name()));
     if (!processNodeRepository.findByCode(processGeneralDto.getCode())
         .map(ProcessNode::getCode)

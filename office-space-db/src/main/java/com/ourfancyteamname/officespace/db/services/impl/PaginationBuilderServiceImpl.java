@@ -18,7 +18,7 @@ public class PaginationBuilderServiceImpl implements TableSearchBuilderService<P
 
   @Override
   public Pageable from(TableSearchRequest tableSearchRequest) {
-    var tablePagingRequest = tableSearchRequest.getPagingRequest();
+    final var tablePagingRequest = tableSearchRequest.getPagingRequest();
     if (tablePagingRequest == null) {
       return Pageable.unpaged();
     }

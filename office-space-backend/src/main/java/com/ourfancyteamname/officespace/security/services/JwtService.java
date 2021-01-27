@@ -27,7 +27,7 @@ public class JwtService {
   private int jwtExpirationMs;
 
   public String generateJwtToken(Authentication authentication) {
-    UserDetailsPrinciple userPrincipal = (UserDetailsPrinciple) authentication.getPrincipal();
+    final var userPrincipal = (UserDetailsPrinciple) authentication.getPrincipal();
     return Jwts.builder()
         .setSubject((userPrincipal.getUsername()))
         .setIssuedAt(new Date())

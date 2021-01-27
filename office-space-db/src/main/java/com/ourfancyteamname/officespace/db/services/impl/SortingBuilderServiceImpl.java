@@ -11,7 +11,7 @@ public class SortingBuilderServiceImpl implements TableSearchBuilderService<Sort
 
   @Override
   public Sort from(TableSearchRequest tableSearchRequest) {
-    var tableSortingRequest = tableSearchRequest.getSortingRequest();
+    final var tableSortingRequest = tableSearchRequest.getSortingRequest();
     if (tableSortingRequest == null
         || StringUtils.isBlank(tableSortingRequest.getColumnName())
         || tableSortingRequest.getDirection() == null) {

@@ -40,8 +40,8 @@ public class CacheConfig {
   }
 
   private void customize(CacheManager cacheManager) {
-    CacheConfigurationBuilder<Object, Object> defaultConfig = defaultConfigBuilder();
-    CacheEntryListenerConfiguration<Object, Object> defaultListener = defaultListener();
+    final var defaultConfig = defaultConfigBuilder();
+    final var defaultListener = defaultListener();
     Stream.of(CacheName.USER_PRINCIPLE, CacheName.PERMISSIONS)
         .forEach(createCache(cacheManager, defaultConfig, defaultListener));
   }

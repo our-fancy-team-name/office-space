@@ -9,7 +9,6 @@ import org.springframework.boot.info.GitProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,10 +36,10 @@ public class SecurityController {
 
   @PostMapping("/signIn")
   public ResponseEntity<JwtResponse<UserDetails>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-    Authentication authentication = authenticationManager.authenticate(
+    final var authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    UserDetailsPrinciple userDetails = (UserDetailsPrinciple) authentication.getPrincipal();
+    final var userDetails = (UserDetailsPrinciple) authentication.getPrincipal();
     return ResponseEntity.ok(JwtResponse.builder()
         .token(jwtService.generateJwtToken(authentication))
         .type(JwtService.TOKEN_TYPE)
