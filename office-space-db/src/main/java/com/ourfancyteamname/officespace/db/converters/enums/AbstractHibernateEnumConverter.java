@@ -1,9 +1,10 @@
 package com.ourfancyteamname.officespace.db.converters.enums;
 
-import com.ourfancyteamname.officespace.enums.PersistableEnum;
+import java.util.function.Supplier;
 
 import javax.persistence.AttributeConverter;
-import java.util.function.Supplier;
+
+import com.ourfancyteamname.officespace.enums.PersistableEnum;
 
 public abstract class AbstractHibernateEnumConverter<E extends Enum<E> & PersistableEnum<S>, S>
     implements AttributeConverter<E, S> {

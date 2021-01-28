@@ -1,14 +1,17 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.services.ProcessService;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.mockito.ArgumentMatchers.any;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+import com.ourfancyteamname.officespace.services.ProcessService;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class ProcessControllerTest {
 
   @InjectMocks
@@ -20,37 +23,37 @@ class ProcessControllerTest {
   @Test
   void getByClusterId() {
     controller.getByClusterId(null);
-    Mockito.verify(processService, Mockito.times(1)).getGraph(Mockito.any());
+    verifyInvoke1Time(processService).getGraph(any());
   }
 
   @Test
   void addNodeToCluster() {
     controller.addNodeToCluster(null);
-    Mockito.verify(processService, Mockito.times(1)).addNodeToCluster(Mockito.any());
+    verifyInvoke1Time(processService).addNodeToCluster(any());
   }
 
   @Test
   void removeNodeFromCluster() {
     controller.removeNodeFromCluster(null);
-    Mockito.verify(processService, Mockito.times(1)).removeNodeFromCluster(Mockito.any());
+    verifyInvoke1Time(processService).removeNodeFromCluster(any());
   }
 
   @Test
   void editClusterNode() {
     controller.editClusterNode(null);
-    Mockito.verify(processService, Mockito.times(1)).editClusterNode(Mockito.any());
+    verifyInvoke1Time(processService).editClusterNode(any());
   }
 
   @Test
   void addPath() {
     controller.addPath(null, null);
-    Mockito.verify(processService, Mockito.times(1)).addSinglePath(Mockito.any(), Mockito.any());
+    verifyInvoke1Time(processService).addSinglePath(Mockito.any(), Mockito.any());
   }
 
   @Test
   void removePath() {
     controller.removePath(null);
-    Mockito.verify(processService, Mockito.times(1)).removePath(Mockito.any());
+    verifyInvoke1Time(processService).removePath(Mockito.any());
   }
 
 }

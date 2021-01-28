@@ -1,14 +1,18 @@
 package enums;
 
-import com.ourfancyteamname.officespace.enums.CacheName;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
+import com.ourfancyteamname.officespace.enums.CacheName;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class CacheNameTest {
 
   @Test
   void cacheName() {
-    Assertions.assertEquals("USER_PRINCIPLE", CacheName.USER_PRINCIPLE);
-    Assertions.assertEquals("PERMISSIONS", CacheName.PERMISSIONS);
+    assertEquals("USER_PRINCIPLE", CacheName.USER_PRINCIPLE);
+    assertEquals("PERMISSIONS", CacheName.PERMISSIONS);
   }
 }

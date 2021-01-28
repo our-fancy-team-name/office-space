@@ -1,14 +1,16 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.services.ProductService;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.mockito.Mockito.any;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+import com.ourfancyteamname.officespace.services.ProductService;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class ProductControllerTest {
 
   @InjectMocks
@@ -20,31 +22,31 @@ class ProductControllerTest {
   @Test
   void findByPaging() {
     controller.findByPaging(null);
-    Mockito.verify(productService, Mockito.times(1)).findByPaging(Mockito.any());
+    verifyInvoke1Time(productService).findByPaging(any());
   }
 
   @Test
   void create() {
     controller.create(null);
-    Mockito.verify(productService, Mockito.times(1)).create(Mockito.any());
+    verifyInvoke1Time(productService).create(any());
   }
 
   @Test
   void update() {
     controller.update(null);
-    Mockito.verify(productService, Mockito.times(1)).update(Mockito.any());
+    verifyInvoke1Time(productService).update(any());
   }
 
   @Test
   void delete() {
     controller.delete(null);
-    Mockito.verify(productService, Mockito.times(1)).delete(Mockito.any());
+    verifyInvoke1Time(productService).delete(any());
   }
 
   @Test
   void getListProductDisplayName() {
     controller.getListProductDisplayName(null);
-    Mockito.verify(productService, Mockito.times(1)).findProductWithDisplayName(Mockito.any());
+    verifyInvoke1Time(productService).findProductWithDisplayName(any());
   }
 
 }

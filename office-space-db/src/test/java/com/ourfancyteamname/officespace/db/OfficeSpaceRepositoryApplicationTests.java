@@ -1,15 +1,21 @@
 package com.ourfancyteamname.officespace.db;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class OfficeSpaceRepositoryApplicationTests {
 
-  @Test
-  void contextLoads() {
-    Assertions.assertTrue(true);
-  }
+  @InjectMocks
+  private OfficeSpaceRepositoryApplication application;
 
+  @Test
+  void appClassTest() {
+    assertEquals("public class com.ourfancyteamname.officespace.db.OfficeSpaceRepositoryApplication",
+        application.getClass().toGenericString());
+  }
 }

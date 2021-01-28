@@ -1,12 +1,13 @@
 package com.ourfancyteamname.officespace.dtos;
 
+import java.util.List;
+
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Builder

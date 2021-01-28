@@ -2,6 +2,7 @@ package com.ourfancyteamname.officespace.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.ourfancyteamname.officespace.enums.Gender;
+
 import lombok.Builder;
 import lombok.Data;
 

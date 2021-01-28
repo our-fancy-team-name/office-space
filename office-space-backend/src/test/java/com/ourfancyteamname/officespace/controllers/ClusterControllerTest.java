@@ -1,15 +1,17 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
-import com.ourfancyteamname.officespace.services.ClusterService;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
+import com.ourfancyteamname.officespace.services.ClusterService;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class ClusterControllerTest {
 
   @InjectMocks
@@ -21,18 +23,18 @@ class ClusterControllerTest {
   @Test
   void create() {
     controller.create(ProcessGeneralDto.builder().build());
-    Mockito.verify(clusterService, Mockito.times(1)).create(Mockito.any());
+    verifyInvoke1Time(clusterService).create(Mockito.any());
   }
 
   @Test
   void getListView() {
     controller.getListView(null);
-    Mockito.verify(clusterService, Mockito.times(1)).getListView(Mockito.any());
+    verifyInvoke1Time(clusterService).getListView(Mockito.any());
   }
 
   @Test
   void update() {
     controller.update(null);
-    Mockito.verify(clusterService, Mockito.times(1)).update(Mockito.any());
+    verifyInvoke1Time(clusterService).update(Mockito.any());
   }
 }

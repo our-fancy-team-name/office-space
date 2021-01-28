@@ -1,5 +1,20 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyIterable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
 import com.ourfancyteamname.officespace.db.converters.dtos.PermissionConverter;
 import com.ourfancyteamname.officespace.db.entities.Permission;
 import com.ourfancyteamname.officespace.db.entities.Role;
@@ -8,19 +23,9 @@ import com.ourfancyteamname.officespace.db.repos.RolePermissionRepository;
 import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class PermissionServiceImplTest {
 
   @InjectMocks
@@ -44,12 +49,12 @@ class PermissionServiceImplTest {
     List<PermissionDto> permissionDtos = Collections.singletonList(PermissionDto.builder()
         .code(PermissionCode.PRCS_EDIT.name())
         .build());
-    Mockito.when(permissionRepository.findByCode(PermissionCode.PRCS_EDIT))
-        .thenReturn(Optional.of(Permission.builder().code(PermissionCode.PRCS_EDIT).build()));
+    mockReturn(permissionRepository.findByCode(PermissionCode.PRCS_EDIT),
+        Optional.of(Permission.builder().code(PermissionCode.PRCS_EDIT).build()));
     service.updateRolePermission(roleDto, permissionDtos);
-    Mockito.verify(entityManager, Mockito.times(1)).flush();
-    Mockito.verify(rolePermissionRepository, Mockito.times(1)).removeByRoleId(1);
-    Mockito.verify(rolePermissionRepository, Mockito.times(1)).saveAll(Mockito.anyIterable());
+    verifyInvoke1Time(entityManager).flush();
+    verifyInvoke1Time(rolePermissionRepository).removeByRoleId(1);
+    verifyInvoke1Time(rolePermissionRepository).saveAll(anyIterable());
   }
 
   @Test
@@ -58,10 +63,10 @@ class PermissionServiceImplTest {
     List<PermissionDto> permissionDtos = Collections.singletonList(PermissionDto.builder()
         .code(PermissionCode.PRCS_EDIT.name())
         .build());
-    Mockito.when(permissionRepository.findByCode(PermissionCode.PRCS_EDIT))
-        .thenReturn(Optional.of(Permission.builder().code(PermissionCode.PRCS_EDIT).build()));
+    mockReturn(permissionRepository.findByCode(PermissionCode.PRCS_EDIT),
+        Optional.of(Permission.builder().code(PermissionCode.PRCS_EDIT).build()));
     service.createRolePermission(roleDto, permissionDtos);
-    Mockito.verify(rolePermissionRepository, Mockito.times(1)).saveAll(Mockito.anyIterable());
+    verifyInvoke1Time(rolePermissionRepository).saveAll(anyIterable());
   }
 
   @Test
@@ -69,9 +74,8 @@ class PermissionServiceImplTest {
     String role = "SUPER_ADMIN";
     List<Permission> permissions =
         Collections.singletonList(Permission.builder().code(PermissionCode.PRCS_EDIT).build());
-    Mockito.when(permissionRepository.findPermissionByRole(role))
-        .thenReturn(permissions);
+    mockReturn(permissionRepository.findPermissionByRole(role), permissions);
     service.findAllPermissionByRole(role);
-    Mockito.verify(permissionConverter, Mockito.times(1)).toDto(Mockito.any());
+    verifyInvoke1Time(permissionConverter).toDto(any());
   }
 }

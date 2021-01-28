@@ -1,12 +1,16 @@
 package enums;
 
-import com.ourfancyteamname.officespace.enums.DataBaseDirection;
-import org.apache.commons.lang3.ArrayUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.junit.jupiter.api.Test;
+
+import com.ourfancyteamname.officespace.enums.DataBaseDirection;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class DataBaseDirectionTest {
   public static final String[] names = {"ASC", "DESC"};
 
@@ -14,6 +18,6 @@ class DataBaseDirectionTest {
   void name() {
     Stream.of(DataBaseDirection.values())
         .map(Enum::name)
-        .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));
+        .forEach(s -> assertTrue(ArrayUtils.contains(names, s)));
   }
 }

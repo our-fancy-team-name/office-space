@@ -1,10 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Test Back End
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # Triggers the workflow on push or push and pull request events
   push:
     branches: [ '*' ]
   pull_request:
@@ -15,7 +13,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # This workflow contains a single job called "testBE"
   testBE:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -57,8 +55,8 @@ jobs:
 
       - name: Clean test back end for push commit
         if: ${{ github.event_name == 'push'}}
-        run: ./mvnw clean verify -Pno-front-end sonar:sonar -Dsonar.branch.name=$BRANCH_NAME
+        run: ./mvnw clean verify -Dgroups=unit -Pno-front-end sonar:sonar -Dsonar.branch.name=$BRANCH_NAME
 
       - name: Clean test back end for pull request
         if: ${{ github.event_name == 'pull_request'}}
-        run: ./mvnw clean verify -Pno-front-end sonar:sonar -Dsonar.pullrequest.branch=$BRANCH_NAME -Dsonar.pullrequest.key=$PR_NUMBER
+        run: ./mvnw clean verify -Dgroups=unit -Pno-front-end sonar:sonar -Dsonar.pullrequest.branch=$BRANCH_NAME -Dsonar.pullrequest.key=$PR_NUMBER

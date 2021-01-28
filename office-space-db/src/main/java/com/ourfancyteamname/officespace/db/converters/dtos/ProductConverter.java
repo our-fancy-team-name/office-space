@@ -1,9 +1,10 @@
 package com.ourfancyteamname.officespace.db.converters.dtos;
 
-import com.ourfancyteamname.officespace.db.entities.Product;
-import com.ourfancyteamname.officespace.dtos.ProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import com.ourfancyteamname.officespace.db.entities.Product;
+import com.ourfancyteamname.officespace.dtos.ProductDto;
 
 @Mapper
 public interface ProductConverter {

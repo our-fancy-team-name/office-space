@@ -1,9 +1,5 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.annotations.CanEditProcess;
-import com.ourfancyteamname.officespace.dtos.ClusterNodeEditDto;
-import com.ourfancyteamname.officespace.dtos.GraphDto;
-import com.ourfancyteamname.officespace.services.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ourfancyteamname.officespace.annotations.CanEditProcess;
+import com.ourfancyteamname.officespace.dtos.ClusterNodeEditDto;
+import com.ourfancyteamname.officespace.dtos.GraphDto;
+import com.ourfancyteamname.officespace.services.ProcessService;
 
 @RestController
 @RequestMapping("/api/process")

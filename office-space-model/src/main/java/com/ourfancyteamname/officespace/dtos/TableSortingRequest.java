@@ -1,6 +1,7 @@
 package com.ourfancyteamname.officespace.dtos;
 
 import com.ourfancyteamname.officespace.enums.DataBaseDirection;
+
 import lombok.Builder;
 import lombok.Data;
 

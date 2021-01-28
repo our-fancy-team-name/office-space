@@ -1,13 +1,14 @@
 package com.ourfancyteamname.officespace.security.services;
 
-import com.ourfancyteamname.officespace.db.entities.Permission;
-import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
-import com.ourfancyteamname.officespace.enums.PermissionCode;
-import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import com.ourfancyteamname.officespace.db.entities.Permission;
+import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
+import com.ourfancyteamname.officespace.enums.PermissionCode;
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 
 @Component
 public class PermissionSecurityService {

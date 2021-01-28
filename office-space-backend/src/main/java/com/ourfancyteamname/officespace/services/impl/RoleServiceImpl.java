@@ -1,5 +1,11 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
 import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.view.RoleUserListView;
 import com.ourfancyteamname.officespace.db.repos.RoleRepository;
@@ -8,11 +14,6 @@ import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class RoleServiceImpl extends AbstractViewServiceImpl<RoleUserListView, RoleUserListViewRepository>

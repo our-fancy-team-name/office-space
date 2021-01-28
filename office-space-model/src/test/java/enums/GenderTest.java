@@ -1,14 +1,18 @@
 package enums;
 
-import com.ourfancyteamname.officespace.enums.Gender;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
+import com.ourfancyteamname.officespace.enums.Gender;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class GenderTest {
 
   @Test
   void name() {
-    Assertions.assertEquals("FEMALE", Gender.FEMALE.getName());
-    Assertions.assertEquals("MALE", Gender.MALE.getName());
+    assertEquals("FEMALE", Gender.FEMALE.getName());
+    assertEquals("MALE", Gender.MALE.getName());
   }
 }

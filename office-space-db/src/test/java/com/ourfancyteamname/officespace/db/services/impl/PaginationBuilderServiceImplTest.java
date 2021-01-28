@@ -1,20 +1,19 @@
 package com.ourfancyteamname.officespace.db.services.impl;
 
-import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
-import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import org.junit.jupiter.api.Assertions;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-@SpringBootTest
-@ExtendWith(MockitoExtension.class)
+import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class PaginationBuilderServiceImplTest {
 
   private static final int page = 1;
@@ -33,19 +32,19 @@ class PaginationBuilderServiceImplTest {
         .pageSize(pageSize)
         .build();
     var tableSearchRq = TableSearchRequest.builder().pagingRequest(request).build();
-    Mockito.when(sortingBuilderService.from(tableSearchRq)).thenReturn(Sort.unsorted());
+    mockReturn(sortingBuilderService.from(tableSearchRq), Sort.unsorted());
     Pageable actual = service.from(tableSearchRq);
-    Assertions.assertEquals(Sort.unsorted(), actual.getSort());
-    Assertions.assertEquals(page, actual.getPageNumber());
-    Assertions.assertEquals(pageSize, actual.getPageSize());
+    assertEquals(Sort.unsorted(), actual.getSort());
+    assertEquals(page, actual.getPageNumber());
+    assertEquals(pageSize, actual.getPageSize());
   }
 
   @Test
   void getPage_empty() {
     var tableSearchRq = TableSearchRequest.builder().build();
     Pageable actual = service.from(tableSearchRq);
-    Assertions.assertEquals(Sort.unsorted(), actual.getSort());
-    Assertions.assertEquals(Pageable.unpaged(), actual);
+    assertEquals(Sort.unsorted(), actual.getSort());
+    assertEquals(Pageable.unpaged(), actual);
   }
 
   /**
@@ -53,6 +52,6 @@ class PaginationBuilderServiceImplTest {
    */
   @Test
   void qualifier() {
-    Assertions.assertEquals("PaginationBuilderServiceImpl", service.getClass().getSimpleName());
+    assertEquals("PaginationBuilderServiceImpl", service.getClass().getSimpleName());
   }
 }

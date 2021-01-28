@@ -1,5 +1,22 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import static com.ourfancyteamname.officespace.test.services.AssertionHelper.assertThrowIllegalDuplicated;
+import static com.ourfancyteamname.officespace.test.services.AssertionHelper.assertThrowIllegalNotFound;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.mockito.Mockito.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ClusterNode;
 import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
@@ -12,20 +29,9 @@ import com.ourfancyteamname.officespace.dtos.ClusterNodeEditDto;
 import com.ourfancyteamname.officespace.dtos.GraphDto;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class ProcessServiceImplTest {
 
   @InjectMocks
@@ -52,11 +58,8 @@ class ProcessServiceImplTest {
   @Test
   void getGraph_notFound() {
     Integer clusterId = 1;
-    Mockito.when(clusterRepository.findById(clusterId)).thenReturn(Optional.empty());
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.getGraph(clusterId),
-        ErrorCode.NOT_FOUND.name());
+    mockReturn(clusterRepository.findById(clusterId), Optional.empty());
+    assertThrowIllegalNotFound(() -> service.getGraph(clusterId));
   }
 
   @Test
@@ -64,17 +67,16 @@ class ProcessServiceImplTest {
     Integer clusterId = 1;
     ProcessCluster cluster = ProcessCluster.builder().id(clusterId).build();
     ProcessGeneralDto clusterDto = ProcessGeneralDto.builder().id(clusterId).build();
-    Mockito.when(clusterRepository.findById(clusterId)).thenReturn(Optional.of(cluster));
-    Mockito.when(processGeneralConverter.fromClusterToDto(cluster))
-        .thenReturn(clusterDto);
-    Mockito.when(pathRepository.findAllByCLusterId(clusterId))
-        .thenReturn(Collections.singletonList(ClusterNodePath.builder().build()));
+    mockReturn(clusterRepository.findById(clusterId), Optional.of(cluster));
+    mockReturn(processGeneralConverter.fromClusterToDto(cluster), clusterDto);
+    mockReturn(pathRepository.findAllByCLusterId(clusterId),
+        Collections.singletonList(ClusterNodePath.builder().build()));
     service.getGraph(clusterId);
-    Mockito.verify(processGeneralConverter, Mockito.times(1)).fromClusterToDto(cluster);
-    Mockito.verify(clusterRepository, Mockito.times(1)).findById(clusterId);
-    Mockito.verify(clusterNodeRepository, Mockito.times(1)).getClusterNodesByClusterId(clusterId);
-    Mockito.verify(pathRepository, Mockito.times(1)).findAllByCLusterId(clusterId);
-    Mockito.verify(processGeneralConverter, Mockito.times(1)).fromPathToDto(Mockito.any());
+    verifyInvoke1Time(processGeneralConverter).fromClusterToDto(cluster);
+    verifyInvoke1Time(clusterRepository).findById(clusterId);
+    verifyInvoke1Time(clusterNodeRepository).getClusterNodesByClusterId(clusterId);
+    verifyInvoke1Time(pathRepository).findAllByCLusterId(clusterId);
+    verifyInvoke1Time(processGeneralConverter).fromPathToDto(any());
   }
 
   @Test
@@ -84,11 +86,8 @@ class ProcessServiceImplTest {
     ProcessGeneralDto cluster = ProcessGeneralDto.builder().id(clusterId).build();
     ProcessGeneralDto node = ProcessGeneralDto.builder().id(nodeId).build();
     GraphDto graphDto = GraphDto.builder().cluster(cluster).nodes(Collections.singletonList(node)).build();
-    Mockito.when(clusterNodeRepository.existsByClusterIdAndNodeId(clusterId, nodeId)).thenReturn(true);
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.addNodeToCluster(graphDto),
-        ErrorCode.DUPLICATED.name());
+    mockReturn(clusterNodeRepository.existsByClusterIdAndNodeId(clusterId, nodeId), true);
+    assertThrowIllegalDuplicated(() -> service.addNodeToCluster(graphDto));
   }
 
   @Test
@@ -98,9 +97,9 @@ class ProcessServiceImplTest {
     ProcessGeneralDto cluster = ProcessGeneralDto.builder().id(clusterId).build();
     ProcessGeneralDto node = ProcessGeneralDto.builder().id(nodeId).build();
     GraphDto graphDto = GraphDto.builder().cluster(cluster).nodes(Collections.singletonList(node)).build();
-    Mockito.when(clusterNodeRepository.existsByClusterIdAndNodeId(clusterId, nodeId)).thenReturn(false);
+    mockReturn(clusterNodeRepository.existsByClusterIdAndNodeId(clusterId, nodeId), false);
     service.addNodeToCluster(graphDto);
-    Mockito.verify(clusterNodeRepository, Mockito.times(1)).save(Mockito.any(ClusterNode.class));
+    verifyInvoke1Time(clusterNodeRepository).save(any(ClusterNode.class));
   }
 
   @Test
@@ -108,20 +107,20 @@ class ProcessServiceImplTest {
     int from = 1;
     int to = 2;
     service.addSinglePath(from, to);
-    Mockito.verify(pathRepository, Mockito.times(1)).save(Mockito.any(ClusterNodePath.class));
+    verify(pathRepository, times(1)).save(any(ClusterNodePath.class));
   }
 
   @Test
   void removePath_success() {
     int pathId = 1;
     service.removePath(pathId);
-    Mockito.verify(pathRepository, Mockito.times(1)).deleteById(pathId);
+    verify(pathRepository, times(1)).deleteById(pathId);
   }
 
   @Test
   void removeNodeFromCluster_notFound() {
     int clusterNodeId = 1;
-    Mockito.when(clusterNodeRepository.findById(clusterNodeId)).thenReturn(Optional.empty());
+    when(clusterNodeRepository.findById(clusterNodeId)).thenReturn(Optional.empty());
     Assertions.assertThrows(
         IllegalArgumentException.class,
         () -> service.removeNodeFromCluster(clusterNodeId),
@@ -133,14 +132,14 @@ class ProcessServiceImplTest {
   void removeNodeFromCluster_success() {
     int clusterNodeId = 1;
     ClusterNode clusterNode = ClusterNode.builder().id(clusterNodeId).build();
-    Mockito.when(clusterNodeRepository.findById(clusterNodeId)).thenReturn(Optional.of(clusterNode));
+    when(clusterNodeRepository.findById(clusterNodeId)).thenReturn(Optional.of(clusterNode));
     service.removeNodeFromCluster(clusterNodeId);
-    Mockito.verify(clusterNodeRepository, Mockito.times(1)).findById(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1))
+    verify(clusterNodeRepository, times(1)).findById(clusterNodeId);
+    verify(pathRepository, times(1))
         .removeByClusterNodeIdToOrClusterNodeIdFrom(clusterNodeId, clusterNodeId);
-    Mockito.verify(entityManager, Mockito.times(2)).flush();
-    Mockito.verify(clusterNodePackageRepository, Mockito.times(1)).removeByClusterNodeId(clusterNodeId);
-    Mockito.verify(clusterNodeRepository, Mockito.times(1)).delete(clusterNode);
+    verify(entityManager, times(2)).flush();
+    verify(clusterNodePackageRepository, times(1)).removeByClusterNodeId(clusterNodeId);
+    verify(clusterNodeRepository, times(1)).delete(clusterNode);
   }
 
   @Test
@@ -149,12 +148,12 @@ class ProcessServiceImplTest {
     List<ProcessGeneralDto> inputs = Collections.emptyList();
     List<ProcessGeneralDto> outputs = Collections.emptyList();
     ClusterNodeEditDto editDto = ClusterNodeEditDto.builder().id(clusterNodeId).input(inputs).output(outputs).build();
-    Mockito.when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
-    Mockito.when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
     service.editClusterNode(editDto);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdFrom(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdTo(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(2)).deleteAll(Collections.emptyList());
+    verify(pathRepository, times(1)).findByClusterNodeIdFrom(clusterNodeId);
+    verify(pathRepository, times(1)).findByClusterNodeIdTo(clusterNodeId);
+    verify(pathRepository, times(2)).deleteAll(Collections.emptyList());
   }
 
   @Test
@@ -163,16 +162,16 @@ class ProcessServiceImplTest {
     List<ProcessGeneralDto> inputs = Collections.emptyList();
     List<ProcessGeneralDto> outputs = Collections.singletonList(ProcessGeneralDto.builder().build());
     ClusterNodeEditDto editDto = ClusterNodeEditDto.builder().id(clusterNodeId).input(inputs).output(outputs).build();
-    Mockito.when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
-    Mockito.when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
-    Mockito.when(processGeneralConverter.fromClusterNodeEditToPath(outputs.get(0)))
+    when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(processGeneralConverter.fromClusterNodeEditToPath(outputs.get(0)))
         .thenReturn(ClusterNodePath.builder().build());
     service.editClusterNode(editDto);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdFrom(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdTo(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).deleteAll(Collections.emptyList());
-    Mockito.verify(processGeneralConverter, Mockito.times(1)).fromClusterNodeEditToPath(Mockito.any());
-    Mockito.verify(pathRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verify(pathRepository, times(1)).findByClusterNodeIdFrom(clusterNodeId);
+    verify(pathRepository, times(1)).findByClusterNodeIdTo(clusterNodeId);
+    verify(pathRepository, times(1)).deleteAll(Collections.emptyList());
+    verify(processGeneralConverter, times(1)).fromClusterNodeEditToPath(any());
+    verify(pathRepository, times(1)).saveAll(any());
   }
 
   @Test
@@ -185,13 +184,13 @@ class ProcessServiceImplTest {
     List<ClusterNodePath> clusterNodePathsFrom =
         Collections.singletonList(ClusterNodePath.builder().clusterNodeIdTo(clusterIdNodeTo).build());
     ClusterNodeEditDto editDto = ClusterNodeEditDto.builder().id(clusterNodeId).input(inputs).output(outputs).build();
-    Mockito.when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(clusterNodePathsFrom);
-    Mockito.when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(clusterNodePathsFrom);
+    when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
     service.editClusterNode(editDto);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdFrom(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdTo(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).deleteAll(Collections.emptyList());
-    Mockito.verify(pathRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verify(pathRepository, times(1)).findByClusterNodeIdFrom(clusterNodeId);
+    verify(pathRepository, times(1)).findByClusterNodeIdTo(clusterNodeId);
+    verify(pathRepository, times(1)).deleteAll(Collections.emptyList());
+    verify(pathRepository, times(1)).saveAll(any());
   }
 
   @Test
@@ -200,16 +199,16 @@ class ProcessServiceImplTest {
     List<ProcessGeneralDto> inputs = Collections.singletonList(ProcessGeneralDto.builder().build());
     List<ProcessGeneralDto> outputs = Collections.emptyList();
     ClusterNodeEditDto editDto = ClusterNodeEditDto.builder().id(clusterNodeId).input(inputs).output(outputs).build();
-    Mockito.when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
-    Mockito.when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
-    Mockito.when(processGeneralConverter.fromClusterNodeEditToPath(inputs.get(0)))
+    when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(processGeneralConverter.fromClusterNodeEditToPath(inputs.get(0)))
         .thenReturn(ClusterNodePath.builder().build());
     service.editClusterNode(editDto);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdFrom(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdTo(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).deleteAll(Collections.emptyList());
-    Mockito.verify(processGeneralConverter, Mockito.times(1)).fromClusterNodeEditToPath(Mockito.any());
-    Mockito.verify(pathRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verify(pathRepository, times(1)).findByClusterNodeIdFrom(clusterNodeId);
+    verify(pathRepository, times(1)).findByClusterNodeIdTo(clusterNodeId);
+    verify(pathRepository, times(1)).deleteAll(Collections.emptyList());
+    verify(processGeneralConverter, times(1)).fromClusterNodeEditToPath(any());
+    verify(pathRepository, times(1)).saveAll(any());
   }
 
   @Test
@@ -222,12 +221,12 @@ class ProcessServiceImplTest {
     List<ClusterNodePath> clusterNodePathsFrom =
         Collections.singletonList(ClusterNodePath.builder().clusterNodeIdFrom(clusterIdNodeFrom).build());
     ClusterNodeEditDto editDto = ClusterNodeEditDto.builder().id(clusterNodeId).input(inputs).output(outputs).build();
-    Mockito.when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
-    Mockito.when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(clusterNodePathsFrom);
+    when(pathRepository.findByClusterNodeIdFrom(clusterNodeId)).thenReturn(Collections.emptyList());
+    when(pathRepository.findByClusterNodeIdTo(clusterNodeId)).thenReturn(clusterNodePathsFrom);
     service.editClusterNode(editDto);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdFrom(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).findByClusterNodeIdTo(clusterNodeId);
-    Mockito.verify(pathRepository, Mockito.times(1)).deleteAll(Collections.emptyList());
-    Mockito.verify(pathRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verify(pathRepository, times(1)).findByClusterNodeIdFrom(clusterNodeId);
+    verify(pathRepository, times(1)).findByClusterNodeIdTo(clusterNodeId);
+    verify(pathRepository, times(1)).deleteAll(Collections.emptyList());
+    verify(pathRepository, times(1)).saveAll(any());
   }
 }

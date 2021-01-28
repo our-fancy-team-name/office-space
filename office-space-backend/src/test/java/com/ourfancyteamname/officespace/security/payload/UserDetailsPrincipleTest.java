@@ -3,6 +3,9 @@ package com.ourfancyteamname.officespace.security.payload;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class UserDetailsPrincipleTest {
 
   @Test

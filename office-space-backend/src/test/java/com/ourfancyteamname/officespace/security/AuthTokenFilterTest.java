@@ -1,28 +1,33 @@
 package com.ourfancyteamname.officespace.security;
 
-import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
-import com.ourfancyteamname.officespace.security.services.JwtService;
-import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.junit.jupiter.api.Assertions;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.any;
+
+import java.io.IOException;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.Date;
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
+import com.ourfancyteamname.officespace.security.services.JwtService;
+import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-@ExtendWith(MockitoExtension.class)
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+@UnitTest
 class AuthTokenFilterTest {
 
   private static final String username = "dang";
@@ -50,15 +55,15 @@ class AuthTokenFilterTest {
 
   @Test
   void doFilterInternal_Sucess() throws ServletException, IOException {
-    Mockito.when(jwtService.validateJwtToken(token)).thenReturn(true);
-    Mockito.when(jwtService.getUserNameFromJwtToken(token)).thenReturn(username);
-    Mockito.when(userDetailsService.loadUserByUsername(username)).thenReturn(new UserDetailsPrinciple());
+    mockReturn(jwtService.validateJwtToken(token), true);
+    mockReturn(jwtService.getUserNameFromJwtToken(token), username);
+    mockReturn(userDetailsService.loadUserByUsername(username), new UserDetailsPrinciple());
 
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Authorization", JwtService.TOKEN_TYPE + " " + token);
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
-    Assertions.assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+    assertNotNull(SecurityContextHolder.getContext().getAuthentication());
   }
 
   @Test
@@ -66,7 +71,7 @@ class AuthTokenFilterTest {
     MockHttpServletRequest request = new MockHttpServletRequest();
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
-    Mockito.verify(jwtService, Mockito.times(1)).validateJwtToken(Mockito.any());
+    verifyInvoke1Time(jwtService).validateJwtToken(any());
   }
 
   @Test
@@ -75,7 +80,7 @@ class AuthTokenFilterTest {
     request.addHeader("Authorization", token);
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
-    Mockito.verify(jwtService, Mockito.times(1)).validateJwtToken(Mockito.any());
+    verifyInvoke1Time(jwtService).validateJwtToken(any());
   }
 
   @Test
@@ -89,6 +94,6 @@ class AuthTokenFilterTest {
     request.addHeader("Authorization", tokenFailed);
     request.addHeader("Role", "SUPER_ADMIN");
     authTokenFilter.doFilterInternal(request, new MockHttpServletResponse(), new MockFilterChain());
-    Mockito.verify(jwtService, Mockito.times(1)).validateJwtToken(Mockito.any());
+    verifyInvoke1Time(jwtService).validateJwtToken(any());
   }
 }

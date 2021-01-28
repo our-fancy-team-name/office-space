@@ -1,14 +1,18 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import com.ourfancyteamname.officespace.security.AuthTokenFilter;
-import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
-import org.junit.jupiter.api.Assertions;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -19,11 +23,11 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Map;
+import com.ourfancyteamname.officespace.security.AuthTokenFilter;
+import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class WebSecurityConfigTest {
 
   private static final String[] METHOD_ALLOWED = {"HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"};
@@ -36,56 +40,53 @@ class WebSecurityConfigTest {
 
   @Test
   void bean() {
-    Assertions.assertSame(AuthTokenFilter.class, webSecurityConfig.authenticationJwtTokenFilter().getClass());
-    Assertions.assertSame(BCryptPasswordEncoder.class, webSecurityConfig.passwordEncoder().getClass());
-
+    assertSame(AuthTokenFilter.class, webSecurityConfig.authenticationJwtTokenFilter().getClass());
+    assertSame(BCryptPasswordEncoder.class, webSecurityConfig.passwordEncoder().getClass());
   }
 
   @Test
   void authenticationManagerBean() throws Exception {
     WebSecurityConfig config = new WebSecurityConfig();
-    AuthenticationManagerBuilder authenticationBuilder = Mockito.mock(AuthenticationManagerBuilder.class);
-    ApplicationContext context = Mockito.mock(ApplicationContext.class);
-    Mockito.when(context.getBeanNamesForType(Mockito.any(Class.class))).thenReturn(new String[]{});
+    AuthenticationManagerBuilder authenticationBuilder = mock(AuthenticationManagerBuilder.class);
+    ApplicationContext context = mock(ApplicationContext.class);
+    mockReturn(context.getBeanNamesForType(any(Class.class)), new String[]{});
     ReflectionTestUtils.setField(config, "authenticationBuilder", authenticationBuilder);
     ReflectionTestUtils.setField(config, "context", context);
     config.authenticationManagerBean();
-    Mockito.verify(context, Mockito.times(1)).getBeanNamesForType(Mockito.any(Class.class));
+    verifyInvoke1Time(context).getBeanNamesForType(any(Class.class));
   }
 
   @Test
   void configure() throws Exception {
-    AuthenticationManagerBuilder managerBuilder =
-        new AuthenticationManagerBuilder(Mockito.mock(ObjectPostProcessor.class));
+    var managerBuilder = new AuthenticationManagerBuilder(mock(ObjectPostProcessor.class));
     webSecurityConfig.configure(managerBuilder);
-    Assertions.assertEquals(userDetailsService, managerBuilder.getDefaultUserDetailsService());
+    assertEquals(userDetailsService, managerBuilder.getDefaultUserDetailsService());
   }
 
   @Test
   void configureHttp() throws Exception {
-    HttpSecurity httpSecurity =
-        new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
-            Mockito.mock(Map.class));
-    HttpSecurity httpSecurity2 =
-        new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
-            Mockito.mock(Map.class));
+    var httpSecurity =
+        new HttpSecurity(mock(ObjectPostProcessor.class), mock(AuthenticationManagerBuilder.class),
+            mock(Map.class));
+    var httpSecurity2 =
+        new HttpSecurity(mock(ObjectPostProcessor.class), mock(AuthenticationManagerBuilder.class),
+            mock(Map.class));
     webSecurityConfig.configure(httpSecurity);
-    Assertions.assertNotSame(httpSecurity2, httpSecurity);
+    assertNotSame(httpSecurity2, httpSecurity);
   }
 
   @Test
   void pathAuthSignIn() throws Exception {
     Field field = WebSecurityConfig.class.getDeclaredField("NO_AUTH_PATH");
     field.setAccessible(true);
-    Assertions
-        .assertArrayEquals(new String[]{"/auth/signin", "/auth/version"}, (String[]) field.get(webSecurityConfig));
+    assertArrayEquals(new String[]{"/auth/signin", "/auth/version"}, (String[]) field.get(webSecurityConfig));
   }
 
   @Test
   void pathAPI() throws Exception {
     Field field = WebSecurityConfig.class.getDeclaredField("API");
     field.setAccessible(true);
-    Assertions.assertEquals("/api/**", field.get(webSecurityConfig));
+    assertEquals("/api/**", field.get(webSecurityConfig));
   }
 
   @Test
@@ -94,19 +95,19 @@ class WebSecurityConfigTest {
     method.setAccessible(true);
     CorsConfigurationSource corsConfigurationSource = (CorsConfigurationSource) method.invoke(webSecurityConfig);
     CorsConfiguration corsConfiguration = corsConfigurationSource.getCorsConfiguration(new MockHttpServletRequest());
-    Assertions.assertArrayEquals(METHOD_ALLOWED, corsConfiguration.getAllowedMethods().toArray());
+    assertArrayEquals(METHOD_ALLOWED, corsConfiguration.getAllowedMethods().toArray());
   }
 
   @Test
   void corsConfigDisableCsrf() throws Exception {
     ReflectionTestUtils.setField(webSecurityConfig, "isDisableCSRF", true);
     HttpSecurity httpSecurity =
-        new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
-            Mockito.mock(Map.class));
+        new HttpSecurity(mock(ObjectPostProcessor.class), mock(AuthenticationManagerBuilder.class),
+            mock(Map.class));
     HttpSecurity httpSecurity2 =
-        new HttpSecurity(Mockito.mock(ObjectPostProcessor.class), Mockito.mock(AuthenticationManagerBuilder.class),
-            Mockito.mock(Map.class));
+        new HttpSecurity(mock(ObjectPostProcessor.class), mock(AuthenticationManagerBuilder.class),
+            mock(Map.class));
     webSecurityConfig.configure(httpSecurity);
-    Assertions.assertNotSame(httpSecurity2, httpSecurity);
+    assertNotSame(httpSecurity2, httpSecurity);
   }
 }

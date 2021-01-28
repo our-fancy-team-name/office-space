@@ -1,18 +1,21 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
-import org.springframework.test.util.ReflectionTestUtils;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvokeTime;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 
-@ExtendWith(MockitoExtension.class)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class CacheConfigTest {
 
   @InjectMocks
@@ -28,12 +31,12 @@ class CacheConfigTest {
 
   @Test
   void cacheManagerCustomizer() {
-    CacheManager cacheManager = Mockito.mock(CacheManager.class);
-    Cache<Object, Object> cache = Mockito.mock(Cache.class);
-    Mockito.when(cacheManager.createCache(Mockito.any(), Mockito.any())).thenReturn(cache);
-    JCacheManagerCustomizer jCacheManagerCustomizer = cacheConfig.cacheManagerCustomizer();
+    var cacheManager = mock(CacheManager.class);
+    Cache<Object, Object> cache = mock(Cache.class);
+    mockReturn(cacheManager.createCache(any(), any()), cache);
+    var jCacheManagerCustomizer = cacheConfig.cacheManagerCustomizer();
     jCacheManagerCustomizer.customize(cacheManager);
-    Mockito.verify(cacheManager, Mockito.times(2)).createCache(Mockito.any(), Mockito.any());
-    Mockito.verify(cache, Mockito.times(2)).registerCacheEntryListener(Mockito.any());
+    verifyInvokeTime(cacheManager, 2).createCache(any(), any());
+    verifyInvokeTime(cache, 2).registerCacheEntryListener(any());
   }
 }

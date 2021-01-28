@@ -1,21 +1,24 @@
 package com.ourfancyteamname.officespace.security.services;
 
-import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.Authentication;
-import org.springframework.test.util.ReflectionTestUtils;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
-@ExtendWith(MockitoExtension.class)
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.springframework.security.core.Authentication;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+@UnitTest
 class JwtServiceTest {
 
   @BeforeEach
@@ -31,30 +34,30 @@ class JwtServiceTest {
   void generateJwtToken_success() {
     UserDetailsPrinciple userDetailsPrinciple = new UserDetailsPrinciple();
     Authentication authentication = Mockito.mock(Authentication.class);
-    Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
+    mockReturn(authentication.getPrincipal(), userDetailsPrinciple);
     String token = jwtService.generateJwtToken(authentication);
-    Assertions.assertTrue(jwtService.validateJwtToken(token));
-    Assertions.assertEquals(jwtService.getUserNameFromJwtToken(token), userDetailsPrinciple.getUsername());
+    assertTrue(jwtService.validateJwtToken(token));
+    assertEquals(jwtService.getUserNameFromJwtToken(token), userDetailsPrinciple.getUsername());
   }
 
   @Test
   void generateJwtToken_malformedJwtException() {
-    Assertions.assertFalse(jwtService.validateJwtToken("random token"));
+    assertFalse(jwtService.validateJwtToken("random token"));
   }
 
   @Test
   void generateJwtToken_illegalArgumentException() {
-    Assertions.assertFalse(jwtService.validateJwtToken(null));
+    assertFalse(jwtService.validateJwtToken(null));
   }
 
   @Test
   void generateJwtToken_expiredJwtException() {
     UserDetailsPrinciple userDetailsPrinciple = new UserDetailsPrinciple();
     Authentication authentication = Mockito.mock(Authentication.class);
-    Mockito.when(authentication.getPrincipal()).thenReturn(userDetailsPrinciple);
+    mockReturn(authentication.getPrincipal(), userDetailsPrinciple);
     ReflectionTestUtils.setField(jwtService, "jwtExpirationMs", 0);
     String token = jwtService.generateJwtToken(authentication);
-    Assertions.assertFalse(jwtService.validateJwtToken(token));
+    assertFalse(jwtService.validateJwtToken(token));
   }
 
   @Test
@@ -65,7 +68,7 @@ class JwtServiceTest {
         .setExpiration(new Date((new Date()).getTime() + 900000))
         .signWith(SignatureAlgorithm.HS512, "jwtSecret111")
         .compact();
-    Assertions.assertFalse(jwtService.validateJwtToken(token));
+    assertFalse(jwtService.validateJwtToken(token));
   }
 
   @Test
@@ -75,6 +78,6 @@ class JwtServiceTest {
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + 900000))
         .compact();
-    Assertions.assertFalse(jwtService.validateJwtToken(token));
+    assertFalse(jwtService.validateJwtToken(token));
   }
 }

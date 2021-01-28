@@ -1,12 +1,9 @@
 package com.ourfancyteamname.officespace.security.services;
 
 
-import com.ourfancyteamname.officespace.db.converters.dtos.RoleConverter;
-import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
-import com.ourfancyteamname.officespace.db.repos.RoleRepository;
-import com.ourfancyteamname.officespace.db.repos.UserRepository;
-import com.ourfancyteamname.officespace.enums.CacheName;
-import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,8 +11,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import com.ourfancyteamname.officespace.db.converters.dtos.RoleConverter;
+import com.ourfancyteamname.officespace.db.repos.PermissionRepository;
+import com.ourfancyteamname.officespace.db.repos.RoleRepository;
+import com.ourfancyteamname.officespace.db.repos.UserRepository;
+import com.ourfancyteamname.officespace.enums.CacheName;
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
 
 @Service
 public class UserDetailsSecurityServiceImpl implements UserDetailsService {

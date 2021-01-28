@@ -1,13 +1,16 @@
 package com.ourfancyteamname.officespace.db.converters.enums;
 
-import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-@ExtendWith(MockitoExtension.class)
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+
+import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+import com.ourfancyteamname.officespace.test.services.AssertionHelper;
+
+@UnitTest
 class ClusterNodePositionConverterTest {
 
   @InjectMocks
@@ -16,33 +19,29 @@ class ClusterNodePositionConverterTest {
   @Test
   void convertToDatabaseColumn_success() {
     String gender = clusterNodePositionConverter.convertToDatabaseColumn(ClusterNodePosition.BODY);
-    Assertions.assertEquals(gender, ClusterNodePosition.BODY.name());
+    assertEquals(gender, ClusterNodePosition.BODY.name());
   }
 
   @Test
   void convertToDatabaseColumn_null() {
     String gender = clusterNodePositionConverter.convertToDatabaseColumn(null);
-    Assertions.assertNull(gender);
+    assertNull(gender);
   }
 
   @Test
   void convertToEntityAttribute_success() {
-    ClusterNodePosition clusterNodePosition =
-        clusterNodePositionConverter.convertToEntityAttribute(ClusterNodePosition.HEAD.name());
-    Assertions.assertEquals(ClusterNodePosition.HEAD, clusterNodePosition);
+    var clusterNodePosition = clusterNodePositionConverter.convertToEntityAttribute(ClusterNodePosition.HEAD.name());
+    assertEquals(ClusterNodePosition.HEAD, clusterNodePosition);
   }
 
   @Test
   void convertToEntityAttribute_errorInvalid() {
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> clusterNodePositionConverter.convertToEntityAttribute("HI")
-    );
+    AssertionHelper.assertThrowIllegal(() -> clusterNodePositionConverter.convertToEntityAttribute("HI"));
   }
 
   @Test
   void convertToEntityAttribute_errorNull() {
-    ClusterNodePosition clusterNodePosition = clusterNodePositionConverter.convertToEntityAttribute(null);
-    Assertions.assertNull(clusterNodePosition);
+    var clusterNodePosition = clusterNodePositionConverter.convertToEntityAttribute(null);
+    assertNull(clusterNodePosition);
   }
 }

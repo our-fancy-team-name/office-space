@@ -1,11 +1,13 @@
 package com.ourfancyteamname.officespace;
 
-import com.ourfancyteamname.officespace.db.OfficeSpaceRepositoryApplication;
-import lombok.Generated;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Import;
+
+import com.ourfancyteamname.officespace.db.OfficeSpaceRepositoryApplication;
+
+import lombok.Generated;
 
 @EnableCaching
 @SpringBootApplication

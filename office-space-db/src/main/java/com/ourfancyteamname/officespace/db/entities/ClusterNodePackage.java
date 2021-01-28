@@ -1,11 +1,7 @@
 package com.ourfancyteamname.officespace.db.entities;
 
-import com.ourfancyteamname.officespace.enums.PackageStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.time.ZonedDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.ourfancyteamname.officespace.enums.PackageStatus;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity

@@ -1,18 +1,21 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
 
-import javax.cache.event.CacheEntryEvent;
 import java.util.Collections;
 
-@ExtendWith(MockitoExtension.class)
+import javax.cache.event.CacheEntryEvent;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class CacheListenerTest {
 
-  public static final CacheListener subject = new CacheListener();
+  private static final CacheListener subject = new CacheListener();
+
 
   @Mock
   private CacheEntryEvent<Object, Object> cacheEntryEvent;
@@ -42,8 +45,8 @@ class CacheListenerTest {
   }
 
   private void verify(CacheEntryEvent<Object, Object> cacheEntryEvent) {
-    Mockito.verify(cacheEntryEvent, Mockito.times(1)).getKey();
-    Mockito.verify(cacheEntryEvent, Mockito.times(1)).getOldValue();
-    Mockito.verify(cacheEntryEvent, Mockito.times(1)).getValue();
+    verifyInvoke1Time(cacheEntryEvent).getKey();
+    verifyInvoke1Time(cacheEntryEvent).getOldValue();
+    verifyInvoke1Time(cacheEntryEvent).getValue();
   }
 }

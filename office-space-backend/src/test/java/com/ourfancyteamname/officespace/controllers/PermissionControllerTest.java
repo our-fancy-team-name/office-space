@@ -1,14 +1,16 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.services.PermissionService;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.mockito.ArgumentMatchers.any;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+import com.ourfancyteamname.officespace.services.PermissionService;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class PermissionControllerTest {
 
   @InjectMocks
@@ -20,6 +22,6 @@ class PermissionControllerTest {
   @Test
   void getPermissionByRole() {
     controller.getPermissionByRole(null);
-    Mockito.verify(permissionService, Mockito.times(1)).findAllPermissionByRole(Mockito.any());
+    verifyInvoke1Time(permissionService).findAllPermissionByRole(any());
   }
 }

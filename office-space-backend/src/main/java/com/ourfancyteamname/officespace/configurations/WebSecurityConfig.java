@@ -1,8 +1,7 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
-import com.ourfancyteamname.officespace.security.AuthTokenFilter;
-import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
+import com.ourfancyteamname.officespace.security.AuthEntryPointJwt;
+import com.ourfancyteamname.officespace.security.AuthTokenFilter;
+import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 
 @Configuration
 @EnableWebSecurity
