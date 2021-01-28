@@ -1,5 +1,19 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.apache.commons.collections4.ListUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
 import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.User;
@@ -14,18 +28,6 @@ import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.UserService;
 import com.ourfancyteamname.officespace.services.ViewService;
-import org.apache.commons.collections4.ListUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends AbstractViewServiceImpl<User, UserRepository> implements UserService {

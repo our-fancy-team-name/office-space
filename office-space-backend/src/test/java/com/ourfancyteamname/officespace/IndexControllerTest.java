@@ -1,12 +1,13 @@
 package com.ourfancyteamname.officespace;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class IndexControllerTest {
 
   @InjectMocks
@@ -14,6 +15,6 @@ class IndexControllerTest {
 
   @Test
   void shouldReturnIndex() {
-    Assertions.assertEquals("forward:/index.html", controller.home(null));
+    assertEquals("forward:/index.html", controller.home(null));
   }
 }

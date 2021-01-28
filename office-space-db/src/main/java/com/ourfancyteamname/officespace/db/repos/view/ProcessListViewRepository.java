@@ -1,14 +1,15 @@
 package com.ourfancyteamname.officespace.db.repos.view;
 
-import com.ourfancyteamname.officespace.db.entities.view.ProcessListView;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.UUID;
+import com.ourfancyteamname.officespace.db.entities.view.ProcessListView;
 
 @Repository
 public interface ProcessListViewRepository extends JpaRepository<ProcessListView, UUID>,

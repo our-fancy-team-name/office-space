@@ -1,19 +1,18 @@
 package com.ourfancyteamname.officespace.db.services.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.springframework.data.domain.Sort;
+
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSortingRequest;
 import com.ourfancyteamname.officespace.enums.DataBaseDirection;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-@SpringBootTest
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class SortingBuilderServiceImplTest {
 
   private static String columnName = "dang";
@@ -29,7 +28,7 @@ class SortingBuilderServiceImplTest {
         .build();
     var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
     var actual = service.from(tableSearchRequest);
-    Assertions.assertEquals(Sort.Direction.ASC, actual.getOrderFor(columnName).getDirection());
+    assertEquals(Sort.Direction.ASC, actual.getOrderFor(columnName).getDirection());
   }
 
   @Test
@@ -40,7 +39,7 @@ class SortingBuilderServiceImplTest {
         .build();
     var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
     var actual = service.from(tableSearchRequest);
-    Assertions.assertEquals(Sort.Direction.DESC, actual.getOrderFor(columnName).getDirection());
+    assertEquals(Sort.Direction.DESC, actual.getOrderFor(columnName).getDirection());
   }
 
   @Test
@@ -51,7 +50,7 @@ class SortingBuilderServiceImplTest {
         .build();
     var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
     var actual = service.from(tableSearchRequest);
-    Assertions.assertEquals(Sort.unsorted(), actual);
+    assertEquals(Sort.unsorted(), actual);
   }
 
   @Test
@@ -62,14 +61,14 @@ class SortingBuilderServiceImplTest {
         .build();
     var tableSearchRequest = TableSearchRequest.builder().sortingRequest(request).build();
     var actual = service.from(tableSearchRequest);
-    Assertions.assertEquals(Sort.unsorted(), actual);
+    assertEquals(Sort.unsorted(), actual);
   }
 
   @Test
   void getSort_unSort3() {
     var tableSearchRequest = TableSearchRequest.builder().build();
     var actual = service.from(tableSearchRequest);
-    Assertions.assertEquals(Sort.unsorted(), actual);
+    assertEquals(Sort.unsorted(), actual);
   }
 
   /**
@@ -77,6 +76,6 @@ class SortingBuilderServiceImplTest {
    */
   @Test
   void qualifier() {
-    Assertions.assertEquals("SortingBuilderServiceImpl", service.getClass().getSimpleName());
+    assertEquals("SortingBuilderServiceImpl", service.getClass().getSimpleName());
   }
 }

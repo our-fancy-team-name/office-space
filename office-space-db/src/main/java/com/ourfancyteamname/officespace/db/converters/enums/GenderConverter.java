@@ -1,8 +1,8 @@
 package com.ourfancyteamname.officespace.db.converters.enums;
 
-import com.ourfancyteamname.officespace.enums.Gender;
-
 import javax.persistence.Converter;
+
+import com.ourfancyteamname.officespace.enums.Gender;
 
 @Converter(autoApply = true)
 public class GenderConverter extends AbstractHibernateEnumConverter<Gender, String> {

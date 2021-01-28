@@ -1,12 +1,13 @@
 package com.ourfancyteamname.officespace;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class OfficeSpaceApplicationTest {
 
   @InjectMocks
@@ -14,7 +15,7 @@ class OfficeSpaceApplicationTest {
 
   @Test
   void appClassTest() {
-    Assertions.assertEquals("public class com.ourfancyteamname.officespace.OfficeSpaceApplication",
+    assertEquals("public class com.ourfancyteamname.officespace.OfficeSpaceApplication",
         application.getClass().toGenericString());
   }
 

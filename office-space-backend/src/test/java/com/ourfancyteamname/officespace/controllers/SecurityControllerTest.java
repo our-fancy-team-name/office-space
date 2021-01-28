@@ -1,19 +1,22 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
-import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
-import com.ourfancyteamname.officespace.security.services.JwtService;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.mockito.Mockito.any;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-@ExtendWith(MockitoExtension.class)
+import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
+import com.ourfancyteamname.officespace.security.services.JwtService;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class SecurityControllerTest {
 
   @InjectMocks
@@ -30,19 +33,19 @@ class SecurityControllerTest {
 
   @Test
   void authenticateUser() {
-    Mockito.when(authenticationManager.authenticate(Mockito.any()))
-        .thenReturn(new UsernamePasswordAuthenticationToken(UserDetailsPrinciple.builder().build(), ""));
+    mockReturn(authenticationManager.authenticate(any()),
+        new UsernamePasswordAuthenticationToken(UserDetailsPrinciple.builder().build(), ""));
     controller.authenticateUser(LoginRequest.builder().build());
-    Mockito.verify(authenticationManager, Mockito.times(1)).authenticate(Mockito.any());
-    Mockito.verify(jwtService, Mockito.times(1)).generateJwtToken(Mockito.any());
+    verifyInvoke1Time(authenticationManager).authenticate(any());
+    verifyInvoke1Time(jwtService).generateJwtToken(any());
   }
 
   @Test
   void version() {
     controller.version();
-    Mockito.verify(gitProperties, Mockito.times(1)).getBranch();
-    Mockito.verify(gitProperties, Mockito.times(1)).getShortCommitId();
-    Mockito.verify(gitProperties, Mockito.times(1)).get("build.time");
+    verifyInvoke1Time(gitProperties).getBranch();
+    verifyInvoke1Time(gitProperties).getShortCommitId();
+    verifyInvoke1Time(gitProperties).get("build.time");
   }
 
 }

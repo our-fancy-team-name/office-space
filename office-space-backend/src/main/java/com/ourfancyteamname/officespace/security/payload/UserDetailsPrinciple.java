@@ -1,18 +1,20 @@
 package com.ourfancyteamname.officespace.security.payload;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.PermissionCode;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 @Data
 @Builder

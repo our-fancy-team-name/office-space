@@ -1,9 +1,10 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
-import com.ourfancyteamname.officespace.security.payload.JwtResponse;
-import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
-import com.ourfancyteamname.officespace.security.services.JwtService;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.ourfancyteamname.officespace.dtos.security.LoginRequest;
+import com.ourfancyteamname.officespace.security.payload.JwtResponse;
+import com.ourfancyteamname.officespace.security.payload.UserDetailsPrinciple;
+import com.ourfancyteamname.officespace.security.services.JwtService;
 
 @RestController
 @RequestMapping("/auth")

@@ -1,12 +1,16 @@
 package enums;
 
-import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
-import org.apache.commons.lang3.ArrayUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.junit.jupiter.api.Test;
+
+import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class ClusterNodePositionTest {
   public static final String[] names = {"TAIL", "HEAD", "BODY"};
 
@@ -14,6 +18,6 @@ class ClusterNodePositionTest {
   void name() {
     Stream.of(ClusterNodePosition.values())
         .map(ClusterNodePosition::getName)
-        .forEach(s -> Assertions.assertTrue(ArrayUtils.contains(names, s)));
+        .forEach(s -> assertTrue(ArrayUtils.contains(names, s)));
   }
 }

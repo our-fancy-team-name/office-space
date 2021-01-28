@@ -1,5 +1,18 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+
 import com.ourfancyteamname.officespace.db.entities.UserRole;
 import com.ourfancyteamname.officespace.db.entities.view.UserRoleListView;
 import com.ourfancyteamname.officespace.db.repos.view.UserRoleListViewRepository;
@@ -7,21 +20,9 @@ import com.ourfancyteamname.officespace.db.services.impl.PaginationBuilderServic
 import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceImpl;
 import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-import java.util.Collections;
-
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class UserRoleListViewServiceImplTest {
 
   @InjectMocks
@@ -41,17 +42,16 @@ class UserRoleListViewServiceImplTest {
 
   @Test
   void getExecutor() {
-    Assertions.assertEquals(userRoleListViewRepository, service.getExecutor());
+    assertEquals(userRoleListViewRepository, service.getExecutor());
   }
 
   @Test
   void findAll() {
     var result = Collections.singletonList(UserRoleListView.builder().build());
-    Mockito.when(paginationBuilderServiceImpl.from(TableSearchRequest.builder().build()))
-        .thenReturn(Pageable.unpaged());
-    Mockito.when(service.getExecutor().findAll((Specification<UserRoleListView>) null, (Sort) null)).thenReturn(result);
+    mockReturn(paginationBuilderServiceImpl.from(TableSearchRequest.builder().build()), Pageable.unpaged());
+    mockReturn(service.getExecutor().findAll((Specification<UserRoleListView>) null, (Sort) null), result);
     Page<UserRoleListView> actual = service.findAll(TableSearchRequest.builder().build());
-    Assertions.assertEquals(1, actual.getTotalElements());
+    assertEquals(1, actual.getTotalElements());
   }
 
   /**
@@ -59,7 +59,7 @@ class UserRoleListViewServiceImplTest {
    */
   @Test
   void qualifier() {
-    Assertions.assertEquals("UserRoleListViewServiceImpl", service.getClass().getSimpleName());
+    assertEquals("UserRoleListViewServiceImpl", service.getClass().getSimpleName());
   }
 
 }

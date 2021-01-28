@@ -1,12 +1,13 @@
 package com.ourfancyteamname.officespace.db.repos;
 
-import com.ourfancyteamname.officespace.db.entities.RolePermission;
-import com.ourfancyteamname.officespace.enums.CacheName;
+import java.util.List;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.ourfancyteamname.officespace.db.entities.RolePermission;
+import com.ourfancyteamname.officespace.enums.CacheName;
 
 @Repository
 public interface RolePermissionRepository extends JpaRepository<RolePermission, Integer> {

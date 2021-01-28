@@ -1,5 +1,15 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ClusterNode;
 import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
@@ -11,14 +21,6 @@ import com.ourfancyteamname.officespace.dtos.ClusterNodeEditDto;
 import com.ourfancyteamname.officespace.dtos.GraphDto;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.services.ProcessService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Service
 public class ProcessServiceImpl implements ProcessService {

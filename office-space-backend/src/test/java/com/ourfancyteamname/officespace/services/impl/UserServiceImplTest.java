@@ -1,5 +1,27 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import static com.ourfancyteamname.officespace.test.services.AssertionHelper.assertThrowIllegalDuplicated;
+import static com.ourfancyteamname.officespace.test.services.AssertionHelper.assertThrowIllegalNotFound;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.any;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.ourfancyteamname.officespace.db.converters.dtos.UserConverter;
 import com.ourfancyteamname.officespace.db.entities.Role;
 import com.ourfancyteamname.officespace.db.entities.User;
@@ -18,26 +40,9 @@ import com.ourfancyteamname.officespace.dtos.UserDto;
 import com.ourfancyteamname.officespace.dtos.security.RoleDto;
 import com.ourfancyteamname.officespace.enums.DataBaseDirection;
 import com.ourfancyteamname.officespace.enums.DataBaseOperation;
-import com.ourfancyteamname.officespace.enums.ErrorCode;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class UserServiceImplTest {
 
   private static final String SEARCH_TERM = "foo";
@@ -100,58 +105,44 @@ class UserServiceImplTest {
         .email("dang")
         .build();
     Specification<User> specs = (root, query, builder) -> builder.equal(root.get(User_.LAST_NAME), SEARCH_TERM);
-    Mockito.when(specificationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(specs);
-    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest))
-        .thenReturn(PageRequest.of(0, 10));
-    Mockito.when(userRepository.findAll(specs, PageRequest.of(0, 10)))
-        .thenReturn(new PageImpl<>(Collections.singletonList(aUser), PageRequest.of(0, 10), 1));
-    Mockito.when(userConverter.toDto(aUser))
-        .thenReturn(UserDto.builder().email("dang").build());
+    mockReturn(specificationBuilderServiceImpl.from(tableSearchRequest), specs);
+    mockReturn(paginationBuilderServiceImpl.from(tableSearchRequest), PageRequest.of(0, 10));
+    mockReturn(userRepository.findAll(specs, PageRequest.of(0, 10)),
+        new PageImpl<>(Collections.singletonList(aUser), PageRequest.of(0, 10), 1));
+    mockReturn(userConverter.toDto(aUser), UserDto.builder().email("dang").build());
     Page<UserDto> actual = service.findAllByPaging(tableSearchRequest);
-    Assertions.assertEquals(1, actual.getContent().size());
-    Assertions.assertEquals("dang", actual.getContent().get(0).getEmail());
+    assertEquals(1, actual.getContent().size());
+    assertEquals("dang", actual.getContent().get(0).getEmail());
   }
 
   @Test
   void findById_notFound() {
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.findById(null),
-        ErrorCode.NOT_FOUND.name()
-    );
+    assertThrowIllegalNotFound(() -> service.findById(null));
   }
 
   @Test
   void findById_notFound2() {
     int userId = 1;
-    Mockito.when(userRepository.findById(userId)).thenReturn(Optional.empty());
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.findById(userId),
-        ErrorCode.NOT_FOUND.name()
-    );
+    mockReturn(userRepository.findById(userId), Optional.empty());
+    assertThrowIllegalNotFound(() -> service.findById(userId));
   }
 
   @Test
   void findById_success() {
     int userId = 1;
     User user = User.builder().build();
-    Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-    Mockito.when(userConverter.toDto(user)).thenReturn(UserDto.builder().build());
+    mockReturn(userRepository.findById(userId), Optional.of(user));
+    mockReturn(userConverter.toDto(user), UserDto.builder().build());
     service.findById(userId);
-    Mockito.verify(userConverter, Mockito.times(1)).toDto(user);
+    verifyInvoke1Time(userConverter).toDto(user);
   }
 
   @Test
   void editUser_notFound() {
     int userId = 1;
     UserDto userDto = UserDto.builder().id(userId).build();
-    Mockito.when(userRepository.findById(userDto.getId())).thenReturn(Optional.empty());
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.editUser(userDto),
-        ErrorCode.NOT_FOUND.name()
-    );
+    mockReturn(userRepository.findById(userDto.getId()), Optional.empty());
+    assertThrowIllegalNotFound(() -> service.editUser(userDto));
   }
 
   @Test
@@ -161,13 +152,9 @@ class UserServiceImplTest {
     UserDto userDto = UserDto.builder().id(userId).username("username2").build();
     User user = User.builder().id(userId).username(username).build();
     User user1 = User.builder().id(2).username("username2").build();
-    Mockito.when(userRepository.findById(userDto.getId())).thenReturn(Optional.of(user));
-    Mockito.when(userRepository.findByUsername(userDto.getUsername())).thenReturn(Optional.of(user1));
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.editUser(userDto),
-        ErrorCode.DUPLICATED.name()
-    );
+    mockReturn(userRepository.findById(userDto.getId()), Optional.of(user));
+    mockReturn(userRepository.findByUsername(userDto.getUsername()), Optional.of(user1));
+    assertThrowIllegalDuplicated(() -> service.editUser(userDto));
   }
 
   @Test
@@ -176,10 +163,10 @@ class UserServiceImplTest {
     String username = "username";
     UserDto userDto = UserDto.builder().id(userId).username(username).build();
     User user = User.builder().id(userId).username(username).build();
-    Mockito.when(userRepository.findById(userDto.getId())).thenReturn(Optional.of(user));
-    Mockito.when(userRepository.findByUsername(userDto.getUsername())).thenReturn(Optional.of(user));
+    mockReturn(userRepository.findById(userDto.getId()), Optional.of(user));
+    mockReturn(userRepository.findByUsername(userDto.getUsername()), Optional.of(user));
     service.editUser(userDto);
-    Mockito.verify(userRepository, Mockito.times(1)).save(user);
+    verifyInvoke1Time(userRepository).save(user);
   }
 
   @Test
@@ -187,12 +174,8 @@ class UserServiceImplTest {
     int userId = 1;
     String username = "username";
     UserDto userDto = UserDto.builder().id(userId).username(username).build();
-    Mockito.when(userRepository.existsByUsername(userDto.getUsername())).thenReturn(true);
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.createUser(userDto),
-        ErrorCode.DUPLICATED.name()
-    );
+    mockReturn(userRepository.existsByUsername(userDto.getUsername()), true);
+    assertThrowIllegalDuplicated(() -> service.createUser(userDto));
   }
 
   @Test
@@ -201,12 +184,12 @@ class UserServiceImplTest {
     String username = "username";
     UserDto userDto = UserDto.builder().id(userId).username(username).build();
     User user = User.builder().id(userId).username(username).build();
-    Mockito.when(userRepository.existsByUsername(userDto.getUsername())).thenReturn(false);
-    Mockito.when(userConverter.toEntity(userDto)).thenReturn(user);
+    mockReturn(userRepository.existsByUsername(userDto.getUsername()), false);
+    mockReturn(userConverter.toEntity(userDto), user);
     service.createUser(userDto);
-    Mockito.verify(userConverter, Mockito.times(1)).toEntity(userDto);
-    Mockito.verify(passwordEncoder, Mockito.times(1)).encode(userDto.getPassword());
-    Mockito.verify(userRepository, Mockito.times(1)).save(user);
+    verifyInvoke1Time(userConverter).toEntity(userDto);
+    verifyInvoke1Time(passwordEncoder).encode(userDto.getPassword());
+    verifyInvoke1Time(userRepository).save(user);
   }
 
   @Test
@@ -216,12 +199,12 @@ class UserServiceImplTest {
     RoleDto roleDto = RoleDto.builder().id(roleId).build();
     List<String> usernames = Collections.singletonList(username);
     User user = User.builder().username(username).build();
-    Mockito.when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+    mockReturn(userRepository.findByUsername(username), Optional.of(user));
     service.updateUserRole(roleDto, usernames);
-    Mockito.verify(entityManager, Mockito.times(1)).flush();
-    Mockito.verify(userRepository, Mockito.times(1)).findByUsername(username);
-    Mockito.verify(userRoleRepository, Mockito.times(1)).removeByRoleId(roleId);
-    Mockito.verify(userRoleRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verifyInvoke1Time(entityManager).flush();
+    verifyInvoke1Time(userRepository).findByUsername(username);
+    verifyInvoke1Time(userRoleRepository).removeByRoleId(roleId);
+    verifyInvoke1Time(userRoleRepository).saveAll(any());
   }
 
   @Test
@@ -231,12 +214,12 @@ class UserServiceImplTest {
     UserDto userDto = UserDto.builder().id(userId).build();
     List<String> roles = Collections.singletonList(code);
     Role role = Role.builder().build();
-    Mockito.when(roleRepository.findByCode(code)).thenReturn(Optional.of(role));
+    mockReturn(roleRepository.findByCode(code), Optional.of(role));
     service.updateRoleUser(userDto, roles);
-    Mockito.verify(entityManager, Mockito.times(1)).flush();
-    Mockito.verify(roleRepository, Mockito.times(1)).findByCode(code);
-    Mockito.verify(userRoleRepository, Mockito.times(1)).removeByUserId(userId);
-    Mockito.verify(userRoleRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verifyInvoke1Time(entityManager).flush();
+    verifyInvoke1Time(roleRepository).findByCode(code);
+    verifyInvoke1Time(userRoleRepository).removeByUserId(userId);
+    verifyInvoke1Time(userRoleRepository).saveAll(any());
   }
 
   @Test
@@ -244,11 +227,10 @@ class UserServiceImplTest {
     User user = User.builder().build();
     String role = "role";
     List<String> roles = Collections.singletonList(role);
-    Mockito.when(roleRepository.findByCode(role))
-        .thenReturn(Optional.of(Role.builder().code(role).build()));
+    mockReturn(roleRepository.findByCode(role), Optional.of(Role.builder().code(role).build()));
     service.createRoleUser(user, roles);
-    Mockito.verify(roleRepository, Mockito.times(1)).findByCode(role);
-    Mockito.verify(userRoleRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verifyInvoke1Time(roleRepository).findByCode(role);
+    verifyInvoke1Time(userRoleRepository).saveAll(any());
   }
 
   @Test
@@ -256,26 +238,25 @@ class UserServiceImplTest {
     Role role = Role.builder().build();
     String user = "dang";
     List<String> users = Collections.singletonList(user);
-    Mockito.when(userRepository.findByUsername(user))
-        .thenReturn(Optional.of(User.builder().username(user).build()));
+    mockReturn(userRepository.findByUsername(user), Optional.of(User.builder().username(user).build()));
     service.createUserRole(role, users);
-    Mockito.verify(userRepository, Mockito.times(1)).findByUsername(user);
-    Mockito.verify(userRoleRepository, Mockito.times(1)).saveAll(Mockito.any());
+    verifyInvoke1Time(userRepository).findByUsername(user);
+    verifyInvoke1Time(userRoleRepository).saveAll(any());
   }
 
   @Test
   void removeUser() {
     int userId = 1;
     service.removeUser(userId);
-    Mockito.verify(userRoleRepository, Mockito.times(1)).removeByUserId(userId);
-    Mockito.verify(entityManager, Mockito.times(1)).flush();
-    Mockito.verify(userRepository, Mockito.times(1)).deleteById(userId);
+    verifyInvoke1Time(userRoleRepository).removeByUserId(userId);
+    verifyInvoke1Time(entityManager).flush();
+    verifyInvoke1Time(userRepository).deleteById(userId);
   }
 
   @Test
   void findUserRoleListView() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
     service.findUserRoleListView(tableSearchRequest);
-    Mockito.verify(userRoleService, Mockito.times(1)).findAll(tableSearchRequest);
+    verifyInvoke1Time(userRoleService).findAll(tableSearchRequest);
   }
 }

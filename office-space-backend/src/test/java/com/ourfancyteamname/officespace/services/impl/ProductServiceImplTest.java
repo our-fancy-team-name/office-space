@@ -1,5 +1,23 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import static com.ourfancyteamname.officespace.test.services.AssertionHelper.*;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.any;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+
 import com.ourfancyteamname.officespace.db.converters.dtos.ProductConverter;
 import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.db.repos.PackageRepository;
@@ -10,26 +28,10 @@ import com.ourfancyteamname.officespace.db.services.impl.SortingBuilderServiceIm
 import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderServiceImpl;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import com.ourfancyteamname.officespace.enums.CharConstants;
-import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.enums.ErrorObject;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class ProductServiceImplTest {
 
   @InjectMocks
@@ -60,66 +62,52 @@ class ProductServiceImplTest {
   void findAll() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
     List<Product> result = Collections.singletonList(Product.builder().build());
-    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest))
-        .thenReturn(Pageable.unpaged());
-    Mockito.when(productRepository.findAll((Specification<Product>) null, (Sort) null))
-        .thenReturn(result);
+    mockReturn(paginationBuilderServiceImpl.from(tableSearchRequest), Pageable.unpaged());
+    mockReturn(productRepository.findAll((Specification<Product>) null, (Sort) null), result);
     Page<ProductDto> processGeneralDtos = service.findByPaging(tableSearchRequest);
-    Assertions.assertEquals(1, processGeneralDtos.getTotalElements());
-    Mockito.verify(productConverter, Mockito.times(1)).toDto(Mockito.any());
+    assertEquals(1, processGeneralDtos.getTotalElements());
+    verifyInvoke1Time(productConverter).toDto(any());
   }
 
   @Test
   void findProductWithDisplayName() {
     TableSearchRequest tableSearchRequest = TableSearchRequest.builder().build();
     List<Product> result = Collections.singletonList(Product.builder().build());
-    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(Pageable.unpaged());
-    Mockito.when(productRepository.findAll((Specification<Product>) null, (Sort) null)).thenReturn(result);
+    mockReturn(paginationBuilderServiceImpl.from(tableSearchRequest), Pageable.unpaged());
+    mockReturn(productRepository.findAll((Specification<Product>) null, (Sort) null), result);
     Page<ProductDto> processGeneralDtos = service.findProductWithDisplayName(tableSearchRequest);
-    Assertions.assertEquals(1, processGeneralDtos.getTotalElements());
-    Mockito.verify(productConverter, Mockito.times(1)).toDtoWithDisplayName(Mockito.any());
+    assertEquals(1, processGeneralDtos.getTotalElements());
+    verifyInvoke1Time(productConverter).toDtoWithDisplayName(any());
   }
 
   @Test
   void create_duplicatedName() {
     ProductDto productDto = ProductDto.builder().name("name").build();
-    Mockito.when(productRepository.existsByName("name")).thenReturn(true);
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.create(productDto),
-        ErrorCode.DUPLICATED.name()
-    );
+    mockReturn(productRepository.existsByName("name"), true);
+    assertThrowIllegalDuplicated(() -> service.create(productDto));
   }
 
   @Test
   void create_duplicatedPartNumber() {
     ProductDto productDto = ProductDto.builder().partNumber("partNumber").name("name").build();
-    Mockito.when(productRepository.existsByPartNumber("partNumber")).thenReturn(true);
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.create(productDto),
-        ErrorCode.DUPLICATED.name()
-    );
+    mockReturn(productRepository.existsByPartNumber("partNumber"), true);
+    assertThrowIllegalDuplicated(() -> service.create(productDto));
   }
 
   @Test
   void create_success() {
     ProductDto productDto = ProductDto.builder().partNumber("partNumber").name("name").build();
-    Mockito.when(productRepository.existsByPartNumber("partNumber")).thenReturn(false);
-    Mockito.when(productRepository.existsByName("name")).thenReturn(false);
+    mockReturn(productRepository.existsByPartNumber("partNumber"), false);
+    mockReturn(productRepository.existsByName("name"), false);
     service.create(productDto);
-    Mockito.verify(productConverter, Mockito.times(1)).toEntity(Mockito.any());
+    verifyInvoke1Time(productConverter).toEntity(any());
   }
 
   @Test
   void update_notFound() {
     ProductDto productDto = ProductDto.builder().id(1).partNumber("partNumber").name("name").build();
-    Mockito.when(productRepository.findById(1)).thenReturn(Optional.empty());
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.update(productDto),
-        ErrorCode.NOT_FOUND.name()
-    );
+    mockReturn(productRepository.findById(1), Optional.empty());
+    assertThrowIllegalNotFound(() -> service.update(productDto));
   }
 
   @Test
@@ -127,13 +115,9 @@ class ProductServiceImplTest {
     ProductDto productDto = ProductDto.builder().id(1).partNumber("partNumber1").name("name2").build();
     Product product1 = Product.builder().id(1).partNumber("partNumber1").name("name1").build();
     Product product2 = Product.builder().id(2).partNumber("partNumber2").name("name2").build();
-    Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByName("name2")).thenReturn(Optional.of(product2));
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.update(productDto),
-        String.join(CharConstants.DELIMITER.getValue(), ErrorObject.NAME.name(), ErrorCode.DUPLICATED.name())
-    );
+    mockReturn(productRepository.findById(1), Optional.of(product1));
+    mockReturn(productRepository.findByName("name2"), Optional.of(product2));
+    assertObjectDuplicated(() -> service.update(productDto), ErrorObject.NAME.name());
   }
 
   @Test
@@ -141,65 +125,57 @@ class ProductServiceImplTest {
     ProductDto productDto = ProductDto.builder().id(1).partNumber("partNumber2").name("name1").build();
     Product product1 = Product.builder().id(1).partNumber("partNumber1").name("name1").build();
     Product product2 = Product.builder().id(2).partNumber("partNumber2").name("name2").build();
-    Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByPartNumber("partNumber2")).thenReturn(Optional.of(product2));
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.update(productDto),
-        String.join(CharConstants.DELIMITER.getValue(), ErrorObject.PART_NUMBER.name(), ErrorCode.DUPLICATED.name())
-    );
+    mockReturn(productRepository.findById(1), Optional.of(product1));
+    mockReturn(productRepository.findByName("name1"), Optional.of(product1));
+    mockReturn(productRepository.findByPartNumber("partNumber2"), Optional.of(product2));
+    assertObjectDuplicated(() -> service.update(productDto), ErrorObject.PART_NUMBER.name());
   }
 
   @Test
   void update_clusterInUse() {
     ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Product product1 = Product.builder().id(1).clusterId(2).partNumber("partNumber1").name("name1").build();
-    Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));
-    Mockito.when(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1)).thenReturn(true);
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.update(productDto),
-        String.join(CharConstants.DELIMITER.getValue(), ErrorObject.CLUSTER.name(), ErrorCode.IN_USE.name())
-    );
+    mockReturn(productRepository.findById(1), Optional.of(product1));
+    mockReturn(productRepository.findByName("name1"), Optional.of(product1));
+    mockReturn(productRepository.findByPartNumber("partNumber1"), Optional.of(product1));
+    mockReturn(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1), true);
+    assertObjectInUse(() -> service.update(productDto), ErrorObject.CLUSTER.name());
   }
 
   @Test
   void update_cluster_notInUse() {
     ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Product product1 = Product.builder().id(1).clusterId(2).partNumber("partNumber1").name("name1").build();
-    Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));
-    Mockito.when(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1)).thenReturn(false);
+    mockReturn(productRepository.findById(1), Optional.of(product1));
+    mockReturn(productRepository.findByName("name1"), Optional.of(product1));
+    mockReturn(productRepository.findByPartNumber("partNumber1"), Optional.of(product1));
+    mockReturn(processListViewRepository.existsByProductIdAndClusterCurrentNotNull(1), false);
     service.update(productDto);
-    Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any());
+    verifyInvoke1Time(productRepository).save(any());
   }
 
   @Test
   void update_success() {
     ProductDto productDto = ProductDto.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
     Product product1 = Product.builder().id(1).clusterId(1).partNumber("partNumber1").name("name1").build();
-    Mockito.when(productRepository.findById(1)).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByName("name1")).thenReturn(Optional.of(product1));
-    Mockito.when(productRepository.findByPartNumber("partNumber1")).thenReturn(Optional.of(product1));
+    mockReturn(productRepository.findById(1), Optional.of(product1));
+    mockReturn(productRepository.findByName("name1"), Optional.of(product1));
+    mockReturn(productRepository.findByPartNumber("partNumber1"), Optional.of(product1));
     service.update(productDto);
-    Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any());
+    verifyInvoke1Time(productRepository).save(any());
   }
 
   @Test
   void delete_inUse() {
-    Mockito.when(packageRepository.existsByProductId(1)).thenReturn(true);
-    Assertions.assertThrows(IllegalArgumentException.class, () -> service.delete(1), ErrorCode.IN_USE.name());
+    mockReturn(packageRepository.existsByProductId(1), true);
+    assertThrowIllegalInUse(() -> service.delete(1));
   }
 
   @Test
   void delete_success() {
-    Mockito.when(packageRepository.existsByProductId(1)).thenReturn(false);
+    mockReturn(packageRepository.existsByProductId(1), false);
     service.delete(1);
-    Mockito.verify(productRepository, Mockito.times(1)).deleteById(1);
+    verifyInvoke1Time(productRepository).deleteById(1);
   }
 
 }

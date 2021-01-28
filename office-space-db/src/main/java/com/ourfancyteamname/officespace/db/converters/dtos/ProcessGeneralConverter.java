@@ -1,10 +1,11 @@
 package com.ourfancyteamname.officespace.db.converters.dtos;
 
+import org.mapstruct.Mapper;
+
 import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
 import com.ourfancyteamname.officespace.db.entities.ProcessCluster;
 import com.ourfancyteamname.officespace.db.entities.ProcessNode;
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
-import org.mapstruct.Mapper;
 
 @Mapper
 public interface ProcessGeneralConverter {

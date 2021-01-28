@@ -1,12 +1,13 @@
 package com.ourfancyteamname.officespace.db.repos;
 
-import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.ourfancyteamname.officespace.db.entities.ClusterNodePath;
 
 @Repository
 public interface ClusterNodePathRepository extends JpaRepository<ClusterNodePath, Integer> {

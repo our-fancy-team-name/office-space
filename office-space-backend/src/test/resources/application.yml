@@ -1,4 +1,16 @@
-spring.profiles.include: datasource, jwt, no-liquibase
+spring:
+  profiles.include:
+    datasource-h2,
+    jwt,
+    no-liquibase,
+    cache,
+    cors
+  config:
+    import:
+      resource:common/
+  jpa:
+    open-in-view: false
+  banner.location: classpath:/common/banner
 
 server:
   port: 9090

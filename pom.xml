@@ -36,11 +36,6 @@
             <version>4.4</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
@@ -75,6 +70,7 @@
         </dependency>
     </dependencies>
     <modules>
+        <module>office-space-test</module>
         <module>office-space-model</module>
         <module>office-space-db</module>
         <module>office-space-backend</module>
@@ -82,6 +78,24 @@
     <build>
         <finalName>OfficeSpace-${project.version}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/test/integration-test/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>

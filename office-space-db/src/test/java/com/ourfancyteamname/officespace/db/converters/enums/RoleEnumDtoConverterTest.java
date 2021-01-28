@@ -1,12 +1,16 @@
 package com.ourfancyteamname.officespace.db.converters.enums;
 
-import com.ourfancyteamname.officespace.db.converters.dtos.RoleConverter;
-import com.ourfancyteamname.officespace.db.entities.Role;
-import com.ourfancyteamname.officespace.dtos.security.RoleDto;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
+import com.ourfancyteamname.officespace.db.converters.dtos.RoleConverter;
+import com.ourfancyteamname.officespace.db.entities.Role;
+import com.ourfancyteamname.officespace.dtos.security.RoleDto;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class RoleEnumDtoConverterTest {
 
   private RoleConverter roleConverter = Mappers.getMapper(RoleConverter.class);
@@ -24,8 +28,8 @@ class RoleEnumDtoConverterTest {
     nonActiveRole.setId(2);
     RoleDto result = roleConverter.toDto(role, activeRole);
     RoleDto result2 = roleConverter.toDto(role, nonActiveRole);
-    Assertions.assertTrue(result.getIsUsing());
-    Assertions.assertFalse(result2.getIsUsing());
+    assertTrue(result.getIsUsing());
+    assertFalse(result2.getIsUsing());
   }
 
   @Test
@@ -33,9 +37,9 @@ class RoleEnumDtoConverterTest {
     Role role = new Role();
     role.setCode("SUPER_ADMIN");
     role.setId(1);
-    Assertions.assertNull(roleConverter.toDto(null, null));
-    Assertions.assertNotNull(roleConverter.toDto(role, null));
-    Assertions.assertNotNull(roleConverter.toDto(null, role));
-    Assertions.assertNotNull(roleConverter.toDto(role, role));
+    assertNull(roleConverter.toDto(null, null));
+    assertNotNull(roleConverter.toDto(role, null));
+    assertNotNull(roleConverter.toDto(null, role));
+    assertNotNull(roleConverter.toDto(role, role));
   }
 }

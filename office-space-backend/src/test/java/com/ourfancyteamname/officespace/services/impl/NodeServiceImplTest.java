@@ -1,5 +1,21 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.any;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import com.ourfancyteamname.officespace.db.converters.dtos.ProcessGeneralConverter;
 import com.ourfancyteamname.officespace.db.entities.ProcessNode;
 import com.ourfancyteamname.officespace.db.repos.ProcessNodeRepository;
@@ -9,22 +25,10 @@ import com.ourfancyteamname.officespace.db.services.impl.SpecificationBuilderSer
 import com.ourfancyteamname.officespace.dtos.ProcessGeneralDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.ErrorCode;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+import com.ourfancyteamname.officespace.test.services.AssertionHelper;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class NodeServiceImplTest {
 
   @InjectMocks
@@ -47,24 +51,24 @@ class NodeServiceImplTest {
 
   @Test
   void create_dup() {
-    Mockito.when(processNodeRepository.existsByCode("code")).thenReturn(true);
+    mockReturn(processNodeRepository.existsByCode("code"), true);
     var data = ProcessGeneralDto.builder().code("code").build();
-    Assertions.assertThrows(IllegalArgumentException.class, () -> service.create(data), ErrorCode.DUPLICATED.name());
+    AssertionHelper.assertThrowIllegal(() -> service.create(data), ErrorCode.DUPLICATED.name());
   }
 
   @Test
   void create_success() {
-    Mockito.when(processNodeRepository.existsByCode("code")).thenReturn(false);
+    mockReturn(processNodeRepository.existsByCode("code"), false);
     service.create(ProcessGeneralDto.builder().code("code").build());
-    Mockito.verify(processGeneralConverter, Mockito.times(1)).fromDtoToNodeEntity(Mockito.any());
-    Mockito.verify(processNodeRepository, Mockito.times(1)).save(Mockito.any());
+    verifyInvoke1Time(processGeneralConverter).fromDtoToNodeEntity(any());
+    verifyInvoke1Time(processNodeRepository).save(any());
   }
 
   @Test
   void update_notFound() {
-    Mockito.when(processNodeRepository.findById(1)).thenReturn(Optional.empty());
+    mockReturn(processNodeRepository.findById(1), Optional.empty());
     var data = ProcessGeneralDto.builder().id(1).code("code").build();
-    Assertions.assertThrows(IllegalArgumentException.class, () -> service.update(data), ErrorCode.NOT_FOUND.name());
+    AssertionHelper.assertThrowIllegal(() -> service.update(data), ErrorCode.NOT_FOUND.name());
   }
 
   @Test
@@ -72,20 +76,20 @@ class NodeServiceImplTest {
     String code = "code";
     ProcessNode processNode = ProcessNode.builder().id(1).code(code).build();
     ProcessNode processNode2 = ProcessNode.builder().id(2).code("code2").build();
-    Mockito.when(processNodeRepository.findById(1)).thenReturn(Optional.of(processNode));
-    Mockito.when(processNodeRepository.findByCode("code2")).thenReturn(Optional.of(processNode2));
+    mockReturn(processNodeRepository.findById(1), Optional.of(processNode));
+    mockReturn(processNodeRepository.findByCode("code2"), Optional.of(processNode2));
     final var data = ProcessGeneralDto.builder().id(1).code("code2").build();
-    Assertions.assertThrows(IllegalArgumentException.class, () -> service.update(data), ErrorCode.DUPLICATED.name());
+    AssertionHelper.assertThrowIllegal(() -> service.update(data), ErrorCode.DUPLICATED.name());
   }
 
   @Test
   void update() {
     String code = "code";
     ProcessNode processNode = ProcessNode.builder().id(1).code(code).build();
-    Mockito.when(processNodeRepository.findById(1)).thenReturn(Optional.of(processNode));
-    Mockito.when(processNodeRepository.findByCode(code)).thenReturn(Optional.of(processNode));
+    mockReturn(processNodeRepository.findById(1), Optional.of(processNode));
+    mockReturn(processNodeRepository.findByCode(code), Optional.of(processNode));
     service.update(ProcessGeneralDto.builder().id(1).code(code).build());
-    Mockito.verify(processNodeRepository, Mockito.times(1)).save(Mockito.any());
+    verifyInvoke1Time(processNodeRepository).save(any());
   }
 
   @Test
@@ -93,9 +97,9 @@ class NodeServiceImplTest {
     var tableSearchRequest = TableSearchRequest.builder().build();
     var specs = specificationBuilderServiceImpl.from(tableSearchRequest);
     List<ProcessNode> result = Collections.singletonList(ProcessNode.builder().build());
-    Mockito.when(paginationBuilderServiceImpl.from(tableSearchRequest)).thenReturn(Pageable.unpaged());
-    Mockito.when(service.getExecutor().findAll(specs, (Sort) null)).thenReturn(result);
+    mockReturn(paginationBuilderServiceImpl.from(tableSearchRequest), Pageable.unpaged());
+    mockReturn(service.getExecutor().findAll(specs, (Sort) null), result);
     Page<ProcessGeneralDto> processGeneralDtos = service.getListView(tableSearchRequest);
-    Assertions.assertEquals(1, processGeneralDtos.getTotalElements());
+    assertEquals(1, processGeneralDtos.getTotalElements());
   }
 }

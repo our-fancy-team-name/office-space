@@ -1,14 +1,16 @@
 package com.ourfancyteamname.officespace.controllers;
 
-import com.ourfancyteamname.officespace.services.NodeService;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static org.mockito.Mockito.any;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+import com.ourfancyteamname.officespace.services.NodeService;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
+
+@UnitTest
 class NodeControllerTest {
 
   @InjectMocks
@@ -20,18 +22,18 @@ class NodeControllerTest {
   @Test
   void create() {
     controller.create(null);
-    Mockito.verify(nodeService, Mockito.times(1)).create(Mockito.any());
+    verifyInvoke1Time(nodeService).create(any());
   }
 
   @Test
   void getListView() {
     controller.getListView(null);
-    Mockito.verify(nodeService, Mockito.times(1)).getListView(Mockito.any());
+    verifyInvoke1Time(nodeService).getListView(any());
   }
 
   @Test
   void update() {
     controller.update(null);
-    Mockito.verify(nodeService, Mockito.times(1)).update(Mockito.any());
+    verifyInvoke1Time(nodeService).update(any());
   }
 }

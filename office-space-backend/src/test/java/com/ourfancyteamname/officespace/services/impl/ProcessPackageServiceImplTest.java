@@ -1,24 +1,27 @@
 package com.ourfancyteamname.officespace.services.impl;
 
+import static com.ourfancyteamname.officespace.test.services.AssertionHelper.assertThrowIllegalNotFound;
+import static com.ourfancyteamname.officespace.test.services.MockHelper.mockReturn;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvoke1Time;
+import static com.ourfancyteamname.officespace.test.services.VerifyHelper.verifyInvokeTime;
+import static org.mockito.Mockito.any;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
 import com.ourfancyteamname.officespace.db.entities.ClusterNodePackage;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodePackageRepository;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodePathRepository;
 import com.ourfancyteamname.officespace.db.repos.ClusterNodeRepository;
 import com.ourfancyteamname.officespace.db.repos.view.ProcessListViewRepository;
 import com.ourfancyteamname.officespace.dtos.ProcessPackageDto;
-import com.ourfancyteamname.officespace.enums.ErrorCode;
 import com.ourfancyteamname.officespace.enums.PackageStatus;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-import java.util.Optional;
-
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class ProcessPackageServiceImplTest {
 
   @InjectMocks
@@ -38,41 +41,36 @@ class ProcessPackageServiceImplTest {
 
   @Test
   void getValidPksToAdd_notFoundSchematic() {
-    Mockito.when(clusterNodeRepository.getClusterSchematic(1)).thenReturn(Optional.empty());
-    Assertions.assertThrows(
-        IllegalArgumentException.class,
-        () -> service.getValidPksToAdd(1),
-        ErrorCode.NOT_FOUND.name());
+    mockReturn(clusterNodeRepository.getClusterSchematic(1), Optional.empty());
+    assertThrowIllegalNotFound(() -> service.getValidPksToAdd(1));
   }
 
   @Test
   void getValidPksToAdd_getPckFromMiddleNode() {
     String clusterSchematic = "PRD_1";
     int clusterNodeId = 1;
-    Mockito.when(clusterNodeRepository.getClusterSchematic(clusterNodeId)).thenReturn(Optional.of(clusterSchematic));
-    Mockito.when(clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId)).thenReturn(true);
+    mockReturn(clusterNodeRepository.getClusterSchematic(clusterNodeId), Optional.of(clusterSchematic));
+    mockReturn(clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId), true);
     service.getValidPksToAdd(clusterNodeId);
-    Mockito.verify(processListViewRepository, Mockito.times(1))
+    verifyInvoke1Time(processListViewRepository)
         .findPossiblePkgsOnMiddleNode(String.valueOf(clusterNodeId), clusterSchematic);
-    Mockito.verify(processListViewRepository, Mockito.times(0))
-        .findPossiblePkgsOnStartNode(clusterSchematic);
-    Mockito.verify(clusterNodeRepository, Mockito.times(1)).getClusterSchematic(clusterNodeId);
-    Mockito.verify(clusterNodePathRepository, Mockito.times(1)).existsByClusterNodeIdTo(clusterNodeId);
+    verifyInvokeTime(processListViewRepository, 0).findPossiblePkgsOnStartNode(clusterSchematic);
+    verifyInvoke1Time(clusterNodeRepository).getClusterSchematic(clusterNodeId);
+    verifyInvoke1Time(clusterNodePathRepository).existsByClusterNodeIdTo(clusterNodeId);
   }
 
   @Test
   void getValidPksToAdd_getPckFromStartNode() {
     String clusterSchematic = "PRD_1";
     int clusterNodeId = 1;
-    Mockito.when(clusterNodeRepository.getClusterSchematic(clusterNodeId)).thenReturn(Optional.of(clusterSchematic));
-    Mockito.when(clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId)).thenReturn(false);
+    mockReturn(clusterNodeRepository.getClusterSchematic(clusterNodeId), Optional.of(clusterSchematic));
+    mockReturn(clusterNodePathRepository.existsByClusterNodeIdTo(clusterNodeId), false);
     service.getValidPksToAdd(clusterNodeId);
-    Mockito.verify(processListViewRepository, Mockito.times(1))
-        .findPossiblePkgsOnStartNode(clusterSchematic);
-    Mockito.verify(processListViewRepository, Mockito.times(0))
+    verifyInvoke1Time(processListViewRepository).findPossiblePkgsOnStartNode(clusterSchematic);
+    verifyInvokeTime(processListViewRepository, 0)
         .findPossiblePkgsOnMiddleNode(String.valueOf(clusterNodeId), clusterSchematic);
-    Mockito.verify(clusterNodeRepository, Mockito.times(1)).getClusterSchematic(clusterNodeId);
-    Mockito.verify(clusterNodePathRepository, Mockito.times(1)).existsByClusterNodeIdTo(clusterNodeId);
+    verifyInvoke1Time(clusterNodeRepository).getClusterSchematic(clusterNodeId);
+    verifyInvoke1Time(clusterNodePathRepository).existsByClusterNodeIdTo(clusterNodeId);
   }
 
   @Test
@@ -87,11 +85,12 @@ class ProcessPackageServiceImplTest {
         .clusterNodeId(data.getClusterNodeId())
         .status(data.getStatus())
         .build();
-    Mockito.when(clusterNodePackageRepository
-        .findByPackageIdAndClusterNodeIdAndStatus(data.getPackageId(), data.getClusterNodeId(), data.getStatus()))
-        .thenReturn(Optional.of(data2));
+    mockReturn(
+        clusterNodePackageRepository
+            .findByPackageIdAndClusterNodeIdAndStatus(data.getPackageId(), data.getClusterNodeId(), data.getStatus()),
+        Optional.of(data2));
     service.addPkgToCltNode(data);
-    Mockito.verify(clusterNodePackageRepository, Mockito.times(1)).save(Mockito.any());
+    verifyInvoke1Time(clusterNodePackageRepository).save(any());
   }
 
   @Test
@@ -101,11 +100,12 @@ class ProcessPackageServiceImplTest {
         .clusterNodeId(1)
         .status(PackageStatus.PASS)
         .build();
-    Mockito.when(clusterNodePackageRepository
-        .findByPackageIdAndClusterNodeIdAndStatus(data.getPackageId(), data.getClusterNodeId(), data.getStatus()))
-        .thenReturn(Optional.empty());
+    mockReturn(
+        clusterNodePackageRepository
+            .findByPackageIdAndClusterNodeIdAndStatus(data.getPackageId(), data.getClusterNodeId(), data.getStatus()),
+        Optional.empty());
     service.addPkgToCltNode(data);
-    Mockito.verify(clusterNodePackageRepository, Mockito.times(1)).save(Mockito.any());
+    verifyInvoke1Time(clusterNodePackageRepository).save(any());
   }
 
 }

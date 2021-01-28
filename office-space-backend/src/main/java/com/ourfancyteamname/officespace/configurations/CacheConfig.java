@@ -1,6 +1,14 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import com.ourfancyteamname.officespace.enums.CacheName;
+import java.time.Duration;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+
+import javax.cache.CacheManager;
+import javax.cache.configuration.CacheEntryListenerConfiguration;
+import javax.cache.configuration.FactoryBuilder;
+import javax.cache.configuration.MutableCacheEntryListenerConfiguration;
+
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
@@ -11,13 +19,7 @@ import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.cache.CacheManager;
-import javax.cache.configuration.CacheEntryListenerConfiguration;
-import javax.cache.configuration.FactoryBuilder;
-import javax.cache.configuration.MutableCacheEntryListenerConfiguration;
-import java.time.Duration;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
+import com.ourfancyteamname.officespace.enums.CacheName;
 
 @Configuration
 public class CacheConfig {

@@ -1,8 +1,8 @@
 package com.ourfancyteamname.officespace.db.converters.enums;
 
-import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
-
 import javax.persistence.Converter;
+
+import com.ourfancyteamname.officespace.enums.ClusterNodePosition;
 
 @Converter(autoApply = true)
 public class ClusterNodePositionConverter extends AbstractHibernateEnumConverter<ClusterNodePosition, String> {

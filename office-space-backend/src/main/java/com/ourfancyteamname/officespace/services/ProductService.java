@@ -1,9 +1,10 @@
 package com.ourfancyteamname.officespace.services;
 
+import org.springframework.data.domain.Page;
+
 import com.ourfancyteamname.officespace.db.entities.Product;
 import com.ourfancyteamname.officespace.dtos.ProductDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
-import org.springframework.data.domain.Page;
 
 public interface ProductService {
 

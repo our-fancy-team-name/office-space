@@ -1,29 +1,29 @@
 package com.ourfancyteamname.officespace.configurations;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Map;
+import com.ourfancyteamname.officespace.test.annotations.UnitTest;
 
-@ExtendWith(MockitoExtension.class)
+@UnitTest
 class MyExceptionHandlerTest {
 
   @InjectMocks
-  MyExceptionHandler myExceptionHandler;
+  private MyExceptionHandler myExceptionHandler;
 
   @Test
   void userNameNotFoundException() {
     String message = "message";
     Exception ex = new Exception(message);
     ResponseEntity<Object> result = myExceptionHandler.userNameNotFoundException(ex);
-    Assertions.assertEquals(HttpStatus.UNAUTHORIZED, result.getStatusCode());
-    Assertions.assertEquals(message, ((Map) result.getBody()).get("message"));
+    verify(HttpStatus.UNAUTHORIZED, result);
   }
 
   @Test
@@ -31,8 +31,7 @@ class MyExceptionHandlerTest {
     String message = "message";
     Exception ex = new Exception(message, new UsernameNotFoundException(message));
     ResponseEntity<Object> result = myExceptionHandler.userNameNotFoundException(ex);
-    Assertions.assertEquals(HttpStatus.UNAUTHORIZED, result.getStatusCode());
-    Assertions.assertEquals(message, ((Map) result.getBody()).get("message"));
+    verify(HttpStatus.UNAUTHORIZED, result);
   }
 
   @Test
@@ -40,8 +39,12 @@ class MyExceptionHandlerTest {
     String message = "message";
     Exception ex = new Exception(message);
     ResponseEntity<Object> result = myExceptionHandler.illegalException(ex);
-    Assertions.assertEquals(HttpStatus.EXPECTATION_FAILED, result.getStatusCode());
-    Assertions.assertEquals(message, ((Map) result.getBody()).get("message"));
+    verify(HttpStatus.EXPECTATION_FAILED, result);
+  }
+
+  private void verify(HttpStatus status, ResponseEntity<Object> result) {
+    assertEquals(status, result.getStatusCode());
+    assertEquals("message", ((Map) result.getBody()).get("message"));
   }
 
 }

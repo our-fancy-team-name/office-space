@@ -1,7 +1,12 @@
 package com.ourfancyteamname.officespace.security;
 
-import com.ourfancyteamname.officespace.security.services.JwtService;
-import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,11 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import com.ourfancyteamname.officespace.security.services.JwtService;
+import com.ourfancyteamname.officespace.security.services.UserDetailsSecurityServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 

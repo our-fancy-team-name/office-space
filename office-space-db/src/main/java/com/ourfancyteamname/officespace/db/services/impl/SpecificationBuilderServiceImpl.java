@@ -1,15 +1,16 @@
 package com.ourfancyteamname.officespace.db.services.impl;
 
-import com.ourfancyteamname.officespace.db.services.TableSearchBuilderService;
-import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
-import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
+import javax.persistence.criteria.Path;
+
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.criteria.Path;
+import com.ourfancyteamname.officespace.db.services.TableSearchBuilderService;
+import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 
 @Service
 public class SpecificationBuilderServiceImpl<T> implements TableSearchBuilderService<Specification<T>> {

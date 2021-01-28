@@ -1,9 +1,10 @@
 package com.ourfancyteamname.officespace.db.converters.dtos;
 
-import com.ourfancyteamname.officespace.db.entities.Permission;
-import com.ourfancyteamname.officespace.dtos.PermissionDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import com.ourfancyteamname.officespace.db.entities.Permission;
+import com.ourfancyteamname.officespace.dtos.PermissionDto;
 
 @Mapper
 public interface PermissionConverter {
