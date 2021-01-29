@@ -8,5 +8,5 @@ import lombok.Getter;
 public enum CharConstants {
   DELIMITER(":");
 
-  private String value;
+  private final String value;
 }
