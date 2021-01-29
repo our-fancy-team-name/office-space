@@ -59,7 +59,7 @@ jobs:
         id: project
 
       - name: Upload a Build Artifact
-        if: $BRANCH_NAME == 'master'
+        if: ${{ $BRANCH_NAME == 'master' }}
         uses: actions/upload-artifact@v2.2.2
         with:
           path: office-space-backend/target/OfficeSpace-${{ steps.project.outputs.version }}.jar
