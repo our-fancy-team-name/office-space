@@ -17,15 +17,7 @@ class RestClientTestConstantTest {
   }
 
   @Test
-  void testUrlBuild() {
-    assertEquals("http://localhost:1501/", RestClientConst.url(1501));
-    assertEquals("http://localhost:1501/endpoint", RestClientConst.url(1501, "endpoint"));
-    assertEquals("http://localhost:1501/endpoint", RestClientConst.url(1501, "/endpoint"));
-  }
-
-  @Test
   void testUrlApiBuild() {
-    assertEquals("http://localhost:1501/api/", RestClientConst.urlApi(1501));
     assertEquals("http://localhost:1501/api/endpoint", RestClientConst.urlApi(1501, "endpoint"));
     assertEquals("http://localhost:1501/api/endpoint", RestClientConst.urlApi(1501, "/endpoint"));
   }
