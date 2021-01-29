@@ -52,6 +52,7 @@ jobs:
         run: ./mvnw clean install -Dmaven.test.skip=true
 
       - name: Extract Maven project version
+        if: github.ref == 'refs/heads/master'
         run: echo ::set-output name=version::$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
         id: project
 
