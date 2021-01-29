@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -42,6 +43,7 @@ class WebSecurityConfigTest {
   void bean() {
     assertSame(AuthTokenFilter.class, webSecurityConfig.authenticationJwtTokenFilter().getClass());
     assertSame(BCryptPasswordEncoder.class, webSecurityConfig.passwordEncoder().getClass());
+    assertSame(RestTemplate.class, webSecurityConfig.getRestTemplate().getClass());
   }
 
   @Test

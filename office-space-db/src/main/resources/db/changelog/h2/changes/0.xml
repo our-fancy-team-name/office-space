@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="office-space" id="1611885611518-3">
+        <sql>
+            CREATE TABLE "cluster_node" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "cluster-id" INT, "node-id" INT, "position" VARCHAR(50), "description" VARCHAR(255), CONSTRAINT PK_CLUSTER_NODE PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-4">
+        <sql>
+            CREATE TABLE "cluster_node_package" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "cluster-node-id" INT, "package-id" INT, "add-time" TIMESTAMP, "amount" INT, "status" VARCHAR(50), CONSTRAINT PK_CLUSTER_NODE_PACKAGE PRIMARY KEY ("id"), UNIQUE ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-5">
+        <sql>
+            CREATE TABLE "cluster_node_path" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "cluster-node-id-to" INT, "cluster-node-id-from" INT, "label" VARCHAR(50), "description" VARCHAR(255), CONSTRAINT PK_CLUSTER_NODE_PATH PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-5">
+        <sql>
+            CREATE TABLE "cluster_node_path" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "cluster-node-id-to" INT, "cluster-node-id-from" INT, "label" VARCHAR(50), "description" VARCHAR(255), CONSTRAINT PK_CLUSTER_NODE_PATH PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+    <changeSet author="office-space" id="1611885611518-6">
+        <sql>
+            CREATE TABLE "package" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "product-id" INT, "serial-number" VARCHAR(255), "description" VARCHAR(255), CONSTRAINT PK_PACKAGE PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+    <changeSet author="office-space" id="1611885611518-7">
+        <sql>
+            CREATE TABLE "permission" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "code" VARCHAR(50) NOT NULL, CONSTRAINT PK_PERMISSION PRIMARY KEY ("id"), UNIQUE ("id"));
+        </sql>
+    </changeSet>
+    <changeSet author="office-space" id="1611885611518-8">
+        <sql>
+            CREATE TABLE "process_cluster" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "name" VARCHAR(255), "description" VARCHAR(255), "code" VARCHAR(50) NOT NULL, CONSTRAINT PK_PROCESS_CLUSTER PRIMARY KEY ("id"), UNIQUE ("id"));
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="office-space" id="1611885611518-9">
+        <sql>
+            CREATE TABLE "process_node" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "name" VARCHAR(255), "description" VARCHAR(255), "code" VARCHAR(50) NOT NULL, CONSTRAINT PK_PROCESS_NODE PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+
+
+    <changeSet author="office-space" id="1611885611518-10">
+        <sql>
+            CREATE TABLE "product" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "part-number" VARCHAR(255), "name" VARCHAR(255), "description" VARCHAR(255), "family" VARCHAR(255), "cluster-id" INT, CONSTRAINT PK_PRODUCT PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-11">
+        <sql>
+            CREATE TABLE "role" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "description" VARCHAR(255), "code" VARCHAR(50) NOT NULL, CONSTRAINT PK_ROLE PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-12">
+        <sql>
+            CREATE TABLE "role_permission" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "role_id" INT, "permission_id" INT, CONSTRAINT PK_ROLE_PERMISSION PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-13">
+        <sql>
+            CREATE TABLE "user" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "username" VARCHAR(50) NOT NULL, "password" VARCHAR(255) NOT NULL, "email" VARCHAR(355) NOT NULL, "gender" VARCHAR(50), "first-name" VARCHAR(100), "last-name" VARCHAR(100), "phone" VARCHAR(100), "alternate-phone" VARCHAR(100), "address" VARCHAR(500), CONSTRAINT PK_USER PRIMARY KEY ("id"), UNIQUE ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-14">
+        <sql>
+            CREATE TABLE "user_role" ("id" BIGINT UNSIGNED AUTO_INCREMENT NOT NULL, "user_id" INT, "role_id" INT, "recently_use" BOOLEAN(1) DEFAULT FALSE NOT NULL, CONSTRAINT PK_USER_ROLE PRIMARY KEY ("id"));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-15">
+        <sql>
+            ALTER TABLE "role_permission" ADD CONSTRAINT "role_permission_unique_pair" UNIQUE ("role_id", "permission_id");
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-16">
+        <sql>
+            ALTER TABLE "user_role" ADD CONSTRAINT "user_role_unique_pair" UNIQUE ("user_id", "role_id");
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-17">
+        <sql>
+            CREATE VIEW "cluster_node_package_list_view" AS select uuid() AS "id","p2"."serial-number" AS "serial","p2"."id" AS "package-id","p"."id" AS "product-id","p"."part-number" AS "part-number","pc"."code" AS "cluster-schematic","pcc"."code" AS "cluster-current","cn"."id" AS "cluster-node-current","cnp"."amount" AS "amount","cnp"."status" AS "status",(select group_concat("cnp4"."cluster-node-id-to" separator ',') from "cluster_node_path" "cnp4" where ("cnp4"."cluster-node-id-from" = "cn"."id")) AS "cluster-node-next",(select group_concat("cnp4"."cluster-node-id-from" separator ',') from "cluster_node_path" "cnp4" where ("cnp4"."cluster-node-id-to" = "cn"."id")) AS "cluster-node-prev" from ((((("product" "p" left join "process_cluster" "pc" on(("pc"."id" = "p"."cluster-id"))) left join "package" "p2" on(("p2"."product-id" = "p"."id"))) left join "cluster_node_package" "cnp" on(("cnp"."package-id" = "p2"."id"))) left join "cluster_node" "cn" on(("cn"."id" = "cnp"."cluster-node-id"))) left join "process_cluster" "pcc" on(("pcc"."id" = "cn"."cluster-id"))) where ("p2"."id" is not null);
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-18">
+        <sql>
+            CREATE VIEW "package_list_view" AS select "p"."id" AS "id",concat("prd"."name",' - ',"prd"."part-number") AS "product","p"."serial-number" AS "serial-number","p"."description" AS "description" from ("package" "p" left join "product" "prd" on(("prd"."id" = "p"."product-id")));
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-19">
+        <sql>
+            CREATE VIEW "role_user_list_view" AS select "r"."id" AS "id","r"."code" AS "code","r"."description" AS "description",group_concat("u"."username" separator ',') AS "users" from (("role" "r" left join "user_role" "ur" on(("ur"."role_id" = "r"."id"))) left join "user" "u" on(("u"."id" = "ur"."user_id"))) group by "r"."code";
+        </sql>
+    </changeSet>
+
+    <changeSet author="office-space" id="1611885611518-20">
+        <sql>
+            CREATE VIEW "user_role_list_view" AS select "u"."id" AS "id","u"."username" AS "username",concat("u"."first-name",' ',"u"."last-name") AS "name","u"."email" AS "email",group_concat("r"."code" separator ',') AS "roles" from (("user" "u" left join "user_role" "ur" on(("ur"."user_id" = "u"."id"))) left join "role" "r" on(("r"."id" = "ur"."role_id"))) group by "u"."id";
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

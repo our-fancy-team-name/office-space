@@ -2,7 +2,7 @@ spring:
   profiles.include:
     datasource-h2,
     jwt,
-    no-liquibase,
+    liquibase-h2,
     cache,
     cors
   config:

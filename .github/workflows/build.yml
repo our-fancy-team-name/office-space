@@ -52,10 +52,12 @@ jobs:
         run: ./mvnw clean install -Dmaven.test.skip=true
 
       - name: Extract Maven project version
+        if: github.ref == 'refs/heads/master'
         run: echo ::set-output name=version::$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
         id: project
 
       - name: Upload a Build Artifact
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v2.2.2
         with:
           path: office-space-backend/target/OfficeSpace-${{ steps.project.outputs.version }}.jar
