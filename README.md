@@ -43,11 +43,12 @@ Technical stack
  1. Start angular app located on `office-space-frontend/src/main/web/office-space-web` by visual studio code
 
 ## How to build
-For Mac: first, you must install maven wrapper:
+For Mac: 
+
+Run on office-space folder
+``` shell
+git config --global core.autocrlf input
 ```
-mvn -N io.takari:maven:0.7.7:wrapper
-```
-Noted: for Mac, we use `./mvnw` instead of `mvnw`
 
 Script (for windows)
 ```
