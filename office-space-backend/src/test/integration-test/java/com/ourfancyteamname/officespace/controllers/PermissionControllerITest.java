@@ -1,8 +1,7 @@
 package com.ourfancyteamname.officespace.controllers;
 
 import static com.ourfancyteamname.officespace.test.enums.RestClientConst.SUPER_ADMIN;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.ourfancyteamname.officespace.test.services.AssertionHelper.assertArrayEquals;
 
 import java.util.Arrays;
 
@@ -25,11 +24,12 @@ class PermissionControllerITest {
   @Test
   void getPermissionByRole() {
     var permissionDtos = restTemplateForTest.getForObject("permission/" + SUPER_ADMIN, PermissionDto[].class);
-    Arrays.stream(permissionDtos)
+    String[] actual = Arrays.stream(permissionDtos)
         .map(PermissionDto::getCode)
-        .forEach(c -> assertTrue(Arrays.stream(PermissionCode.values())
-            .map(PermissionCode::getName)
-            .anyMatch(c::equals)));
-    assertEquals(PermissionCode.values().length, permissionDtos.length);
+        .toArray(String[]::new);
+    String[] expect = Arrays.stream(PermissionCode.values())
+        .map(PermissionCode::getName)
+        .toArray(String[]::new);
+    assertArrayEquals(expect, actual);
   }
 }

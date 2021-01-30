@@ -1,5 +1,8 @@
 package com.ourfancyteamname.officespace.test.services;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -50,6 +53,13 @@ class AssertionHelperTest {
   @Test
   void assertObjectDuplicated() {
     AssertionHelper.assertObjectDuplicated(executable, "Object");
+  }
+
+  @Test
+  void assertCollectionEquals() {
+    List<Integer> actual = Arrays.asList(1, 1, 1, 3, 5, 6, 0);
+    List<Integer> expect = Arrays.asList(1, 1, 3, 1, 5, 6, 0);
+    AssertionHelper.assertCollectionEquals(expect, actual);
   }
 
 }
