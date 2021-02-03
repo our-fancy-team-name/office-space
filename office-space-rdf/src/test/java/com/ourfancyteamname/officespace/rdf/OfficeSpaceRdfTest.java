@@ -64,9 +64,13 @@ public class OfficeSpaceRdfTest {
       try (TupleQueryResult result = tupleQuery.evaluate()) {
         while (result.hasNext()) {  // iterate over the result
           BindingSet bindingSet = result.next();
+          System.out.println(bindingSet);
           Value valueOfX = bindingSet.getValue("x");
           Value valueOfY = bindingSet.getValue("y");
           Value valueOfP = bindingSet.getValue("p");
+          System.out.println(valueOfX);
+          System.out.println(valueOfY);
+          System.out.println(valueOfP);
         }
       }
 

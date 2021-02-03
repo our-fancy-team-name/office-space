@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.ourfancyteamname.officespace.rdf.repos.RdfRepository;
 
-@Component
+@Component(RdfRepository.NATIVE_REPO)
 public class NativeRdfRepository extends AbstractRdfRepository {
 
   @Autowired

@@ -36,7 +36,7 @@ class CacheConfigTest {
     mockReturn(cacheManager.createCache(any(), any()), cache);
     var jCacheManagerCustomizer = cacheConfig.cacheManagerCustomizer();
     jCacheManagerCustomizer.customize(cacheManager);
-    verifyInvokeTime(cacheManager, 2).createCache(any(), any());
-    verifyInvokeTime(cache, 2).registerCacheEntryListener(any());
+    verifyInvokeTime(cacheManager, 3).createCache(any(), any());
+    verifyInvokeTime(cache, 3).registerCacheEntryListener(any());
   }
 }

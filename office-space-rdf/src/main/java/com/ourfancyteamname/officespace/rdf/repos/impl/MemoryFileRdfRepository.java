@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.ourfancyteamname.officespace.rdf.repos.RdfRepository;
 
-@Component
+@Component(RdfRepository.MEMORY_FILE_REPO)
 public class MemoryFileRdfRepository extends AbstractRdfRepository {
 
   @Autowired

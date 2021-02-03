@@ -32,4 +32,11 @@ class RdfControllerITest {
     Assertions.assertEquals(50, result.size());
   }
 
+  @Test
+  void getDefinedNamespace() {
+    String url = "rdf/namespace";
+    List<String> result = restTemplateForTest.getForObject(url, List.class);
+    Assertions.assertEquals(43, result.size());
+  }
+
 }
