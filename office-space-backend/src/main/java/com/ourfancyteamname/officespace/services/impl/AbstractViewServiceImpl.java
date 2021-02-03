@@ -1,6 +1,7 @@
 package com.ourfancyteamname.officespace.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,12 +16,15 @@ import com.ourfancyteamname.officespace.services.ViewService;
 public abstract class AbstractViewServiceImpl<E, R extends JpaSpecificationExecutor<E>> implements ViewService<E> {
 
   @Autowired
+  @Qualifier(TableSearchBuilderService.SORT_QUALIFIER)
   private TableSearchBuilderService<Sort> sortingBuilderServiceImpl;
 
   @Autowired
+  @Qualifier(TableSearchBuilderService.PAGE_QUALIFIER)
   private TableSearchBuilderService<Pageable> paginationBuilderServiceImpl;
 
   @Autowired
+  @Qualifier(TableSearchBuilderService.SPECS_QUALIFIER)
   private TableSearchBuilderService<Specification<E>> specificationBuilderServiceImpl;
 
   protected abstract R getExecutor();

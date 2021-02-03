@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ourfancyteamname.officespace.db.services.TableSearchBuilderService;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 
-@Service
+@Service(TableSearchBuilderService.PAGE_QUALIFIER)
 public class PaginationBuilderServiceImpl implements TableSearchBuilderService<Pageable> {
 
   @Autowired

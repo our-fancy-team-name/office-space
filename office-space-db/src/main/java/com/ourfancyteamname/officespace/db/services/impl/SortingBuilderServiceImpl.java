@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ourfancyteamname.officespace.db.services.TableSearchBuilderService;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 
-@Service
+@Service(TableSearchBuilderService.SORT_QUALIFIER)
 public class SortingBuilderServiceImpl implements TableSearchBuilderService<Sort> {
 
   @Override

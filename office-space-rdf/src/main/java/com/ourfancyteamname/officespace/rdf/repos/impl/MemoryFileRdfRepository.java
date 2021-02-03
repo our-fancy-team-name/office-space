@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.ourfancyteamname.officespace.rdf.consts.QualifierName;
+import com.ourfancyteamname.officespace.rdf.repos.RdfRepository;
 
 @Component
 public class MemoryFileRdfRepository extends AbstractRdfRepository {
+
   @Autowired
-  @Qualifier(QualifierName.MEMORY_FILE_STORE)
+  @Qualifier(RdfRepository.MEMORY_FILE_STORE)
   private Repository repository;
 
   @Override

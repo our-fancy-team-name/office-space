@@ -12,7 +12,7 @@ import com.ourfancyteamname.officespace.db.services.TableSearchBuilderService;
 import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 
-@Service
+@Service(TableSearchBuilderService.SPECS_QUALIFIER)
 public class SpecificationBuilderServiceImpl<T> implements TableSearchBuilderService<Specification<T>> {
 
   public Specification<T> from(TableSearchRequest tableSearchRequest) {

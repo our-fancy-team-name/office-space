@@ -44,7 +44,7 @@ public class CacheConfig {
   private void customize(CacheManager cacheManager) {
     final var defaultConfig = defaultConfigBuilder();
     final var defaultListener = defaultListener();
-    Stream.of(CacheName.USER_PRINCIPLE, CacheName.PERMISSIONS)
+    Stream.of(CacheName.USER_PRINCIPLE, CacheName.PERMISSIONS, CacheName.IRIS)
         .forEach(createCache(cacheManager, defaultConfig, defaultListener));
   }
 

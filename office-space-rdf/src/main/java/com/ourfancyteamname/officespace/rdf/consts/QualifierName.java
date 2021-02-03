@@ -1,11 +1,15 @@
 package com.ourfancyteamname.officespace.rdf.consts;
 
+import java.util.Arrays;
+import java.util.List;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class QualifierName {
-  public static final String MEMORY_STORE = "sailMemoryStore";
-  public static final String MEMORY_FILE_STORE = "sailMemoryFileStore";
-  public static final String NATIVE_STORE = "sailNativeStore";
   public static final String VOCABULARY = "org.eclipse.rdf4j.model.vocabulary";
+  public static final List<String> EXCLUDED_CLASS =
+      Arrays.asList(QualifierName.VOCABULARY + ".XMLSchema", QualifierName.VOCABULARY + ".Vocabularies",
+          QualifierName.VOCABULARY + ".XSD$Datatype");
+  public static final String NAMESPACE = "NAMESPACE";
 }

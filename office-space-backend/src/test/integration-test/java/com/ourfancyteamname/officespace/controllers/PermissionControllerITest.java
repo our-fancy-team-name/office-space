@@ -17,8 +17,10 @@ import com.ourfancyteamname.officespace.test.annotations.IntegrationTest;
 @IntegrationTest
 class PermissionControllerITest {
 
+  public static final String TEMPLATE_FOR_TEST = "restTemplateForTest";
+
   @Autowired
-  @Qualifier("restTemplateForTest")
+  @Qualifier(PermissionControllerITest.TEMPLATE_FOR_TEST)
   private RestTemplate restTemplateForTest;
 
   @Test

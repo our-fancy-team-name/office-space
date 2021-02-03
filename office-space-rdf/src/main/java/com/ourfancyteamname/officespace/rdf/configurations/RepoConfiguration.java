@@ -11,27 +11,27 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.ourfancyteamname.officespace.rdf.consts.QualifierName;
+import com.ourfancyteamname.officespace.rdf.repos.RdfRepository;
 
 @Configuration
 public class RepoConfiguration {
 
   @Bean
-  @Qualifier(QualifierName.NATIVE_STORE)
+  @Qualifier(RdfRepository.NATIVE_STORE)
   public Repository getNativeStore() {
     File dataNative = new File(".\\rdf\\native\\");
     return new SailRepository(new NativeStore(dataNative));
   }
 
   @Bean
-  @Qualifier(QualifierName.MEMORY_FILE_STORE)
+  @Qualifier(RdfRepository.MEMORY_FILE_STORE)
   public Repository getMemoryFileStore() {
     File dataDir = new File(".\\rdf\\memoryFile\\");
     return new SailRepository(new MemoryStore(dataDir));
   }
 
   @Bean
-  @Qualifier(QualifierName.MEMORY_STORE)
+  @Qualifier(RdfRepository.MEMORY_STORE)
   public Repository getMemoryStore() {
     return new SailRepository(new MemoryStore());
   }

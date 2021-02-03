@@ -6,4 +6,5 @@ import lombok.experimental.UtilityClass;
 public class CacheName {
   public final String USER_PRINCIPLE = "USER_PRINCIPLE";
   public final String PERMISSIONS = "PERMISSIONS";
+  public final String IRIS = "IRIS";
 }
