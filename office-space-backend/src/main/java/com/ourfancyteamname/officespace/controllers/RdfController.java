@@ -6,13 +6,13 @@ import org.eclipse.rdf4j.model.IRI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ourfancyteamname.officespace.dtos.RdfDto;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.services.RdfService;
 
 @RestController
@@ -22,9 +22,9 @@ public class RdfController {
   @Autowired
   private RdfService rdfService;
 
-  @GetMapping("/iris/{iri}")
-  public ResponseEntity<List<IRI>> getDefinedIRLs(@PathVariable("iri") String iri) {
-    return ResponseEntity.ok(rdfService.getDefinedIRLs(iri));
+  @PostMapping("/iris/search")
+  public ResponseEntity<List<IRI>> getDefinedIRLs(@RequestBody TableSearchRequest tableSearchRequest) {
+    return ResponseEntity.ok(rdfService.getDefinedIRLs(tableSearchRequest));
   }
 
   @GetMapping("/iris")

@@ -5,10 +5,11 @@ import java.util.List;
 import org.eclipse.rdf4j.model.IRI;
 
 import com.ourfancyteamname.officespace.dtos.RdfDto;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 
 public interface RdfService {
 
-  List<IRI> getDefinedIRLs(String iri);
+  List<IRI> getDefinedIRLs(TableSearchRequest tableSearchRequest);
 
   List<IRI> getDefinedIRLs();
 

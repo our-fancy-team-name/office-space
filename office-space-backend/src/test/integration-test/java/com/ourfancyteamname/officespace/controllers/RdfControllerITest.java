@@ -1,5 +1,6 @@
 package com.ourfancyteamname.officespace.controllers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.rdf4j.model.IRI;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.client.RestTemplate;
 
+import com.ourfancyteamname.officespace.dtos.ColumnSearchRequest;
+import com.ourfancyteamname.officespace.dtos.TablePagingRequest;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.test.annotations.IntegrationTest;
 
 @IntegrationTest
@@ -27,8 +31,12 @@ class RdfControllerITest {
 
   @Test
   void getDefinedIRIsFilter() {
-    String url = "rdf/iris/name";
-    List<IRI> result = restTemplateForTest.getForObject(url, List.class);
+    String url = "rdf/iris/search";
+    var tableSearchRequest = TableSearchRequest.builder()
+        .pagingRequest(TablePagingRequest.builder().pageSize(100).build())
+        .columnSearchRequests(Collections.singletonList(ColumnSearchRequest.builder().term("name").build()))
+        .build();
+    List<String> result = restTemplateForTest.postForObject(url, tableSearchRequest, List.class);
     Assertions.assertEquals(50, result.size());
   }
 

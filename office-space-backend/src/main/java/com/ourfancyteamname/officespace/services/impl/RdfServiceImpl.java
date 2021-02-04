@@ -21,6 +21,7 @@ import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.stereotype.Service;
 
 import com.ourfancyteamname.officespace.dtos.RdfDto;
+import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.CacheName;
 import com.ourfancyteamname.officespace.rdf.consts.QualifierName;
 import com.ourfancyteamname.officespace.rdf.repos.RdfRepository;
@@ -39,11 +40,16 @@ public class RdfServiceImpl implements RdfService {
   private RdfService self;
 
   @Override
-  public List<IRI> getDefinedIRLs(String iri) {
+  public List<IRI> getDefinedIRLs(TableSearchRequest tableSearchRequest) {
+    var term = tableSearchRequest.getColumnSearchRequests().get(0).getTerm();
+    var maxResult = tableSearchRequest.getPagingRequest().getPageSize();
     var iris = self.getDefinedIRLs();
-    return StringUtils.isBlank(iri) ?
-        iris :
-        iris.stream().filter(i -> StringUtils.containsIgnoreCase(i.toString(), iri)).collect(Collectors.toList());
+    return StringUtils.isBlank(term) ?
+        iris.subList(0, maxResult) :
+        iris.stream()
+            .filter(i -> StringUtils.containsIgnoreCase(i.toString(), term))
+            .limit(maxResult)
+            .collect(Collectors.toList());
   }
 
   @Override

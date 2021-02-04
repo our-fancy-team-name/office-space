@@ -16,16 +16,17 @@
                     <mat-card-title>{{'RDF.CREATE_RDF' | translate}}</mat-card-title>
                 </mat-card-header>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
+                        <app-select-search #packageSelect [options]="namespaces" [label]="'RDF.NAMESPACE'">
+                        </app-select-search>
+                    </div>
+                    <div class="col-md-4">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{'RDF.NAMESPACE' | translate}}</mat-label>
+                            <mat-label>{{'RDF.SUBJECT' | translate}}</mat-label>
                             <input required [formControl]="subjectCreCtr" matInput>
                             <mat-error *ngIf="validator.isValid(subjectCreCtr)">
                                 {{subjectCreCtr.errors.message | translate}}</mat-error>
                         </mat-form-field>
-                    </div>
-                    <div class="col-md-4">
-    
                     </div>
                 </div>
             </mat-card>

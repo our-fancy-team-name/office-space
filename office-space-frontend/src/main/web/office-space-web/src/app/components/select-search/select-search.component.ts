@@ -75,11 +75,18 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
       });
     } else {
       if (this.displayType === SelectSearchComponent.displayTypeEnum.Text) {
-        this.displayedOptions = this.options.filter(i => i[this.displayField].includes(value));
+        this.displayedOptions = this.options.filter(i => this.getFilterValue(i).includes(value));
       } else {
-        this.displayedOptions = this.options.filter(i => i[this.displayField] === +value);
+        this.displayedOptions = this.options.filter(i => this.getFilterValue(i) === +value);
       }
     }
+  }
+
+  getFilterValue(i) {
+    if(this.displayField === '') {
+      return i;
+    }
+    return i[this.displayField]
   }
 
   isShowclear() {

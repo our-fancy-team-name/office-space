@@ -10,7 +10,7 @@
             <mat-icon *ngIf="!isShowclear()" matSuffix>search</mat-icon>
         </mat-form-field>
         <mat-option *ngFor="let option of displayedOptions" [value]="option">
-            {{option[displayField]}}
+            {{displayField === '' ? option : option[displayField]}}
         </mat-option>
         <mat-option *ngIf="(options || []).length === 0 && !enableBackEndSearch" disabled>
             {{'MESSAGE.NO_RESULT' | translate}}
