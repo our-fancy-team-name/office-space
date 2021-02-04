@@ -39,6 +39,8 @@ import { NodePickerComponent } from './components/process-graph/node-picker/node
 import { ClusterNodeEditComponent } from './components/process-graph/cluster-node-edit/cluster-node-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClusterPackageListComponent } from './components/process-graph/cluster-package-list/cluster-package-list.component';
+import { RdfPageComponent } from './components/rdf-page/rdf-page.component';
+import { RdfEditListComponent } from './components/rdf-edit-list/rdf-edit-list.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { ClusterPackageListComponent } from './components/process-graph/cluster-
     ProcessGraphComponent,
     NodePickerComponent,
     ClusterNodeEditComponent,
-    ClusterPackageListComponent
+    ClusterPackageListComponent,
+    RdfPageComponent,
+    RdfEditListComponent
   ],
   imports: [
     BrowserModule,

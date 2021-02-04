@@ -26,9 +26,9 @@ public class OfficeSpaceRdfTest {
 
   public static void main(String[] args) {
     Repository repo = new SailRepository(new MemoryStore());
-    File dataDir = new File("C:\\temp\\myRepository\\");
+    File dataDir = new File("temp\\myRepository\\");
     Repository repoMemDir = new SailRepository(new MemoryStore(dataDir));
-    File dataNative = new File("C:\\temp\\myNative\\");
+    File dataNative = new File("temp\\myNative\\");
     Repository repoNative = new SailRepository(new NativeStore(dataNative));
     String ex = "http://example.org/";
     IRI picasso = Values.iri(ex, "Picasso");
@@ -39,7 +39,7 @@ public class OfficeSpaceRdfTest {
     model.add(picasso, FOAF.FIRST_NAME, Values.literal("Pablo"));
 //    System.out.println(model);
     ValueFactory vf = Values.getValueFactory();
-    model.forEach(System.out::println);
+//    model.forEach(System.out::println);
 
     ModelBuilder modelBuilder = new ModelBuilder();
     Model b = modelBuilder.setNamespace("ex", "http://example.org/")

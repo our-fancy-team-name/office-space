@@ -4,6 +4,7 @@ import { ClusterPageComponent } from './components/cluster-page/cluster-page.com
 import { DemoComponent } from './components/demo/demo.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
+import { RdfPageComponent } from './components/rdf-page/rdf-page.component';
 import { RoleManageComponent } from './components/role-manage/role-manage.component';
 import { RoleSelectComponent } from './components/role-select/role-select.component';
 import { PERMISSION_CODE } from './enums/permissionCode';
@@ -36,6 +37,11 @@ const routes: Routes = [
     path: 'cluster-manage', component: ClusterPageComponent,
     canActivate: PERMISSION_PAGE,
     data: { perm: [PERMISSION_CODE.CLUSTER_EDIT, PERMISSION_CODE.NODE_EDIT, PERMISSION_CODE.PROCESS_EDIT] }
+  },
+  {
+    path: 'rdf-manage', component: RdfPageComponent,
+    canActivate: LOGEDIN_AND_PICKED_ROLE,
+    data: { perm: [] }
   },
   { path: '**', redirectTo: 'demo', pathMatch: 'full' }
 ];

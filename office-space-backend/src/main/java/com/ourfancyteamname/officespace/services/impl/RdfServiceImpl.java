@@ -68,7 +68,7 @@ public class RdfServiceImpl implements RdfService {
   }
 
   @Override
-  public void create(RdfDto<?, ?> rdfDto) {
+  public void create(RdfDto rdfDto) {
     rdfRepository.save(new ModelBuilder()
         .subject(rdfDto.getSubject())
         .add(rdfDto.getPredicate(), rdfDto.getSubject())

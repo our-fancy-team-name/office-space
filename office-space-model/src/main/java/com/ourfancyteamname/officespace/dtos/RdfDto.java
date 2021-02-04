@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RdfDto<S extends Resource, V extends Value> {
-  private S subject;
+public class RdfDto {
+  private Resource subject;
   private IRI predicate;
-  private V object;
+  private Value object;
 }

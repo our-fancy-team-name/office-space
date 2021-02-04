@@ -120,6 +120,10 @@ export class AppComponent implements OnInit, AfterContentInit {
       this.router.navigate(['/cluster-manage']);
       return;
     }
+    if (item.title === MENU_ITEM.MANAGE_RDF.title) {
+      this.router.navigate(['/rdf-manage']);
+      return;
+    }
   }
 
 }

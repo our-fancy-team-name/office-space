@@ -13,5 +13,10 @@ export const MENU_ITEM = {
         title: 'MANAGE_CLUSTER',
         icon: 'dashboard',
         isActive: true,
+    },
+    MANAGE_RDF: {
+        title: 'MANAGE_RDF',
+        icon: 'dashboard',
+        isActive: true,
     }
 };

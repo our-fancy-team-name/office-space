@@ -38,7 +38,7 @@ public class RdfController {
   }
 
   @PostMapping("/create")
-  public ResponseEntity<Void> create(@RequestBody RdfDto<?, ?> rdfDto) {
+  public ResponseEntity<Void> create(@RequestBody RdfDto rdfDto) {
     rdfService.create(rdfDto);
     return ResponseEntity.ok().build();
   }

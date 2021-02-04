@@ -28,6 +28,7 @@ export class SideMenuService {
     if (permission.indexOf(PERMISSION_CODE.CLUSTER_EDIT) >= 0 || permission.indexOf(PERMISSION_CODE.NODE_EDIT) >= 0 ) {
       menuItem.push(MENU_ITEM.MANAGE_CLUSTER);
     }
+    menuItem.push(MENU_ITEM.MANAGE_RDF);
     this.sideMenuSubject.next(menuItem);
   }
 }
