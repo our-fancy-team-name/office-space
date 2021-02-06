@@ -15,18 +15,79 @@
                     <div mat-card-avatar></div>
                     <mat-card-title>{{'RDF.CREATE_RDF' | translate}}</mat-card-title>
                 </mat-card-header>
+                <h3>SUBJECT</h3>
                 <div class="row">
-                    <div class="col-md-6">
-                        <app-select-search #packageSelect [options]="namespaces" [label]="'RDF.NAMESPACE'">
+                    <div class="col-md-7">
+                        <app-select-search #namespaceSubject [options]="namespaces" [label]="'RDF.NAMESPACE'">
                         </app-select-search>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{'RDF.SUBJECT' | translate}}</mat-label>
                             <input required [formControl]="subjectCreCtr" matInput>
                             <mat-error *ngIf="validator.isValid(subjectCreCtr)">
                                 {{subjectCreCtr.errors.message | translate}}</mat-error>
                         </mat-form-field>
+                    </div>
+                </div>
+                <h3>PREDICATE</h3>
+                <div class="row">
+                    <div class="col-md-7">
+                        <app-select-search #predicate [options]="iris" [label]="'RDF.TYPE'" [displayField]="'name'">
+                        </app-select-search>
+                    </div>
+                </div>
+                <h3>OBJECT</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-checkbox [(ngModel)]="isValueLiteral">
+                            Literal
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!isValueLiteral">
+                    <div class="col-md-7">
+                        <app-select-search #namespaceObject [options]="namespaces" [label]="'RDF.NAMESPACE'">
+                        </app-select-search>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'RDF.OBJECT' | translate}}</mat-label>
+                            <input required [formControl]="objectCreCtr" matInput>
+                            <mat-error *ngIf="validator.isValid(objectCreCtr)">
+                                {{objectCreCtr.errors.message | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isValueLiteral">
+                    <div class="col-md-7">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{'RDF.OBJECT' | translate}}</mat-label>
+                            <input required [formControl]="objectCreCtr" matInput>
+                            <mat-error *ngIf="validator.isValid(objectCreCtr)">
+                                {{objectCreCtr.errors.message | translate}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row" style="height: 20px;">
+
+                </div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2">
+                        <div class="float-right">
+                            <button (click)="submitCre()" [disabled]="isSubmitCreDisable()" mat-flat-button
+                                color="primary">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="float-right">
+                            <button (click)="closeCre()" mat-flat-button color="warn">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </mat-card>

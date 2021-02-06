@@ -19,14 +19,14 @@ public class RepoConfiguration {
   @Bean
   @Qualifier(RdfRepository.NATIVE_STORE)
   public Repository getNativeStore() {
-    File dataNative = new File(".\\rdf\\native\\");
+    File dataNative = new File("temp/rdf/native");
     return new SailRepository(new NativeStore(dataNative));
   }
 
   @Bean
   @Qualifier(RdfRepository.MEMORY_FILE_STORE)
   public Repository getMemoryFileStore() {
-    File dataDir = new File(".\\rdf\\memoryFile\\");
+    File dataDir = new File("temp/rdf/memoryFile");
     return new SailRepository(new MemoryStore(dataDir));
   }
 

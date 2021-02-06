@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.util.ModelBuilder;
+import org.eclipse.rdf4j.model.util.Values;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -20,10 +21,12 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.stereotype.Service;
 
-import com.ourfancyteamname.officespace.dtos.RdfDto;
+import com.ourfancyteamname.officespace.dtos.RdfCreateDto;
+import com.ourfancyteamname.officespace.dtos.RdfIriDisplayDto;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.CacheName;
 import com.ourfancyteamname.officespace.rdf.consts.QualifierName;
+import com.ourfancyteamname.officespace.rdf.converters.RdfConverter;
 import com.ourfancyteamname.officespace.rdf.repos.RdfRepository;
 import com.ourfancyteamname.officespace.services.RdfService;
 
@@ -39,8 +42,11 @@ public class RdfServiceImpl implements RdfService {
   @Resource
   private RdfService self;
 
+  @Autowired
+  private RdfConverter rdfConverter;
+
   @Override
-  public List<IRI> getDefinedIRLs(TableSearchRequest tableSearchRequest) {
+  public List<RdfIriDisplayDto> getDefinedIRLs(TableSearchRequest tableSearchRequest) {
     var term = tableSearchRequest.getColumnSearchRequests().get(0).getTerm();
     var maxResult = tableSearchRequest.getPagingRequest().getPageSize();
     var iris = self.getDefinedIRLs();
@@ -54,12 +60,13 @@ public class RdfServiceImpl implements RdfService {
 
   @Override
   @Cacheable(value = CacheName.IRIS)
-  public List<IRI> getDefinedIRLs() {
+  public List<RdfIriDisplayDto> getDefinedIRLs() {
     Field[] allFields = getFields();
     return Arrays.stream(allFields)
         .filter(f -> f.getType().isAssignableFrom(IRI.class))
         .map(this::get)
         .map(IRI.class::cast)
+        .map(rdfConverter::toDto)
         .collect(Collectors.toList());
   }
 
@@ -74,10 +81,23 @@ public class RdfServiceImpl implements RdfService {
   }
 
   @Override
-  public void create(RdfDto rdfDto) {
+  public void create(RdfCreateDto rdfCreateDto) {
+    var valueFactory = Values.getValueFactory();
+    var subject = valueFactory.createIRI(
+        rdfCreateDto.getSubject().getNamespace(),
+        rdfCreateDto.getSubject().getLocalName()
+    );
+    var predicate = valueFactory.createIRI(
+        rdfCreateDto.getPredicate().getNamespace(),
+        rdfCreateDto.getPredicate().getLocalName()
+    );
+    var object = valueFactory.createIRI(
+        rdfCreateDto.getSubject().getNamespace(),
+        rdfCreateDto.getSubject().getLocalName()
+    );
     rdfRepository.save(new ModelBuilder()
-        .subject(rdfDto.getSubject())
-        .add(rdfDto.getPredicate(), rdfDto.getSubject())
+        .subject(subject)
+        .add(predicate, object)
         .build());
   }
 
