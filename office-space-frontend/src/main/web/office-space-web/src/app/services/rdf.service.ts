@@ -24,4 +24,8 @@ export class RdfService {
     return this.http.post(`${this.url}/create`, data);
   }
 
+  getAll(): Observable<any> {
+    return this.http.get(`${this.url}/all`);
+  }
+
 }

@@ -43,4 +43,10 @@ public class RdfController {
     return ResponseEntity.ok().build();
   }
 
+  @GetMapping("/all")
+  public ResponseEntity<List<RdfCreateDto>> getAll() {
+    return ResponseEntity.ok(rdfService.getAll());
+  }
+
+
 }

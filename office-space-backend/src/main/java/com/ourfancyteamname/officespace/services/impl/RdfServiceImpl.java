@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import com.ourfancyteamname.officespace.dtos.RdfCreateDto;
 import com.ourfancyteamname.officespace.dtos.RdfIriDisplayDto;
+import com.ourfancyteamname.officespace.dtos.RdfObject;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.enums.CacheName;
 import com.ourfancyteamname.officespace.rdf.consts.QualifierName;
@@ -92,13 +93,24 @@ public class RdfServiceImpl implements RdfService {
         rdfCreateDto.getPredicate().getLocalName()
     );
     var object = valueFactory.createIRI(
-        rdfCreateDto.getSubject().getNamespace(),
-        rdfCreateDto.getSubject().getLocalName()
+        rdfCreateDto.getObject().getNamespace(),
+        rdfCreateDto.getObject().getLocalName()
     );
     rdfRepository.save(new ModelBuilder()
         .subject(subject)
         .add(predicate, object)
         .build());
+  }
+
+  @Override
+  public List<RdfCreateDto> getAll() {
+    return rdfRepository.tupleQuery("SELECT ?x ?p ?y WHERE { ?x ?p ?y } ", r ->
+        r.stream().map(bs -> RdfCreateDto.builder()
+            .object(new RdfObject(bs.getValue("x").stringValue()))
+            .predicate(new RdfObject(bs.getValue("p").stringValue()))
+            .subject(new RdfObject(bs.getValue("y").stringValue()))
+            .build())
+            .collect(Collectors.toList()));
   }
 
   @SneakyThrows
@@ -122,5 +134,12 @@ public class RdfServiceImpl implements RdfService {
         .map(Class::getFields)                    // get all fields inside class
         .flatMap(Arrays::stream)
         .toArray(Field[]::new);
+  }
+
+  public static void main(String[] args) {
+
+    String a = "asdas#asdasd#qweqe";
+    StringUtils.split(a, "#");
+    System.out.println();
   }
 }

@@ -15,4 +15,6 @@ public interface RdfService {
   List<String> getDefinedNamespace();
 
   void create(RdfCreateDto rdfCreateDto);
+
+  List<RdfCreateDto> getAll();
 }
