@@ -1,2 +1,11 @@
 @import "table";
 @import "expan-details";
+
+::ng-deep .ngx-charts {
+    border: 0.5px grey solid;
+    border-radius: 4px;
+}
+
+#ngxGraphWrapper {
+    height: calc(100vh - 270px);
+}

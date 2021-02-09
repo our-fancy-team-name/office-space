@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { RdfService } from 'src/app/services/rdf.service';
 import { ValidatorsService } from 'src/app/utils/validators.service';
 import { SelectSearchComponent } from '../select-search/select-search.component';
-import { D3ForceDirectedCustomLayout } from './D3ForceDirectedCustomLayout';
+import { ColaForceDirectedLayout } from './ColaForceDirectedCustomLayout';
 
 @Component({
   selector: 'app-rdf-edit-list',
@@ -19,7 +19,7 @@ export class RdfEditListComponent implements OnInit {
   namespaces = [];
   iris = [];
   isValueLiteral = false;
-  layout: D3ForceDirectedCustomLayout = new D3ForceDirectedCustomLayout();
+  layout: ColaForceDirectedLayout = new ColaForceDirectedLayout();
 
   @ViewChild('namespaceSubject') namespaceSubject: SelectSearchComponent;
   @ViewChild('predicate') predicate: SelectSearchComponent;
@@ -41,6 +41,7 @@ export class RdfEditListComponent implements OnInit {
   clusters: ClusterNode[] = [];
   nodes: Node[] = [];
   links: Edge[] = [];
+  nodeId: Set<string> = new Set();
 
 
   constructor(
@@ -58,10 +59,19 @@ export class RdfEditListComponent implements OnInit {
     this.rdfService.getAll().subscribe(res => {
       console.log(res);
       res.forEach(element => {
-        this.toNode(element.object);
+        const objectId = this.hash(element.object.namespace + '#' + element.object.localName);
+        const subjectId = this.hash(element.subject.namespace + '#' + element.subject.localName);
+        if (!this.nodeId.has(objectId)) {
+          this.toNode(element.object);
+          this.nodeId.add(objectId);
+        }
+        if (!this.nodeId.has(subjectId)) {
+          this.toNode(element.subject);
+          this.nodeId.add(subjectId);
+        }
         this.toPath(element.object, element.subject, element.predicate);
-        this.toNode(element.subject);
       });
+      this.setSizeForGraph();
     });
   }
 
