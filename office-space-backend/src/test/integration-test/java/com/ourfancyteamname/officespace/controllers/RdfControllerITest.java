@@ -38,7 +38,7 @@ class RdfControllerITest {
         .columnSearchRequests(Collections.singletonList(ColumnSearchRequest.builder().term("name").build()))
         .build();
     LinkedHashMap result = restTemplateForTest.postForObject(url, tableSearchRequest, LinkedHashMap.class);
-    Assertions.assertEquals(100, ((List<RdfIriDisplayDto>) result.get("content")).size());
+    Assertions.assertEquals(50, ((List<RdfIriDisplayDto>) result.get("content")).size());
   }
 
   @Test

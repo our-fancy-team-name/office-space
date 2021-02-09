@@ -21,6 +21,7 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ourfancyteamname.officespace.dtos.RdfCreateDto;
@@ -53,12 +54,14 @@ public class RdfServiceImpl implements RdfService {
     var term = tableSearchRequest.getColumnSearchRequests().get(0).getTerm();
     var maxResult = tableSearchRequest.getPagingRequest().getPageSize();
     var iris = self.getDefinedIRLs();
-    return StringUtils.isBlank(term) ?
-        new PageImpl<>(iris.subList(0, maxResult)) :
-        new PageImpl<>(iris.stream()
-            .filter(i -> StringUtils.containsIgnoreCase(i.toString(), term))
-            .limit(maxResult)
-            .collect(Collectors.toList()));
+    PageRequest pageable = PageRequest.of(0, maxResult);
+    if (StringUtils.isBlank(term)) {
+      return new PageImpl<>(iris.stream().limit(maxResult).collect(Collectors.toList()), pageable, iris.size());
+    }
+    var filtered = iris.stream()
+        .filter(i -> StringUtils.containsIgnoreCase(i.getIri().toString(), term))
+        .collect(Collectors.toList());
+    return new PageImpl<>(filtered.stream().limit(maxResult).collect(Collectors.toList()), pageable, filtered.size());
   }
 
   @Override
