@@ -2,6 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ClusterNode, Edge, Node } from '@swimlane/ngx-graph';
 import { Subject } from 'rxjs';
+import { TableSearchRequest } from 'src/app/dtos/tableSearch';
+import { DataBaseOperation } from 'src/app/enums/tableSearchEnum';
+import { StorageService } from 'src/app/services/auth/storage.service';
 import { RdfService } from 'src/app/services/rdf.service';
 import { ValidatorsService } from 'src/app/utils/validators.service';
 import { SelectSearchComponent } from '../select-search/select-search.component';
@@ -20,6 +23,23 @@ export class RdfEditListComponent implements OnInit {
   iris = [];
   isValueLiteral = false;
   layout: ColaForceDirectedLayout = new ColaForceDirectedLayout();
+  url = `${this.storage.get(StorageService.API)}rdf/iris/search`;
+
+  tableSearchObject: TableSearchRequest = {
+    columnSearchRequests: [
+      {
+        columnName: 'name',
+        operation: DataBaseOperation.LIKE,
+        term: '',
+        isOrTerm: true
+      }
+    ],
+    pagingRequest: {
+      page: 0,
+      pageSize: 100
+    },
+    sortingRequest: null
+  };
 
   @ViewChild('namespaceSubject') namespaceSubject: SelectSearchComponent;
   @ViewChild('predicate') predicate: SelectSearchComponent;
@@ -46,7 +66,8 @@ export class RdfEditListComponent implements OnInit {
 
   constructor(
     public validator: ValidatorsService,
-    private rdfService: RdfService
+    private rdfService: RdfService,
+    private storage: StorageService
   ) { }
 
   ngOnInit(): void {

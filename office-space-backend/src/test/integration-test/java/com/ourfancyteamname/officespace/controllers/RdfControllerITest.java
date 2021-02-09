@@ -1,6 +1,7 @@
 package com.ourfancyteamname.officespace.controllers;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -36,8 +37,8 @@ class RdfControllerITest {
         .pagingRequest(TablePagingRequest.builder().pageSize(100).build())
         .columnSearchRequests(Collections.singletonList(ColumnSearchRequest.builder().term("name").build()))
         .build();
-    List<String> result = restTemplateForTest.postForObject(url, tableSearchRequest, List.class);
-    Assertions.assertEquals(50, result.size());
+    LinkedHashMap result = restTemplateForTest.postForObject(url, tableSearchRequest, LinkedHashMap.class);
+    Assertions.assertEquals(100, ((List<RdfIriDisplayDto>) result.get("content")).size());
   }
 
   @Test

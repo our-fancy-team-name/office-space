@@ -3,6 +3,7 @@ package com.ourfancyteamname.officespace.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ public class RdfController {
   private RdfService rdfService;
 
   @PostMapping("/iris/search")
-  public ResponseEntity<List<RdfIriDisplayDto>> getDefinedIRLs(@RequestBody TableSearchRequest tableSearchRequest) {
+  public ResponseEntity<Page<RdfIriDisplayDto>> getDefinedIRLs(@RequestBody TableSearchRequest tableSearchRequest) {
     return ResponseEntity.ok(rdfService.getDefinedIRLs(tableSearchRequest));
   }
 

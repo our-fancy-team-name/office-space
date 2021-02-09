@@ -19,6 +19,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import com.ourfancyteamname.officespace.dtos.RdfCreateDto;
@@ -47,16 +49,16 @@ public class RdfServiceImpl implements RdfService {
   private RdfConverter rdfConverter;
 
   @Override
-  public List<RdfIriDisplayDto> getDefinedIRLs(TableSearchRequest tableSearchRequest) {
+  public Page<RdfIriDisplayDto> getDefinedIRLs(TableSearchRequest tableSearchRequest) {
     var term = tableSearchRequest.getColumnSearchRequests().get(0).getTerm();
     var maxResult = tableSearchRequest.getPagingRequest().getPageSize();
     var iris = self.getDefinedIRLs();
     return StringUtils.isBlank(term) ?
-        iris.subList(0, maxResult) :
-        iris.stream()
+        new PageImpl<>(iris.subList(0, maxResult)) :
+        new PageImpl<>(iris.stream()
             .filter(i -> StringUtils.containsIgnoreCase(i.toString(), term))
             .limit(maxResult)
-            .collect(Collectors.toList());
+            .collect(Collectors.toList()));
   }
 
   @Override

@@ -33,7 +33,7 @@
                 <h3>PREDICATE</h3>
                 <div class="row">
                     <div class="col-md-7">
-                        <app-select-search #predicate [options]="iris" [label]="'RDF.TYPE'" [displayField]="'name'">
+                        <app-select-search #predicate [tableSearch]="tableSearchObject" [url]="url" [enableBackEndSearch]="true" [label]="'RDF.TYPE'" [displayField]="'name'">
                         </app-select-search>
                     </div>
                 </div>
