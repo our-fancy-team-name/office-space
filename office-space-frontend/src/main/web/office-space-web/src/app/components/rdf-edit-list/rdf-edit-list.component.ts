@@ -78,7 +78,6 @@ export class RdfEditListComponent implements OnInit {
       this.iris = res;
     });
     this.rdfService.getAll().subscribe(res => {
-      console.log(res);
       res.forEach(element => {
         const objectId = this.hash(element.object.namespace + '#' + element.object.localName);
         const subjectId = this.hash(element.subject.namespace + '#' + element.subject.localName);
@@ -90,7 +89,7 @@ export class RdfEditListComponent implements OnInit {
           this.toNode(element.subject);
           this.nodeId.add(subjectId);
         }
-        this.toPath(element.object, element.subject, element.predicate);
+        this.toPath(objectId, subjectId, element.predicate);
       });
       this.setSizeForGraph();
     });
@@ -103,11 +102,11 @@ export class RdfEditListComponent implements OnInit {
     } as Node);
   }
 
-  toPath(object, subject, predicate) {
+  toPath(objectId, subjectId, predicate) {
     this.links.push({
-      source: this.hash(object.namespace + '#' + object.localName),
-      target: this.hash(subject.namespace + '#' + subject.localName),
-      label: predicate.namespace
+      source: objectId,
+      target: subjectId,
+      label: predicate.namespace + '#' + predicate.localName
     });
   }
 
