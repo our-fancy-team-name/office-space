@@ -83,10 +83,7 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
   }
 
   getFilterValue(i) {
-    if(this.displayField === '') {
-      return i;
-    }
-    return i[this.displayField]
+    return this.displayField === '' ? i : i[this.displayField];
   }
 
   isShowclear() {
@@ -120,7 +117,7 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, AfterConten
     const compareImpl = (tiz, tat) => {
       for (const key of Object.keys(tiz)) {
         if (!Object.prototype.hasOwnProperty.call(tat, key) || tiz[key] !== tat[key]) {
-            return false;
+          return false;
         }
       }
       return true;
