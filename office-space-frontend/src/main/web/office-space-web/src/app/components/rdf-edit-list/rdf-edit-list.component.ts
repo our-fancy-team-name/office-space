@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ClusterNode, Edge, Node } from '@swimlane/ngx-graph';
 import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { TableSearchRequest } from 'src/app/dtos/tableSearch';
 import { DataBaseOperation } from 'src/app/enums/tableSearchEnum';
 import { StorageService } from 'src/app/services/auth/storage.service';
@@ -15,7 +16,8 @@ import { ColaForceDirectedLayout } from './ColaForceDirectedCustomLayout';
   templateUrl: './rdf-edit-list.component.html',
   styleUrls: ['./rdf-edit-list.component.scss']
 })
-export class RdfEditListComponent implements OnInit {
+export class RdfEditListComponent implements OnInit, AfterViewInit {
+  readonly TIMEOUT = 200;
   isAddingRdf = false;
   subjectCreCtr = new FormControl('', this.validator.required());
   objectCreCtr = new FormControl('', this.validator.required());
@@ -70,6 +72,12 @@ export class RdfEditListComponent implements OnInit {
     private storage: StorageService
   ) { }
 
+  ngAfterViewInit(): void {
+    this.changeSize.pipe(debounceTime(this.TIMEOUT)).subscribe(res => {
+      this.setSizeForGraph();
+    });
+  }
+
   ngOnInit(): void {
     this.rdfService.getDefinedNamespace().subscribe(res => {
       this.namespaces = res;
@@ -93,6 +101,10 @@ export class RdfEditListComponent implements OnInit {
       });
       this.setSizeForGraph();
     });
+  }
+
+  onContainerResized(event) {
+    this.changeSize.next();
   }
 
   toNode(data) {
