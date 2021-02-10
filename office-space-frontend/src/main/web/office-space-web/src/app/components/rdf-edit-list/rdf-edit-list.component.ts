@@ -118,7 +118,7 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
     this.links.push({
       source: objectId,
       target: subjectId,
-      label: predicate.namespace + '#' + predicate.localName
+      label: [predicate.namespace, predicate.localName || ''].join('#')
     });
   }
 
