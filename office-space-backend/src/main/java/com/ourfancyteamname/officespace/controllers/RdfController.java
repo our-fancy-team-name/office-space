@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ourfancyteamname.officespace.dtos.RdfCreateDto;
 import com.ourfancyteamname.officespace.dtos.RdfIriDisplayDto;
+import com.ourfancyteamname.officespace.dtos.RdfObject;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 import com.ourfancyteamname.officespace.services.RdfService;
 
@@ -49,5 +50,8 @@ public class RdfController {
     return ResponseEntity.ok(rdfService.getAll());
   }
 
-
+  @PostMapping("/create/iri")
+  public ResponseEntity<Void> createIri(@RequestBody RdfObject rdfObject) {
+    return ResponseEntity.ok().build();
+  }
 }

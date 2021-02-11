@@ -108,6 +108,11 @@ public class RdfServiceImpl implements RdfService {
   }
 
   @Override
+  public void createIri(RdfObject rdfObject) {
+
+  }
+
+  @Override
   public List<RdfCreateDto> getAll() {
     return rdfRepository.tupleQuery("SELECT ?x ?p ?y WHERE { ?x ?p ?y } ", r ->
         r.stream().map(bs -> RdfCreateDto.builder()

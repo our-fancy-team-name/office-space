@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.ourfancyteamname.officespace.dtos.RdfCreateDto;
 import com.ourfancyteamname.officespace.dtos.RdfIriDisplayDto;
+import com.ourfancyteamname.officespace.dtos.RdfObject;
 import com.ourfancyteamname.officespace.dtos.TableSearchRequest;
 
 public interface RdfService {
@@ -17,6 +18,8 @@ public interface RdfService {
   List<String> getDefinedNamespace();
 
   void create(RdfCreateDto rdfCreateDto);
+
+  void createIri(RdfObject rdfObject);
 
   List<RdfCreateDto> getAll();
 }
