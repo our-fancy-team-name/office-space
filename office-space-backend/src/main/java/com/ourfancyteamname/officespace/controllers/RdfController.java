@@ -52,6 +52,7 @@ public class RdfController {
 
   @PostMapping("/create/iri")
   public ResponseEntity<Void> createIri(@RequestBody RdfObject rdfObject) {
+    rdfService.createIri(rdfObject);
     return ResponseEntity.ok().build();
   }
 }

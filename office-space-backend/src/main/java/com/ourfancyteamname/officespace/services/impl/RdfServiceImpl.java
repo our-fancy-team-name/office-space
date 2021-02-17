@@ -24,6 +24,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.ourfancyteamname.officespace.db.entities.Iri;
+import com.ourfancyteamname.officespace.db.repos.IriRepository;
 import com.ourfancyteamname.officespace.dtos.RdfCreateDto;
 import com.ourfancyteamname.officespace.dtos.RdfIriDisplayDto;
 import com.ourfancyteamname.officespace.dtos.RdfObject;
@@ -48,6 +50,9 @@ public class RdfServiceImpl implements RdfService {
 
   @Autowired
   private RdfConverter rdfConverter;
+
+  @Autowired
+  private IriRepository iriRepository;
 
   @Override
   public Page<RdfIriDisplayDto> getDefinedIRLs(TableSearchRequest tableSearchRequest) {
@@ -109,7 +114,12 @@ public class RdfServiceImpl implements RdfService {
 
   @Override
   public void createIri(RdfObject rdfObject) {
-
+    if (!iriRepository.existsByNamespaceAndLocalName(rdfObject.getNamespace(), rdfObject.getLocalName())) {
+      iriRepository.save(Iri.builder()
+          .namespace(rdfObject.getNamespace())
+          .localName(rdfObject.getLocalName())
+          .build());
+    }
   }
 
   @Override

@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "`namespace`")
-public class Namespace implements Serializable {
+@Table(name = "`iri`")
+public class Iri implements Serializable {
 
   @Serial
   private static final long serialVersionUID = -215476727342105286L;
@@ -31,10 +31,10 @@ public class Namespace implements Serializable {
   @Column(name = "`id`")
   private int id;
 
-  @Column(name = "`value`")
-  private String value;
+  @Column(name = "`namespace`")
+  private String namespace;
 
-  @Column(name = "`description`")
-  private String description;
+  @Column(name = "`local-name`")
+  private String localName;
 
 }
