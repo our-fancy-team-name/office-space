@@ -22,4 +22,6 @@ public interface RdfService {
   void createIri(RdfObject rdfObject);
 
   List<RdfCreateDto> getAll();
+
+  void remove(RdfCreateDto rdfCreateDto);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,12 @@ public class RdfController {
 
   @Autowired
   private RdfService rdfService;
+
+  @DeleteMapping
+  public ResponseEntity<Void> delete(@RequestBody RdfCreateDto rdfCreateDto) {
+    rdfService.remove(rdfCreateDto);
+    return ResponseEntity.ok().build();
+  }
 
   @PostMapping("/iris/search")
   public ResponseEntity<Page<RdfIriDisplayDto>> getDefinedIRLs(@RequestBody TableSearchRequest tableSearchRequest) {

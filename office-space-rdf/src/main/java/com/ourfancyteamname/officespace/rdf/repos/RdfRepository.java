@@ -15,5 +15,7 @@ public interface RdfRepository {
 
   void save(Model model);
 
+  void remove(Model model);
+
   <T> T tupleQuery(String query, Function<TupleQueryResult, T> processFunction);
 }

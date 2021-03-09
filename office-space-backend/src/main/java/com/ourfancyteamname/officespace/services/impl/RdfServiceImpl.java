@@ -133,6 +133,27 @@ public class RdfServiceImpl implements RdfService {
             .collect(Collectors.toList()));
   }
 
+  @Override
+  public void remove(RdfCreateDto rdfCreateDto) {
+    var valueFactory = Values.getValueFactory();
+    var subject = valueFactory.createIRI(
+        rdfCreateDto.getSubject().getNamespace(),
+        rdfCreateDto.getSubject().getLocalName()
+    );
+    var predicate = valueFactory.createIRI(
+        rdfCreateDto.getPredicate().getNamespace(),
+        rdfCreateDto.getPredicate().getLocalName()
+    );
+    var object = valueFactory.createIRI(
+        rdfCreateDto.getObject().getNamespace(),
+        rdfCreateDto.getObject().getLocalName()
+    );
+    rdfRepository.remove(new ModelBuilder()
+        .subject(subject)
+        .add(predicate, object)
+        .build());
+  }
+
   @SneakyThrows
   private Class<?> forName(String name) {
     return Class.forName(name);
@@ -154,12 +175,5 @@ public class RdfServiceImpl implements RdfService {
         .map(Class::getFields)                    // get all fields inside class
         .flatMap(Arrays::stream)
         .toArray(Field[]::new);
-  }
-
-  public static void main(String[] args) {
-
-    String a = "asdas#asdasd#qweqe";
-    StringUtils.split(a, "#");
-    System.out.println();
   }
 }

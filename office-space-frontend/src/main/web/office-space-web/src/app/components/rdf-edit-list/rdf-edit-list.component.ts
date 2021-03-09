@@ -62,7 +62,7 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
   enableZoom = true;
   clusters: ClusterNode[] = [];
   nodes: Node[] = [];
-  links: Edge[] = [];
+  links: any[] = [];
   nodeId: Set<string> = new Set();
 
 
@@ -97,7 +97,8 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
           this.toNode(element.subject);
           this.nodeId.add(subjectId);
         }
-        this.toPath(objectId, subjectId, element.predicate);
+        // tslint:disable-next-line: max-line-length
+        this.toPath(element.object.namespace + '#' + element.object.localName, element.subject.namespace + '#' + element.subject.localName, element.predicate);
       });
       this.setSizeForGraph();
     });
@@ -116,8 +117,10 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
 
   toPath(objectId, subjectId, predicate) {
     this.links.push({
-      source: objectId,
-      target: subjectId,
+      rawSource: objectId,
+      rawTarget: subjectId,
+      source: this.hash(objectId),
+      target: this.hash(subjectId),
       label: [predicate.namespace, predicate.localName || ''].join('#')
     });
   }
@@ -155,6 +158,10 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
     this.rdfService.create(rdfCreateDto).subscribe(res => {
       this.closeCre();
     });
+  }
+
+  remvoveFromCluster(node) {
+    console.log(node);
   }
 
   isSubmitCreDisable() { }

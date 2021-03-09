@@ -19,6 +19,11 @@ public abstract class AbstractRdfRepository implements RdfRepository {
   }
 
   @Override
+  public void remove(Model model) {
+    Repositories.consume(getRepo(), r -> r.remove(model));
+  }
+
+  @Override
   public <T> T tupleQuery(String query, Function<TupleQueryResult, T> processFunction) {
     return Repositories.tupleQuery(getRepo(), query, processFunction);
   }

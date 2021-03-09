@@ -135,7 +135,7 @@
                                 </ng-template>
 
                                 <ng-template #linkTemplate let-link>
-                                    <svg:g container="body" class="edge cursor-pointer">
+                                    <svg:g [ngbPopover]="nodePopContent" container="body" class="edge cursor-pointer">
                                         <svg:path class="line" stroke-width="2.5" marker-end="url(#arrow)">
                                         </svg:path>
                                         <svg:text class="edge-label" text-anchor="middle">
@@ -145,6 +145,22 @@
                                             </textPath>
                                         </svg:text>
                                     </svg:g>
+
+                                    <ng-template #nodePopContent>
+                                        <div id="node-pop-content">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <mat-list dense>
+                                                        <mat-list-item
+                                                            (click)="remvoveFromCluster(link)">
+                                                            <mat-icon color="warn" mat-list-icon>delete_sweep</mat-icon>
+                                                            {{'PROCESS.NODE_DELETE' | translate}}
+                                                        </mat-list-item>
+                                                    </mat-list>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
                                 </ng-template>
                             </ngx-graph>
                         </div>
