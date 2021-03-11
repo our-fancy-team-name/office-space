@@ -28,4 +28,8 @@ export class RdfService {
     return this.http.get(`${this.url}/all`);
   }
 
+  remove(payload): Observable<any> {
+    return this.http.post(`${this.url}`, payload);
+  }
+
 }

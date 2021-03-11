@@ -20,7 +20,7 @@
     </mat-sidenav>
     <mat-sidenav-content [ngStyle]="{'margin-left': marginLeft}">
         <mat-toolbar *ngIf="isLoggedIn" color="primary">
-            <img style="height: 30px;" src="../assets/img/mdt_logo_white.webp" alt="Medtronic Logo">
+            <span style="height: 30px;"> RDF Demo</span>
             <span style="flex: 1 1 auto;"></span>
             <mat-form-field>
                 <mat-select (selectionChange)="changeLang($event)" [(value)]="languageSelected">

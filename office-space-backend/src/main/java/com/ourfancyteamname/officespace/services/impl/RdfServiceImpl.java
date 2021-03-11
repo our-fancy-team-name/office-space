@@ -88,6 +88,7 @@ public class RdfServiceImpl implements RdfService {
         .filter(f -> StringUtils.endsWith(f.getName(), QualifierName.NAMESPACE))
         .map(this::get)
         .map(String.class::cast)
+        .map(s -> StringUtils.removeEnd(s, "#") + "#")
         .collect(Collectors.toList());
   }
 

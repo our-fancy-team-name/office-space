@@ -85,6 +85,12 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
     this.rdfService.getDefinedIRLsNoFilter().subscribe(res => {
       this.iris = res;
     });
+    this.refresh();
+  }
+  update$: Subject<any> = new Subject();
+
+
+  refresh(){
     this.rdfService.getAll().subscribe(res => {
       res.forEach(element => {
         const objectId = this.hash(element.object.namespace + '#' + element.object.localName);
@@ -100,7 +106,6 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
         // tslint:disable-next-line: max-line-length
         this.toPath(element.object.namespace + '#' + element.object.localName, element.subject.namespace + '#' + element.subject.localName, element.predicate);
       });
-      this.setSizeForGraph();
     });
   }
 
@@ -117,6 +122,7 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
 
   toPath(objectId, subjectId, predicate) {
     this.links.push({
+      rawPath: predicate,
       rawSource: objectId,
       rawTarget: subjectId,
       source: this.hash(objectId),
@@ -157,11 +163,30 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
     };
     this.rdfService.create(rdfCreateDto).subscribe(res => {
       this.closeCre();
+      this.refresh();
     });
   }
 
   remvoveFromCluster(node) {
-    console.log(node);
+    const rdfCreateDto = {
+      subject: {
+        namespace: node.rawSource.split('#')[0] + '#',
+        localName: node.rawSource.split('#')[1]
+      },
+      object: {
+        namespace: node.rawTarget.split('#')[0] + '#',
+        localName: node.rawTarget.split('#')[1]
+      },
+      predicate: {
+        namespace: node.rawPath.namespace + '#',
+        localName: node.rawPath.localName
+      }
+    }
+    console.log(rdfCreateDto);
+    this.rdfService.remove(rdfCreateDto).subscribe(res => {
+      console.log(res);
+      this.refresh();
+    })
   }
 
   isSubmitCreDisable() { }

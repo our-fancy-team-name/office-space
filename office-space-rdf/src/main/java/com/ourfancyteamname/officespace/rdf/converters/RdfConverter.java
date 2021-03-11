@@ -10,6 +10,8 @@ import com.ourfancyteamname.officespace.dtos.RdfIriDisplayDto;
 public interface RdfConverter {
 
   @Mapping(expression = "java(iri)", target = "iri")
-  @Mapping(expression = "java(iri.getNamespace() + iri.getLocalName())", target = "name")
+  @Mapping(expression = "java(String.join(\"#\", org.apache.commons.lang3.StringUtils.removeEnd(iri.getNamespace(), \"#\"),iri.getLocalName()))", target = "name")
   RdfIriDisplayDto toDto(IRI iri);
+
+
 }

@@ -13,7 +13,7 @@
             <mat-card>
                 <mat-card-header>
                     <div mat-card-avatar></div>
-                    <mat-card-title>{{'RDF.CREATE_RDF' | translate}}</mat-card-title>
+                    <mat-card-title>RDF Create</mat-card-title>
                 </mat-card-header>
                 <h3>SUBJECT</h3>
                 <div class="row">
@@ -100,10 +100,11 @@
                     <div class="col-md-12">
                         <div id="ngxGraphWrapper" #ngxGraphWrapper>
                             <ngx-graph class="chart-container" [panningEnabled]="panningEnabled"
-                                [enableZoom]="enableZoom" [draggingEnabled]="true" [view]="[viewWidth, viewHeight]"
+                                [enableZoom]="false" [draggingEnabled]="true" [view]="[viewWidth, viewHeight]"
                                 [center$]="center" [links]="links" [showMiniMap]="true" [nodes]="nodes"
                                 [clusters]="clusters" [zoomToFit$]="zoomToFit" [panToNode$]="panToNode"
-                                [layout]="layout">
+                                [update$]="update$"
+                                layout="dagre">
 
                                 <ng-template #defsTemplate>
                                     <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4"

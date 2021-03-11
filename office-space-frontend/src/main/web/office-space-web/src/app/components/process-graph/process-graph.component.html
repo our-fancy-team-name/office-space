@@ -27,7 +27,7 @@
                                 [enableZoom]="enableZoom" [draggingEnabled]="draggingEnabled"
                                 [view]="[viewWidth, viewHeight]" [center$]="center" [links]="links" [showMiniMap]="true"
                                 [nodes]="nodes" [clusters]="clusters" [zoomToFit$]="zoomToFit" [panToNode$]="panToNode"
-                                layout="d3ForceDirected">
+                                layout="dagre">
 
                                 <ng-template #defsTemplate>
                                     <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4"

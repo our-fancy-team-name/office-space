@@ -106,7 +106,8 @@
     "EMPLOYEE_LIST": "Employee List",
     "MANAGE_AUTHORITY": "Manage authority",
     "MANAGE_CLUSTER": "Manage Cluster",
-    "MANAGE_PRODUCT": "Manage Prod"
+    "MANAGE_PRODUCT": "Manage Prod",
+    "MANAGE_RDF": "Manage Rdf"
   },
   "USER_EDIT_LIST": {
     "ADDRESS": "Address",
@@ -131,5 +132,13 @@
     "MAX_LENGTH": "Exceed max length allowed",
     "MIN_LENGTH": "Less than min length allow",
     "NOT_THE_SAME_PASSWORD": "Password not match"
+  },
+  "RDF": {
+    "RDF": "RDF",
+    "NAMESPACE": "Name Space",
+    "OBJECT": "Object",
+    "SUBJECT": "Subject",
+    "TYPE": "Predicate"
+
   }
 }
