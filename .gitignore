@@ -92,3 +92,5 @@ logs
 cache
 
 temp
+
+**/neo4j/data
