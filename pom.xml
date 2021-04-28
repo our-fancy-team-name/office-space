@@ -75,6 +75,7 @@
         <module>office-space-model</module>
         <module>office-space-db</module>
         <module>office-space-rdf</module>
+        <module>office-space-neo4j</module>
         <module>office-space-backend</module>
     </modules>
     <build>
