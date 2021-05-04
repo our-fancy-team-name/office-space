@@ -1,1 +1,1 @@
-docker stop local-mysql & docker stop local-neo4j
+docker stop local-mysql & docker stop local-neo4j & docker stop local-mongo
