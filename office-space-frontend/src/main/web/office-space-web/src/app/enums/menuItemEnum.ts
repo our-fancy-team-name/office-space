@@ -18,5 +18,10 @@ export const MENU_ITEM = {
         title: 'MANAGE_RDF',
         icon: 'dashboard',
         isActive: true,
+    },
+    MANAGE_NEWPAGE: {
+        title: 'MANAGE_NEWPAGE',
+        icon: 'dashboard',
+        isActive: true,
     }
 };

@@ -108,22 +108,26 @@ export class AppComponent implements OnInit, AfterContentInit {
   }
 
   openMenuItem(item) {
-    if (item.title === MENU_ITEM.MANAGE_AUTHORITY.title) {
-      this.router.navigate(['/role-manage']);
-      return;
+    switch (item.title) {
+      case MENU_ITEM.MANAGE_AUTHORITY.title:
+        this.router.navigate(['/role-manage']);
+        break;
+      case MENU_ITEM.MANAGE_PRODUCT.title:
+        this.router.navigate(['/product-manage']);
+        break;
+      case MENU_ITEM.MANAGE_CLUSTER.title:
+        this.router.navigate(['/cluster-manage']);
+        break;
+      case MENU_ITEM.MANAGE_RDF.title:
+        this.router.navigate(['/rdf-manage']);
+        break;
+      case MENU_ITEM.MANAGE_NEWPAGE.title:
+        this.router.navigate(['/new-manage']);
+        break;
+      default:
+        break;
     }
-    if (item.title === MENU_ITEM.MANAGE_PRODUCT.title) {
-      this.router.navigate(['/product-manage']);
-      return;
-    }
-    if (item.title === MENU_ITEM.MANAGE_CLUSTER.title) {
-      this.router.navigate(['/cluster-manage']);
-      return;
-    }
-    if (item.title === MENU_ITEM.MANAGE_RDF.title) {
-      this.router.navigate(['/rdf-manage']);
-      return;
-    }
+
   }
 
 }

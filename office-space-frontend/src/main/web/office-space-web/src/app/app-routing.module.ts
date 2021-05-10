@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClusterPageComponent } from './components/cluster-page/cluster-page.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { LoginComponent } from './components/login/login.component';
+import { NewComponentComponent } from './components/new-component/new-component.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { RdfPageComponent } from './components/rdf-page/rdf-page.component';
 import { RoleManageComponent } from './components/role-manage/role-manage.component';
@@ -40,6 +41,11 @@ const routes: Routes = [
   },
   {
     path: 'rdf-manage', component: RdfPageComponent,
+    canActivate: LOGEDIN_AND_PICKED_ROLE,
+    data: { perm: [] }
+  },
+  {
+    path: 'new-manage', component: NewComponentComponent,
     canActivate: LOGEDIN_AND_PICKED_ROLE,
     data: { perm: [] }
   },

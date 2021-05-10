@@ -1,6 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav *ngIf="isLoggedIn" #drawer class="sidenav" fixedInViewport disableClose="false"
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="'side'" [opened]="true">
+    <mat-sidenav *ngIf="isLoggedIn" #drawer class="sidenav" fixedInViewport disableClose="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="'side'" [opened]="true">
         <mat-toolbar>
             <span *ngIf="isExpanded">{{'HEADER.WELCOME' | translate}}</span>
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggleSideBar()">
@@ -24,10 +23,10 @@
             <span style="flex: 1 1 auto;"></span>
             <mat-form-field>
                 <mat-select (selectionChange)="changeLang($event)" [(value)]="languageSelected">
-                  <mat-option value="en">{{eng}}</mat-option>
-                  <mat-option value="vn">{{vie}}</mat-option>
+                    <mat-option value="en">{{eng}}</mat-option>
+                    <mat-option value="vn">{{vie}}</mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </mat-toolbar>
         <app-login *ngIf="!isLoggedIn"></app-login>
         <router-outlet *ngIf="isLoggedIn"></router-outlet>
@@ -38,8 +37,7 @@
                     href="https://github.com/our-fancy-team-name/office-space/commit/{{version.commitId}}">
                     {{version.commitId}}
                 </a>
-            </span>
-            on branch 
+            </span> on branch
             <span>{{version.branch}}</span> in <span>{{version.buildTime | date: "hh:mm dd/MM/yyyy"}}</span>
         </div>
     </mat-sidenav-content>

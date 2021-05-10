@@ -41,6 +41,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClusterPackageListComponent } from './components/process-graph/cluster-package-list/cluster-package-list.component';
 import { RdfPageComponent } from './components/rdf-page/rdf-page.component';
 import { RdfEditListComponent } from './components/rdf-edit-list/rdf-edit-list.component';
+import { NewComponentComponent } from './components/new-component/new-component.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { RdfEditListComponent } from './components/rdf-edit-list/rdf-edit-list.c
     ClusterNodeEditComponent,
     ClusterPackageListComponent,
     RdfPageComponent,
-    RdfEditListComponent
+    RdfEditListComponent,
+    NewComponentComponent
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,7 @@ export class SideMenuService {
       menuItem.push(MENU_ITEM.MANAGE_CLUSTER);
     }
     menuItem.push(MENU_ITEM.MANAGE_RDF);
+    menuItem.push(MENU_ITEM.MANAGE_NEWPAGE);
     this.sideMenuSubject.next(menuItem);
   }
 }

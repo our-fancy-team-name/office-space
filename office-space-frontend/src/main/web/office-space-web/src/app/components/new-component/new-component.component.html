@@ -1,0 +1,17 @@
+<div class="recommandedItem">
+    <div class="demo-item" *ngFor="let item of recommandedItemList">
+        <p>
+            ID:{{item.id}}<br> NAME:{{item.name}}
+        </p>
+        <button mat-raised-button color="primary">Order</button>
+    </div>
+</div>
+
+<div class="fullItem">
+    <div class="demo-item" *ngFor="let item of itemList">
+        <p>
+            ID:{{item.id}}<br> NAME:{{item.name}}
+        </p>
+        <button mat-raised-button color="primary">Order</button>
+    </div>
+</div>
