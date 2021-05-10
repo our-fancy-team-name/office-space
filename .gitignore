@@ -98,3 +98,5 @@ temp
 mongo-entrypoint
 mongo
 mongoconfig
+/script/db/mongo
+/script/db/neo4j
