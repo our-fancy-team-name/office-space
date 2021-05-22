@@ -181,12 +181,12 @@ export class RdfEditListComponent implements OnInit, AfterViewInit {
         namespace: node.rawPath.namespace + '#',
         localName: node.rawPath.localName
       }
-    }
+    };
     console.log(rdfCreateDto);
     this.rdfService.remove(rdfCreateDto).subscribe(res => {
       console.log(res);
       this.refresh();
-    })
+    });
   }
 
   isSubmitCreDisable() { }

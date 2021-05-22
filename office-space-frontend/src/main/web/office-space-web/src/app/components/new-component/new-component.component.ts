@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Log } from 'src/app/dtos/log';
+import { StorageService } from 'src/app/services/auth/storage.service';
+import { LogService } from 'src/app/services/log.service';
 
 @Component({
   selector: 'app-new-component',
@@ -7,44 +10,74 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewComponentComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private logService: LogService, private storageService: StorageService) { }
+  logDTO: Log;
   recommandedItemList = [];
   itemList = [
-    { 'id': '1', 'name': '1' },
-    { 'id': '2', 'name': '2' },
-    { 'id': '3', 'name': '3' },
-    { 'id': '4', 'name': '4' },
-    { 'id': '5', 'name': '5' },
-    { 'id': '6', 'name': '6' },
-    { 'id': '7', 'name': '7' },
-    { 'id': '8', 'name': '8' },
-    { 'id': '9', 'name': '9' },
-    { 'id': '10', 'name': '10' },
-    { 'id': '11', 'name': '11' },
-    { 'id': '12', 'name': '12' },
-    { 'id': '13', 'name': '13' },
-    { 'id': '14', 'name': '14' },
-    { 'id': '15', 'name': '15' },
-    { 'id': '16', 'name': '16' },
-    { 'id': '17', 'name': '17' },
-    { 'id': '18', 'name': '18' },
-    { 'id': '19', 'name': '19' },
-    { 'id': '20', 'name': '20' },
-    { 'id': '21', 'name': '21' },
-    { 'id': '22', 'name': '22' },
-    { 'id': '23', 'name': '23' },
-    { 'id': '24', 'name': '24' },
-    { 'id': '25', 'name': '25' },
-    { 'id': '26', 'name': '26' },
-    { 'id': '27', 'name': '27' },
-    { 'id': '28', 'name': '28' },
-    { 'id': '29', 'name': '29' },
-    { 'id': '30', 'name': '30' }
+    { 'id': 'eraser:', 'name': 'Erase' },
+    { 'id': 'wheel:', 'name': 'Wheel' },
+    { 'id': 'steering_wheel:', 'name': 'SteeringWheel' },
+    { 'id': 'table:', 'name': 'Table' },
+    { 'id': 'chair:', 'name': 'Chair' },
+    { 'id': 'tshirt:', 'name': 'Tshirt' },
+    { 'id': 'pants:', 'name': 'Pants' },
+    { 'id': 'pc:', 'name': 'PC' },
+    { 'id': 'laptop:', 'name': 'Laptop' },
+    { 'id': 'icecream:', 'name': 'IceCream' },
+    { 'id': 'flag:', 'name': 'Flag' },
+    { 'id': 'stair:', 'name': 'Stair' },
+    { 'id': 'sun:', 'name': 'Sun' },
+    { 'id': 'road:', 'name': 'Road' },
+    { 'id': 'ram:', 'name': 'Ram' },
+    { 'id': 'cpu:', 'name': 'CPU' },
+    { 'id': 'ssd:', 'name': 'SSD' },
+    { 'id': 'cloud:', 'name': 'Cloud' },
+    { 'id': 'coin:', 'name': 'Coin' },
+    { 'id': 'water:', 'name': 'Water' },
+    { 'id': 'leg:', 'name': 'Leg' },
+    { 'id': 'arm:', 'name': 'Arm' },
+    { 'id': 'face:', 'name': 'Face' },
+    { 'id': 'mouse:', 'name': 'Mouse' },
+    { 'id': 'browser:', 'name': 'Browser' },
+    { 'id': 'software:', 'name': 'Software' },
+    { 'id': 'money:', 'name': 'Money' },
+    { 'id': 'phone:', 'name': 'Phone' },
+    { 'id': 'tv:', 'name': 'TV' },
+    { 'id': 'light:', 'name': 'Light' },
+    { 'id': 'bed:', 'name': 'Bed' },
+    { 'id': 'ac:', 'name': 'AC' },
+    { 'id': 'refrigerator:', 'name': 'Refrigerator' },
+    { 'id': 'bus:', 'name': 'Bus' },
+    { 'id': 'moon:', 'name': 'Moon' },
+    { 'id': 'motorbike:', 'name': 'Motorbike' },
+    { 'id': 'bicycle:', 'name': 'Bicycle' },
+    { 'id': 'pool:', 'name': 'Pool' },
+    { 'id': 'calculator:', 'name': 'Calculator' },
+    { 'id': 'fan:', 'name': 'Fan' },
+    { 'id': 'lamp:', 'name': 'Lamp' },
+    { 'id': 'perfume:', 'name': 'Perfume' },
+    { 'id': 'door:', 'name': 'Door' },
+    { 'id': 'window:', 'name': 'Window' },
+    { 'id': 'bathroom:', 'name': 'Bathroom' },
+    { 'id': 'book:', 'name': 'Book' },
+    { 'id': 'bag:', 'name': 'Bag' },
+    { 'id': 'pen:', 'name': 'Pen' },
+    { 'id': 'ruler:', 'name': 'Ruler' }
   ]
   ngOnInit(): void {
     for (var i = 0; i < 10; i++) {
       this.recommandedItemList.push(this.itemList[Math.floor(Math.random() * this.itemList.length)]);
     }
+  }
+
+  buyButtonOnClick(data: any) {
+    this.logDTO = {
+      userId: 1,
+      millisecondsTime: new Date().getTime(),
+      message: `${data.id}${data.name}`
+    }
+    this.logService.insertLog(this.logDTO).subscribe(ahihi => {
+      console.log(ahihi);
+    });
   }
 }

@@ -4,7 +4,8 @@ spring:
     jwt,
     liquibase-mysql,
     cache,
-    cors
+    cors,
+    mongo
   config:
     import:
       resource:common/

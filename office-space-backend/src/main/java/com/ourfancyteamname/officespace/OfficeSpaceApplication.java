@@ -11,7 +11,7 @@ import lombok.Generated;
 
 @EnableCaching
 @SpringBootApplication
-@Import(OfficeSpaceRepositoryApplication.class)
+@Import({OfficeSpaceRepositoryApplication.class})
 public class OfficeSpaceApplication {
 
   @Generated

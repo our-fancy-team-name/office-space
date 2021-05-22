@@ -3,7 +3,7 @@
         <p>
             ID:{{item.id}}<br> NAME:{{item.name}}
         </p>
-        <button mat-raised-button color="primary">Order</button>
+        <button mat-raised-button color="primary" (click)="buyButtonOnClick(item)">Order</button>
     </div>
 </div>
 
@@ -12,6 +12,6 @@
         <p>
             ID:{{item.id}}<br> NAME:{{item.name}}
         </p>
-        <button mat-raised-button color="primary">Order</button>
+        <button mat-raised-button color="primary" (click)="buyButtonOnClick(item)">Order</button>
     </div>
 </div>
